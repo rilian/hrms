@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', github: 'rails/rails', branch: '4-2-stable'
 gem 'pg'
+gem 'dotenv-rails'
 
 # Frontend
 gem 'sass-rails'
