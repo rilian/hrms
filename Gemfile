@@ -5,6 +5,7 @@ gem 'pg'
 gem 'dotenv-rails'
 
 # Frontend
+gem 'slim-rails'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
