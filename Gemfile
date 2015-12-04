@@ -6,6 +6,7 @@ gem 'dotenv-rails'
 
 # Frontend
 gem 'slim-rails'
+gem 'simple_form'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
