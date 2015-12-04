@@ -1,0 +1,13 @@
+doctype html
+html[lang="en"]
+  head
+    meta[charset="utf-8"]
+    meta[http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"]
+    title Human Resource Management System
+    = stylesheet_link_tag 'application', media: 'all'
+    = csrf_meta_tags
+    = favicon_link_tag 'favicon.png'
+  body
+    = yield
+
+    = javascript_include_tag 'application'
