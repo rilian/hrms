@@ -1,0 +1,16 @@
+class CreatePerson < ActiveRecord::Migration
+  def change
+    create_table :people do |t|
+      t.string :name
+      t.string :city
+      t.string :phone
+      t.string :skype
+      t.string :linkedin
+      t.string :facebook
+      t.string :wants_relocate
+      t.string :primary_tech
+      t.string :english
+      t.timestamps null: false
+    end
+  end
+end
