@@ -59,8 +59,16 @@ GEM
   remote: https://rubygems.org/
   specs:
     arel (6.0.3)
+    autoprefixer-rails (6.1.2)
+      execjs
+      json
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-datepicker-rails (1.5.0)
+      railties (>= 3.0)
+    bootstrap-sass (3.3.6)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.2)
     byebug (8.2.1)
     coffee-rails (4.1.0)
@@ -96,6 +104,8 @@ GEM
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -157,11 +167,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-datepicker-rails
+  bootstrap-sass
   byebug
   coffee-rails
   dotenv-rails
   jquery-rails
   pg
+  quiet_assets
   rails!
   sass-rails
   simple_form

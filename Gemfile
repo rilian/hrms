@@ -7,6 +7,8 @@ gem 'dotenv-rails'
 # Frontend
 gem 'slim-rails'
 gem 'simple_form'
+gem 'bootstrap-sass'
+gem 'bootstrap-datepicker-rails'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
@@ -20,5 +22,6 @@ end
 group :development do
   gem 'web-console'
   gem 'spring'
+  gem 'quiet_assets'
 end
 
