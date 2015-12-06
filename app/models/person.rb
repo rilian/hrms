@@ -6,7 +6,7 @@ class Person < ActiveRecord::Base
     iOS
     Android
     Salesforce
-    Devops
+    DevOps
     PM
     QA/BA
   )
@@ -18,6 +18,7 @@ class Person < ActiveRecord::Base
     Native
   )
 
+  has_many :assessments
   has_many :notes
 
   validates :name, presence: true
