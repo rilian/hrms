@@ -85,6 +85,8 @@ GEM
       railties (~> 4.0)
     erubis (2.7.0)
     execjs (2.6.0)
+    font-awesome-rails (4.5.0.0)
+      railties (>= 3.2, < 5.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -104,6 +106,8 @@ GEM
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
+    polyamorous (1.2.0)
+      activerecord (>= 3.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -118,6 +122,12 @@ GEM
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
     rake (10.4.2)
+    ransack (1.7.0)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.2)
     ref (2.0.0)
     sass (3.4.19)
     sass-rails (5.0.4)
@@ -172,10 +182,12 @@ DEPENDENCIES
   byebug
   coffee-rails
   dotenv-rails
+  font-awesome-rails
   jquery-rails
   pg
   quiet_assets
   rails!
+  ransack
   sass-rails
   simple_form
   slim-rails

@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', github: 'rails/rails', branch: '4-2-stable'
 gem 'pg'
 gem 'dotenv-rails'
+gem 'ransack'
 
 # Frontend
 gem 'slim-rails'
@@ -12,6 +13,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
+gem 'font-awesome-rails'
 gem 'therubyracer'
 gem 'jquery-rails'
 
