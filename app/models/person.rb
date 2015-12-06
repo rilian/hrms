@@ -3,13 +3,14 @@ class Person < ActiveRecord::Base
     Ruby
     Frontend
     Java
-    QA/BA
     iOS
     Android
     Salesforce
     Devops
+    PM
+    QA/BA
   )
-  ENGLISHS = %w(
+  ENGLISH_LEVELS = %w(
     None
     Beginner
     Intermediate
