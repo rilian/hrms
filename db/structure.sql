@@ -35,8 +35,8 @@ SET default_with_oids = false;
 
 CREATE TABLE notes (
     id integer NOT NULL,
-    person_id integer,
-    type character varying,
+    person_id integer NOT NULL,
+    type character varying DEFAULT 'other'::character varying NOT NULL,
     value text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -68,7 +68,7 @@ ALTER SEQUENCE notes_id_seq OWNED BY notes.id;
 
 CREATE TABLE people (
     id integer NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     city character varying,
     phone character varying,
     skype character varying,

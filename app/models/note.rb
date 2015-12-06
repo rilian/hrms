@@ -17,4 +17,5 @@ class Note < ActiveRecord::Base
   belongs_to :person
 
   validates :type, :person, presence: true
+  validates :type, inclusion: { in: TYPES }
 end
