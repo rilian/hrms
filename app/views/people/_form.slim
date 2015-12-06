@@ -57,7 +57,10 @@
                 label: false,
                 include_blank: false,
                 input_html: { class: 'select form-control' }
-
+  .form-group
+    label.col-md-4.control-label Birthday
+    .col-md-7
+      = f.input :day_of_birth, as: :date, label: false
   .form-bordered
     .form-group.form-actions
       .text-center

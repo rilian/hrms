@@ -10,6 +10,17 @@ class PeopleController < ApplicationController
   end
 
   def new
+    @person = Person.new
+  end
+
+  def create
+    @person = Person.new(person_params)
+    if @person.save
+      redirect_to people_path, flash: { success: 'Person created' }
+    else
+      flash.now[:error] = 'Person was not created'
+      render :new
+    end
   end
 
   def edit
@@ -19,8 +30,9 @@ class PeopleController < ApplicationController
   def update
     @person = Person.find(params[:id])
     if @person.update(person_params)
-      redirect_to people_path, success: 'Person Updated'
+      redirect_to people_path, flash: { success: 'Person updated' }
     else
+      flash.now[:error] = 'Person was not updated'
       render :edit
     end
   end
