@@ -1,0 +1,31 @@
+= render 'shared/form_error', object: @note
+
+= simple_form_for @note, html: { class: 'form' } do |f|
+  .form-group
+    label.col-md-4.control-label Person
+    .col-md-7
+      = f.input :person_id,
+                collection: Person.all,
+                label: false,
+                label_method: :name,
+                include_blank: false,
+                input_html: { class: 'select form-control' }
+  .form-group
+    label.col-md-4.control-label Person
+    .col-md-7
+      = f.input :type,
+                collection: Note::TYPES,
+                label: false,
+                include_blank: false,
+                input_html: { class: 'select form-control' }
+
+  .form-group
+    label.col-md-4.control-label
+      | Value
+      span.text-danger *
+    .col-md-7
+      = f.input :value, as: :text, placeholder: 'What happened', label: false
+  .form-bordered
+    .form-group.form-actions
+      .text-center
+        = f.button :submit, (@note.new_record? ? 'Create Note' : 'Update Note'), class: 'btn btn-success'

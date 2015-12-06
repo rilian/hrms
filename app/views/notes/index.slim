@@ -1,0 +1,19 @@
+h1 Notes
+
+table.table
+  thead
+    th = sort_link @q, :id
+    th = sort_link @q, :person, ['person_name'], 'Person'
+    th = sort_link @q, :type
+    th = sort_link @q, :value
+    th Actions
+  tbody
+    - @notes.each do |record|
+      tr
+        td = record.id
+        td = link_to record.person.name, person_path(record.person)
+        td = record.type
+        td = record.value
+        td
+          a href="#{edit_note_path(record)}"
+            i.fa.fa-pencil
