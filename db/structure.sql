@@ -37,6 +37,7 @@ CREATE TABLE assessments (
     id integer NOT NULL,
     person_id integer NOT NULL,
     value jsonb DEFAULT '{}'::jsonb NOT NULL,
+    total integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -68,7 +69,7 @@ ALTER SEQUENCE assessments_id_seq OWNED BY assessments.id;
 CREATE TABLE notes (
     id integer NOT NULL,
     person_id integer NOT NULL,
-    type character varying DEFAULT 'other'::character varying NOT NULL,
+    type character varying DEFAULT 'Other'::character varying NOT NULL,
     value text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

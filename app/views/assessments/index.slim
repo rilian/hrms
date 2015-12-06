@@ -1,0 +1,23 @@
+h1 Assessments
+
+table.table
+  thead
+    th = sort_link @q, :id
+    th = sort_link @q, :person, ['person_name'], 'Person'
+    th Values
+    th = sort_link @q, :total
+    th Actions
+  tbody
+    - @assessments.each do |record|
+      tr
+        td = record.id
+        td = link_to record.person.name, person_path(record.person)
+        td
+          - Assessment::TOPICS.each do |topic|
+            - if record.value.key?(topic)
+              = "#{topic}: #{record.value[topic]}"
+              br
+        td = record.total
+        td
+          a href="#{edit_assessment_path(record)}"
+            i.fa.fa-pencil

@@ -1,3 +1,5 @@
 p1 = Person.create(name: 'Vasiliy Pupkin')
 n1 = Note.create(person: p1, type: 'decision', value: "Let's hire him")
 n2 = Note.create(person: p1, type: 'expected_salary', value: "500")
+a1 = Assessment.create(person: p1, value: '{"Ruby": 9}', total: 9)
+a2 = Assessment.create(person: p1, value: '{"DB": 7}', total: 7)
