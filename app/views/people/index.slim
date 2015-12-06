@@ -1,1 +1,41 @@
-p People Index
+h1 People
+
+table.table
+  thead
+    th = sort_link @q, :id
+    th = sort_link @q, :name
+    th = sort_link @q, :primary_tech
+    th Info
+    th Actions
+  tbody
+    - @people.each do |record|
+      tr
+        td = record.id
+        td = link_to record.name, person_path(record)
+        td = record.primary_tech
+        td
+          - if record.city
+            ' City: #{record.city}
+            br
+          - if record.phone
+            ' Phone: #{record.phone}
+            br
+          - if record.skype
+            ' Skype: #{record.skype}
+            br
+          - if record.linkedin
+            ' LinkedIn:
+            a href="#{record.linkedin}" Link
+            br
+          - if record.facebook
+            ' Facebook:
+            a href="#{record.facebook}" Link
+            br
+          - if record.wants_relocate
+            ' Relocate: #{record.wants_relocate ? 'yes' : '-'}
+            br
+          - if record.english
+            ' English: #{record.english}
+        td
+          a href="#{edit_person_path(record)}"
+            i.fa.fa-pencil

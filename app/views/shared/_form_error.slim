@@ -1,0 +1,16 @@
+- if object.errors[:base].present?
+  .text-danger
+    - object.errors[:base].each do |error|
+      = error
+      br
+- if defined?(error_keys)
+  - error_keys.each do |key|
+    - if object.errors[key].present?
+      .text-danger
+        - object.errors[key].each do |error|
+          = "#{key.capitalize}: #{error}"
+          br
+- if object.errors.any?
+  = "<!--#{object.errors.full_messages}-->".html_safe
+  = "<!--Object:#{object.inspect}-->".html_safe
+br
