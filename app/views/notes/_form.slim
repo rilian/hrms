@@ -6,6 +6,7 @@
     .col-md-7
       = f.input :person_id,
                 collection: Person.all,
+                selected: params[:person_id],
                 label: false,
                 label_method: :name,
                 include_blank: false,

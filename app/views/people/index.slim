@@ -5,6 +5,7 @@ table.table
     th = sort_link @q, :id
     th = sort_link @q, :name
     th = sort_link @q, :primary_tech
+    th Latest Notes
     th Info
     th Actions
   tbody
@@ -13,6 +14,13 @@ table.table
         td = record.id
         td = link_to record.name, person_path(record)
         td = record.primary_tech
+        td
+          - Note::TYPES.each do |type|
+            - record.notes.select { |n| n.type == type}.sort { |a, b| a.updated_at <=> b.updated_at}.first.tap do |note|
+              - if note.present?
+                = "#{note.type}: #{note.value}"
+                br
+          = link_to 'Add Note', new_note_path(person_id: record.id)
         td
           - if record.city
             ' City: #{record.city}

@@ -3,6 +3,7 @@ class NotesController < ApplicationController
     @q = Note.ransack(params[:q])
     @q.sorts = 'updated_at desc' if @q.sorts.empty?
     @notes = @q.result.limit(params[:limit]).offset(params[:offset])
+      .includes(:person)
   end
 
   def show
