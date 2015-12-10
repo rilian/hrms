@@ -9,9 +9,15 @@
 * Tags (try select2 pillbox with autocomplete)
 * Search
 * Inline updates
-* Scheduled notifications
 * Action Points (contact for given date or month), status of action point
-* LinkedIn import
+* Scheduled notifications
 * Validations (by LinkedIn url or name or combination of params)
 * Pagination
 * Autocomplete for selects (try to use select-chosen)
+* Non-authenticated access by UUID
+* Export to iCal
+* LinkedIn import
+* Reporting (metrics: number of candidates per week, number of notes etc)
+* Offer Email generation
+* Employee performance tracking (like assessment)
+* Make it SaaS and sell
