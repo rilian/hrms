@@ -26,6 +26,27 @@ class Assessment < ActiveRecord::Base
 
   belongs_to :person
 
-  validates :person, :value, presence: true
+  validates :person, presence: true
   validates :total, numericality: { only_integer: true }
+  validate :value_presence
+
+  before_validation :update_total
+
+  def update_value(values)
+    self.value = {}
+    values.each do |key, val|
+      self.value[key] = val if key.in?(TOPICS) && val =~ /[1-9]{1}/
+    end
+  end
+
+private
+
+  def value_presence
+    return if self.value
+    errors.add(:base, 'Please select at least one assessment topic')
+  end
+
+  def update_total
+    self.total = value.values.map(&:to_i).reduce(:+)
+  end
 end

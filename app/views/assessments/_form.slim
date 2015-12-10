@@ -1,0 +1,24 @@
+= render 'shared/form_error', object: @assessment
+
+= simple_form_for @assessment, html: { class: 'form' } do |f|
+  .form-group
+    label.col-md-4.control-label Person
+    .col-md-7
+      = f.input :person_id,
+                collection: Person.all,
+                selected: params[:person_id],
+                label: false,
+                label_method: :name,
+                include_blank: false,
+                input_html: { class: 'select form-control' }
+  - Assessment::TOPICS.each do |topic|
+    .form-group
+      label.col-md-4.control-label #{topic}
+      .col-md-7
+        - (1..9).to_a.each do |i|
+          input type="radio" name="values[#{topic}]" value="#{i}"
+
+  .form-bordered
+    .form-group.form-actions
+      .text-center
+        = f.button :submit, (@assessment.new_record? ? 'Create Assessment' : 'Update Assessment'), class: 'btn btn-success'
