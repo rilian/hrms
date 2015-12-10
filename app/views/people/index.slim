@@ -23,6 +23,11 @@ table.table
                 = "#{note.type}: #{note.value}"
                 br
           = link_to 'Add Note', new_note_path(person_id: record.id)
+          br
+          - if assessment = record.assessments.last
+            | Evaluated: #{assessment.total} points, #{assessment.updated_at.strftime('%d %b %Y')}
+          - else
+            = link_to 'Evaluate', new_assessment_path(person_id: record.id)
         td
           - if record.city
             ' City: #{record.city}
