@@ -10,6 +10,7 @@ class CreatePerson < ActiveRecord::Migration
       t.string :wants_relocate
       t.string :primary_tech
       t.string :english
+      t.string :priority, default: 'Normal', null: false
       t.date :day_of_birth
       t.timestamps null: false
     end

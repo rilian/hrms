@@ -5,6 +5,7 @@ table.table
     th = sort_link @q, :id
     th = sort_link @q, :name
     th = sort_link @q, :primary_tech
+    th = sort_link @q, :priority
     th Latest Notes
     th Info
     th Actions
@@ -14,6 +15,7 @@ table.table
         td = record.id
         td = link_to record.name, person_path(record)
         td = record.primary_tech
+        td = record.priority
         td
           - Note::TYPES.each do |type|
             - record.notes.select { |n| n.type == type}.sort { |a, b| a.updated_at <=> b.updated_at}.first.tap do |note|

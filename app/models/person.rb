@@ -17,6 +17,11 @@ class Person < ActiveRecord::Base
     Advanced
     Native
   )
+  HIRING_PRIORITIES = %w(
+    High
+    Normal
+    Low
+  )
 
   has_many :assessments
   has_many :notes

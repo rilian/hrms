@@ -110,6 +110,7 @@ CREATE TABLE people (
     wants_relocate character varying,
     primary_tech character varying,
     english character varying,
+    priority character varying DEFAULT 'Normal'::character varying NOT NULL,
     day_of_birth date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
