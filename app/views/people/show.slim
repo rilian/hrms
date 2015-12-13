@@ -1,3 +1,112 @@
-h1 Person - #{@person.name}
+h1 #{@person.name.titleize}
 
-| todo
+h3
+  | Info &nbsp;
+  a href="#{edit_person_path(@person)}" Edit
+p
+  | Primary tech &nbsp;
+  - if @person.primary_tech.present?
+    strong
+      = @person.primary_tech
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+p
+  | English &nbsp;
+  - if @person.english.present?
+    strong
+      = @person.english
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+p
+  | Priority &nbsp;
+  - if @person.priority.present?
+    strong
+      = @person.priority
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+p
+  | City &nbsp;
+  - if @person.city.present?
+    strong
+      = @person.city
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+  - if @person.wants_relocate
+    | wants relocate
+p
+  | Phone &nbsp;
+  - if @person.phone.present?
+    strong
+      a href="tel:#{@person.phone}" #{@person.phone}
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+p
+  | Skype &nbsp;
+  - if @person.skype.present?
+    strong
+      a href="skype:#{@person.skype}" #{@person.skype}
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+p
+  | LinkedIn &nbsp;
+  - if @person.linkedin.present?
+    strong
+      a href="#{@person.linkedin}" View
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+p
+  | Facebook &nbsp;
+  - if @person.facebook.present?
+    strong
+      a href="#{@person.facebook}" View
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+p
+  | Date of birth &nbsp;
+  - if @person.day_of_birth.present?
+    strong
+      = @person.day_of_birth
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+p
+  | Profile created &nbsp;
+  strong
+    = "#{@person.created_at.strftime('%d %b %Y')} (#{time_ago_in_words(@person.created_at)} ago)"
+p
+  | Profile last updated &nbsp;
+  strong
+    = "#{@person.updated_at.strftime('%d %b %Y')} (#{time_ago_in_words(@person.updated_at)} ago)"
+
+h3
+  | Latest notes &nbsp;
+  = link_to 'Add Note', new_note_path(person_id: @person.id)
+
+- @person.notes.order(updated_at: :desc).each do |note|
+  p
+    = note.updated_at.strftime('%d %b %Y')
+    '
+    a href="#{edit_note_path(note)}" #{note.type}
+    br
+    = note.value
+
+h3
+  | Assessments &nbsp;
+  = link_to 'Evaluate', new_assessment_path(person_id: @person.id)
+- @person.assessments.order(updated_at: :desc).each do |assessment|
+  p
+    a href="#{edit_assessment_path(assessment)}" #{assessment.updated_at.strftime('%d %b %Y')}
+    | , #{assessment.total} points
+    br
+    - assessment.value.each do |key, value|
+      = "#{key}: #{value}"
+      | &nbsp;
+

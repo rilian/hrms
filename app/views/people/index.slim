@@ -14,7 +14,7 @@ table.table
       tr
         td = record.id
         td
-          = link_to record.name, person_path(record)
+          = link_to record.name.titleize, person_path(record)
           br
           = link_to 'Add Note', new_note_path(person_id: record.id)
           br
