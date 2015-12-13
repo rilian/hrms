@@ -13,21 +13,26 @@ table.table
     - @people.each do |record|
       tr
         td = record.id
-        td = link_to record.name, person_path(record)
+        td
+          = link_to record.name, person_path(record)
+          br
+          = link_to 'Add Note', new_note_path(person_id: record.id)
+          br
+          = link_to 'Evaluate', new_assessment_path(person_id: record.id)
         td = record.primary_tech
         td = record.priority
         td
           - Note::TYPES.each do |type|
             - record.notes.select { |n| n.type == type}.sort { |a, b| a.updated_at <=> b.updated_at}.first.tap do |note|
               - if note.present?
-                = "#{note.type}: #{note.value}"
+                a href="#{edit_note_path(note)}" #{note.type}
+                ' : #{note.value}
                 br
-          = link_to 'Add Note', new_note_path(person_id: record.id)
           br
           - if assessment = record.assessments.last
-            | Evaluated: #{assessment.total} points, #{assessment.updated_at.strftime('%d %b %Y')}
-          - else
-            = link_to 'Evaluate', new_assessment_path(person_id: record.id)
+            ' Evaluated:
+            a href="#{edit_assessment_path(assessment)}" #{assessment.total} points
+            | , #{assessment.updated_at.strftime('%d %b %Y')}
         td
           - if record.city
             ' City: #{record.city}
