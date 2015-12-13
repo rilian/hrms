@@ -1,10 +1,8 @@
 # TODO
 
-* Person page (person info, notes, assessments, attachments etc)
 * Attachments (add CV or image to Person. View files on Person page)
 * Import CSV
 * Tags (try select2 pillbox with autocomplete)
-* Search
 * Inline updates on People page
 * Action Points (contact for given date or month), status of action point
 * Scheduled notifications

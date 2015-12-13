@@ -1,15 +1,23 @@
-ul.nav.nav-tabs.nav-tabs
-  li role="presentation"
-    a href="#{root_path}" Dashboard
-  li role="presentation"
-    a href="#{people_path}" People
-  li role="presentation"
-    a href="#{notes_path}" Notes
-  li role="presentation"
-    a href="#{assessments_path}" Assessments
-  li role="presentation"
-    a.btn href="#{new_person_path}" Add Person
-  li role="presentation"
-    a.btn href="#{new_note_path}" Add Note
-  li role="presentation"
-    a.btn href="#{new_assessment_path}" Add Assessment
+nav.nav.navbar-default
+  .container-fluid
+    ul.nav.nav-tabs.nav-tabs
+      li role="presentation"
+        a href="#{root_path}" Dashboard
+      li role="presentation"
+        a href="#{people_path}" People
+      li role="presentation"
+        a href="#{notes_path}" Notes
+      li role="presentation"
+        a href="#{assessments_path}" Assessments
+      li role="presentation"
+        a.btn-default href="#{new_person_path}" Add Person
+      li role="presentation"
+        a.btn-default href="#{new_note_path}" Add Note
+      li role="presentation"
+        a.btn-default href="#{new_assessment_path}" Add Assessment
+      li role="presentation"
+
+    form.navbar-form.navbar-left role="search" action="#{people_path}" method="GET"
+      .form-group
+        input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Anything" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
+        button.btn.btn-default type="submit" Search
