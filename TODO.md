@@ -11,11 +11,12 @@
 * Validations (by LinkedIn url or name or combination of params)
 * Pagination
 * Autocomplete for selects (try to use select-chosen)
-* Non-authenticated access by UUID
 * Export to iCal
 * LinkedIn import
 * Reporting (metrics: number of candidates per week, number of notes etc)
 * Offer Email generation
-* Employee performance tracking (like assessment)
+* Authentication
+* Non-authenticated access by UUID
+* Audit log (who created or updated records)
 * SaaS
 * Editable note types and assessment topics
