@@ -7,7 +7,7 @@ class CreatePerson < ActiveRecord::Migration
       t.string :skype
       t.string :linkedin
       t.string :facebook
-      t.string :wants_relocate
+      t.boolean :wants_relocate
       t.string :primary_tech
       t.string :english
       t.string :priority, default: 'Normal', null: false

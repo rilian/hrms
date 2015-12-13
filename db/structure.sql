@@ -107,7 +107,7 @@ CREATE TABLE people (
     skype character varying,
     linkedin character varying,
     facebook character varying,
-    wants_relocate character varying,
+    wants_relocate boolean,
     primary_tech character varying,
     english character varying,
     priority character varying DEFAULT 'Normal'::character varying NOT NULL,
