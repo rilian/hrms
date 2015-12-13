@@ -1,14 +1,11 @@
 # TODO
 
-* Person dashboard (show page)
+* Person page (person info, notes, assessments, attachments etc)
 * Attachments (add CV or image to Person. View files on Person page)
-* Notes form (on Person edit page)
-* View Notes (on Person page)
-* Assessments form (store values in jsonb, list values in model constant)
 * Import CSV
 * Tags (try select2 pillbox with autocomplete)
 * Search
-* Inline updates
+* Inline updates on People page
 * Action Points (contact for given date or month), status of action point
 * Scheduled notifications
 * Validations (by LinkedIn url or name or combination of params)
@@ -20,4 +17,5 @@
 * Reporting (metrics: number of candidates per week, number of notes etc)
 * Offer Email generation
 * Employee performance tracking (like assessment)
-* Make it SaaS and sell
+* SaaS
+* Editable note types and assessment topics

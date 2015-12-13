@@ -11,12 +11,20 @@
                 label_method: :name,
                 include_blank: false,
                 input_html: { class: 'select form-control' }
+
   - Assessment::TOPICS.each do |topic|
     .form-group
       label.col-md-4.control-label #{topic}
-      .col-md-7
-        - (1..9).to_a.each do |i|
-          input type="radio" name="values[#{topic}]" value="#{i}"
+      .form-group
+        .col-md-7.form-control
+          - (1..9).to_a.each do |i|
+            - if @assessment.value[topic] == i.to_s
+              input type="radio" name="values[#{topic}]" value="#{i}" checked="checked"
+            - else
+              input type="radio" name="values[#{topic}]" value="#{i}"
+            | &nbsp;
+            = i
+            | &nbsp;
 
   .form-bordered
     .form-group.form-actions
