@@ -6,7 +6,7 @@ table.table
     th = sort_link @q, :name
     th = sort_link @q, :primary_tech
     th = sort_link @q, :priority
-    th Latest Notes
+    th Activity
     th Info
     th Actions
   tbody
@@ -14,25 +14,33 @@ table.table
       tr
         td = record.id
         td
-          = link_to record.name.titleize, person_path(record)
+          strong
+            = link_to record.name.titleize, person_path(record)
           br
           = link_to 'Add Note', new_note_path(person_id: record.id)
           br
           = link_to 'Evaluate', new_assessment_path(person_id: record.id)
-        td = record.primary_tech
-        td = record.priority
         td
-          - Note::TYPES.each do |type|
-            - record.notes.select { |n| n.type == type}.sort { |a, b| a.updated_at <=> b.updated_at}.first.tap do |note|
-              - if note.present?
-                a href="#{edit_note_path(note)}" #{note.type}
-                ' : #{note.value}
-                br
+          = record.primary_tech
           br
           - if assessment = record.assessments.last
             ' Evaluated:
             a href="#{edit_assessment_path(assessment)}" #{assessment.total} points
             | , #{assessment.updated_at.strftime('%d %b %Y')}
+
+        td = record.priority
+        td
+          - record.action_points.where(is_completed: false).each do |action_point|
+            a href="#{edit_action_point_path(action_point)}" #{action_point.perform_on.strftime('%d %b %Y')}
+            | &nbsp;
+            = action_point.value
+            br
+          - Note::TYPES.each do |type|
+            - record.notes.select { |n| n.type == type}.sort { |a, b| a.updated_at <=> b.updated_at}.first.tap do |note|
+              - if note.present?
+                a href="#{edit_note_path(note)}" #{note.type}
+                ' : #{truncate(note.value, length: 200)}
+                br
         td
           - if record.city
             ' City: #{record.city}
