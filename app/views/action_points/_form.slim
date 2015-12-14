@@ -1,0 +1,31 @@
+= render 'shared/form_error', object: @action_point
+
+= simple_form_for @action_point, html: { class: 'form' } do |f|
+  .form-group
+    label.col-md-4.control-label Person
+    .col-md-7
+      = f.input :person_id,
+                collection: Person.all,
+                selected: params[:person_id] || @action_point.person_id,
+                label: false,
+                label_method: ->(p) { p.name.titleize },
+                include_blank: false,
+                input_html: { class: 'select form-control' }
+  .form-group
+    label.col-md-4.control-label
+      | Value
+      span.text-danger *
+    .col-md-7
+      = f.input :value, as: :text, placeholder: 'What should be done', label: false
+  .form-group
+    label.col-md-4.control-label Perform On
+    .col-md-7
+      = f.input :perform_on, as: :date, label: false
+  .form-group
+    label.col-md-4.control-label Completed?
+    .col-md-7
+      = f.input :is_completed, as: :boolean, label: false
+  .form-bordered
+    .form-group.form-actions
+      .text-center
+        = f.button :submit, (@action_point.new_record? ? 'Create Action' : 'Update Action'), class: 'btn btn-success'
