@@ -30,6 +30,41 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: action_points; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE action_points (
+    id integer NOT NULL,
+    person_id integer NOT NULL,
+    type character varying DEFAULT 'Other'::character varying NOT NULL,
+    value text,
+    is_completed boolean DEFAULT false NOT NULL,
+    perform_on date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: action_points_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE action_points_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: action_points_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE action_points_id_seq OWNED BY action_points.id;
+
+
+--
 -- Name: assessments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -149,6 +184,13 @@ CREATE TABLE schema_migrations (
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY action_points ALTER COLUMN id SET DEFAULT nextval('action_points_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY assessments ALTER COLUMN id SET DEFAULT nextval('assessments_id_seq'::regclass);
 
 
@@ -164,6 +206,14 @@ ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regcl
 --
 
 ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::regclass);
+
+
+--
+-- Name: action_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY action_points
+    ADD CONSTRAINT action_points_pkey PRIMARY KEY (id);
 
 
 --
@@ -188,6 +238,13 @@ ALTER TABLE ONLY notes
 
 ALTER TABLE ONLY people
     ADD CONSTRAINT people_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_action_points_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_action_points_on_person_id ON action_points USING btree (person_id);
 
 
 --
@@ -222,4 +279,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151203230043');
 INSERT INTO schema_migrations (version) VALUES ('20151206022806');
 
 INSERT INTO schema_migrations (version) VALUES ('20151206041810');
+
+INSERT INTO schema_migrations (version) VALUES ('20151213225759');
 
