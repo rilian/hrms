@@ -6,9 +6,9 @@
     .col-md-7
       = f.input :person_id,
                 collection: Person.all,
-                selected: params[:person_id],
+                selected: params[:person_id] || @note.person_id,
                 label: false,
-                label_method: :name,
+                label_method: ->(p) { p.name.titleize },
                 include_blank: false,
                 input_html: { class: 'select form-control' }
   .form-group
@@ -19,7 +19,6 @@
                 label: false,
                 include_blank: false,
                 input_html: { class: 'select form-control' }
-
   .form-group
     label.col-md-4.control-label
       | Value

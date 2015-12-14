@@ -18,6 +18,7 @@ class NotesController < ApplicationController
     if @note.save
       redirect_to notes_path, flash: { success: 'Note created' }
     else
+      flash.now[:error] = 'Note was not created'
       render :new
     end
   end

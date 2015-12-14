@@ -16,6 +16,7 @@ class AssessmentsController < ApplicationController
     if @assessment.save
       redirect_to assessments_path, flash: { success: 'Assessment created' }
     else
+      flash.now[:error] = 'Assessment was not created'
       render :new
     end
   end
