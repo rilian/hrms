@@ -20,6 +20,8 @@ table.table
           = link_to 'Add Note', new_note_path(person_id: record.id)
           br
           = link_to 'Evaluate', new_assessment_path(person_id: record.id)
+          br
+          = link_to 'Add Action', new_action_point_path(person_id: record.id)
         td
           = record.primary_tech
           br

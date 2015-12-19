@@ -94,9 +94,18 @@ p
     = "#{@person.updated_at.strftime('%d %b %Y')} (#{time_ago_in_words(@person.updated_at)} ago)"
 
 h3
+  | Actions &nbsp;
+  = link_to 'Add Action', new_action_point_path(person_id: @person.id)
+- @person.action_points.order(is_completed: :asc, perform_on: :asc).each do |action|
+  p
+    a href="#{edit_action_point_path(action)}" #{action.perform_on.strftime('%d %b %Y')}
+    | &nbsp; #{action.is_completed? ? 'completed' : ''}
+    br
+    = action.value
+
+h3
   | Latest notes &nbsp;
   = link_to 'Add Note', new_note_path(person_id: @person.id)
-
 - @person.notes.order(updated_at: :desc).each do |note|
   p
     = note.updated_at.strftime('%d %b %Y')
