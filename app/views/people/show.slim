@@ -28,6 +28,13 @@ p
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
 p
+  | Cultural fit &nbsp;
+  - if @person.cultural_fit.present?
+    = @person.cultural_fit
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+p
   | City &nbsp;
   - if @person.city.present?
     strong

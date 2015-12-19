@@ -66,6 +66,10 @@
                 include_blank: false,
                 input_html: { class: 'select form-control' }
   .form-group
+    label.col-md-4.control-label Cultural Fit
+    .col-md-7
+      = f.input :cultural_fit, as: :text, label: false
+  .form-group
     label.col-md-4.control-label Birthday
     .col-md-7
       = f.input :day_of_birth, as: :date, label: false

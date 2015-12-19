@@ -36,7 +36,6 @@ SET default_with_oids = false;
 CREATE TABLE action_points (
     id integer NOT NULL,
     person_id integer NOT NULL,
-    type character varying DEFAULT 'Other'::character varying NOT NULL,
     value text,
     is_completed boolean DEFAULT false NOT NULL,
     perform_on date,
@@ -145,6 +144,7 @@ CREATE TABLE people (
     wants_relocate boolean,
     primary_tech character varying,
     english character varying,
+    cultural_fit text,
     priority character varying DEFAULT 'Normal'::character varying NOT NULL,
     day_of_birth date,
     created_at timestamp without time zone NOT NULL,
