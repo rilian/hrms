@@ -1,3 +1,4 @@
+.env
 /.bundle
 /log/*
 !/log/.keep
@@ -6,4 +7,3 @@
 *.swp
 .DS_Store
 .byebug_history
-
