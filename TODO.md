@@ -5,6 +5,7 @@
 * Tags (try select2 pillbox with autocomplete)
 * Inline updates on People page
 * Action Points (contact for given date or month), status of action point
+* Performance review
 * Scheduled notifications
 * Validations (by LinkedIn url or name or combination of params)
 * Pagination
