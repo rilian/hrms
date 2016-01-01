@@ -97,6 +97,39 @@ ALTER SEQUENCE assessments_id_seq OWNED BY assessments.id;
 
 
 --
+-- Name: attachments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE attachments (
+    id integer NOT NULL,
+    person_id integer NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE attachments_id_seq OWNED BY attachments.id;
+
+
+--
 -- Name: notes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -198,6 +231,13 @@ ALTER TABLE ONLY assessments ALTER COLUMN id SET DEFAULT nextval('assessments_id
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regclass);
 
 
@@ -222,6 +262,14 @@ ALTER TABLE ONLY action_points
 
 ALTER TABLE ONLY assessments
     ADD CONSTRAINT assessments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY attachments
+    ADD CONSTRAINT attachments_pkey PRIMARY KEY (id);
 
 
 --
@@ -255,6 +303,13 @@ CREATE INDEX index_assessments_on_person_id ON assessments USING btree (person_i
 
 
 --
+-- Name: index_attachments_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_attachments_on_person_id ON attachments USING btree (person_id);
+
+
+--
 -- Name: index_notes_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -281,4 +336,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151206022806');
 INSERT INTO schema_migrations (version) VALUES ('20151206041810');
 
 INSERT INTO schema_migrations (version) VALUES ('20151213225759');
+
+INSERT INTO schema_migrations (version) VALUES ('20160101195429');
 
