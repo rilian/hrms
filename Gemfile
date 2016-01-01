@@ -4,6 +4,9 @@ gem 'rails', github: 'rails/rails', branch: '4-2-stable'
 gem 'pg'
 gem 'dotenv-rails'
 gem 'ransack'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'carrierwave-imageoptimizer'
 
 # Frontend
 gem 'slim-rails'
