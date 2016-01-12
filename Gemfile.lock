@@ -98,6 +98,8 @@ GEM
     execjs (2.6.0)
     font-awesome-rails (4.5.0.0)
       railties (>= 3.2, < 5.0)
+    foreman (0.78.0)
+      thor (~> 0.19.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -121,6 +123,7 @@ GEM
     pg (0.18.4)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
+    puma (2.15.3)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -200,9 +203,11 @@ DEPENDENCIES
   coffee-rails
   dotenv-rails
   font-awesome-rails
+  foreman
   jquery-rails
   mini_magick
   pg
+  puma
   quiet_assets
   rails!
   ransack
@@ -215,4 +220,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

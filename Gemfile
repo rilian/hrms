@@ -31,3 +31,7 @@ group :development do
   gem 'bullet'
 end
 
+group :production do
+  gem 'puma'
+  gem 'foreman'
+end
