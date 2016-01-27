@@ -2,12 +2,16 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.5.0
+-- Dumped by pg_dump version 9.5.0
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -30,7 +34,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: action_points; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: action_points; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE action_points (
@@ -64,7 +68,7 @@ ALTER SEQUENCE action_points_id_seq OWNED BY action_points.id;
 
 
 --
--- Name: assessments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: assessments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE assessments (
@@ -97,7 +101,7 @@ ALTER SEQUENCE assessments_id_seq OWNED BY assessments.id;
 
 
 --
--- Name: attachments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: attachments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE attachments (
@@ -130,7 +134,7 @@ ALTER SEQUENCE attachments_id_seq OWNED BY attachments.id;
 
 
 --
--- Name: notes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: notes; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE notes (
@@ -163,7 +167,7 @@ ALTER SEQUENCE notes_id_seq OWNED BY notes.id;
 
 
 --
--- Name: people; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: people; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE people (
@@ -205,7 +209,7 @@ ALTER SEQUENCE people_id_seq OWNED BY people.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -249,7 +253,7 @@ ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::reg
 
 
 --
--- Name: action_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: action_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY action_points
@@ -257,7 +261,7 @@ ALTER TABLE ONLY action_points
 
 
 --
--- Name: assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY assessments
@@ -265,7 +269,7 @@ ALTER TABLE ONLY assessments
 
 
 --
--- Name: attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY attachments
@@ -273,7 +277,7 @@ ALTER TABLE ONLY attachments
 
 
 --
--- Name: notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY notes
@@ -281,7 +285,7 @@ ALTER TABLE ONLY notes
 
 
 --
--- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY people
@@ -289,35 +293,35 @@ ALTER TABLE ONLY people
 
 
 --
--- Name: index_action_points_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_action_points_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_action_points_on_person_id ON action_points USING btree (person_id);
 
 
 --
--- Name: index_assessments_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_assessments_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_assessments_on_person_id ON assessments USING btree (person_id);
 
 
 --
--- Name: index_attachments_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_attachments_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_attachments_on_person_id ON attachments USING btree (person_id);
 
 
 --
--- Name: index_notes_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_notes_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_notes_on_person_id ON notes USING btree (person_id);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
@@ -327,7 +331,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20151203230043');
 
