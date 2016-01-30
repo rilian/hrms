@@ -4,6 +4,8 @@ gem 'rails', github: 'rails/rails', branch: '4-2-stable'
 gem 'pg'
 gem 'dotenv-rails'
 gem 'ransack'
+gem 'warden', '1.2.4' # 1.2.5 has issues
+gem 'devise'
 
 # Frontend
 gem 'slim-rails'
