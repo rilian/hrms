@@ -1,27 +1,29 @@
-nav.nav.navbar-default
-  .container-fluid
-    ul.nav.nav-tabs.nav-tabs
-      li role="presentation"
-        a href="#{root_path}" Dashboard
-      li role="presentation"
-        a href="#{people_path}" People
-      li role="presentation"
-        a href="#{notes_path}" Notes
-      li role="presentation"
-        a href="#{assessments_path}" Assessments
-      li role="presentation"
-        a href="#{action_points_path}" Actions
-      li role="presentation"
-        a.btn-default href="#{new_person_path}" Add Person
-      li role="presentation"
-        a.btn-default href="#{new_note_path}" Add Note
-      li role="presentation"
-        a.btn-default href="#{new_assessment_path}" Add Assessment
-      li role="presentation"
-        a.btn-default href="#{new_action_point_path}" Add Action
-      li role="presentation"
+- if current_user
+  nav.nav.navbar-default
+    .container-fluid
+      ul.nav.nav-tabs.nav-tabs
+        li role="presentation"
+          a href="#{root_path}" Dashboard
+        li role="presentation"
+          a href="#{people_path}" People
+        li role="presentation"
+          a href="#{notes_path}" Notes
+        li role="presentation"
+          a href="#{assessments_path}" Assessments
+        li role="presentation"
+          a href="#{action_points_path}" Actions
+        li role="presentation"
+          a.btn-default href="#{new_person_path}" Add Person
+        li role="presentation"
+          a.btn-default href="#{new_note_path}" Add Note
+        li role="presentation"
+          a.btn-default href="#{new_assessment_path}" Add Assessment
+        li role="presentation"
+          a.btn-default href="#{new_action_point_path}" Add Action
+        li role="presentation"
+          a.btn-default href="#{destroy_user_session_path}" data-method='delete' Sign out
 
-    form.navbar-form.navbar-left role="search" action="#{people_path}" method="GET"
-      .form-group
-        input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Anything" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
-        button.btn.btn-default type="submit" Search
+      form.navbar-form.navbar-left role="search" action="#{people_path}" method="GET"
+        .form-group
+          input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Anything" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
+          button.btn.btn-default type="submit" Search
