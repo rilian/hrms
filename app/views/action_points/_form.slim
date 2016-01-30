@@ -2,7 +2,9 @@
 
 = simple_form_for @action_point, html: { class: 'form' } do |f|
   .form-group
-    label.col-md-4.control-label Person
+    label.col-md-4.control-label
+      | Person
+      span.text-danger *
     .col-md-7
       = f.input :person_id,
                 collection: Person.all,

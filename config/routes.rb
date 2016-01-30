@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :action_points
   resources :assessments
+  resources :attachments
   resources :notes
   resources :people
 

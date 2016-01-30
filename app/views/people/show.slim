@@ -126,3 +126,13 @@ h3
       = "#{key}: #{value}"
       | &nbsp;
 
+h3
+  | Attachments &nbsp;
+  = link_to 'Add Attachment', new_attachment_path(person_id: @person.id)
+- @person.attachments.order(updated_at: :desc).each do |attachment|
+  p
+    = link_to (attachment.name.present? ? attachment.name : attachment.file_filename), Refile.attachment_url(attachment, :file)
+    - if attachment.description.present?
+      br
+      = attachment.description
+    br

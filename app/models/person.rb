@@ -27,6 +27,7 @@ class Person < ActiveRecord::Base
 
   has_many :action_points
   has_many :assessments
+  has_many :attachments
   has_many :notes
 
   validates :name, presence: true
