@@ -110,7 +110,11 @@ CREATE TABLE attachments (
     name character varying NOT NULL,
     description text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    file_id character varying,
+    file_filename character varying,
+    file_size integer,
+    file_content_type character varying
 );
 
 
@@ -407,4 +411,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151213225759');
 INSERT INTO schema_migrations (version) VALUES ('20160101195429');
 
 INSERT INTO schema_migrations (version) VALUES ('20160130095024');
+
+INSERT INTO schema_migrations (version) VALUES ('20160130133849');
 

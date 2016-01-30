@@ -1,0 +1,21 @@
+h1 Attachments
+
+table.table
+  thead
+    th = sort_link @q, :id
+    th = sort_link @q, :person, ['person_name'], 'Person'
+    th = sort_link @q, :name
+    th = sort_link @q, :description
+    th File
+    th Actions
+  tbody
+    - @attachments.each do |record|
+      tr
+        td = record.id
+        td = link_to record.person.name, person_path(record.person)
+        td = record.name
+        td = record.description
+        td = link_to 'Download', Refile.attachment_url(record, :file)
+        td
+          a href="#{edit_attachment_path(record)}"
+            i.fa.fa-pencil
