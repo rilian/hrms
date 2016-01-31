@@ -8,4 +8,10 @@ module ApplicationHelper
     else ''
     end
   end
+
+  def directory_size(path)
+    size = 0
+    Dir.glob(File.join(path, '**', '*')) { |file| size += File.size(file) }
+    number_to_human_size size
+  end
 end

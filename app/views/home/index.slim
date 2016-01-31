@@ -2,7 +2,7 @@ h1 Dashboard
 p
   ' Stats
   br
-  ' Total users: #{User.count}
+  ' Total users: #{User.count} (#{User.all.map(&:email).join(', ')})
   br
   ' Total people: #{Person.count}
   br
@@ -13,3 +13,5 @@ p
   ' Total assessments: #{Assessment.count}
   br
   ' Total attachments: #{Attachment.count}
+  br
+  ' Attachments size: #{directory_size(ENV['UPLOADS_DIR'])}
