@@ -48,9 +48,10 @@ table.table
         td
           - if record.attachments.size > 0
             | Attachments:&nbsp;
+            br
             - record.attachments.each do |attachment|
               = link_to attachment.file_filename, Refile.attachment_url(attachment, :file)
-              | &nbsp;
+              br
           - if record.city
             ' City: #{record.city}
             br
