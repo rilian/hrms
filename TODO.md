@@ -14,7 +14,6 @@
 
 ## Minor
 
-* Import CSV
 * Inline updates on People page
 * Export to iCal
 * Non-authenticated access by UUID

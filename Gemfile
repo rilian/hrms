@@ -8,6 +8,7 @@ gem 'warden', '1.2.4' # 1.2.5 has issues
 gem 'devise'
 gem 'refile', require: 'refile/rails'
 gem 'refile-mini_magick'
+gem 'smarter_csv', require: false
 
 # Frontend
 gem 'slim-rails'
