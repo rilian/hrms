@@ -2,6 +2,7 @@ class Note < ActiveRecord::Base
   self.inheritance_column = nil
 
   TYPES = [
+    'Initial Interview',
     'Skype Conversation',
     'Skype Call',
     'Phone Call',
