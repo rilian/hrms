@@ -34,7 +34,7 @@
     label.col-md-4.control-label
       | Description
     .col-md-7
-      = f.input :description, as: :text, placeholder: 'About this file', label: false
+      = f.input :description, as: :text, placeholder: 'About this file', label: false, input_html: { rows: 10 }
   .form-bordered
     .form-group.form-actions
       .text-center

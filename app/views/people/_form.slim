@@ -66,7 +66,7 @@
   .form-group
     label.col-md-4.control-label Cultural Fit
     .col-md-7
-      = f.input :cultural_fit, as: :text, label: false
+      = f.input :cultural_fit, as: :text, label: false, placeholder: 'Explain if this person will be a good fit to our teams', input_html: { rows: 5 }
   .form-group
     label.col-md-4.control-label Birthday
     .col-md-7

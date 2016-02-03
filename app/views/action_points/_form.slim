@@ -18,7 +18,7 @@
       | Value
       span.text-danger *
     .col-md-7
-      = f.input :value, as: :text, placeholder: 'What should be done', label: false
+      = f.input :value, as: :text, placeholder: 'What should be done', label: false, input_html: { rows: 10 }
   .form-group
     label.col-md-4.control-label Perform On
     .col-md-7
