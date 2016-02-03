@@ -17,13 +17,13 @@ table.table
           strong
             = link_to record.name.titleize, person_path(record)
           br
-          = link_to 'Add Note', new_note_path(person_id: record.id)
+          = link_to '+ Note', new_note_path(person_id: record.id)
           br
-          = link_to 'Evaluate', new_assessment_path(person_id: record.id)
+          = link_to '+ Evaluate', new_assessment_path(person_id: record.id)
           br
-          = link_to 'Add Action', new_action_point_path(person_id: record.id)
+          = link_to '+ Action', new_action_point_path(person_id: record.id)
           br
-          = link_to 'Add Attachment', new_attachment_path(person_id: record.id)
+          = link_to '+ Attachment', new_attachment_path(person_id: record.id)
         td
           = record.primary_tech
           br
