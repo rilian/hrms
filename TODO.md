@@ -3,10 +3,10 @@
 ## Major
 
 * Tags (try select2 pillbox with autocomplete)
+* Autocomplete for selects (try to use select-chosen)
+* Pagination
 * Scheduled notifications
 * Validations (by LinkedIn url or name or combination of params)
-* Pagination
-* Autocomplete for selects (try to use select-chosen)
 * Audit log (who created or updated records)
 * Candidate performance review
 * Reporting (metrics: number of candidates per week, number of notes etc)
