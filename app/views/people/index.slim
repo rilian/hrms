@@ -53,7 +53,7 @@ table.table
             | Attachments:&nbsp;
             br
             - record.attachments.each do |attachment|
-              = link_to attachment.file_filename, Refile.attachment_url(attachment, :file)
+              = link_to (attachment.name.present? ? attachment.name : attachment.file_filename), Refile.attachment_url(attachment, :file)
               br
           - if record.city
             ' City:
