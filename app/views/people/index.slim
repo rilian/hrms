@@ -43,12 +43,15 @@ table.table
             | &nbsp;
             = action_point.value
             br
-          - Note::TYPES.each do |type|
-            - record.notes.select { |n| n.type == type}.sort { |a, b| a.updated_at <=> b.updated_at}.first.tap do |note|
-              - if note.present?
-                a href="#{edit_note_path(note)}" #{note.type}
-                ' : #{truncate(note.value, length: 200)}
-                br
+          - unless record.notes.empty?
+            | Latest notes:
+            br
+            - Note::TYPES.each do |type|
+              - record.notes.select { |n| n.type == type}.sort { |a, b| b.updated_at <=> a.updated_at}.first.tap do |note|
+                - if note.present?
+                  a href="#{edit_note_path(note)}" #{note.type}
+                  ' : #{with_newlines(truncate(note.value, length: 300, escape: false))}
+                  br
         td
           - if record.attachments.size > 0
             | Attachments:&nbsp;

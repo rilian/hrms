@@ -14,4 +14,8 @@ module ApplicationHelper
     Dir.glob(File.join(path, '**', '*')) { |file| size += File.size(file) }
     number_to_human_size size
   end
+
+  def with_newlines(str)
+    str.gsub("\n", '<br/>').html_safe
+  end
 end
