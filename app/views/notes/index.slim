@@ -6,6 +6,7 @@ table.table
     th = sort_link @q, :person, ['person_name'], 'Person'
     th = sort_link @q, :type
     th = sort_link @q, :value
+    th = sort_link @q, :updated_at, 'Date'
     th Actions
   tbody
     - @notes.each do |record|
@@ -14,6 +15,7 @@ table.table
         td = link_to record.person.name, person_path(record.person)
         td = record.type
         td = record.value
+        td = record.updated_at.strftime('%d %b %Y')
         td
           a href="#{edit_note_path(record)}"
             i.fa.fa-pencil

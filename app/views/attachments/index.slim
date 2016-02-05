@@ -7,6 +7,7 @@ table.table
     th = sort_link @q, :name
     th = sort_link @q, :description
     th File
+    th = sort_link @q, :updated_at, 'Date'
     th Actions
   tbody
     - @attachments.each do |record|
@@ -16,6 +17,7 @@ table.table
         td = record.name
         td = record.description
         td = link_to 'Download', Refile.attachment_url(record, :file)
+        td = record.updated_at.strftime('%d %b %Y')
         td
           a href="#{edit_attachment_path(record)}"
             i.fa.fa-pencil

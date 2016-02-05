@@ -7,6 +7,7 @@ table.table
     th = sort_link @q, :value
     th = sort_link @q, :is_completed, 'Completed'
     th = sort_link @q, :perform_on
+    th = sort_link @q, :updated_at, 'Date'
     th Actions
   tbody
     - @action_points.each do |record|
@@ -16,6 +17,7 @@ table.table
         td = record.value
         td = record.is_completed? ? '-' : 'yes'
         td = record.perform_on.strftime('%d %b %Y')
+        td = record.updated_at.strftime('%d %b %Y')
         td
           a href="#{edit_action_point_path(record)}"
             i.fa.fa-pencil
