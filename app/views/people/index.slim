@@ -37,7 +37,8 @@ table.table
           - if record.priority.present?
             = link_to record.priority, people_path(q: { priority_eq: record.priority })
         td
-          - record.action_points.where(is_completed: false).each do |action_point|
+          - record.action_points.each do |action_point|
+            - next if action_point.is_completed
             a href="#{edit_action_point_path(action_point)}" #{action_point.perform_on.strftime('%d %b %Y')}
             | &nbsp;
             = action_point.value
