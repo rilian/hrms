@@ -1,5 +1,34 @@
 h1 People
 
+form.form action="#{people_path}" method="GET"
+  .form-group
+    input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Anything" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
+    br
+  .form-group
+    label.col-md-2
+      | Tags
+    .col-md-7
+      select.form-control.js-select2-select multiple="multiple" name="q[by_tag_including][]"
+        - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
+          - if params.dig(:q, :by_tag_including) && tag.in?(params[:q][:by_tag_including])
+            option value="#{tag}" selected="selected" #{tag}
+          - else
+            option value="#{tag}" #{tag}
+    br
+  .form-group
+    label.col-md-2
+      | Exclude Tags
+    .col-md-7
+      select.form-control.js-select2-select multiple="multiple" name="q[by_tag_excluding][]"
+        - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
+          - if params.dig(:q, :by_tag_excluding) && tag.in?(params[:q][:by_tag_excluding])
+            option value="#{tag}" selected="selected" #{tag}
+          - else
+            option value="#{tag}" #{tag}
+    br
+  .form-group
+    button.btn.btn-default type="submit" Search
+
 table.table
   thead
     th = sort_link @q, :id

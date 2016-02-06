@@ -2,7 +2,16 @@ class PeopleController < ApplicationController
   def index
     @q = Person.ransack(params[:q])
     @q.sorts = 'updated_at desc' if @q.sorts.empty?
-    @people = @q.result(distinct: true).limit(params[:limit]).offset(params[:offset])
+    @people = @q.result(distinct: true)
+
+    if params.dig(:q, :by_tag_including)
+      @people = @people.tagged_with(params[:q][:by_tag_including], any: true)
+    end
+    if params.dig(:q, :by_tag_excluding)
+      @people = @people.tagged_with(params[:q][:by_tag_excluding], exclude: true)
+    end
+
+    @people = @people.limit(params[:limit]).offset(params[:offset])
       .includes(:notes, :attachments, :assessments, :action_points)
   end
 

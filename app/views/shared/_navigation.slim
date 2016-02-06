@@ -26,8 +26,3 @@
           a.btn-default href="#{new_attachment_path}" Add Attachment
         li role="presentation"
           a.btn-default href="#{destroy_user_session_path}" data-method='delete' Sign out
-
-      form.navbar-form.navbar-left role="search" action="#{people_path}" method="GET"
-        .form-group
-          input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Anything" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
-          button.btn.btn-default type="submit" Search

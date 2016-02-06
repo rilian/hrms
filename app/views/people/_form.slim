@@ -18,7 +18,7 @@
   .form-group
     label.col-md-4.control-label Tags
     .col-md-7
-      select.form-control#person-tags multiple="multiple" name="person[tag_list][]"
+      select.form-control.js-select2-select multiple="multiple" name="person[tag_list][]"
         - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
           - if tag.in?(@person.tag_list)
             option value="#{tag}" selected="selected" #{tag}
