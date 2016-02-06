@@ -11,6 +11,17 @@ p
   - else
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
+
+p
+  | Tags &nbsp;
+  - unless @person.tag_list.empty?
+    - @person.tag_list.each do |tag|
+      = link_to tag, '#'
+      | &nbsp;
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+
 p
   | English &nbsp;
   - if @person.english.present?

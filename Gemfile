@@ -9,6 +9,7 @@ gem 'devise'
 gem 'refile', require: 'refile/rails'
 gem 'refile-mini_magick'
 gem 'smarter_csv', require: false
+gem 'acts-as-taggable-on'
 
 # Frontend
 gem 'slim-rails'
@@ -21,6 +22,7 @@ gem 'coffee-rails'
 gem 'font-awesome-rails'
 gem 'therubyracer'
 gem 'jquery-rails'
+gem 'select2-rails'
 
 group :development, :test do
   gem 'byebug'

@@ -8,9 +8,26 @@
     .col-md-7
       = f.input :name, placeholder: 'Ivan Ivanov', label: false, class: 'input form-control'
   .form-group
+    label.col-md-4.control-label Primary Tech
+    .col-md-7
+      = f.input :primary_tech,
+          collection: Person::PRIMARY_TECHS,
+          label: false,
+          include_blank: false,
+          input_html: { class: 'select form-control' }
+  .form-group
+    label.col-md-4.control-label Tags
+    .col-md-7
+      select.form-control#person-tags multiple="multiple" name="person[tag_list][]"
+        - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
+          - if tag.in?(@person.tag_list)
+            option value="#{tag}" selected="selected" #{tag}
+          - else
+            option value="#{tag}" #{tag}
+      br
+  .form-group
     label.col-md-4.control-label
       | City
-      span.text-danger *
     .col-md-7
       = f.input :city, placeholder: 'Kyiv', label: false, class: 'input form-control'
   .form-group
@@ -21,13 +38,11 @@
   .form-group
     label.col-md-4.control-label
       | Skype
-      span.text-danger *
     .col-md-7
       = f.input :skype, placeholder: 'ivan_ivanov', label: false, class: 'input form-control'
   .form-group
     label.col-md-4.control-label
       | LinkedIn
-      span.text-danger *
     .col-md-7
       = f.input :linkedin, placeholder: 'https://linkedin.com/ivanivanov', label: false, class: 'input form-control'
   .form-group
@@ -36,25 +51,17 @@
     .col-md-7
       = f.input :facebook, placeholder: 'https://facebook.com/ivanivanov', label: false, class: 'input form-control'
   .form-group
-    label.col-md-4.control-label Wants relocate?
-    .col-md-7
-      = f.input :wants_relocate, as: :boolean, label: false
-  .form-group
-    label.col-md-4.control-label Primary Tech
-    .col-md-7
-      = f.input :primary_tech,
-                collection: Person::PRIMARY_TECHS,
-                label: false,
-                include_blank: false,
-                input_html: { class: 'select form-control' }
-  .form-group
     label.col-md-4.control-label Hiring Priority
     .col-md-7
       = f.input :priority,
-                collection: Person::HIRING_PRIORITIES,
-                label: false,
-                include_blank: false,
-                input_html: { class: 'select form-control' }
+          collection: Person::HIRING_PRIORITIES,
+          label: false,
+          include_blank: false,
+          input_html: { class: 'select form-control' }
+  .form-group
+    label.col-md-4.control-label Wants relocate?
+    .col-md-7
+      = f.input :wants_relocate, as: :boolean, label: false
   .form-group
     label.col-md-4.control-label English
     .col-md-7
@@ -70,8 +77,7 @@
   .form-group
     label.col-md-4.control-label Birthday
     .col-md-7
-      = f.input :day_of_birth, as: :date, label: false
-  .form-bordered
-    .form-group.form-actions
-      .text-center
-        = f.button :submit, (@person.new_record? ? 'Create Person' : 'Update Person'), class: 'btn btn-success'
+      = f.input :day_of_birth, as: :date, include_blank: true, label: false
+  .form-group.form-actions
+    .text-center
+      = f.button :submit, (@person.new_record? ? 'Create Person' : 'Update Person'), class: 'btn btn-success'
