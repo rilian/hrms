@@ -6,6 +6,9 @@ class ActionPointsMailer < ActionMailer::Base
     @user = User.find(user_id)
     @action_points = ActionPoint.where(is_completed: false) # TODO: load only one date
 
-    mail(to: @user.email, subject: "[HRMS] Actions digest for #{@time.strftime('%d %b %Y')}")
+    mail(
+      subject: "[HRMS] Actions digest for #{@time.strftime('%e %b %Y')}",
+      to: @user.email
+    )
   end
 end

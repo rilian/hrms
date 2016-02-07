@@ -1,9 +1,9 @@
 - records.each do |record|
-  ' On&nbsp;
-  = record.perform_on.strftime('%d %b %Y')
+  ' On
+  = record.perform_on.strftime('%e %b %Y')
   ' &nbsp;communicate with
   = link_to record.person.name, person_url(record.person)
-  ' &nbsp;about
+  ' &nbsp;(#{record.person.primary_tech}) about
   br
   = with_newlines(record.value)
   br
