@@ -297,7 +297,8 @@ CREATE TABLE users (
     reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    notifications_enabled boolean DEFAULT true NOT NULL
 );
 
 
@@ -537,4 +538,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160205211843');
 INSERT INTO schema_migrations (version) VALUES ('20160205211844');
 
 INSERT INTO schema_migrations (version) VALUES ('20160205211845');
+
+INSERT INTO schema_migrations (version) VALUES ('20160207151033');
 

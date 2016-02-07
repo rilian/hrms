@@ -4,6 +4,7 @@ table.table
   thead
     th = sort_link @q, :id
     th = sort_link @q, :email
+    th = sort_link @q, :notifications_enabled, 'Notifications'
     th = sort_link @q, :updated_at, 'Date'
     th Actions
   tbody
@@ -11,6 +12,7 @@ table.table
       tr
         td = record.id
         td = record.email
+        td = record.notifications_enabled? ? 'yes' : 'no'
         td = record.updated_at.strftime('%d %b %Y')
         td
           a href="#{edit_user_path(record)}"
