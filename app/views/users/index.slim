@@ -16,7 +16,7 @@ table.table
           - if current_user.email == record.email
             ' &nbsp;YOU
         td = record.notifications_enabled? ? 'yes' : 'no'
-        td = record.updated_at.strftime('%d %b %Y')
+        td = record.updated_at.strftime('%e %b %Y')
         td
           a href="#{edit_user_path(record)}"
             i.fa.fa-pencil

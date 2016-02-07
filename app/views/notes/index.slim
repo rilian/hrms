@@ -15,7 +15,7 @@ table.table
         td = link_to record.person.name, person_path(record.person)
         td = record.type
         td = with_newlines(record.value)
-        td = record.updated_at.strftime('%d %b %Y')
+        td = record.updated_at.strftime('%e %b %Y')
         td
           a href="#{edit_note_path(record)}"
             i.fa.fa-pencil

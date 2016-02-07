@@ -19,7 +19,7 @@ table.table
               = "#{topic}: #{record.value[topic]}"
               br
         td = record.total
-        td = record.updated_at.strftime('%d %b %Y')
+        td = record.updated_at.strftime('%e %b %Y')
         td
           a href="#{edit_assessment_path(record)}"
             i.fa.fa-pencil

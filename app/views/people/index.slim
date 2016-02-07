@@ -60,7 +60,7 @@ table.table
           - if assessment = record.assessments.last
             ' Evaluated:
             a href="#{edit_assessment_path(assessment)}" #{assessment.total} points
-            | , #{assessment.updated_at.strftime('%d %b %Y')}
+            | , #{assessment.updated_at.strftime('%e %b %Y')}
 
         td
           - if record.priority.present?
@@ -68,7 +68,7 @@ table.table
         td
           - record.action_points.each do |action_point|
             - next if action_point.is_completed
-            a href="#{edit_action_point_path(action_point)}" #{action_point.perform_on.strftime('%d %b %Y')}
+            a href="#{edit_action_point_path(action_point)}" #{action_point.perform_on.strftime('%e %b %Y')}
             | &nbsp;
             = action_point.value
             br

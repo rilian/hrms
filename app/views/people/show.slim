@@ -98,18 +98,18 @@ p
 p
   | Profile created &nbsp;
   strong
-    = "#{@person.created_at.strftime('%d %b %Y')} (#{time_ago_in_words(@person.created_at)} ago)"
+    = "#{@person.created_at.strftime('%e %b %Y')} (#{time_ago_in_words(@person.created_at)} ago)"
 p
   | Profile last updated &nbsp;
   strong
-    = "#{@person.updated_at.strftime('%d %b %Y')} (#{time_ago_in_words(@person.updated_at)} ago)"
+    = "#{@person.updated_at.strftime('%e %b %Y')} (#{time_ago_in_words(@person.updated_at)} ago)"
 
 h3
   | Actions &nbsp;
   = link_to 'Add Action', new_action_point_path(person_id: @person.id)
 - @person.action_points.order(is_completed: :asc, perform_on: :asc).each do |action|
   p
-    a href="#{edit_action_point_path(action)}" #{action.perform_on.strftime('%d %b %Y')}
+    a href="#{edit_action_point_path(action)}" #{action.perform_on.strftime('%e %b %Y')}
     | &nbsp; #{action.is_completed? ? 'completed' : ''}
     br
     = with_newlines(action.value)
@@ -119,7 +119,7 @@ h3
   = link_to 'Add Note', new_note_path(person_id: @person.id)
 - @person.notes.order(updated_at: :desc).each do |note|
   p
-    = note.updated_at.strftime('%d %b %Y')
+    = note.updated_at.strftime('%e %b %Y')
     '
     a href="#{edit_note_path(note)}" #{note.type}
     br
@@ -130,7 +130,7 @@ h3
   = link_to 'Evaluate', new_assessment_path(person_id: @person.id)
 - @person.assessments.order(updated_at: :desc).each do |assessment|
   p
-    a href="#{edit_assessment_path(assessment)}" #{assessment.updated_at.strftime('%d %b %Y')}
+    a href="#{edit_assessment_path(assessment)}" #{assessment.updated_at.strftime('%e %b %Y')}
     | , #{assessment.total} points
     br
     - assessment.value.each do |key, value|

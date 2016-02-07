@@ -17,7 +17,7 @@ table.table
         td = record.name
         td = with_newlines(record.description)
         td = link_to 'Download', Refile.attachment_url(record, :file)
-        td = record.updated_at.strftime('%d %b %Y')
+        td = record.updated_at.strftime('%e %b %Y')
         td
           a href="#{edit_attachment_path(record)}"
             i.fa.fa-pencil
