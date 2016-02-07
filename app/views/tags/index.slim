@@ -1,0 +1,11 @@
+h1 Tags
+
+table.table
+  thead
+    th Tag
+    th Popularity
+  tbody
+    - @tags.each do |record|
+      tr
+        td = link_to record.name, people_path(q: { by_tag_including: record.name })
+        td = record.taggings_count

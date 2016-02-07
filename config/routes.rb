@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :attachments
   resources :notes
   resources :people
+  resources :tags, only: :index
 
   root 'home#index'
 end

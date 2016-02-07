@@ -14,4 +14,6 @@ p
   br
   ' Total attachments: #{Attachment.count}
   br
+  ' Total tags: #{ActsAsTaggableOn::Tag.count}
+  br
   ' Attachments size: #{directory_size(ENV['UPLOADS_DIR'])}
