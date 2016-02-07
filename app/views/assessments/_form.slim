@@ -7,7 +7,7 @@
       span.text-danger *
     .col-md-7
       = f.input :person_id, as: :hidden
-      input.select.form-control value="#{Person.find_by_id(params.dig(:assessment, :person_id))&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#assessment_person_id" data-auto-focus="true"
+      input.select.form-control value="#{Person.find_by_id((params.dig(:assessment, :person_id)) || @assessment)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#assessment_person_id" data-auto-focus="true"
   - Assessment::TOPICS.each do |topic|
     .form-group
       label.col-md-4.control-label #{topic}

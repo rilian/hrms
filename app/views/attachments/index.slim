@@ -15,7 +15,7 @@ table.table
         td = record.id
         td = link_to record.person.name, person_path(record.person)
         td = record.name
-        td = record.description
+        td = with_newlines(record.description)
         td = link_to 'Download', Refile.attachment_url(record, :file)
         td = record.updated_at.strftime('%d %b %Y')
         td

@@ -14,7 +14,7 @@ table.table
       tr
         td = record.id
         td = link_to record.person.name, person_path(record.person)
-        td = record.value
+        td = with_newlines(record.value)
         td = record.is_completed? ? '-' : 'yes'
         td = record.perform_on.strftime('%d %b %Y')
         td = record.updated_at.strftime('%d %b %Y')
