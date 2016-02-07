@@ -1,10 +1,18 @@
-- records.each do |record|
-  ' On
-  = record.perform_on.strftime('%e %b %Y')
-  ' &nbsp;communicate with
-  = link_to record.person.name, person_url(record.person)
-  ' &nbsp;(#{record.person.primary_tech}) about
-  br
-  = with_newlines(record.value)
+- if records.empty?
+  | There are no actions for #{@time.strftime('%e %b %Y')}. Please review the database and find some people who were not contacted for a long time.
   br
   br
+- else
+  | There are #{records.size} actions for #{@time.strftime('%e %b %Y')}:
+  br
+  br
+  - records.each do |record|
+    ' On
+    = record.perform_on.strftime('%e %b %Y')
+    ' &nbsp;communicate with
+    = link_to record.person.name, person_url(record.person)
+    ' &nbsp;(#{record.person.primary_tech}) about
+    br
+    = with_newlines(record.value)
+    br
+    br

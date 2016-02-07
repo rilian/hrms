@@ -1,13 +1,11 @@
 | Hi #{@user.email},
 br
 br
-| Actions for #{@time.strftime('%e %b %Y')}:
-br
-br
 
 = render 'action_points/daily_activity', records: @action_points
 
 | Thank you,
 br
 | HRMS
-
+br
+= ENV['DOMAIN_NAME']
