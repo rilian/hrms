@@ -31,8 +31,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console'
-  gem 'spring'
   gem 'quiet_assets'
   gem 'bullet'
 end
