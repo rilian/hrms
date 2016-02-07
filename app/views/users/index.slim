@@ -1,0 +1,17 @@
+h1 Users
+
+table.table
+  thead
+    th = sort_link @q, :id
+    th = sort_link @q, :email
+    th = sort_link @q, :updated_at, 'Date'
+    th Actions
+  tbody
+    - @users.each do |record|
+      tr
+        td = record.id
+        td = record.email
+        td = record.updated_at.strftime('%d %b %Y')
+        td
+          a href="#{edit_user_path(record)}"
+            i.fa.fa-pencil

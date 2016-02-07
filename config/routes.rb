@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get :autocomplete_person_name, on: :collection
   end
   resources :tags, only: :index
+  resources :users
 
   root 'home#index'
 end
