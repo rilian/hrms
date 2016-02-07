@@ -10,7 +10,7 @@ form.form action="#{people_path}" method="GET"
     .col-md-7
       select.form-control.js-select2-select multiple="multiple" name="q[by_tag_including][]"
         - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
-          - if params.dig(:q, :by_tag_including) && tag.in?(params[:q][:by_tag_including])
+          - if params.dig(:q, :by_tag_including) && tag.in?(Array.wrap(params[:q][:by_tag_including]))
             option value="#{tag}" selected="selected" #{tag}
           - else
             option value="#{tag}" #{tag}
@@ -21,7 +21,7 @@ form.form action="#{people_path}" method="GET"
     .col-md-7
       select.form-control.js-select2-select multiple="multiple" name="q[by_tag_excluding][]"
         - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
-          - if params.dig(:q, :by_tag_excluding) && tag.in?(params[:q][:by_tag_excluding])
+          - if params.dig(:q, :by_tag_excluding) && tag.in?(Array.wrap(params[:q][:by_tag_excluding]))
             option value="#{tag}" selected="selected" #{tag}
           - else
             option value="#{tag}" #{tag}
