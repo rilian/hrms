@@ -78,7 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Mailer
-  config.action_mailer.default_url_options = { host: ENV['HOST'] }
+  config.action_mailer.default_url_options = { host: ENV['DOMAIN_NAME'] }
   config.action_mailer.default_options = { from: "no-reply@#{ENV['DOMAIN_NAME']}" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
