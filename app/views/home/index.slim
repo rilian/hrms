@@ -1,8 +1,6 @@
 h1 Dashboard
 p
-  ' Stats
-  br
-  ' Total users: #{User.count} (#{User.all.map(&:email).join(', ')})
+  ' Total users: #{User.count}
   br
   ' Total people: #{Person.count}
   br
@@ -17,3 +15,7 @@ p
   ' Total tags: #{ActsAsTaggableOn::Tag.count}
   br
   ' Attachments size: #{directory_size(ENV['UPLOADS_DIR'])}
+p
+  a.btn.btn-default href="#{new_user_path}" New User
+  ' &nbsp;
+  a.btn.btn-default href="#{destroy_user_session_path}" data-method='delete' Sign out
