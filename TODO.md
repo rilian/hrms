@@ -4,8 +4,6 @@
 
 * Display person info (show) in popup
 * Rename assessment numbers to words (junior, strong junior, etc)
-* Tags (try select2 pillbox with autocomplete)
-* Autocomplete for selects (try to use select-chosen)
 * Pagination
 * Scheduled notifications
 * Validations (by LinkedIn url or name or combination of params)

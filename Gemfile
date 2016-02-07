@@ -23,6 +23,8 @@ gem 'font-awesome-rails'
 gem 'therubyracer'
 gem 'jquery-rails'
 gem 'select2-rails'
+gem 'jquery-ui-rails'
+gem 'rails-jquery-autocomplete'
 
 group :development, :test do
   gem 'byebug'

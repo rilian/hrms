@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :assessments
   resources :attachments
   resources :notes
-  resources :people
+  resources :people do
+    get :autocomplete_person_name, on: :collection
+  end
   resources :tags, only: :index
 
   root 'home#index'

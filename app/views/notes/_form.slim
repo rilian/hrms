@@ -6,13 +6,8 @@
       | Person
       span.text-danger *
     .col-md-7
-      = f.input :person_id,
-                collection: Person.all,
-                selected: params[:person_id] || @note.person_id,
-                label: false,
-                label_method: ->(p) { p.name.titleize },
-                include_blank: false,
-                input_html: { class: 'select form-control' }
+      = f.input :person_id, as: :hidden
+      input.select.form-control value="#{Person.find_by_id(params.dig(:note, :person_id))&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#note_person_id" data-auto-focus="true"
   .form-group
     label.col-md-4.control-label Type
     .col-md-7
