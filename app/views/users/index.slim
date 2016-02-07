@@ -11,7 +11,10 @@ table.table
     - @users.each do |record|
       tr
         td = record.id
-        td = record.email
+        td
+          = record.email
+          - if current_user.email == record.email
+            ' &nbsp;YOU
         td = record.notifications_enabled? ? 'yes' : 'no'
         td = record.updated_at.strftime('%d %b %Y')
         td
