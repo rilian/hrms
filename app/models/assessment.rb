@@ -24,6 +24,8 @@ class Assessment < ActiveRecord::Base
     'Work Ethics'
   ]
 
+  GRADES = 5
+
   belongs_to :person
 
   validates :person, presence: true
@@ -35,7 +37,7 @@ class Assessment < ActiveRecord::Base
   def update_value(values)
     self.value = {}
     values.each do |key, val|
-      self.value[key] = val if key.in?(TOPICS) && val =~ /[1-9]{1}/
+      self.value[key] = val if key.in?(TOPICS) && val =~ /[1-#{GRADES}]{1}/
     end
   end
 

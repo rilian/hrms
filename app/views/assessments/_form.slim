@@ -13,7 +13,7 @@
       label.col-md-4.control-label #{topic}
       .form-group
         .col-md-7.form-control
-          - (1..9).to_a.each do |i|
+          - (1..Assessment::GRADES).to_a.each do |i|
             - if @assessment.value[topic] == i.to_s
               input type="radio" name="values[#{topic}]" value="#{i}" checked="checked"
             - else
