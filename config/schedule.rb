@@ -1,3 +1,3 @@
-every :weekday, at: '5:00am' do
+every :weekday, at: '0:05am' do
   rake 'action_points:daily_activity'
 end
