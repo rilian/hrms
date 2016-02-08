@@ -7,7 +7,7 @@ class ActionPointsMailer < ActionMailer::Base
     @action_points = ActionPoint
       .where(
         is_completed: false,
-        perform_on: @time.midnight..(@time.midnight + 1.day)
+        perform_on: @time.midnight..(@time.midnight + 23.hours + 59.minutes)
       )
 
     mail(
