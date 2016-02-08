@@ -37,5 +37,6 @@ end
 
 group :production do
   gem 'puma'
-  gem 'foreman'
+  gem 'foreman', require: false
+  gem 'whenever', require: false
 end
