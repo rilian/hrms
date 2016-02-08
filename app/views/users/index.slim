@@ -15,7 +15,7 @@ table.table
           = record.email
           - if current_user.email == record.email
             ' &nbsp;YOU
-        td = record.notifications_enabled? ? 'yes' : 'no'
+        td = record.notifications_enabled? ? 'yes' : '-'
         td = record.updated_at.strftime('%e %b %Y')
         td
           a href="#{edit_user_path(record)}"
