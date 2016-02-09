@@ -2,8 +2,17 @@ class AssessmentsController < ApplicationController
   def index
     @q = Assessment.ransack(params[:q])
     @q.sorts = 'updated_at desc' if @q.sorts.empty?
-    @assessments = @q.result.limit(params[:limit]).offset(params[:offset])
-      .includes(:person)
+    @assessments = @q.result
+
+    @assessments = @assessments.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
+    @assessments = @assessments.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
+
+    @assessments = @assessments.includes(:person)
+
+    respond_to do |f|
+      f.partial { render partial: 'table' }
+      f.html
+    end
   end
 
   def new

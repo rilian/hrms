@@ -1,0 +1,17 @@
+- if @assessments.empty?
+  span class='js-page-last'
+
+- @assessments.each_with_index do |record, index|
+  tr class=('js-page-last' if (index == @assessments.size - 1) && last_page?(@assessments))
+    td = record.id
+    td = link_to record.person.name, person_path(record.person)
+    td
+      - Assessment::TOPICS.each do |topic|
+        - if record.value.key?(topic)
+          = "#{topic}: #{record.value[topic]}"
+          br
+    td = record.total
+    td = record.updated_at.strftime('%e %b %Y')
+    td
+      a href="#{edit_assessment_path(record)}"
+        i.fa.fa-pencil
