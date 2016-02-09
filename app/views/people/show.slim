@@ -91,7 +91,7 @@ p
   | Date of birth &nbsp;
   - if @person.day_of_birth.present?
     strong
-      = @person.day_of_birth
+      = @person.day_of_birth.strftime('%e %b %Y')
   - else
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
