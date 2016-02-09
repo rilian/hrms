@@ -1,0 +1,15 @@
+- if @users.empty?
+  span class='js-page-last'
+
+- @users.each_with_index do |record, index|
+  tr class=('js-page-last' if (index == @users.size - 1) && last_page?(@users))
+    td = record.id
+    td
+      = record.email
+      - if current_user.email == record.email
+        ' &nbsp;YOU
+    td = record.notifications_enabled? ? 'yes' : '-'
+    td = record.updated_at.strftime('%e %b %Y')
+    td
+      a href="#{edit_user_path(record)}"
+        i.fa.fa-pencil
