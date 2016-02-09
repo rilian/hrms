@@ -1,21 +1,26 @@
-h1 Notes
+h2.title NOTES
 
-table.table
+table.table.pretty-table
   thead
     th = sort_link @q, :id
     th = sort_link @q, :person, ['person_name'], 'Person'
     th = sort_link @q, :type
     th = sort_link @q, :value
     th = sort_link @q, :updated_at, 'Date'
-    th Actions
+    th colspan="2" Actions 
   tbody
     - @notes.each do |record|
       tr
         td = record.id
-        td = link_to record.person.name, person_path(record.person)
+        td = record.person.name
         td = record.type
         td = with_newlines(record.value)
         td = record.updated_at.strftime('%e %b %Y')
-        td
-          a href="#{edit_note_path(record)}"
+        td colspan="2"
+          a href="#{person_path(record.person)}" class="btn btn-sm btn-default btn-pill"
+            i.fa.fa-eye
+            | &nbsp;View
+          ' &nbsp;
+          a href="#{edit_note_path(record)}" class="btn btn-sm btn-info btn-pill"
             i.fa.fa-pencil
+            | &nbsp;Edit

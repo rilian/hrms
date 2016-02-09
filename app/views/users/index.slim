@@ -1,8 +1,8 @@
-h1 Users
+h2.title USERS
 
-table.table
+table.table.pretty-table
   thead
-    th = sort_link @q, :id
+    th = sort_link @q, :id, '#'
     th = sort_link @q, :email
     th = sort_link @q, :notifications_enabled, 'Notifications'
     th = sort_link @q, :updated_at, 'Date'
@@ -14,9 +14,12 @@ table.table
         td
           = record.email
           - if current_user.email == record.email
-            ' &nbsp;YOU
+            | &nbsp; 
+            span.label.label-warning
+              | YOU
         td = record.notifications_enabled? ? 'yes' : '-'
         td = record.updated_at.strftime('%e %b %Y')
         td
-          a href="#{edit_user_path(record)}"
+          a href="#{edit_user_path(record)}" class="btn btn-sm btn-info btn-pill"
             i.fa.fa-pencil
+            |  Edit

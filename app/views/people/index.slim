@@ -1,35 +1,43 @@
-h1 People
+h2.title 
+  | PEOPLE &nbsp;
+  a.btn.btn-default.btn-pill href="/"
+    i.fa.fa-plus
+    | &nbsp; Add person
 
-form.form action="#{people_path}" method="GET"
-  .form-group
-    input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Anything" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
-    br
-  .form-group
-    label.col-md-2
-      | Tags
-    .col-md-7
-      select.form-control.js-select2-select multiple="multiple" name="q[by_tag_including][]"
-        - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
-          - if params.dig(:q, :by_tag_including) && tag.in?(Array.wrap(params[:q][:by_tag_including]))
-            option value="#{tag}" selected="selected" #{tag}
-          - else
-            option value="#{tag}" #{tag}
-    br
-  .form-group
-    label.col-md-2
-      | Exclude Tags
-    .col-md-7
-      select.form-control.js-select2-select multiple="multiple" name="q[by_tag_excluding][]"
-        - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
-          - if params.dig(:q, :by_tag_excluding) && tag.in?(Array.wrap(params[:q][:by_tag_excluding]))
-            option value="#{tag}" selected="selected" #{tag}
-          - else
-            option value="#{tag}" #{tag}
-    br
-  .form-group
-    button.btn.btn-default type="submit" Search
+.search-form
+  form.form action="#{people_path}" method="GET"
+    .row
+      .col-md-10
+        .form-group
+          input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Anything" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
+      .col-md-2
+        .form-group
+          button.btn.btn-primary.btn-wide type="submit" 
+            i.fa.fa-search
+            | &nbsp; Search
+    .row
+      .col-md-6
+        .form-group
+          label.control-label
+            | Tags:
+          select.form-control.js-select2-select multiple="multiple" name="q[by_tag_including][]" class="form-control"
+            - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
+              - if params.dig(:q, :by_tag_including) && tag.in?(Array.wrap(params[:q][:by_tag_including]))
+                option value="#{tag}" selected="selected" #{tag}
+              - else
+                option value="#{tag}" #{tag}
+      .col-md-6
+        .form-group
+          label.control-label
+            | Exclude Tags:
+          select.form-control.js-select2-select multiple="multiple" name="q[by_tag_excluding][]" class="form-control"
+            - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
+              - if params.dig(:q, :by_tag_excluding) && tag.in?(Array.wrap(params[:q][:by_tag_excluding]))
+                option value="#{tag}" selected="selected" #{tag}
+              - else
+                option value="#{tag}" #{tag}
 
-table.table
+table.table.pretty-table
   thead
     th = sort_link @q, :id
     th = sort_link @q, :name

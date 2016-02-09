@@ -1,27 +1,31 @@
 = render 'shared/form_error', object: @assessment
 
 = simple_form_for @assessment, html: { class: 'form' } do |f|
-  .form-group
-    label.col-md-4.control-label
-      | Person
-      span.text-danger *
+  .row
     .col-md-7
-      = f.input :person_id, as: :hidden
-      input.select.form-control value="#{Person.find_by_id((params.dig(:assessment, :person_id)) || @assessment)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#assessment_person_id" data-auto-focus="true"
-  - Assessment::TOPICS.each do |topic|
-    .form-group
-      label.col-md-4.control-label #{topic}
       .form-group
-        .col-md-7.form-control
-          - (1..Assessment::GRADES).to_a.each do |i|
-            - if @assessment.value[topic] == i.to_s
-              input type="radio" name="values[#{topic}]" value="#{i}" checked="checked"
-            - else
-              input type="radio" name="values[#{topic}]" value="#{i}"
-            | &nbsp;
-            = i
-            | &nbsp;
-  .form-bordered
-    .form-group.form-actions
-      .text-center
-        = f.button :submit, (@assessment.new_record? ? 'Create Assessment' : 'Update Assessment'), class: 'btn btn-success'
+        label.control-label
+          span.text-danger *
+          |  Person: 
+        = f.input :person_id, as: :hidden
+        input.select.form-control value="#{Person.find_by_id((params.dig(:assessment, :person_id)) || @assessment)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#assessment_person_id" data-auto-focus="true"
+
+      - Assessment::TOPICS.each do |topic|
+        .form-group
+          label.control-label #{topic}:
+          .form-group
+            .group
+              - (1..Assessment::GRADES).to_a.each do |i|
+                div
+                  - if @assessment.value[topic] == i.to_s
+                    input type="radio" name="values[#{topic}]" value="#{i}" checked="checked"
+                  - else
+                    input id="#{topic}-#{i}" type="radio" name="values[#{topic}]" value="#{i}"
+                  label for="#{topic}-#{i}"
+                    span
+                      span
+                    | #{grade(i)}
+
+      .form-group.form-actions
+        .text-center
+          = f.button :submit, (@assessment.new_record? ? '+ Create Assessment' : 'Update Assessment'), class: 'btn btn-success'

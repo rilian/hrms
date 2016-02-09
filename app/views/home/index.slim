@@ -1,21 +1,66 @@
-h1 Dashboard
-p
-  ' Total users: #{User.count}
-  br
-  ' Total people: #{Person.count}
-  br
-  ' Total notes: #{Note.count}
-  br
-  ' Total action points: #{ActionPoint.count}
-  br
-  ' Total assessments: #{Assessment.count}
-  br
-  ' Total attachments: #{Attachment.count}
-  br
-  ' Total tags: #{ActsAsTaggableOn::Tag.count}
-  br
-  ' Attachments size: #{directory_size(ENV['UPLOADS_DIR'])}
-p
-  a.btn.btn-default href="#{new_user_path}" New User
-  ' &nbsp;
-  a.btn.btn-default href="#{destroy_user_session_path}" data-method='delete' Sign out
+h2.title DASHBOARD
+
+h4
+  span.label.label-success
+    i.fa.fa-cog
+    |  Settings
+
+a.btn.btn-default href="#{new_user_path}" 
+  i.fa.fa-user-plus
+  |  New User
+' &nbsp;
+a.btn.btn-default href="#{destroy_user_session_path}" data-method='delete' 
+  i.fa.fa-sign-out
+  |  Sign out
+  
+br 
+
+
+.cards
+  h4
+    span.label.label-info
+      i.fa.fa-line-chart
+      |  Statistics
+  
+  div.card
+    .card-title
+      | Total users
+    .card-body
+      | #{User.count}
+      
+  div.card
+    .card-title
+      | Total people
+    .card-body
+      | #{Person.count}
+      
+  div.card
+    .card-title
+      | Total action points
+    .card-body
+      | #{ActionPoint.count}
+      
+  div.card
+    .card-title
+      | Total assessments
+    .card-body
+      | #{Assessment.count}
+      
+  div.card
+    .card-title
+      | Total attachments
+    .card-body
+      | #{Attachment.count}
+      
+  div.card
+    .card-title
+      | Total tags
+    .card-body
+      | #{ActsAsTaggableOn::Tag.count}
+      
+  .card.wider
+    .card-title
+      | Attachments size
+    .card-body
+      | #{directory_size(ENV['UPLOADS_DIR'])}
+  

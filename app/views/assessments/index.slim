@@ -1,6 +1,6 @@
-h1 Assessments
+h2.title ASSESSMENTS
 
-table.table
+table.table.pretty-table
   thead
     th = sort_link @q, :id
     th = sort_link @q, :person, ['person_name'], 'Person'
@@ -21,5 +21,6 @@ table.table
         td = record.total
         td = record.updated_at.strftime('%e %b %Y')
         td
-          a href="#{edit_assessment_path(record)}"
+          a href="#{edit_assessment_path(record)}" class="btn btn-sm btn-info btn-pill"
             i.fa.fa-pencil
+            | &nbsp;Edit
