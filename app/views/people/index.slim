@@ -88,28 +88,28 @@ table.table
             - record.attachments.each do |attachment|
               = link_to (attachment.name.present? ? attachment.name : attachment.file_filename), Refile.attachment_url(attachment, :file)
               br
-          - if record.city
+          - if record.city.present?
             ' City:
             = link_to record.city, people_path(q: { city_eq: record.city })
             br
-          - if record.phone
+          - if record.phone.present?
             ' Phone: #{record.phone}
             br
-          - if record.skype
+          - if record.skype.present?
             ' Skype: #{record.skype}
             br
-          - if record.linkedin
+          - if record.linkedin.present?
             ' LinkedIn:
             a href="#{record.linkedin}" Link
             br
-          - if record.facebook
+          - if record.facebook.present?
             ' Facebook:
             a href="#{record.facebook}" Link
             br
           - if record.wants_relocate
             ' Relocate: #{record.wants_relocate ? 'yes' : '-'}
             br
-          - if record.english
+          - if record.english.present?
             ' English:
             = link_to record.english, people_path(q: { english_eq: record.english })
             br
