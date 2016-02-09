@@ -9,15 +9,7 @@ table.table
     th File
     th = sort_link @q, :updated_at, 'Date'
     th Actions
-  tbody
-    - @attachments.each do |record|
-      tr
-        td = record.id
-        td = link_to record.person.name, person_path(record.person)
-        td = record.name
-        td = with_newlines(record.description)
-        td = link_to 'Download', Refile.attachment_url(record, :file)
-        td = record.updated_at.strftime('%e %b %Y')
-        td
-          a href="#{edit_attachment_path(record)}"
-            i.fa.fa-pencil
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @attachments
