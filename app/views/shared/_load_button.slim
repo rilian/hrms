@@ -1,0 +1,4 @@
+- if collection.limit(nil).offset(nil).size > ENV['ITEMS_PER_PAGE'].to_i && !collection.empty?
+  button.btn.btn-success.js-load-more data-limit="#{ENV['ITEMS_PER_PAGE']}"
+    span style="display: none;"
+    | Load more

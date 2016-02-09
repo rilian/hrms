@@ -18,4 +18,13 @@ module ApplicationHelper
   def with_newlines(str)
     str.gsub("\n", '<br/>').html_safe
   end
+
+  def limit
+    (params[:limit] || ENV['ITEMS_PER_PAGE']).to_i
+  end
+
+  def last_page?(collection)
+    offset = params[:offset].to_i || 0
+    (limit + offset) >= collection.limit(nil).offset(nil).size
+  end
 end

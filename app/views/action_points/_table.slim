@@ -1,0 +1,14 @@
+- if @action_points.empty?
+  span class='js-page-last'
+
+- @action_points.each_with_index do |record, index|
+  tr class=('js-page-last' if (index == @action_points.size - 1) && last_page?(@action_points))
+    td = record.id
+    td = link_to record.person.name, person_path(record.person)
+    td = with_newlines(record.value)
+    td = record.is_completed? ? 'yes' : '-'
+    td = record.perform_on.strftime('%e %b %Y')
+    td = record.updated_at.strftime('%e %b %Y')
+    td
+      a href="#{edit_action_point_path(record)}"
+        i.fa.fa-pencil

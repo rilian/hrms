@@ -2,8 +2,17 @@ class ActionPointsController < ApplicationController
   def index
     @q = ActionPoint.ransack(params[:q])
     @q.sorts = 'updated_at desc' if @q.sorts.empty?
-    @action_points = @q.result.limit(params[:limit]).offset(params[:offset])
-      .includes(:person)
+    @action_points = @q.result
+
+    @action_points = @action_points.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
+    @action_points = @action_points.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
+
+    @action_points = @action_points.includes(:person)
+
+    respond_to do |f|
+      f.partial { render partial: 'table' }
+      f.html
+    end
   end
 
   def new
