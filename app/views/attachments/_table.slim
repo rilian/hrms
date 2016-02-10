@@ -1,0 +1,14 @@
+- if @attachments.empty?
+  span class='js-page-last'
+
+- @attachments.each_with_index do |record, index|
+  tr class=('js-page-last' if (index == @attachments.size - 1) && last_page?(@attachments))
+    td = record.id
+    td = link_to record.person.name, person_path(record.person)
+    td = record.name
+    td = with_newlines(record.description)
+    td = link_to 'Download', Refile.attachment_url(record, :file)
+    td = record.updated_at.strftime('%e %b %Y')
+    td
+      a href="#{edit_attachment_path(record)}"
+        i.fa.fa-pencil

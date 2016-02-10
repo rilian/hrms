@@ -13,8 +13,15 @@ class PeopleController < ApplicationController
       @people = @people.tagged_with(params[:q][:by_tag_excluding], exclude: true)
     end
 
-    @people = @people.limit(params[:limit]).offset(params[:offset])
-      .includes(:notes, :attachments, :assessments, :action_points)
+    @people = @people.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
+    @people = @people.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
+
+    @people = @people.includes(:notes, :attachments, :assessments, :action_points)
+
+    respond_to do |f|
+      f.partial { render partial: 'table' }
+      f.html
+    end
   end
 
   def show

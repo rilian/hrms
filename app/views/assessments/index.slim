@@ -8,6 +8,7 @@ table.table.pretty-table
     th = sort_link @q, :total
     th = sort_link @q, :updated_at, 'Date'
     th Actions
+<<<<<<< HEAD
   tbody
     - @assessments.each do |record|
       tr
@@ -24,3 +25,9 @@ table.table.pretty-table
           a href="#{edit_assessment_path(record)}" class="btn btn-sm btn-info btn-pill"
             i.fa.fa-pencil
             | &nbsp;Edit
+=======
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @assessments
+>>>>>>> upstream/master

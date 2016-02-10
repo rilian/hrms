@@ -7,6 +7,7 @@ table.table.pretty-table
     th = sort_link @q, :type
     th = sort_link @q, :value
     th = sort_link @q, :updated_at, 'Date'
+<<<<<<< HEAD
     th colspan="2" Actions 
   tbody
     - @notes.each do |record|
@@ -24,3 +25,10 @@ table.table.pretty-table
           a href="#{edit_note_path(record)}" class="btn btn-sm btn-info btn-pill"
             i.fa.fa-pencil
             | &nbsp;Edit
+=======
+    th Actions
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @notes
+>>>>>>> upstream/master

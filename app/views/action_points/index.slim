@@ -8,6 +8,7 @@ table.table.pretty-table
     th = sort_link @q, :is_completed, 'Completed'
     th = sort_link @q, :perform_on
     th = sort_link @q, :updated_at, 'Date'
+<<<<<<< HEAD
     th colspan="2" Actions
   tbody
     - @action_points.each do |record|
@@ -26,3 +27,10 @@ table.table.pretty-table
           a href="#{edit_action_point_path(record)}" class="btn btn-sm btn-info btn-pill"
               i.fa.fa-pencil
               | &nbsp;Edit
+=======
+    th Actions
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @action_points
+>>>>>>> upstream/master

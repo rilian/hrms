@@ -7,6 +7,7 @@ table.table.pretty-table
     th = sort_link @q, :notifications_enabled, 'Notifications'
     th = sort_link @q, :updated_at, 'Date'
     th Actions
+<<<<<<< HEAD
   tbody
     - @users.each do |record|
       tr
@@ -23,3 +24,9 @@ table.table.pretty-table
           a href="#{edit_user_path(record)}" class="btn btn-sm btn-info btn-pill"
             i.fa.fa-pencil
             |  Edit
+=======
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @users
+>>>>>>> upstream/master
