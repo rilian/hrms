@@ -8,29 +8,8 @@ table.table.pretty-table
     th = sort_link @q, :is_completed, 'Completed'
     th = sort_link @q, :perform_on
     th = sort_link @q, :updated_at, 'Date'
-<<<<<<< HEAD
     th colspan="2" Actions
-  tbody
-    - @action_points.each do |record|
-      tr
-        td = record.id
-        td = record.person.name
-        td = with_newlines(record.value)
-        td = record.is_completed? ? 'yes' : '-'
-        td = record.perform_on.strftime('%e %b %Y')
-        td = record.updated_at.strftime('%e %b %Y')
-        td colspan="2"
-          a href="#{person_path(record.person)}" class="btn btn-sm btn-default btn-pill"
-            i.fa.fa-eye
-            | &nbsp;View
-          ' &nbsp;
-          a href="#{edit_action_point_path(record)}" class="btn btn-sm btn-info btn-pill"
-              i.fa.fa-pencil
-              | &nbsp;Edit
-=======
-    th Actions
   tbody.js-loadable-list
     = render 'table'
 
 = render 'shared/load_button', collection: @action_points
->>>>>>> upstream/master

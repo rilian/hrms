@@ -11,5 +11,6 @@
     td = record.notifications_enabled? ? 'yes' : '-'
     td = record.updated_at.strftime('%e %b %Y')
     td
-      a href="#{edit_user_path(record)}"
+      a href="#{edit_user_path(record)}" class="btn btn-sm btn-info btn-pill"
         i.fa.fa-pencil
+        |  Edit

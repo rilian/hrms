@@ -8,26 +8,7 @@ table.table.pretty-table
     th = sort_link @q, :total
     th = sort_link @q, :updated_at, 'Date'
     th Actions
-<<<<<<< HEAD
-  tbody
-    - @assessments.each do |record|
-      tr
-        td = record.id
-        td = link_to record.person.name, person_path(record.person)
-        td
-          - Assessment::TOPICS.each do |topic|
-            - if record.value.key?(topic)
-              = "#{topic}: #{record.value[topic]}"
-              br
-        td = record.total
-        td = record.updated_at.strftime('%e %b %Y')
-        td
-          a href="#{edit_assessment_path(record)}" class="btn btn-sm btn-info btn-pill"
-            i.fa.fa-pencil
-            | &nbsp;Edit
-=======
   tbody.js-loadable-list
     = render 'table'
 
 = render 'shared/load_button', collection: @assessments
->>>>>>> upstream/master
