@@ -12,7 +12,11 @@
           br
     td = record.total
     td = record.updated_at.strftime('%e %b %Y')
-    td
+    td colspan="2"
+      a href="#{person_path(record.person)}" class="btn btn-sm btn-default btn-pill"
+        i.fa.fa-eye
+        | &nbsp;View profile
+      ' &nbsp;
       a href="#{edit_assessment_path(record)}" class="btn btn-pill btn-default"
         i.fa.fa-pencil
         | &nbsp; Edit

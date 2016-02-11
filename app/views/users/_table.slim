@@ -7,7 +7,9 @@
     td
       = record.email
       - if current_user.email == record.email
-        ' &nbsp;YOU
+        | &nbsp;
+        span.label.label-warning
+          | YOU
     td = record.notifications_enabled? ? 'yes' : '-'
     td = record.updated_at.strftime('%e %b %Y')
     td

@@ -1,9 +1,13 @@
 .title {
   margin: 0;
   font-family: HelveticaNeue;
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-weight: 600;
   color: #253ABE;
+
+  a {
+    text-transform: none;
+  }
 }
 
 .group {
@@ -21,8 +25,6 @@
   width: 100%;
   height: 100%;
 }
-
-
 
 .btn-pill {
   border-radius:23px;

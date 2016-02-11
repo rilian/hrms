@@ -1,28 +1,22 @@
 = render 'shared/form_error', object: @action_point
 
-= simple_form_for @action_point, html: { class: 'form' } do |f|
-  .form-group
-    label.col-md-4.control-label
-      | Person
-      span.text-danger *
-    .col-md-7
-      = f.input :person_id, as: :hidden
-      input.select.form-control value="#{Person.find_by_id((params.dig(:action_point, :person_id)) || @action_point)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#action_point_person_id" data-auto-focus="true"
-  .form-group
-    label.col-md-4.control-label
-      | Value
-      span.text-danger *
-    .col-md-7
-      = f.input :value, as: :text, placeholder: 'What should be done', label: false, input_html: { rows: 10 }
-  .form-group
-    label.col-md-4.control-label Perform On
-    .col-md-7
-      = f.input :perform_on, as: :date, label: false
-  .form-group
-    label.col-md-4.control-label Completed?
-    .col-md-7
-      = f.input :is_completed, as: :boolean, label: false
-  .form-bordered
-    .form-group.form-actions
-      .text-center
-        = f.button :submit, (@action_point.new_record? ? 'Create Action' : 'Update Action'), class: 'btn btn-success'
+.row
+  .col-md-7
+    = simple_form_for @action_point, html: { class: 'form' } do |f|
+      .form-group
+        label.control-label
+          | Person
+          span.text-danger *
+        = f.input :person_id, as: :hidden
+        input.select.form-control value="#{Person.find_by_id((params.dig(:action_point, :person_id)) || @action_point)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#action_point_person_id" data-auto-focus="true"
+      .form-group
+        label.control-label
+          | Value
+          span.text-danger *
+        = f.input :value, as: :text, placeholder: 'What should be done', label: false, input_html: { rows: 10 }
+      = f.input :perform_on, as: :date, label: "Perform on:"
+      = f.input :is_completed, as: :boolean, label: 'Completed'
+      .form-bordered
+        .form-group.form-actions
+          .text-center
+            = f.button :submit, (@action_point.new_record? ? '+ Create Action' : 'Update Action'), class: 'btn btn-success'

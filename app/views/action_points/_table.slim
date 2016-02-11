@@ -4,7 +4,7 @@
 - @action_points.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @action_points.size - 1) && last_page?(@action_points))
     td = record.id
-    td = link_to record.person.name, person_path(record.person)
+    td = record.person.name
     td = with_newlines(record.value)
     td = record.is_completed? ? 'yes' : '-'
     td = record.perform_on.strftime('%e %b %Y')
@@ -12,7 +12,7 @@
     td colspan="2"
       a href="#{person_path(record.person)}" class="btn btn-sm btn-default btn-pill"
         i.fa.fa-eye
-        | &nbsp;View
+        | &nbsp;View profile
       ' &nbsp;
       a href="#{edit_action_point_path(record)}" class="btn btn-sm btn-info btn-pill"
           i.fa.fa-pencil
