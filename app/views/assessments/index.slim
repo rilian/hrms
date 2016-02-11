@@ -1,13 +1,17 @@
-h1 Assessments
+h2.title 
+  | ASSESSMENTS &nbsp;
+  a.btn.btn-default.btn-pill href="/assessments/new"
+    i.fa.fa-plus
+    | &nbsp; Add assessment
 
-table.table
+table.table.pretty-table
   thead
     th = sort_link @q, :id
     th = sort_link @q, :person, ['person_name'], 'Person'
     th Values
     th = sort_link @q, :total
     th = sort_link @q, :updated_at, 'Date'
-    th Actions
+    th colspan="2" Actions
   tbody.js-loadable-list
     = render 'table'
 

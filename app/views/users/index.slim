@@ -1,12 +1,17 @@
-h1 Users
+h2.title 
+  | USERS &nbsp;
+  a.btn.btn-default.btn-pill href="/users/new"
+    i.fa.fa-plus
+    | &nbsp; Add user
 
-table.table
+table.table.pretty-table
   thead
-    th = sort_link @q, :id
+    th = sort_link @q, :id, '#'
     th = sort_link @q, :email
     th = sort_link @q, :notifications_enabled, 'Notifications'
     th = sort_link @q, :updated_at, 'Date'
     th Actions
+    
   tbody.js-loadable-list
     = render 'table'
 

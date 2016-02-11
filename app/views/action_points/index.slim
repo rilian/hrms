@@ -1,6 +1,10 @@
-h1 Actions
+h2.title 
+  | Actions &nbsp;
+  a.btn.btn-default.btn-pill href="/action_points/new"
+    i.fa.fa-plus
+    | &nbsp; Add action
 
-table.table
+table.table.pretty-table
   thead
     th = sort_link @q, :id
     th = sort_link @q, :person, ['person_name'], 'Person'
@@ -8,7 +12,7 @@ table.table
     th = sort_link @q, :is_completed, 'Completed'
     th = sort_link @q, :perform_on
     th = sort_link @q, :updated_at, 'Date'
-    th Actions
+    th colspan="2" Actions
   tbody.js-loadable-list
     = render 'table'
 

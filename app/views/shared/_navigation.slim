@@ -1,31 +1,49 @@
 - if current_user
-  nav.nav.navbar-default
-    .container-fluid
-      ul.nav.nav-tabs.nav-tabs
-        li role="presentation"
+  
+  nav.navbar.navbar-default
+    .container
+      .navbar-header
+      a.navbar-brand href="#{root_path}" 
+        i.fa.fa-users
+        |  HRMS
+      
+      ul.nav.navbar-nav
+        li role="presentation" class="#{active_class('/')}"
           a href="#{root_path}" Dashboard
-        li role="presentation"
+        li role="presentation" class="#{active_class('/people')}"
           a href="#{people_path}" People
-        li role="presentation"
+        li role="presentation" class="#{active_class('/notes')}"
           a href="#{notes_path}" Notes
-        li role="presentation"
+        li role="presentation" class="#{active_class('/assessments')}"
           a href="#{assessments_path}" Assessments
-        li role="presentation"
+        li role="presentation" class="#{active_class('/action_points')}"
           a href="#{action_points_path}" Actions
-        li role="presentation"
+        li role="presentation" class="#{active_class('/attachments')}"
           a href="#{attachments_path}" Attachments
-        li role="presentation"
+        li role="presentation" class="#{active_class('/tags')}"
           a href="#{tags_path}" Tags
-        li role="presentation"
+        li role="presentation" class="#{active_class('/users')}"
           a href="#{users_path}" Users
-
-        li role="presentation"
-          a.btn-default href="#{new_person_path}" + Person
-        li role="presentation"
-          a.btn-default href="#{new_note_path}" + Note
-        li role="presentation"
-          a.btn-default href="#{new_assessment_path}" + Assessment
-        li role="presentation"
-          a.btn-default href="#{new_action_point_path}" + Action
-        li role="presentation"
-          a.btn-default href="#{new_attachment_path}" + Attachment
+      
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown 
+          a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
+            i.fa.fa-plus
+            |  Add
+            span.caret
+          ul.dropdown-menu
+            li
+              a href="#{new_person_path}" 
+                |  Person
+            li
+              a href="#{new_note_path}"
+                |  Note
+            li
+              a href="#{new_assessment_path}" 
+                |  Assessment
+            li
+              a href="#{new_action_point_path}"
+                |  Action
+            li
+              a href="#{new_attachment_path}"
+                |  Attachment

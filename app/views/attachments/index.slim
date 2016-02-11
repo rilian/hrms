@@ -1,6 +1,11 @@
-h1 Attachments
+h2.title 
+  | ATTACHMENTS &nbsp;
+  a.btn.btn-default.btn-pill href="/attachments/new"
+    i.fa.fa-plus
+    | &nbsp; Add attachment
 
-table.table
+
+table.table.pretty-table
   thead
     th = sort_link @q, :id
     th = sort_link @q, :person, ['person_name'], 'Person'
