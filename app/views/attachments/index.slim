@@ -1,4 +1,4 @@
-h2.title 
+h2.title
   | ATTACHMENTS &nbsp;
   a.btn.btn-default.btn-pill href="/attachments/new"
     i.fa.fa-plus
@@ -7,7 +7,6 @@ h2.title
 
 table.table.pretty-table
   thead
-    th = sort_link @q, :id
     th = sort_link @q, :person, ['person_name'], 'Person'
     th = sort_link @q, :name
     th = sort_link @q, :description

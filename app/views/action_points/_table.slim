@@ -3,7 +3,6 @@
 
 - @action_points.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @action_points.size - 1) && last_page?(@action_points))
-    td = record.id
     td = record.person.name
     td = with_newlines(record.value)
     td = record.is_completed? ? 'yes' : '-'

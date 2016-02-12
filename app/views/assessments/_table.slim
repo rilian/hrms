@@ -3,7 +3,6 @@
 
 - @assessments.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @assessments.size - 1) && last_page?(@assessments))
-    td = record.id
     td = link_to record.person.name, person_path(record.person)
     td
       - Assessment::TOPICS.each do |topic|

@@ -1,4 +1,4 @@
-h2.title 
+h2.title
   | PEOPLE &nbsp;
   a.btn.btn-default.btn-pill href="/people/new"
     i.fa.fa-plus
@@ -12,7 +12,7 @@ h2.title
           input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Anything" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
       .col-md-2
         .form-group
-          button.btn.btn-primary.btn-wide type="submit" 
+          button.btn.btn-primary.btn-wide type="submit"
             i.fa.fa-search
             | &nbsp; Search
     .row
@@ -39,7 +39,6 @@ h2.title
 
 table.table.pretty-table
   thead
-    th = sort_link @q, :id
     th = sort_link @q, :name
     th = sort_link @q, :primary_tech
     th = sort_link @q, :priority

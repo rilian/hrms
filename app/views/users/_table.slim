@@ -3,7 +3,6 @@
 
 - @users.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @users.size - 1) && last_page?(@users))
-    td = record.id
     td
       = record.email
       - if current_user.email == record.email

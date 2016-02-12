@@ -3,7 +3,6 @@
 
 - @people.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @people.size - 1) && last_page?(@people))
-    td = record.id
     td
       strong
         = link_to record.name.titleize, person_path(record)

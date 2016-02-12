@@ -3,7 +3,6 @@
 
 - @notes.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @notes.size - 1) && last_page?(@notes))
-    td = record.id
     td = link_to record.person.name, person_path(record.person)
     td = record.type
     td = with_newlines(record.value)

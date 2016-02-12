@@ -1,4 +1,4 @@
-h2.title 
+h2.title
   | ASSESSMENTS &nbsp;
   a.btn.btn-default.btn-pill href="/assessments/new"
     i.fa.fa-plus
@@ -6,7 +6,6 @@ h2.title
 
 table.table.pretty-table
   thead
-    th = sort_link @q, :id
     th = sort_link @q, :person, ['person_name'], 'Person'
     th Values
     th = sort_link @q, :total

@@ -1,4 +1,4 @@
-h2.title 
+h2.title
   | Actions &nbsp;
   a.btn.btn-default.btn-pill href="/action_points/new"
     i.fa.fa-plus
@@ -6,7 +6,6 @@ h2.title
 
 table.table.pretty-table
   thead
-    th = sort_link @q, :id
     th = sort_link @q, :person, ['person_name'], 'Person'
     th = sort_link @q, :value
     th = sort_link @q, :is_completed, 'Completed'
