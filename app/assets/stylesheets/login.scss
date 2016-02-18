@@ -1,0 +1,36 @@
+.login {
+  background: #3B4664;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.login-form {
+  flex-grow: 1;
+  max-width: 500px;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 10px 0px darken(#3B4863, 10);
+
+  .form-control {
+    width: 95%;
+  }
+}
+
+.login-title {
+  padding: 10px 0;
+  margin: 5px 0 30px;
+  display: inline-block;
+  border-bottom: 5px solid #8392A7;
+  text-transform: uppercase;
+  font-size: 1.6em;
+  font-weight: 600;
+}
+
+.fluid {
+  width: 100%;
+  height: 100%;
+}

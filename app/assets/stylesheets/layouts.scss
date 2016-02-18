@@ -1,0 +1,8 @@
+.group {
+  border: 2px solid darken(rgba(105, 188, 228, 0.7), 10);
+  border-radius: 5px;
+  padding: 10px;
+  -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0,6,155,0.2);
+  -moz-box-shadow:  inset 2px 2px 2px 0px rgba(0,6,155,0.2);
+  box-shadow: inset 2px 2px 2px 0px rgba(0,6,155,0.2);
+}

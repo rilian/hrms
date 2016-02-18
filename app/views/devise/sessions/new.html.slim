@@ -1,10 +1,23 @@
-h2.title
-  | SIGN IN
-= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .form-inputs
-    = f.input :email, required: false, autofocus: true
-    = f.input :password, required: false
+.text-center
+  h3.login-title
+    | Sign in
+
+.form-horizontal
+  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-group
+      label.control-label.col-sm-3
+        | Email: 
+      .col-sm-9
+        = f.input :email, required: false, autofocus: true, label: false
+    .form-group
+      label.control-label.col-sm-3
+        | Password: 
+      .col-sm-9
+        = f.input :password, required: false, label: false
+    
     = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-  .form-actions
-    = f.button :submit, "Log in"
-= render "devise/shared/links"
+    
+    .text-center
+      = f.button :submit, "Login", class: 'btn-wide btn-lg btn-pill btn btn-success'
+      | &nbsp; or &nbsp;
+      = render "devise/shared/links"
