@@ -1,0 +1,30 @@
+.cards {
+  display: block;
+  margin: 20px 0;
+}
+
+.card {
+  display: inline-block;
+  max-width: 250px;
+  margin: 10px 10px 10px 0;
+  background: white;
+  border-radius: 3px;
+  text-align: center;
+  border: 1px solid lighten(#ADB7BA, 5);
+  padding: 10px;
+  box-shadow: 3px 3px 3px 0 RGBA(173, 183, 186, 0.2);
+
+  &.wider {
+    max-width: 500px;
+  }
+
+  .card-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .card-body {
+    font-size: 2em
+  }
+}

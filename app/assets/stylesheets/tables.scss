@@ -1,0 +1,43 @@
+table.pretty-table {
+  border-radius: 3px;
+  margin: 20px 0;
+
+  thead {
+    border-radius: 3px;
+    border-top: 1px solid #EDEDED;
+    border-bottom: 1px solid #EDEDED;
+
+    tr {
+      height: 60px;
+    }
+
+    th {
+      border: none !important;
+      vertical-align: middle;
+
+      a {
+        color: black;
+        text-decoration: none;
+        vertical-align: middle;
+        line-height: 30px;
+
+        i {
+          .fa-sort-up, .fa-sort-down {
+            line-height: inherit;
+          }
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:nth-child(even) {
+        background: #F7F7F7;
+      }
+    }
+    td {
+      border: none !important;
+    }
+  }
+}
