@@ -15,6 +15,12 @@
   border-radius: 5px;
   box-shadow: 3px 3px 10px 0px darken(#3B4863, 10);
 
+  .btn-wide {
+    display: block;
+    margin: 20px  auto;
+    width: auto;
+  }
+
   .form-control {
     width: 95%;
   }
