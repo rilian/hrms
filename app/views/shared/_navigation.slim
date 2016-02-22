@@ -1,49 +1,113 @@
 - if current_user
   
-  nav.navbar.navbar-default
-    .container
-      .navbar-header
-      a.navbar-brand href="#{root_path}" 
+  .logo
+    a href="/"
+      | HRMS
+  
+  ul.navigation-links
+    li.divider
+    li.title
+      | Admin
+    li.item role="presentation" class="#{active_class('/')}"
+      a href="#{root_path}" 
+        i.fa.fa-tachometer
+        | &nbsp; Dashboard
+    li.item role="presentation" class="#{active_class('/people')}"
+      a href="#{people_path}" 
         i.fa.fa-users
-        |  HRMS
+        | &nbsp; People
+    li.item role="presentation" class="#{active_class('/notes')}"
+      a href="#{notes_path}" 
+        i.fa.fa-sticky-note 
+        | &nbsp; Notes
+    li.item role="presentation" class="#{active_class('/assessments')}"
+      a href="#{assessments_path}" 
+        i.fa.fa-graduation-cap
+        | &nbsp; Assessments
+    li.item role="presentation" class="#{active_class('/action_points')}"
+      a href="#{action_points_path}" 
+        i.fa.fa-dot-circle-o 
+        | &nbsp; Actions
+    li.item role="presentation" class="#{active_class('/attachments')}"
+      a href="#{attachments_path}" 
+        i.fa.fa-paperclip
+        | &nbsp; Attachments
+    li.item role="presentation" class="#{active_class('/tags')}"
+      a href="#{tags_path}" 
+        i.fa.fa-tags
+        | &nbsp; Tags
+    li.divider
+    li.title
+      | Add
+    li.item
+      a href="#{new_person_path}" 
+        i.fa.fa-plus
+        | &nbsp; Person
+    li.item
+      a href="#{new_note_path}"
+        i.fa.fa-plus
+        | &nbsp; Note
+    li.item
+      a href="#{new_assessment_path}" 
+        i.fa.fa-plus
+        | &nbsp; Assessment
+    li.item
+      a href="#{new_action_point_path}"
+        i.fa.fa-plus
+        | &nbsp; Action
+    li.item
+      a href="#{new_attachment_path}"
+        i.fa.fa-plus
+        | &nbsp; Attachment
       
-      ul.nav.navbar-nav
-        li role="presentation" class="#{active_class('/')}"
-          a href="#{root_path}" Dashboard
-        li role="presentation" class="#{active_class('/people')}"
-          a href="#{people_path}" People
-        li role="presentation" class="#{active_class('/notes')}"
-          a href="#{notes_path}" Notes
-        li role="presentation" class="#{active_class('/assessments')}"
-          a href="#{assessments_path}" Assessments
-        li role="presentation" class="#{active_class('/action_points')}"
-          a href="#{action_points_path}" Actions
-        li role="presentation" class="#{active_class('/attachments')}"
-          a href="#{attachments_path}" Attachments
-        li role="presentation" class="#{active_class('/tags')}"
-          a href="#{tags_path}" Tags
-        li role="presentation" class="#{active_class('/users')}"
-          a href="#{users_path}" Users
-      
-      ul.nav.navbar-nav.navbar-right
-        li.dropdown 
-          a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
-            i.fa.fa-plus
-            |  Add
-            span.caret
-          ul.dropdown-menu
-            li
-              a href="#{new_person_path}" 
-                |  Person
-            li
-              a href="#{new_note_path}"
-                |  Note
-            li
-              a href="#{new_assessment_path}" 
-                |  Assessment
-            li
-              a href="#{new_action_point_path}"
-                |  Action
-            li
-              a href="#{new_attachment_path}"
-                |  Attachment
+    li.divider
+    li.item role="presentation" class="#{active_class('/users')} bottom"
+      a href="#{users_path}" Users
+  
+  / nav.navbar.navbar-default
+  /   .container
+  /     .navbar-header
+  /     a.navbar-brand href="#{root_path}" 
+  /       i.fa.fa-users
+  /       |  HRMS
+  /     
+  /     ul.nav.navbar-nav
+  /       li role="presentation" class="#{active_class('/')}"
+  /         a href="#{root_path}" Dashboard
+  /       li role="presentation" class="#{active_class('/people')}"
+  /         a href="#{people_path}" People
+  /       li role="presentation" class="#{active_class('/notes')}"
+  /         a href="#{notes_path}" Notes
+  /       li role="presentation" class="#{active_class('/assessments')}"
+  /         a href="#{assessments_path}" Assessments
+  /       li role="presentation" class="#{active_class('/action_points')}"
+  /         a href="#{action_points_path}" Actions
+  /       li role="presentation" class="#{active_class('/attachments')}"
+  /         a href="#{attachments_path}" Attachments
+  /       li role="presentation" class="#{active_class('/tags')}"
+  /         a href="#{tags_path}" Tags
+  /       li role="presentation" class="#{active_class('/users')}"
+  /         a href="#{users_path}" Users
+  /     
+  /     ul.nav.navbar-nav.navbar-right
+  /       li.dropdown 
+  /         a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
+  /           i.fa.fa-plus
+  /           |  Add
+  /           span.caret
+  /         ul.dropdown-menu
+  /           li
+  /             a href="#{new_person_path}" 
+  /               |  Person
+  /           li
+  /             a href="#{new_note_path}"
+  /               |  Note
+  /           li
+  /             a href="#{new_assessment_path}" 
+  /               |  Assessment
+  /           li
+  /             a href="#{new_action_point_path}"
+  /               |  Action
+  /           li
+  /             a href="#{new_attachment_path}"
+  /               |  Attachment

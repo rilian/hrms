@@ -1,6 +1,113 @@
+$side-panel-color: #354052;
+
 .cards {
   display: block;
   margin: 20px 0;
+}
+
+.logo {
+  font-size: 1.7em;
+  font-weight: 600;
+  text-align: center;
+  background: $side-panel-color;
+  height: 60px;
+  line-height: 60px;
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+
+  a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+}
+
+.dashboard {
+  display: flex;
+  height: 100%;
+
+  .side-panel {
+    width: 15%;
+    background: $side-panel-color;
+  }
+
+  .content {
+    width: 85%;
+    padding: 20px 10px;
+  }
+}
+
+.navigation-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    &.item:hover {
+      background: rgba(255,255,255,0.3);
+      a {
+        color: rgba(255,255,255,0.6);
+      }
+    }
+
+    &.bottom {
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 15%;
+
+      &.active {
+        border: none;
+        background: #33A4FA;
+      }
+    }
+
+    &.divider {
+      height: 5px;
+      background-color: #2A3342;
+      box-shadow: inset 0 -1px 1px rgba(255,255,255,0.15);
+    }
+
+    &.title {
+      padding: 0 20px;
+      color: #64738B;
+      text-transform: capitalize;
+      font-size: 1em;
+      line-height: 40px; vertical-align: middle;
+    }
+
+    &.active {
+      background: #2E3849 !important;
+      border-left: 4px solid #33A4FA;
+
+      a {
+        padding: 0 15px;
+        color: #ffffff !important;
+      }
+    }
+
+    a {
+      display: block;
+      padding: 0 20px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #8995A8;
+      line-height: 40px;
+      vertical-align: middle;
+      font-size: 1em;
+      font-weight: 600;
+    }
+  }
 }
 
 .card {
