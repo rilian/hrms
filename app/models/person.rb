@@ -4,6 +4,7 @@ class Person < ActiveRecord::Base
   PRIMARY_TECHS = %w(
     Ruby
     Frontend
+    NET
     Java
     iOS
     Android
