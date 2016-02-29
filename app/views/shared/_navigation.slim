@@ -1,46 +1,41 @@
 - if current_user
-  
   .logo
     a href="/"
       | HRMS
-  
+
   ul.navigation-links
     li.divider
-    li.title
-      | Admin
     li.item role="presentation" class="#{active_class('/')}"
-      a href="#{root_path}" 
+      a href="#{root_path}"
         i.fa.fa-tachometer
         | &nbsp; Dashboard
     li.item role="presentation" class="#{active_class('/people')}"
-      a href="#{people_path}" 
+      a href="#{people_path}"
         i.fa.fa-users
         | &nbsp; People
     li.item role="presentation" class="#{active_class('/notes')}"
-      a href="#{notes_path}" 
-        i.fa.fa-sticky-note 
+      a href="#{notes_path}"
+        i.fa.fa-sticky-note
         | &nbsp; Notes
     li.item role="presentation" class="#{active_class('/assessments')}"
-      a href="#{assessments_path}" 
+      a href="#{assessments_path}"
         i.fa.fa-graduation-cap
         | &nbsp; Assessments
     li.item role="presentation" class="#{active_class('/action_points')}"
-      a href="#{action_points_path}" 
-        i.fa.fa-dot-circle-o 
+      a href="#{action_points_path}"
+        i.fa.fa-dot-circle-o
         | &nbsp; Actions
     li.item role="presentation" class="#{active_class('/attachments')}"
-      a href="#{attachments_path}" 
+      a href="#{attachments_path}"
         i.fa.fa-paperclip
         | &nbsp; Attachments
     li.item role="presentation" class="#{active_class('/tags')}"
-      a href="#{tags_path}" 
+      a href="#{tags_path}"
         i.fa.fa-tags
         | &nbsp; Tags
     li.divider
-    li.title
-      | Add
     li.item
-      a href="#{new_person_path}" 
+      a href="#{new_person_path}"
         i.fa.fa-plus
         | &nbsp; Person
     li.item
@@ -48,7 +43,7 @@
         i.fa.fa-plus
         | &nbsp; Note
     li.item
-      a href="#{new_assessment_path}" 
+      a href="#{new_assessment_path}"
         i.fa.fa-plus
         | &nbsp; Assessment
     li.item
@@ -59,7 +54,10 @@
       a href="#{new_attachment_path}"
         i.fa.fa-plus
         | &nbsp; Attachment
-      
+
     li.divider
-    li.item role="presentation" class="#{active_class('/users')} bottom"
-      a href="#{users_path}" Users
+
+    li.item role="presentation" class="#{active_class('/users')}"
+      a href="#{users_path}"
+        i.fa.fa-users
+        | &nbsp; Users
