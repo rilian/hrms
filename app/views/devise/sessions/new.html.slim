@@ -18,6 +18,6 @@
     = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
     
     .text-center
-      = f.button :submit, "Login", class: 'btn-wide btn-lg btn-pill btn btn-success'
+      = f.button :submit, "Login", class: 'btn-wide btn-lg btn-success'
       | &nbsp; or &nbsp;
       = render "devise/shared/links"

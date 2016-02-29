@@ -1,5 +1,5 @@
 doctype html
-html lang="en" class=('fluid' if !current_user)
+html lang="en" class='fluid'
   head
     meta[charset="utf-8"]
     meta[http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"]
@@ -8,15 +8,21 @@ html lang="en" class=('fluid' if !current_user)
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
     = favicon_link_tag 'favicon.png'
-  body class=('fluid' if !current_user)
+  body class='fluid'
     - if current_user
-      = render 'shared/navigation'
-      .container
-        - flash.each do |key, value|
-          div class="#{flash_class(key)} alert-dismissable"
-            = value
+      .dashboard
+        .side-panel
+          = render 'shared/navigation'
+        .content
+          .container-fluid
+            - flash.each do |key, value|
+              div class="#{flash_class(key)} alert-dismissable"
+                = value
 
-        = yield
+            = yield
+        
+      / = render 'shared/navigation'
+      
     - else
       .login
         .login-form
