@@ -22,10 +22,6 @@
         ' Evaluated:
         a href="#{edit_assessment_path(assessment)}" #{assessment.total} points
         | , #{assessment.updated_at.strftime('%e %b %Y')}
-
-    td
-      - if record.priority.present?
-        = link_to record.priority, people_path(q: { priority_eq: record.priority })
     td
       - record.action_points.each do |action_point|
         - next if action_point.is_completed
