@@ -31,14 +31,6 @@ p
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
 p
-  | Priority &nbsp;
-  - if @person.priority.present?
-    strong
-      = @person.priority
-  - else
-    a href="#{edit_person_path(@person)}"
-      i.fa.fa-pencil
-p
   | Cultural fit &nbsp;
   - if @person.cultural_fit.present?
     = with_newlines(@person.cultural_fit)

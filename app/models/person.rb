@@ -13,18 +13,13 @@ class Person < ActiveRecord::Base
     QA/BA
   )
   ENGLISH_LEVELS = %w(
-    None
-    Beginner
+    Beginner/Elementary
+    Pre-Intermediate
     Intermediate
+    Upper-Intermediate
     Advanced
-    Native
   )
-  HIRING_PRIORITIES = %w(
-    High
-    Normal
-    Low
-  )
-  SEARCH_STR = %w[name city phone skype linkedin facebook primary_tech english priority
+  SEARCH_STR = %w[name city phone skype linkedin facebook primary_tech english
     notes_value action_points_value].join('_or_') << '_cont'
 
   has_many :action_points

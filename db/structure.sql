@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.0
--- Dumped by pg_dump version 9.5.0
+-- Dumped from database version 9.5.1
+-- Dumped by pg_dump version 9.5.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -186,7 +186,6 @@ CREATE TABLE people (
     primary_tech character varying,
     english character varying,
     cultural_fit text,
-    priority character varying DEFAULT 'Normal'::character varying NOT NULL,
     day_of_birth date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -540,4 +539,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160205211844');
 INSERT INTO schema_migrations (version) VALUES ('20160205211845');
 
 INSERT INTO schema_migrations (version) VALUES ('20160207151033');
+
+INSERT INTO schema_migrations (version) VALUES ('20160229151543');
 
