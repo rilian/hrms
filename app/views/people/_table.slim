@@ -12,8 +12,6 @@
       = link_to '+ Evaluate', new_assessment_path(person_id: record.id)
       br
       = link_to '+ Action', new_action_point_path(person_id: record.id)
-      br
-      = link_to '+ Attachment', new_attachment_path(person_id: record.id)
     td
       - if record.primary_tech.present?
         = link_to record.primary_tech, people_path(q: { primary_tech_eq: record.primary_tech })
@@ -49,22 +47,9 @@
         ' City:
         = link_to record.city, people_path(q: { city_eq: record.city })
         br
-      - if record.phone.present?
-        ' Phone: #{record.phone}
-        br
-      - if record.skype.present?
-        ' Skype: #{record.skype}
-        br
       - if record.linkedin.present?
         ' LinkedIn:
         a href="#{record.linkedin}" Link
-        br
-      - if record.facebook.present?
-        ' Facebook:
-        a href="#{record.facebook}" Link
-        br
-      - if record.wants_relocate
-        ' Relocate: #{record.wants_relocate ? 'yes' : '-'}
         br
       - if record.english.present?
         ' English:
