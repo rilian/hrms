@@ -13,13 +13,14 @@ class Person < ActiveRecord::Base
     PM
     QA/BA
   )
-  ENGLISH_LEVELS = %w(
-    Beginner/Elementary
-    Pre-Intermediate
-    Intermediate
-    Upper-Intermediate
-    Advanced
-  )
+  ENGLISH_LEVELS = [
+    'not tested',
+    'Beginner/Elementary',
+    'Pre-Intermediate',
+    'Intermediate',
+    'Upper-Intermediate',
+    'Advanced'
+  ]
   SEARCH_STR = %w[name city phone skype linkedin facebook primary_tech english
     notes_value action_points_value].join('_or_') << '_cont'
 
