@@ -28,11 +28,14 @@ $side-panel-color: #354052;
 
 .dashboard {
   display: flex;
+  min-width: 875px;
   height: 100%;
+  min-height: 100%;
 
   .side-panel {
     width: 15%;
     background: $side-panel-color;
+    overflow-y: auto;
   }
 
   .content {
