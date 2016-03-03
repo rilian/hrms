@@ -29,6 +29,8 @@
         - Note::TYPES.each do |type|
           - record.notes.select { |n| n.type == type}.sort { |a, b| b.updated_at <=> a.updated_at}.first.tap do |note|
             - if note.present?
+              = note.created_at.strftime('%e %b %Y')
+              | ,&nbsp;
               a href="#{edit_note_path(note)}" #{note.type}
               ' : #{with_newlines(truncate(note.value, length: 300, escape: false))}
               br
