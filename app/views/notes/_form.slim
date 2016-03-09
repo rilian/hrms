@@ -1,13 +1,17 @@
 = render 'shared/form_error', object: @note
 
 = simple_form_for @note, html: { class: 'form' } do |f|
+  = f.input :person_id, as: :hidden
   .form-group
-    label.col-md-4.control-label
-      | Person
+  - if @note.new_record?
+    label.control-label
       span.text-danger *
-    .col-md-7
-      = f.input :person_id, as: :hidden
-      input.select.form-control value="#{Person.find_by_id(params.dig(:note, :person_id))&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#note_person_id" data-auto-focus="true"
+      | Person:
+    input.select.form-control value="#{Person.find_by_id((params.dig(:note, :person_id)) || @note)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#note_person_id" data-auto-focus="true"
+  - else
+    label.control-label Person&nbsp;
+    a href="#{person_path(@note.person)}" #{@note.person.name}
+
   .form-group
     label.col-md-4.control-label Type
     .col-md-7

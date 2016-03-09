@@ -13,6 +13,7 @@
         - else
           label.control-label Person&nbsp;
           a href="#{person_path(@assessment.person)}" #{@assessment.person.name}
+
       - Assessment::TOPICS.each do |topic|
         .form-group
           label.control-label #{topic}:
