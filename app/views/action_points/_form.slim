@@ -4,14 +4,13 @@
   .col-md-7
     = simple_form_for @action_point, html: { class: 'form' } do |f|
       = f.input :person_id, as: :hidden
-      - if @action_point.new_record?
-        .form-group
+      .form-group
+        - if @action_point.new_record?
           label.control-label
             | Person
             span.text-danger *
-            input.select.form-control value="#{Person.find_by_id((params.dig(:action_point, :person_id)) || @action_point)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#action_point_person_id" data-auto-focus="true"
-      - else
-        .form-group
+          input.select.form-control value="#{Person.find_by_id((params.dig(:action_point, :person_id)) || @action_point)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#action_point_person_id" data-auto-focus="true"
+        - else
           label.control-label Person&nbsp;
           a href="#{person_path(@action_point.person)}" #{@action_point.person.name}
       .form-group
