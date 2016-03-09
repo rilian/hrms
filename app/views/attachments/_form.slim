@@ -1,13 +1,16 @@
 = render 'shared/form_error', object: @attachment
 
 = simple_form_for @attachment, html: { class: 'form' } do |f|
+  = f.input :person_id, as: :hidden
   .form-group
-    label.col-md-4.control-label
-      | Person
-      span.text-danger *
-    .col-md-7
-      = f.input :person_id, as: :hidden
-      input.select.form-control value="#{Person.find_by_id(params.dig(:attachment, :person_id))&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#attachment_person_id" data-auto-focus="true"
+    - if @attachment.new_record?
+      label.control-label
+        span.text-danger *
+        | Person:
+      input.select.form-control value="#{Person.find_by_id((params.dig(:attachment, :person_id)) || @attachment)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#attachment_person_id" data-auto-focus="true"
+    - else
+      label.control-label Person&nbsp;
+      a href="#{person_path(@attachment.person)}" #{@attachment.person.name}
   .form-group
     label.col-md-4.control-label
       | File
