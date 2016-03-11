@@ -59,7 +59,7 @@
       - unless record.tag_list.empty?
         ' Tags:&nbsp;
         - record.tag_list.each do |tag|
-          = link_to tag, '#'
+          = link_to record.name.titleize, people_path(q: { by_tag_including: tag })
           | &nbsp;
     td
       a href="#{edit_person_path(record)}"

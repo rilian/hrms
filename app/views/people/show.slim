@@ -16,7 +16,7 @@ p
   | Tags &nbsp;
   - unless @person.tag_list.empty?
     - @person.tag_list.each do |tag|
-      = link_to tag, '#'
+      = link_to @person.name.titleize, people_path(q: { by_tag_including: tag })
       | &nbsp;
   - else
     a href="#{edit_person_path(@person)}"
