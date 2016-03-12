@@ -50,7 +50,7 @@
         br
       - if record.linkedin.present?
         ' LinkedIn:
-        a href="#{record.linkedin}" Link
+        a href="#{'https'.in?(record.linkedin) ? record.linkedin : 'https://' + record.linkedin}" Link
         br
       - if record.english.present?
         ' English:
