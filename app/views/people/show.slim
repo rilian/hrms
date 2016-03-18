@@ -119,7 +119,7 @@ h3
 
 h3
   | Assessments &nbsp;
-  = link_to 'Evaluate', new_assessment_path(person_id: @person.id)
+  = link_to 'Evaluate', new_assessment_path(assessment: { person_id: @person.id })
 - @person.assessments.order(updated_at: :desc).each do |assessment|
   p
     a href="#{edit_assessment_path(assessment)}" #{assessment.updated_at.strftime('%e %b %Y')}

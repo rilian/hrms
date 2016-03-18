@@ -3,15 +3,22 @@
 .row
   .col-md-7
     = simple_form_for @assessment, html: { class: 'form' } do |f|
-      = f.input :person_id, as: :hidden
       .form-group
         - if @assessment.new_record?
-          label.control-label
-            span.text-danger *
-            | Person:
-          input.select.form-control value="#{Person.find_by_id((params.dig(:assessment, :person_id)) || @assessment)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#assessment_person_id" data-auto-focus="true"
+          - if params.dig(:assessment, :person_id).blank?
+            = f.input :person_id, as: :hidden
+            label.control-label
+              span.text-danger *
+              | Person:&nbsp;
+            input.select.form-control value="#{(Person.find_by_id(params.dig(:assessment, :person_id)) || @assessment.person)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#assessment_person_id" data-auto-focus="true"
+          - else
+            = f.input :person_id, as: :hidden, input_html: {value: params[:assessment][:person_id]}
+            label.control-label
+              span.text-danger *
+              | Person:&nbsp;
+            a href="#{person_path(Person.find_by_id(params.dig(:assessment, :person_id)))}" #{(Person.find_by_id(params.dig(:assessment, :person_id))).name}
         - else
-          label.control-label Person&nbsp;
+          label.control-label Person3&nbsp;
           a href="#{person_path(@assessment.person)}" #{@assessment.person.name}
 
       - Assessment::TOPICS.each do |topic|
