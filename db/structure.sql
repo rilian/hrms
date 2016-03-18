@@ -188,7 +188,8 @@ CREATE TABLE people (
     cultural_fit text,
     day_of_birth date,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    email character varying
 );
 
 
@@ -541,4 +542,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160205211845');
 INSERT INTO schema_migrations (version) VALUES ('20160207151033');
 
 INSERT INTO schema_migrations (version) VALUES ('20160229151543');
+
+INSERT INTO schema_migrations (version) VALUES ('20160318215647');
 

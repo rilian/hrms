@@ -72,6 +72,14 @@ p
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
 p
+  | Email &nbsp;
+  - if @person.email.present?
+    strong
+      a href="mailto:#{@person.email}" #{@person.email}
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
+p
   | Facebook &nbsp;
   - if @person.facebook.present?
     strong
