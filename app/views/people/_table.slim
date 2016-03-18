@@ -36,7 +36,7 @@
               br
       = link_to '+ Note', new_note_path(note: { person_id: record.id })
       br
-      = link_to '+ Action', new_action_point_path(person_id: record.id)
+      = link_to '+ Action', new_action_point_path(action_point: { person_id: record.id })
     td
       - if record.attachments.size > 0
         | Attachments:&nbsp;

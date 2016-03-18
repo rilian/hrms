@@ -3,16 +3,24 @@
 .row
   .col-md-7
     = simple_form_for @action_point, html: { class: 'form' } do |f|
-      = f.input :person_id, as: :hidden
       .form-group
         - if @action_point.new_record?
-          label.control-label
-            | Person
-            span.text-danger *
-          input.select.form-control value="#{Person.find_by_id((params.dig(:action_point, :person_id)) || @action_point)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#action_point_person_id" data-auto-focus="true"
+          - if params.dig(:action_point, :person_id).blank?
+            = f.input :person_id, as: :hidden
+            label.control-label
+              span.text-danger *
+              | Person:&nbsp;
+            input.select.form-control value="#{(Person.find_by_id(params.dig(:action_point, :person_id)) || @action_point.person)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#action_point_person_id" data-auto-focus="true"
+          - else
+            = f.input :person_id, as: :hidden, input_html: { value: params[:action_point][:person_id] }
+            label.control-label
+              span.text-danger *
+              | Person:&nbsp;
+            a href="#{person_path(Person.find_by_id(params.dig(:action_point, :person_id)))}" #{(Person.find_by_id(params.dig(:action_point, :person_id))).name}
         - else
-          label.control-label Person&nbsp;
+          label.control-label Person3&nbsp;
           a href="#{person_path(@action_point.person)}" #{@action_point.person.name}
+
       .form-group
         label.control-label
           | Action description
