@@ -108,7 +108,7 @@ h3
 
 h3
   | Latest notes &nbsp;
-  = link_to 'Add Note', new_note_path(person_id: @person.id)
+  = link_to 'Add Note', new_note_path(note: { person_id: @person.id })
 - @person.notes.order(updated_at: :desc).each do |note|
   p
     = note.created_at.strftime('%e %b %Y')

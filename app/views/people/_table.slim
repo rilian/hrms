@@ -34,7 +34,7 @@
               a href="#{edit_note_path(note)}" #{note.type}
               ' : #{with_newlines(truncate(note.value, length: 300, escape: false))}
               br
-      = link_to '+ Note', new_note_path(person_id: record.id)
+      = link_to '+ Note', new_note_path(note: { person_id: record.id })
       br
       = link_to '+ Action', new_action_point_path(person_id: record.id)
     td
