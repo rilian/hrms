@@ -7,7 +7,7 @@
     td = with_newlines(record.value)
     td = record.is_completed? ? 'yes' : '-'
     td = record.perform_on.strftime('%e %b %Y')
-    td = record.updated_at.strftime('%e %b %Y')
+    td = record.created_at.strftime('%e %b %Y')
     td colspan="2"
       a href="#{person_path(record.person)}" class="btn btn-sm btn-default btn-pill"
         i.fa.fa-eye
