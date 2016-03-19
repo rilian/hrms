@@ -16,7 +16,7 @@
           | Person:&nbsp;
         a href="#{person_path(Person.find_by_id(params.dig(:note, :person_id)))}" #{(Person.find_by_id(params.dig(:note, :person_id))).name}
     - else
-      label.control-label Person3&nbsp;
+      label.control-label Person&nbsp;
       a href="#{person_path(@note.person)}" #{@note.person.name}
 
   .form-group

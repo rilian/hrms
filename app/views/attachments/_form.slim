@@ -16,7 +16,7 @@
           | Person:&nbsp;
         a href="#{person_path(Person.find_by_id(params.dig(:attachment, :person_id)))}" #{(Person.find_by_id(params.dig(:attachment, :person_id))).name}
     - else
-      label.control-label Person3&nbsp;
+      label.control-label Person&nbsp;
       a href="#{person_path(@attachment.person)}" #{@attachment.person.name}
 
   .form-group
