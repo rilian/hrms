@@ -18,7 +18,7 @@ class Note < ActiveRecord::Base
     'Decision',
     'CEO Opinion',
     'Interview With CEO',
-    'Was Recommended',
+    'Recommended',
     'Looking for Job',
     'Changed Job',
     'Other'
