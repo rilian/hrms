@@ -37,6 +37,11 @@
                       span
                     | #{grade(i)}
 
+      .form-group
+        label.control-label
+          | Created At:
+        = f.input :created_at, as: :date, start_year: 2014, end_year: Date.today.year, include_blank: true, label: false
+
       .form-group.form-actions
         .text-center
           = f.button :submit, (@assessment.new_record? ? '+ Create Assessment' : 'Update Assessment'), class: 'btn btn-success'

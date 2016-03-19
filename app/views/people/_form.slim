@@ -86,6 +86,11 @@
         label.control-label Cultural Fit:
         = f.input :cultural_fit, as: :text, label: false, placeholder: 'Explain if this person will be a good fit to our teams...', input_html: { rows: 5 }
 
+      .form-group
+        label.control-label
+          | Created At:
+        = f.input :created_at, as: :date, start_year: 2014, end_year: Date.today.year, include_blank: true, label: false
+
       .form-group.form-actions
         .text-center
           = f.button :submit, (@person.new_record? ? '+ Create Person' : 'Update Person'), class: 'btn btn-success'

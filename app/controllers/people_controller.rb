@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
 
   def index
     @q = Person.ransack(params[:q])
-    @q.sorts = 'updated_at desc' if @q.sorts.empty?
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
     @people = @q.result(distinct: true)
 
     if params.dig(:q, :by_tag_including)
@@ -60,6 +60,6 @@ private
 
   def person_params
     params.require(:person).permit(:name, :city, :phone, :skype, :linkedin, :email, :facebook, :wants_relocate,
-      :primary_tech, :english, :cultural_fit, :day_of_birth, tag_list: [])
+      :primary_tech, :english, :cultural_fit, :day_of_birth, :created_at, tag_list: [])
   end
 end

@@ -1,7 +1,7 @@
 class AssessmentsController < ApplicationController
   def index
     @q = Assessment.ransack(params[:q])
-    @q.sorts = 'updated_at desc' if @q.sorts.empty?
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
     @assessments = @q.result
 
     @assessments = @assessments.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
@@ -48,6 +48,6 @@ class AssessmentsController < ApplicationController
 private
 
   def assessment_params
-    params.require(:assessment).permit(:person_id)
+    params.require(:assessment).permit(:person_id, :created_at)
   end
 end

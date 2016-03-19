@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   def index
     @q = Note.ransack(params[:q])
-    @q.sorts = 'updated_at desc' if @q.sorts.empty?
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
     @notes = @q.result
 
     @notes = @notes.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
@@ -49,6 +49,6 @@ class NotesController < ApplicationController
 private
 
   def note_params
-    params.require(:note).permit(:person_id, :type, :value)
+    params.require(:note).permit(:person_id, :type, :value, :created_at)
   end
 end

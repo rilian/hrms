@@ -1,7 +1,7 @@
 class ActionPointsController < ApplicationController
   def index
     @q = ActionPoint.ransack(params[:q])
-    @q.sorts = 'updated_at desc' if @q.sorts.empty?
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
     @action_points = @q.result
 
     @action_points = @action_points.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
@@ -46,6 +46,6 @@ class ActionPointsController < ApplicationController
 private
 
   def action_point_params
-    params.require(:action_point).permit(:person_id, :is_completed, :type, :value, :perform_on)
+    params.require(:action_point).permit(:person_id, :is_completed, :type, :value, :perform_on, :created_at)
   end
 end

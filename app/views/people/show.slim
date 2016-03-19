@@ -147,3 +147,8 @@ h3
       br
       = with_newlines(attachment.description)
     br
+
+p
+  | Record created &nbsp;
+  strong
+    = @person.created_at.strftime('%e %b %Y')

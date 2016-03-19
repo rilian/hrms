@@ -1,7 +1,7 @@
 class AttachmentsController < ApplicationController
   def index
     @q = Attachment.ransack(params[:q])
-    @q.sorts = 'updated_at desc' if @q.sorts.empty?
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
     @attachments = @q.result
 
     @attachments = @attachments.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
@@ -50,6 +50,6 @@ class AttachmentsController < ApplicationController
 private
 
   def attachment_params
-    params.require(:attachment).permit(:person_id, :file, :name, :description)
+    params.require(:attachment).permit(:person_id, :file, :name, :description, :created_at)
   end
 end
