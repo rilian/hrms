@@ -11,7 +11,7 @@ class ActionPointsMailer < ActionMailer::Base
       )
 
     mail(
-      subject: "[HRMS] Actions digest for #{@time.strftime('%e %b %Y')}",
+      subject: "[HRMS] Actions digest for #{@time.strftime(t(:datetime))}",
       to: @user.email
     )
   end

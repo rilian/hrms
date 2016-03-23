@@ -7,7 +7,7 @@
     td = record.name
     td = with_newlines(record.description)
     td = link_to 'Download', Refile.attachment_url(record, :file)
-    td = record.created_at.strftime('%e %b %Y')
+    td = record.created_at.strftime(t(:datetime))
     td
       a.btn.btn-pill.btn-default href="#{edit_attachment_path(record)}"
         i.fa.fa-pencil

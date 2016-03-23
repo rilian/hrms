@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def index
     @q = User.ransack(params[:q])
-    @q.sorts = 'updated_at desc' if @q.sorts.empty?
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
     @users = @q.result
 
     @users = @users.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?

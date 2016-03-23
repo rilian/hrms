@@ -91,25 +91,25 @@ p
   | Date of birth &nbsp;
   - if @person.day_of_birth.present?
     strong
-      = @person.day_of_birth.strftime('%e %b %Y')
+      = @person.day_of_birth.strftime(t(:datetime))
   - else
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
 p
   | Profile created &nbsp;
   strong
-    = "#{@person.created_at.strftime('%e %b %Y')} (#{time_ago_in_words(@person.created_at)} ago)"
+    = "#{@person.created_at.strftime(t(:datetime))} (#{time_ago_in_words(@person.created_at)} ago)"
 p
   | Profile last updated &nbsp;
   strong
-    = "#{@person.updated_at.strftime('%e %b %Y')} (#{time_ago_in_words(@person.updated_at)} ago)"
+    = "#{@person.updated_at.strftime(t(:datetime))} (#{time_ago_in_words(@person.updated_at)} ago)"
 
 h3
   | Actions &nbsp;
   = link_to 'Add Action', new_action_point_path(action_point: { person_id: @person.id })
 - @person.action_points.order(is_completed: :asc, perform_on: :asc).each do |action|
   p
-    a href="#{edit_action_point_path(action)}" #{action.perform_on.strftime('%e %b %Y')}
+    a href="#{edit_action_point_path(action)}" #{action.perform_on.strftime(t(:datetime))}
     | &nbsp; #{action.is_completed? ? 'completed' : ''}
     br
     = with_newlines(action.value)
@@ -117,9 +117,9 @@ h3
 h3
   | Latest notes &nbsp;
   = link_to 'Add Note', new_note_path(note: { person_id: @person.id })
-- @person.notes.order(updated_at: :desc).each do |note|
+- @person.notes.order(created_at: :desc).each do |note|
   p
-    = note.created_at.strftime('%e %b %Y')
+    = note.created_at.strftime(t(:datetime))
     | ,&nbsp;
     a href="#{edit_note_path(note)}" #{note.type}
     br
@@ -128,9 +128,9 @@ h3
 h3
   | Assessments &nbsp;
   = link_to 'Evaluate', new_assessment_path(assessment: { person_id: @person.id })
-- @person.assessments.order(updated_at: :desc).each do |assessment|
+- @person.assessments.order(created_at: :desc).each do |assessment|
   p
-    a href="#{edit_assessment_path(assessment)}" #{assessment.updated_at.strftime('%e %b %Y')}
+    a href="#{edit_assessment_path(assessment)}" #{assessment.created_at.strftime(t(:datetime))}
     | , #{assessment.total} points
     br
     - assessment.value.each do |key, value|
@@ -140,7 +140,7 @@ h3
 h3
   | Attachments &nbsp;
   = link_to 'Add Attachment', new_attachment_path(attachment: { person_id: @person.id })
-- @person.attachments.order(updated_at: :desc).each do |attachment|
+- @person.attachments.order(created_at: :desc).each do |attachment|
   p
     = link_to (attachment.name.present? ? attachment.name : attachment.file_filename), Refile.attachment_url(attachment, :file)
     - if attachment.description.present?
@@ -151,4 +151,4 @@ h3
 p
   | Record created &nbsp;
   strong
-    = @person.created_at.strftime('%e %b %Y')
+    = @person.created_at.strftime(t(:datetime))

@@ -1,14 +1,14 @@
 - if records.empty?
-  | There are no actions for #{@time.strftime('%e %b %Y')}. Please review the database and find some people who were not contacted for a long time.
+  | There are no actions for #{@time.strftime(t(:datetime))}. Please review the database and find some people who were not contacted for a long time.
   br
   br
 - else
-  | There are #{records.size} actions for #{@time.strftime('%e %b %Y')}:
+  | There are #{records.size} actions for #{@time.strftime(t(:datetime))}:
   br
   br
   - records.each do |record|
     ' On
-    = record.perform_on.strftime('%e %b %Y')
+    = record.perform_on.strftime(t(:datetime))
     ' &nbsp;communicate with
     = link_to record.person.name, person_url(record.person)
     ' &nbsp;(#{record.person.primary_tech}) about

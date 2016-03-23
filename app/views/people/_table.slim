@@ -15,11 +15,11 @@
       - if assessment = record.assessments.last
         ' Evaluated:
         a href="#{edit_assessment_path(assessment)}" #{assessment.total} points
-        | , #{assessment.updated_at.strftime('%e %b %Y')}
+        | , #{assessment.created_at.strftime(t(:datetime))}
     td
       - record.action_points.each do |action_point|
         - next if action_point.is_completed
-        a href="#{edit_action_point_path(action_point)}" #{action_point.perform_on.strftime('%e %b %Y')}
+        a href="#{edit_action_point_path(action_point)}" #{action_point.perform_on.strftime(t(:datetime))}
         | &nbsp;
         = action_point.value
         br
@@ -27,9 +27,9 @@
         | Latest notes:
         br
         - Note::TYPES.each do |type|
-          - record.notes.select { |n| n.type == type}.sort { |a, b| b.updated_at <=> a.updated_at}.first.tap do |note|
+          - record.notes.select { |n| n.type == type}.sort { |a, b| b.created_at <=> a.created_at}.first.tap do |note|
             - if note.present?
-              = note.created_at.strftime('%e %b %Y')
+              = note.created_at.strftime(t(:datetime))
               | ,&nbsp;
               a href="#{edit_note_path(note)}" #{note.type}
               ' : #{with_newlines(truncate(note.value, length: 300, escape: false))}
