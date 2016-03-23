@@ -10,7 +10,7 @@
         span.label.label-warning
           | YOU
     td = record.notifications_enabled? ? 'yes' : '-'
-    td = record.created_at.strftime(t(:datetime))
+    td = record.created_at.strftime(t(:datetime_full))
     td
       a href="#{edit_user_path(record)}" class="btn btn-sm btn-info btn-pill"
         i.fa.fa-pencil

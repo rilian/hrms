@@ -20,4 +20,4 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  datetime: "%H:%M, %e %b %Y"
+  datetime_full: "%H:%M, %e %b %Y"

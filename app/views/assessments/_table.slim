@@ -10,7 +10,7 @@
           = "#{topic}: #{record.value[topic]}"
           br
     td = record.total
-    td = record.created_at.strftime(t(:datetime))
+    td = record.created_at.strftime(t(:datetime_full))
     td colspan="2"
       a href="#{person_path(record.person)}" class="btn btn-sm btn-default btn-pill"
         i.fa.fa-eye

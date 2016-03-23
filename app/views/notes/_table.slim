@@ -6,7 +6,7 @@
     td = link_to record.person.name, person_path(record.person)
     td = record.type
     td = with_newlines(record.value)
-    td = record.created_at.strftime(t(:datetime))
+    td = record.created_at.strftime(t(:datetime_full))
     td colspan="2"
       a href="#{person_path(record.person)}" class="btn btn-sm btn-default btn-pill"
         i.fa.fa-eye
