@@ -3,7 +3,11 @@
 
 - @notes.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @notes.size - 1) && last_page?(@notes))
-    td = link_to record.person.name, person_path(record.person)
+    td
+      = link_to record.person.name, person_path(record.person)
+      - if record.person.primary_tech.present?
+        br
+        = link_to record.person.primary_tech, people_path(q: {primary_tech_eq: record.person.primary_tech})
     td = record.type
     td = with_newlines(record.value)
     td = record.created_at.strftime(t(:datetime_full))
