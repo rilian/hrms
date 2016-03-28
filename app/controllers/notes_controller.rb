@@ -25,6 +25,7 @@ class NotesController < ApplicationController
   def create
     @note = Note.new(note_params)
     if @note.save
+      log_event(entity: @note, action: 'created')
       redirect_to notes_path, flash: { success: 'Note created' }
     else
       flash.now[:error] = 'Note was not created'
@@ -39,6 +40,7 @@ class NotesController < ApplicationController
   def update
     @note = Note.find(params[:id])
     if @note.update(note_params)
+      log_event(entity: @note, action: 'updated')
       redirect_to notes_path, flash: { success: 'Note updated' }
     else
       flash.now[:error] = 'Note was not updated'

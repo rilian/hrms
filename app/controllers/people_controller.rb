@@ -35,6 +35,7 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params)
     if @person.save
+      log_event(entity: @person, action: 'created')
       redirect_to people_path, flash: { success: 'Person created' }
     else
       flash.now[:error] = 'Person was not created'
@@ -49,6 +50,7 @@ class PeopleController < ApplicationController
   def update
     @person = Person.find(params[:id])
     if @person.update(person_params)
+      log_event(entity: @person, action: 'updated')
       redirect_to people_path, flash: { success: 'Person updated' }
     else
       flash.now[:error] = 'Person was not updated'

@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      log_event(entity: @user, action: 'created')
       redirect_to users_path, flash: { success: 'User created' }
     else
       flash.now[:error] = 'User was not created'
@@ -37,6 +38,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
+      log_event(entity: @user, action: 'updated')
       redirect_to users_path, flash: { success: 'User updated' }
     else
       flash.now[:error] = 'User was not updated'

@@ -23,6 +23,7 @@ class AssessmentsController < ApplicationController
     @assessment = Assessment.new(assessment_params)
     @assessment.update_value(params[:values]) if params[:values]
     if @assessment.save
+      log_event(entity: @assessment, action: 'created')
       redirect_to assessments_path, flash: { success: 'Assessment created' }
     else
       flash.now[:error] = 'Assessment was not created'
@@ -38,6 +39,7 @@ class AssessmentsController < ApplicationController
     @assessment = Assessment.find(params[:id])
     @assessment.update_value(params[:values]) if params[:values]
     if @assessment.update(assessment_params)
+      log_event(entity: @assessment, action: 'updated')
       redirect_to assessments_path, flash: { success: 'Assessment updated' }
     else
       flash.now[:error] = 'Assessment was not updated'

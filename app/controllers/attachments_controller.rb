@@ -26,6 +26,7 @@ class AttachmentsController < ApplicationController
   def create
     @attachment = Attachment.new(attachment_params)
     if @attachment.save
+      log_event(entity: @attachment, action: 'created')
       redirect_to attachments_path, flash: { success: 'Attachment created' }
     else
       flash.now[:error] = 'Attachment was not created'
@@ -40,6 +41,7 @@ class AttachmentsController < ApplicationController
   def update
     @attachment = Attachment.find(params[:id])
     if @attachment.update(attachment_params)
+      log_event(entity: @attachment, action: 'updated')
       redirect_to attachments_path, flash: { success: 'Attachment updated' }
     else
       flash.now[:error] = 'Attachment was not updated'

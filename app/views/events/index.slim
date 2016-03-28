@@ -1,0 +1,15 @@
+h2.title
+  | EVENTS &nbsp;
+
+table.table.pretty-table
+  thead
+    th Who
+    th = sort_link @q, :event_type, 'Entity'
+    th = sort_link @q, :action
+    th Changes
+    th = sort_link @q, :created_at, 'When'
+
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @events

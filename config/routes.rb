@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :action_points
   resources :assessments
   resources :attachments
+  resources :events, only: :index
   resources :notes
   resources :people do
     get :autocomplete_person_name, on: :collection

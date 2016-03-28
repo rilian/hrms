@@ -6,7 +6,6 @@
 * Rename assessment numbers to words (junior, strong junior, etc)
 * Assessment comments
 * Validations (by LinkedIn url or name or combination of params)
-* Audit log (who created or updated records)
 * Candidate performance review
 * Reporting (metrics: number of candidates per week, number of notes etc)
 * LinkedIn import

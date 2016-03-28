@@ -138,6 +138,41 @@ ALTER SEQUENCE attachments_id_seq OWNED BY attachments.id;
 
 
 --
+-- Name: events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE events (
+    id integer NOT NULL,
+    entity_type character varying NOT NULL,
+    entity_id integer NOT NULL,
+    params jsonb DEFAULT '{}'::jsonb NOT NULL,
+    action character varying DEFAULT ''::character varying NOT NULL,
+    user_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE events_id_seq OWNED BY events.id;
+
+
+--
 -- Name: notes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -346,6 +381,13 @@ ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regclass);
 
 
@@ -399,6 +441,14 @@ ALTER TABLE ONLY assessments
 
 ALTER TABLE ONLY attachments
     ADD CONSTRAINT attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT events_pkey PRIMARY KEY (id);
 
 
 --
@@ -460,6 +510,34 @@ CREATE INDEX index_assessments_on_person_id ON assessments USING btree (person_i
 --
 
 CREATE INDEX index_attachments_on_person_id ON attachments USING btree (person_id);
+
+
+--
+-- Name: index_events_on_entity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_events_on_entity_id ON events USING btree (entity_id);
+
+
+--
+-- Name: index_events_on_entity_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_events_on_entity_type ON events USING btree (entity_type);
+
+
+--
+-- Name: index_events_on_params; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_events_on_params ON events USING gin (params);
+
+
+--
+-- Name: index_events_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_events_on_user_id ON events USING btree (user_id);
 
 
 --
@@ -544,4 +622,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160207151033');
 INSERT INTO schema_migrations (version) VALUES ('20160229151543');
 
 INSERT INTO schema_migrations (version) VALUES ('20160318215647');
+
+INSERT INTO schema_migrations (version) VALUES ('20160328185638');
 
