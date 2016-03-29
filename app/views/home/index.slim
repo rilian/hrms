@@ -16,37 +16,34 @@ br
       i.fa.fa-line-chart
       |  Stats
   div.card
-    .card-title
-      | People
+    .card-title People
     .card-body
       | #{Person.count}
   div.card
-    .card-title
-      | Notes
+    .card-title Notes
     .card-body
       | #{Note.count}
   div.card
-    .card-title
-      | Assessments
+    .card-title Assessments
     .card-body
       | #{Assessment.count}
   div.card
-    .card-title
-      | Actions
+    .card-title Actions
     .card-body
       | #{ActionPoint.count}
   div.card
-    .card-title
-      | Attachments
+    .card-title Attachments
     .card-body
       | #{Attachment.count} (#{directory_size(ENV['UPLOADS_DIR'])})
   div.card
-    .card-title
-      | Tags
+    .card-title Tags
     .card-body
       | #{ActsAsTaggableOn::Tag.count}
   div.card
-    .card-title
-      | Users
+    .card-title Users
     .card-body
       | #{User.count}
+  div.card
+    .card-title Events
+    .card-body
+      | #{Event.count}
