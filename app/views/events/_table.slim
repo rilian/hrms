@@ -8,5 +8,5 @@
     td
       = link_to record.action, events_path('filter[action_eq]' => record.action)
       br
-      = record.params
+      = record.params.reject {|k,_| k.in? %w[created_at updated_at] }
     td = record.created_at.strftime(t(:datetime_full)).gsub(/\s+/, '&nbsp;').html_safe
