@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     @events = @events.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @events = @events.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @events = @events.includes(:user)
+    @events = @events.includes(:user, :entity)
 
     respond_to do |f|
       f.partial { render partial: 'table' }

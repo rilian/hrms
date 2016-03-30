@@ -4,9 +4,16 @@
 - @events.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @events.size - 1) && last_page?(@events))
     td = record.user.email.split('@').first
-    td = link_to "#{record.entity_type}##{record.entity_id}", events_path('filter[entity_type_eq]' => record.entity_type, 'filter[entity_id_eq]' => record.entity_id)
     td
-      = link_to record.action, events_path('filter[action_eq]' => record.action)
+      = link_to "#{record.entity_type}##{record.entity_id}", events_path('q[entity_type_eq]' => record.entity_type, 'q[entity_id_eq]' => record.entity_id)
+      - if record.entity.is_a?(Person)
+        br
+        = link_to record.entity.name.titleize, person_path(record.entity)
+      - elsif record.entity.person.present?
+        br
+        = link_to record.entity.person.name.titleize, person_path(record.entity.person)
+    td
+      = link_to record.action, events_path('q[action_eq]' => record.action)
       br
       = record.params.reject {|k,_| k.in? %w[created_at updated_at] }
     td = record.created_at.strftime(t(:datetime_full)).gsub(/\s+/, '&nbsp;').html_safe
