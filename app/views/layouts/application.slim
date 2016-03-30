@@ -4,7 +4,7 @@ html lang="en" class='fluid'
     meta[charset="utf-8"]
     meta[http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"]
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
-    title #{defined?(@person) ? "#{@person.name.titleize} | " : ''}Human Resource Management System
+    title #{defined?(@person) && @person.persisted? ? "#{@person.name&.titleize} | " : ''}Human Resource Management System
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
     = favicon_link_tag 'favicon.png'
