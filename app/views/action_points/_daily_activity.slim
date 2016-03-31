@@ -3,12 +3,12 @@
   br
   br
 - else
-  | There are #{records.size} actions for #{@time.strftime(t(:datetime_full))}:
+  | There #{pluralize(records.size, 'is')} #{records.size} #{pluralize(records.size, 'action')} for #{@time.strftime(t(:datetime_full))}:
   br
   br
   - records.each do |record|
     ' On
-    = record.perform_on.strftime(t(:datetime_full))
+    = record.perform_on.strftime(t(:datetime_short))
     ' &nbsp;communicate with
     = link_to record.person.name, person_url(record.person)
     ' &nbsp;(#{record.person.primary_tech}) about
