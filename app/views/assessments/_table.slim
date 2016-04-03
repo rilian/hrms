@@ -12,10 +12,6 @@
     td = record.total
     td = record.created_at.strftime(t(:datetime_full))
     td colspan="2"
-      a href="#{person_path(record.person)}" class="btn btn-sm btn-default btn-pill"
-        i.fa.fa-eye
-        | &nbsp;View profile
-      ' &nbsp;
       a href="#{edit_assessment_path(record)}" class="btn btn-sm btn-info btn-pill"
         i.fa.fa-pencil
         | &nbsp; Edit

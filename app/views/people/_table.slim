@@ -6,6 +6,9 @@
     td
       strong
         = link_to record.name.titleize, person_path(record)
+      | &nbsp;
+      a href="#{edit_person_path(record)}"
+        i.fa.fa-pencil
       br
       = link_to '+ Evaluate', new_assessment_path(assessment: { person_id: record.id })
     td
@@ -61,6 +64,3 @@
         - record.tag_list.each do |tag|
           = link_to tag, people_path(q: { by_tag_including: tag })
           | &nbsp;
-    td
-      a href="#{edit_person_path(record)}"
-        i.fa.fa-pencil
