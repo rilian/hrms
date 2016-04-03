@@ -1,49 +1,10 @@
 h2.title
   '  DASHBOARD
-  a.btn.btn-default href="#{destroy_user_session_path}" data-method='delete'
+  a.btn.btn-small href="#{destroy_user_session_path}" data-method='delete'
     i.fa.fa-sign-out
     |  Sign out
-
 br
-a.btn.btn-warning href="#{new_person_path}"
-  i.fa.fa-user-plus
-  |  New Person
 
-br
-.cards
-  h4
-    span.label.label-info
-      i.fa.fa-line-chart
-      |  Stats
-  div.card
-    .card-title People
-    .card-body
-      | #{Person.count}
-  div.card
-    .card-title Notes
-    .card-body
-      | #{Note.count}
-  div.card
-    .card-title Assessments
-    .card-body
-      | #{Assessment.count}
-  div.card
-    .card-title Actions
-    .card-body
-      | #{ActionPoint.count}
-  div.card
-    .card-title Attachments
-    .card-body
-      | #{Attachment.count} (#{directory_size(ENV['UPLOADS_DIR'])})
-  div.card
-    .card-title Tags
-    .card-body
-      | #{ActsAsTaggableOn::Tag.count}
-  div.card
-    .card-title Users
-    .card-body
-      | #{User.count}
-  div.card
-    .card-title Events
-    .card-body
-      | #{Event.count}
+= render 'actions'
+= render 'quick_stats'
+= render 'reports'
