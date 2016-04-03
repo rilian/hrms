@@ -9,4 +9,4 @@ br
 br
 | #{Person.where('created_at > ?', 1.month.ago).count} People added last month
 br
-| #{Note.where('created_at > ?', 1.month.ago).pluck(:person_id).uniq.count} Unique people contacted
+| #{Note.where('created_at > ?', 1.month.ago).pluck(:person_id).uniq.count} Unique people contacted last month
