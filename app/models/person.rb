@@ -23,6 +23,7 @@ class Person < ActiveRecord::Base
   SEARCH_STR = %w[name city phone skype linkedin facebook primary_tech english
     notes_value action_points_value].join('_or_') << '_cont'
 
+  belongs_to :updated_by, class_name: 'User'
   has_many :action_points
   has_many :assessments
   has_many :attachments

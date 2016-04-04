@@ -11,6 +11,10 @@
     td = record.type
     td = with_newlines(record.value)
     td = record.created_at.strftime(t(:datetime_full))
+    td
+      = record.updated_at.strftime(t(:datetime_full))
+      br
+      = record.updated_by&.email&.split('@')&.first
     td colspan="2"
       a href="#{edit_note_path(record)}" class="btn btn-sm btn-info btn-pill"
         i.fa.fa-pencil

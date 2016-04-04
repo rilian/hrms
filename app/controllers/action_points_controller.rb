@@ -20,7 +20,7 @@ class ActionPointsController < ApplicationController
   end
 
   def create
-    @action_point = ActionPoint.new(action_point_params)
+    @action_point = ActionPoint.new(action_point_params.merge!(updated_by: current_user))
     if @action_point.save
       log_event(entity: @action_point, action: 'created')
       redirect_to action_points_path, flash: { success: 'ActionPoint created' }
@@ -36,7 +36,7 @@ class ActionPointsController < ApplicationController
 
   def update
     @action_point = ActionPoint.find(params[:id])
-    if @action_point.update(action_point_params)
+    if @action_point.update(action_point_params.merge!(updated_by: current_user))
       log_event(entity: @action_point, action: 'updated')
       redirect_to action_points_path, flash: { success: 'ActionPoint updated' }
     else

@@ -20,7 +20,7 @@ class AssessmentsController < ApplicationController
   end
 
   def create
-    @assessment = Assessment.new(assessment_params)
+    @assessment = Assessment.new(assessment_params.merge!(updated_by: current_user))
     @assessment.update_value(params[:values]) if params[:values]
     if @assessment.save
       log_event(entity: @assessment, action: 'created')
@@ -38,7 +38,7 @@ class AssessmentsController < ApplicationController
   def update
     @assessment = Assessment.find(params[:id])
     @assessment.update_value(params[:values]) if params[:values]
-    if @assessment.update(assessment_params)
+    if @assessment.update(assessment_params.merge!(updated_by: current_user))
       log_event(entity: @assessment, action: 'updated')
       redirect_to assessments_path, flash: { success: 'Assessment updated' }
     else

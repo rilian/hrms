@@ -8,6 +8,10 @@
     td = record.is_completed? ? 'yes' : '-'
     td = record.perform_on.strftime(t(:datetime_full))
     td = record.created_at.strftime(t(:datetime_full))
+    td
+      = record.updated_at.strftime(t(:datetime_full))
+      br
+      = record.updated_by&.email&.split('@')&.first
     td colspan="2"
       a href="#{edit_action_point_path(record)}" class="btn btn-sm btn-info btn-pill"
           i.fa.fa-pencil

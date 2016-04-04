@@ -12,6 +12,10 @@
     td = record.notifications_enabled? ? 'yes' : '-'
     td = record.created_at.strftime(t(:datetime_full))
     td
+      = record.updated_at.strftime(t(:datetime_full))
+      br
+      = record.updated_by&.email&.split('@')&.first
+    td
       a href="#{edit_user_path(record)}" class="btn btn-sm btn-info btn-pill"
         i.fa.fa-pencil
         |  Edit

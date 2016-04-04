@@ -27,6 +27,7 @@ class Assessment < ActiveRecord::Base
   GRADES = 5
 
   belongs_to :person
+  belongs_to :updated_by, class_name: 'User'
 
   validates :person, presence: true
   validates :total, numericality: { only_integer: true }

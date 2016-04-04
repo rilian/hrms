@@ -152,3 +152,8 @@ p
   | Record created &nbsp;
   strong
     = @person.created_at.strftime(t(:datetime_full))
+p
+  | Updated &nbsp;
+  = @person.updated_at.strftime(t(:datetime_full))
+  | &nbsp; by &nbsp;
+  = @person.updated_by&.email&.split('@')&.first

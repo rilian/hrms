@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.merge!(updated_by: current_user))
     if @user.save
       log_event(entity: @user, action: 'created')
       redirect_to users_path, flash: { success: 'User created' }
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    if @user.update(user_params.merge!(updated_by: current_user))
       log_event(entity: @user, action: 'updated')
       redirect_to users_path, flash: { success: 'User updated' }
     else

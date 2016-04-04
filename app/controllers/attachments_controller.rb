@@ -24,7 +24,7 @@ class AttachmentsController < ApplicationController
   end
 
   def create
-    @attachment = Attachment.new(attachment_params)
+    @attachment = Attachment.new(attachment_params.merge!(updated_by: current_user))
     if @attachment.save
       log_event(entity: @attachment, action: 'created')
       redirect_to attachments_path, flash: { success: 'Attachment created' }
@@ -40,7 +40,7 @@ class AttachmentsController < ApplicationController
 
   def update
     @attachment = Attachment.find(params[:id])
-    if @attachment.update(attachment_params)
+    if @attachment.update(attachment_params.merge!(updated_by: current_user))
       log_event(entity: @attachment, action: 'updated')
       redirect_to attachments_path, flash: { success: 'Attachment updated' }
     else

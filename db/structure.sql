@@ -44,7 +44,8 @@ CREATE TABLE action_points (
     is_completed boolean DEFAULT false NOT NULL,
     perform_on date,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    updated_by_id integer
 );
 
 
@@ -77,7 +78,8 @@ CREATE TABLE assessments (
     value jsonb DEFAULT '{}'::jsonb NOT NULL,
     total integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    updated_by_id integer
 );
 
 
@@ -114,7 +116,8 @@ CREATE TABLE attachments (
     file_id character varying,
     file_filename character varying,
     file_size integer,
-    file_content_type character varying
+    file_content_type character varying,
+    updated_by_id integer
 );
 
 
@@ -182,7 +185,8 @@ CREATE TABLE notes (
     type character varying DEFAULT 'Other'::character varying NOT NULL,
     value text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    updated_by_id integer
 );
 
 
@@ -224,7 +228,8 @@ CREATE TABLE people (
     day_of_birth date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    email character varying
+    email character varying,
+    updated_by_id integer
 );
 
 
@@ -333,7 +338,8 @@ CREATE TABLE users (
     reset_password_sent_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    notifications_enabled boolean DEFAULT true NOT NULL
+    notifications_enabled boolean DEFAULT true NOT NULL,
+    updated_by_id integer
 );
 
 
@@ -624,4 +630,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160229151543');
 INSERT INTO schema_migrations (version) VALUES ('20160318215647');
 
 INSERT INTO schema_migrations (version) VALUES ('20160328185638');
+
+INSERT INTO schema_migrations (version) VALUES ('20160404074238');
 

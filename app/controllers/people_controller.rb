@@ -33,7 +33,7 @@ class PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.new(person_params)
+    @person = Person.new(person_params.merge!(updated_by: current_user))
     if @person.save
       log_event(entity: @person, action: 'created')
       redirect_to people_path, flash: { success: 'Person created' }
@@ -49,7 +49,7 @@ class PeopleController < ApplicationController
 
   def update
     @person = Person.find(params[:id])
-    if @person.update(person_params)
+    if @person.update(person_params.merge!(updated_by: current_user))
       log_event(entity: @person, action: 'updated')
       redirect_to people_path, flash: { success: 'Person updated' }
     else

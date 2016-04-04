@@ -23,7 +23,7 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = Note.new(note_params)
+    @note = Note.new(note_params.merge!(updated_by: current_user))
     if @note.save
       log_event(entity: @note, action: 'created')
       redirect_to notes_path, flash: { success: 'Note created' }
@@ -39,7 +39,7 @@ class NotesController < ApplicationController
 
   def update
     @note = Note.find(params[:id])
-    if @note.update(note_params)
+    if @note.update(note_params.merge!(updated_by: current_user))
       log_event(entity: @note, action: 'updated')
       redirect_to notes_path, flash: { success: 'Note updated' }
     else
