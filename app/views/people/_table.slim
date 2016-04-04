@@ -33,7 +33,7 @@
           - record.notes.select { |n| n.type == type}.sort { |a, b| b.created_at <=> a.created_at}.first.tap do |note|
             - if note.present?
               = note.created_at.strftime(t(:datetime_full))
-              | ,&nbsp;
+              | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
               a href="#{edit_note_path(note)}" #{note.type}
               ' : #{with_newlines(truncate(note.value, length: 300, escape: false))}
               br
