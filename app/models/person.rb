@@ -4,6 +4,7 @@ class Person < ActiveRecord::Base
   PRIMARY_TECHS = %w(
     Ruby
     Frontend
+    Fullstack
     NET
     Java
     iOS
@@ -12,6 +13,8 @@ class Person < ActiveRecord::Base
     DevOps
     PM
     QA/BA
+    C/C++/Go
+    HR
   )
   ENGLISH_LEVELS = %w(
     Beginner/Elementary
