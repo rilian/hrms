@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
+  load_and_authorize_resource
+
   def index
-    @q = Event.ransack(params[:q])
+    @q = Event.accessible_by(current_ability).ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
     @events = @q.result
 

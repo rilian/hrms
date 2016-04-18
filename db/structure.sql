@@ -339,7 +339,8 @@ CREATE TABLE users (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     notifications_enabled boolean DEFAULT true NOT NULL,
-    updated_by_id integer
+    updated_by_id integer,
+    role character varying DEFAULT 'admin'::character varying NOT NULL
 );
 
 
@@ -632,4 +633,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160318215647');
 INSERT INTO schema_migrations (version) VALUES ('20160328185638');
 
 INSERT INTO schema_migrations (version) VALUES ('20160404074238');
+
+INSERT INTO schema_migrations (version) VALUES ('20160418145542');
 

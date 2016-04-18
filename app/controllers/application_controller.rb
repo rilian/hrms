@@ -8,4 +8,12 @@ class ApplicationController < ActionController::Base
   end
 
   before_action :authenticate_user!
+
+  rescue_from CanCan::AccessDenied do |e|
+    redirect_to root_url, flash: { error: e.message }
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    redirect_to root_url, flash: { error: e.message }
+  end
 end

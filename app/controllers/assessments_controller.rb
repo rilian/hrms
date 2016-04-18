@@ -1,6 +1,8 @@
 class AssessmentsController < ApplicationController
+  load_and_authorize_resource
+
   def index
-    @q = Assessment.ransack(params[:q])
+    @q = Assessment.accessible_by(current_ability).ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
     @assessments = @q.result
 
@@ -16,7 +18,6 @@ class AssessmentsController < ApplicationController
   end
 
   def new
-    @assessment = Assessment.new
   end
 
   def create
@@ -32,11 +33,9 @@ class AssessmentsController < ApplicationController
   end
 
   def edit
-    @assessment = Assessment.find(params[:id])
   end
 
   def update
-    @assessment = Assessment.find(params[:id])
     @assessment.update_value(params[:values]) if params[:values]
     if @assessment.update(assessment_params.merge!(updated_by: current_user))
       log_event(entity: @assessment, action: 'updated')

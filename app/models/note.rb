@@ -14,14 +14,19 @@ class Note < ActiveRecord::Base
     'Additional Interview',
     'Additional Interview - Office',
     'Test Assignment',
-    'Expected Salary',
     'Decision',
     'CEO Opinion',
     'Interview With CEO',
     'Recommended',
     'Looking for Job',
     'Changed Job',
+    'Expected Salary',
+    'Salary',
     'Other'
+  ]
+  RESTRICTED_TYPES = [
+    'Salary',
+    'Expected Salary'
   ]
 
   belongs_to :person

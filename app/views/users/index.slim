@@ -8,6 +8,7 @@ table.table.pretty-table
   thead
     th = sort_link @q, :email
     th = sort_link @q, :notifications_enabled, 'Notifications'
+    th = sort_link @q, :role
     th = sort_link @q, :created_at, 'Created'
     th = sort_link @q, :updated_at, 'Updated'
     th Actions

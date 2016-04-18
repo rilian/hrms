@@ -1,6 +1,8 @@
 class ActionPointsController < ApplicationController
+  load_and_authorize_resource
+
   def index
-    @q = ActionPoint.ransack(params[:q])
+    @q = ActionPoint.accessible_by(current_ability).ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
     @action_points = @q.result
 
@@ -16,7 +18,6 @@ class ActionPointsController < ApplicationController
   end
 
   def new
-    @action_point = ActionPoint.new
   end
 
   def create
@@ -31,11 +32,9 @@ class ActionPointsController < ApplicationController
   end
 
   def edit
-    @action_point = ActionPoint.find(params[:id])
   end
 
   def update
-    @action_point = ActionPoint.find(params[:id])
     if @action_point.update(action_point_params.merge!(updated_by: current_user))
       log_event(entity: @action_point, action: 'updated')
       redirect_to action_points_path, flash: { success: 'ActionPoint updated' }

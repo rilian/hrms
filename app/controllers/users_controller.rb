@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource
+
   def index
-    @q = User.ransack(params[:q])
+    @q = User.accessible_by(current_ability).ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
     @users = @q.result
 
@@ -17,7 +19,6 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
   end
 
   def create
@@ -32,11 +33,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params.merge!(updated_by: current_user))
       log_event(entity: @user, action: 'updated')
       redirect_to users_path, flash: { success: 'User updated' }
@@ -49,7 +48,7 @@ class UsersController < ApplicationController
 private
 
   def user_params
-    params.require(:user).permit(:email, :password, :notifications_enabled).tap do |p|
+    params.require(:user).permit(:email, :password, :notifications_enabled, :role).tap do |p|
       p.delete(:password) if p[:password].blank?
     end
   end
