@@ -30,7 +30,7 @@
         | Latest notes:
         br
         - Note::TYPES.each do |type|
-          - record.notes.select { |n| n.type == type}.sort { |a, b| b.created_at <=> a.created_at}.first.tap do |note|
+          - record.notes.accessible_by(current_ability).select { |n| n.type == type}.sort { |a, b| b.created_at <=> a.created_at}.first.tap do |note|
             - if note.present?
               = note.created_at.strftime(t(:datetime_full))
               | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
