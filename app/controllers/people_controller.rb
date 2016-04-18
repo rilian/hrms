@@ -1,8 +1,9 @@
 class PeopleController < ApplicationController
+  load_and_authorize_resource
   autocomplete :person, :name, full: true
 
   def index
-    @q = Person.ransack(params[:q])
+    @q = Person.accessible_by(current_ability).ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
     @people = @q.result(distinct: true)
 
@@ -16,7 +17,7 @@ class PeopleController < ApplicationController
     @people = @people.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @people = @people.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @people = @people.includes(:notes, :attachments, :assessments, :action_points)
+    @people = @people.includes(:notes, :attachments, :assessments, :action_points, :updated_by)
 
     respond_to do |f|
       f.partial { render partial: 'table' }
@@ -25,11 +26,9 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @person = Person.find(params[:id])
   end
 
   def new
-    @person = Person.new
   end
 
   def create
@@ -44,11 +43,9 @@ class PeopleController < ApplicationController
   end
 
   def edit
-    @person = Person.find(params[:id])
   end
 
   def update
-    @person = Person.find(params[:id])
     if @person.update(person_params.merge!(updated_by: current_user))
       log_event(entity: @person, action: 'updated')
       redirect_to people_path, flash: { success: 'Person updated' }

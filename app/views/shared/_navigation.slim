@@ -51,11 +51,13 @@
         i.fa.fa-plus
         | &nbsp; Attachment
     li.divider
-    li.item role="presentation" class="#{active_class('/users')}"
-      a href="#{users_path}"
-        i.fa.fa-users
-        | &nbsp; Users
-    li.item role="presentation" class="#{active_class('/events')}"
-      a href="#{events_path}"
-        i.fa.fa-paw
-        | &nbsp; Events
+    - if current_ability.can? :manage, User
+      li.item role="presentation" class="#{active_class('/users')}"
+        a href="#{users_path}"
+          i.fa.fa-users
+          | &nbsp; Users
+    - if current_ability.can? :manage, Event
+      li.item role="presentation" class="#{active_class('/events')}"
+        a href="#{events_path}"
+          i.fa.fa-paw
+          | &nbsp; Events

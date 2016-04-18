@@ -1,6 +1,8 @@
 class AttachmentsController < ApplicationController
+  load_and_authorize_resource
+
   def index
-    @q = Attachment.ransack(params[:q])
+    @q = Attachment.accessible_by(current_ability).ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
     @attachments = @q.result
 
@@ -16,11 +18,9 @@ class AttachmentsController < ApplicationController
   end
 
   def show
-    @attachment = Attachment.find(params[:id])
   end
 
   def new
-    @attachment = Attachment.new
   end
 
   def create
@@ -35,11 +35,9 @@ class AttachmentsController < ApplicationController
   end
 
   def edit
-    @attachment = Attachment.find(params[:id])
   end
 
   def update
-    @attachment = Attachment.find(params[:id])
     if @attachment.update(attachment_params.merge!(updated_by: current_user))
       log_event(entity: @attachment, action: 'updated')
       redirect_to attachments_path, flash: { success: 'Attachment updated' }

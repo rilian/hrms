@@ -10,6 +10,7 @@ gem 'refile', require: 'refile/rails'
 gem 'refile-mini_magick'
 gem 'smarter_csv', require: false
 gem 'acts-as-taggable-on'
+gem 'cancancan'
 
 # Frontend
 gem 'slim-rails'

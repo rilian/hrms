@@ -10,6 +10,7 @@
         span.label.label-warning
           | YOU
     td = record.notifications_enabled? ? 'yes' : '-'
+    td = record.role
     td = record.created_at.strftime(t(:datetime_full))
     td
       = record.updated_at.strftime(t(:datetime_full))

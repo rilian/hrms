@@ -1,13 +1,15 @@
 class NotesController < ApplicationController
+  load_and_authorize_resource
+
   def index
-    @q = Note.ransack(params[:q])
+    @q = Note.accessible_by(current_ability).ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
     @notes = @q.result
 
     @notes = @notes.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @notes = @notes.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @notes = @notes.includes(:person)
+    @notes = @notes.includes(:person, :updated_by)
 
     respond_to do |f|
       f.partial { render partial: 'table' }
@@ -19,7 +21,6 @@ class NotesController < ApplicationController
   end
 
   def new
-    @note = Note.new
   end
 
   def create
@@ -34,11 +35,9 @@ class NotesController < ApplicationController
   end
 
   def edit
-    @note = Note.find(params[:id])
   end
 
   def update
-    @note = Note.find(params[:id])
     if @note.update(note_params.merge!(updated_by: current_user))
       log_event(entity: @note, action: 'updated')
       redirect_to notes_path, flash: { success: 'Note updated' }
