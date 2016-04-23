@@ -11,6 +11,7 @@ table.table.pretty-table
     th = sort_link @q, :name
     th = sort_link @q, :description
     th File
+    th = sort_link @q, :file_size, 'Size'
     th = sort_link @q, :created_at, 'Created'
     th = sort_link @q, :updated_at, 'Updated'
     th Actions

@@ -9,7 +9,7 @@ class AttachmentsController < ApplicationController
     @attachments = @attachments.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @attachments = @attachments.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @attachments = @attachments.includes(:person)
+    @attachments = @attachments.includes(:person, :updated_by)
 
     respond_to do |f|
       f.partial { render partial: 'table' }
