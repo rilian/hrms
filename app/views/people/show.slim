@@ -46,7 +46,7 @@ p
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
   - if @person.wants_relocate
-    | wants relocate
+    | &nbsp;(wants relocate)
 p
   | Phone &nbsp;
   - if @person.phone.present?
