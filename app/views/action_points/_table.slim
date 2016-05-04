@@ -3,7 +3,11 @@
 
 - @action_points.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @action_points.size - 1) && last_page?(@action_points))
-    td = link_to record.person.name, person_path(record.person)
+    td
+      = link_to record.person.name, person_path(record.person)
+      - if record.person.primary_tech.present?
+        br
+        = link_to record.person.primary_tech, people_path(q: {primary_tech_eq: record.person.primary_tech})
     td = with_newlines(record.value)
     td = record.is_completed? ? 'yes' : '-'
     td = record.perform_on.strftime(t(:datetime_full))
