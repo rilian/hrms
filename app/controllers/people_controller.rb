@@ -17,7 +17,7 @@ class PeopleController < ApplicationController
     @people = @people.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @people = @people.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @people = @people.includes(:notes, :attachments, :assessments, :action_points, :updated_by)
+    @people = @people.includes(:notes, :attachments, :action_points, :updated_by)
 
     respond_to do |f|
       f.partial { render partial: 'table' }
@@ -59,6 +59,6 @@ private
 
   def person_params
     params.require(:person).permit(:name, :city, :phone, :skype, :linkedin, :email, :facebook, :wants_relocate,
-      :primary_tech, :english, :cultural_fit, :day_of_birth, :created_at, tag_list: [])
+      :primary_tech, :english, :cultural_fit, :day_of_birth, :created_at, :status, tag_list: [])
   end
 end

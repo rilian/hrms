@@ -9,7 +9,6 @@ class Ability
       can :manage, :all
     when 'manager'
       can :manage, ActionPoint
-      can :manage, Assessment
       can :manage, Attachment
       can :manage, Note, type: user.accessible_note_types
       can :manage, Person

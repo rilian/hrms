@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :action_points
-  resources :assessments
   resources :attachments
   resources :events, only: :index
   resources :notes

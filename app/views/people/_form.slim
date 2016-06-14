@@ -24,6 +24,13 @@
           | City:
         = f.input :city, placeholder: 'Kyiv', label: false, class: 'input form-control'
       .form-group
+        label.control-label HR Status:
+        = f.input :status,
+            collection: PERSON_STATUS_COLORS.keys,
+            label: false,
+            include_blank: false,
+            input_html: { class: 'select form-control' }
+      .form-group
         label.control-label
           | Wants to relocate?
         = f.input :wants_relocate, as: :boolean, label: 'Relocate', class: 'checkbox form-control'

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.1
--- Dumped by pg_dump version 9.5.1
+-- Dumped from database version 9.5.3
+-- Dumped by pg_dump version 9.5.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -66,40 +66,6 @@ CREATE SEQUENCE action_points_id_seq
 --
 
 ALTER SEQUENCE action_points_id_seq OWNED BY action_points.id;
-
-
---
--- Name: assessments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE assessments (
-    id integer NOT NULL,
-    person_id integer NOT NULL,
-    value jsonb DEFAULT '{}'::jsonb NOT NULL,
-    total integer DEFAULT 0 NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    updated_by_id integer
-);
-
-
---
--- Name: assessments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE assessments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: assessments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE assessments_id_seq OWNED BY assessments.id;
 
 
 --
@@ -229,7 +195,8 @@ CREATE TABLE people (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     email character varying,
-    updated_by_id integer
+    updated_by_id integer,
+    status character varying
 );
 
 
@@ -374,13 +341,6 @@ ALTER TABLE ONLY action_points ALTER COLUMN id SET DEFAULT nextval('action_point
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY assessments ALTER COLUMN id SET DEFAULT nextval('assessments_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id_seq'::regclass);
 
 
@@ -432,14 +392,6 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY action_points
     ADD CONSTRAINT action_points_pkey PRIMARY KEY (id);
-
-
---
--- Name: assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY assessments
-    ADD CONSTRAINT assessments_pkey PRIMARY KEY (id);
 
 
 --
@@ -503,13 +455,6 @@ ALTER TABLE ONLY users
 --
 
 CREATE INDEX index_action_points_on_person_id ON action_points USING btree (person_id);
-
-
---
--- Name: index_assessments_on_person_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_assessments_on_person_id ON assessments USING btree (person_id);
 
 
 --
@@ -635,4 +580,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160328185638');
 INSERT INTO schema_migrations (version) VALUES ('20160404074238');
 
 INSERT INTO schema_migrations (version) VALUES ('20160418145542');
+
+INSERT INTO schema_migrations (version) VALUES ('20160614201155');
+
+INSERT INTO schema_migrations (version) VALUES ('20160614201434');
 
