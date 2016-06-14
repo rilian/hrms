@@ -9,16 +9,9 @@
       | &nbsp;
       a href="#{edit_person_path(record)}"
         i.fa.fa-pencil
-      br
-      = link_to '+ Evaluate', new_assessment_path(assessment: { person_id: record.id })
     td
       - if record.primary_tech.present?
         = link_to record.primary_tech, people_path(q: { primary_tech_eq: record.primary_tech })
-      br
-      - if assessment = record.assessments.last
-        ' Evaluated:
-        a href="#{edit_assessment_path(assessment)}" #{assessment.total} points
-        | , #{assessment.created_at.strftime(t(:datetime_full))}
     td
       - record.action_points.each do |action_point|
         - next if action_point.is_completed

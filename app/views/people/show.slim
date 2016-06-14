@@ -126,18 +126,6 @@ h3
     = with_newlines(note.value)
 
 h3
-  | Assessments &nbsp;
-  = link_to 'Evaluate', new_assessment_path(assessment: { person_id: @person.id })
-- @person.assessments.order(created_at: :desc).each do |assessment|
-  p
-    a href="#{edit_assessment_path(assessment)}" #{assessment.created_at.strftime(t(:datetime_full))}
-    | , #{assessment.total} points
-    br
-    - assessment.value.each do |key, value|
-      = "#{key}: #{value}"
-      | &nbsp;
-
-h3
   | Attachments &nbsp;
   = link_to 'Add Attachment', new_attachment_path(attachment: { person_id: @person.id })
 - @person.attachments.order(created_at: :desc).each do |attachment|

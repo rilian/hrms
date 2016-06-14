@@ -28,7 +28,6 @@ class Person < ActiveRecord::Base
 
   belongs_to :updated_by, class_name: 'User'
   has_many :action_points
-  has_many :assessments
   has_many :attachments
   has_many :notes
 
