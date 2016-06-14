@@ -195,7 +195,8 @@ CREATE TABLE people (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     email character varying,
-    updated_by_id integer
+    updated_by_id integer,
+    status character varying
 );
 
 
@@ -581,4 +582,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160404074238');
 INSERT INTO schema_migrations (version) VALUES ('20160418145542');
 
 INSERT INTO schema_migrations (version) VALUES ('20160614201155');
+
+INSERT INTO schema_migrations (version) VALUES ('20160614201434');
 

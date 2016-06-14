@@ -12,6 +12,8 @@
     td
       - if record.primary_tech.present?
         = link_to record.primary_tech, people_path(q: { primary_tech_eq: record.primary_tech })
+    td style="background-color: #{PERSON_STATUS_COLORS[record.status] || ''};"
+      = record.status
     td
       - record.action_points.each do |action_point|
         - next if action_point.is_completed
