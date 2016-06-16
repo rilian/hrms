@@ -9,39 +9,14 @@
       a href="#{people_path}"
         i.fa.fa-users
         | &nbsp; People
-    li.item role="presentation" class="#{active_class('/notes')}"
-      a href="#{notes_path}"
-        i.fa.fa-sticky-note
-        | &nbsp; Notes
-    li.item role="presentation" class="#{active_class('/action_points')}"
-      a href="#{action_points_path}"
-        i.fa.fa-dot-circle-o
-        | &nbsp; Actions
-    li.item role="presentation" class="#{active_class('/attachments')}"
-      a href="#{attachments_path}"
-        i.fa.fa-paperclip
-        | &nbsp; Attachments
     li.item role="presentation" class="#{active_class('/tags')}"
       a href="#{tags_path}"
         i.fa.fa-tags
         | &nbsp; Tags
-    li.divider
-    li.item
-      a href="#{new_person_path}"
-        i.fa.fa-plus
-        | &nbsp; Person
-    li.item
-      a href="#{new_note_path}"
-        i.fa.fa-plus
-        | &nbsp; Note
-    li.item
-      a href="#{new_action_point_path}"
-        i.fa.fa-plus
-        | &nbsp; Action
-    li.item
-      a href="#{new_attachment_path}"
-        i.fa.fa-plus
-        | &nbsp; Attachment
+    li.item role="presentation"
+      a href="#"
+        i.fa.fa-tags
+        | &nbsp; Reports
     li.divider
     - if current_ability.can? :manage, User
       li.item role="presentation" class="#{active_class('/users')}"
