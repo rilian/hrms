@@ -12,6 +12,13 @@
           |  Name:
         = f.input :name, placeholder: 'Bohdan Kirkov', label: false, class: 'input form-control'
       .form-group
+        label.control-label HR Status:
+        = f.input :status,
+            collection: PERSON_STATUS_COLORS.keys,
+            label: false,
+            include_blank: false,
+            input_html: { class: 'select form-control' }
+      .form-group
         label.control-label Tags:
         select.form-control.js-select2-select multiple="multiple" name="person[tag_list][]"
           - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
@@ -22,18 +29,7 @@
       .form-group
         label.control-label
           | City:
-        = f.input :city, placeholder: 'Kyiv', label: false, class: 'input form-control'
-      .form-group
-        label.control-label HR Status:
-        = f.input :status,
-            collection: PERSON_STATUS_COLORS.keys,
-            label: false,
-            include_blank: false,
-            input_html: { class: 'select form-control' }
-      .form-group
-        label.control-label
-          | Wants to relocate?
-        = f.input :wants_relocate, as: :boolean, label: 'Relocate', class: 'checkbox form-control'
+        = f.input :city, placeholder: 'Kyiv', label: false, class: 'input form-control', input_html: { value: f.object.city.presence || 'Kyiv' }
 
       hr
 
@@ -97,6 +93,11 @@
         label.control-label
           | Created At:
         = f.input :created_at, as: :datetime, start_year: Date.today.year, end_year: 2013, include_blank: true, label: false
+
+      .form-group
+        label.control-label
+          | Wants to relocate?
+        = f.input :wants_relocate, as: :boolean, label: 'Relocate', class: 'checkbox form-control'
 
       .form-group.form-actions
         .text-center
