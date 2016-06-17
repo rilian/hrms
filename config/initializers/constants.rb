@@ -10,7 +10,7 @@ PERSON_STATUS_COLORS = {
   'Additional interview' => 'purple',
   'Interview with CEO' => 'purple',
   'Test assignment' => 'purple',
-  'No go' => 'red',
-  'On hold' => 'orange',
+  'Rejected, no go' => 'red',
+  'Rejected, on hold' => 'orange',
   'Hired' => 'green',
 }
