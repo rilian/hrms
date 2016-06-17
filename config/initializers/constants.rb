@@ -1,5 +1,4 @@
 PERSON_STATUS_COLORS = {
-  'n/a' => nil,
   'Pinged, no response' => 'grey',
   'Discussing an opportunity' => '#FFF2CC',
   'Not interested' => 'orange',
