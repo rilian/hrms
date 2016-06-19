@@ -1,8 +1,8 @@
-h1 #{@person.name.titleize}
-
-h3
-  | Info &nbsp;
+h1
+  = @person.name.titleize
+  | &nbsp;
   a href="#{edit_person_path(@person)}" Edit
+
 p
   | Primary tech &nbsp;
   - if @person.primary_tech.present?
@@ -21,6 +21,11 @@ p
   - else
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
+
+p
+  | Status&nbsp;
+  span style="background-color: #{PERSON_STATUS_COLORS[@person.status]};"
+    = @person.status.presence || 'n/a'
 
 p
   | English &nbsp;
