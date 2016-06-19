@@ -186,8 +186,6 @@ CREATE TABLE people (
     phone character varying,
     skype character varying,
     linkedin character varying,
-    facebook character varying,
-    wants_relocate boolean,
     primary_tech character varying,
     english character varying,
     cultural_fit text,
@@ -586,4 +584,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160614201155');
 INSERT INTO schema_migrations (version) VALUES ('20160614201434');
 
 INSERT INTO schema_migrations (version) VALUES ('20160616191545');
+
+INSERT INTO schema_migrations (version) VALUES ('20160619204703');
 
