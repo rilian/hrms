@@ -35,7 +35,7 @@
 
       .form-group
         h4
-          span.label.label-danger Carreer
+          span.label.label-danger Career
       .form-group
         label.control-label Primary Tech:
         = f.input :primary_tech,
@@ -71,33 +71,20 @@
         label.control-label
           | Email:
         = f.input :email, placeholder: 'dude@example.com', label: false, class: 'input form-control'
-      .form-group
-        label.control-label
-          | Facebook:
-        = f.input :facebook, placeholder: 'https://facebook.com/ivanivanov', label: false, class: 'input form-control'
 
       hr
 
       .form-group
         h4
           span.label.label-default Other
+      - unless @person.new_record?
+        .form-group
+          label.control-label
+            | Birthday:
+          = f.input :day_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 18, include_blank: true, label: false
       .form-group
-        label.control-label
-          | Birthday:
-        = f.input :day_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 18, include_blank: true, label: false
-      .form-group
-        label.control-label Cultural Fit:
-        = f.input :cultural_fit, as: :text, label: false, placeholder: 'Explain if this person will be a good fit to our teams...', input_html: { rows: 5 }
-
-      .form-group
-        label.control-label
-          | Created At:
-        = f.input :created_at, as: :datetime, start_year: Date.today.year, end_year: 2013, include_blank: true, label: false
-
-      .form-group
-        label.control-label
-          | Wants to relocate?
-        = f.input :wants_relocate, as: :boolean, label: 'Relocate', class: 'checkbox form-control'
+        label.control-label Cultural Fit / Notes:
+        = f.input :cultural_fit, as: :text, label: false, placeholder: 'Explain if this person will be a good fit to our teams...', input_html: { rows: 1 }
 
       .form-group.form-actions
         .text-center

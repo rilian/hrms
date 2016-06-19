@@ -1,8 +1,8 @@
-h1 #{@person.name.titleize}
-
-h3
-  | Info &nbsp;
+h1
+  = @person.name.titleize
+  | &nbsp;
   a href="#{edit_person_path(@person)}" Edit
+
 p
   | Primary tech &nbsp;
   - if @person.primary_tech.present?
@@ -21,6 +21,11 @@ p
   - else
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
+
+p
+  | Status&nbsp;
+  span style="background-color: #{PERSON_STATUS_COLORS[@person.status]};"
+    = @person.status.presence || 'n/a'
 
 p
   | English &nbsp;
@@ -45,8 +50,6 @@ p
   - else
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
-  - if @person.wants_relocate
-    | &nbsp;(wants relocate)
 p
   | Phone &nbsp;
   - if @person.phone.present?
@@ -76,14 +79,6 @@ p
   - if @person.email.present?
     strong
       a href="mailto:#{@person.email}" #{@person.email}
-  - else
-    a href="#{edit_person_path(@person)}"
-      i.fa.fa-pencil
-p
-  | Facebook &nbsp;
-  - if @person.facebook.present?
-    strong
-      a href="#{@person.facebook}" View
   - else
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
