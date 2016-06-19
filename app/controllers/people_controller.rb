@@ -59,6 +59,6 @@ private
 
   def person_params
     params.require(:person).permit(:name, :city, :phone, :skype, :linkedin, :email,
-      :primary_tech, :english, :cultural_fit, :day_of_birth, :created_at, :status, tag_list: [])
+      :primary_tech, :english, :cultural_fit, :day_of_birth, :status, tag_list: [])
   end
 end
