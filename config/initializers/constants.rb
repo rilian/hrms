@@ -14,4 +14,5 @@ PERSON_STATUS_COLORS = {
   'Rejected, no go' => '#EB5E66',
   'Rejected, on hold' => '#FFAEB9',
   'Hired' => 'green',
+  'Past employee' => '#ffc3e1'
 }
