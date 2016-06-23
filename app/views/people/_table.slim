@@ -48,7 +48,7 @@
         br
       - if record.linkedin.present?
         ' LinkedIn:
-        a href="#{'https'.in?(record.linkedin) ? record.linkedin : 'https://' + record.linkedin}" Link
+        a target="_blank" href="#{'https'.in?(record.linkedin) ? record.linkedin : 'https://' + record.linkedin}" Link
         br
       - if record.english.present?
         ' English:
