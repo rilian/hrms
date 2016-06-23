@@ -329,6 +329,40 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: vacancies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE vacancies (
+    id integer NOT NULL,
+    project character varying,
+    role character varying,
+    description text,
+    updated_by_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: vacancies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE vacancies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: vacancies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE vacancies_id_seq OWNED BY vacancies.id;
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -382,6 +416,13 @@ ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclas
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY vacancies ALTER COLUMN id SET DEFAULT nextval('vacancies_id_seq'::regclass);
 
 
 --
@@ -446,6 +487,14 @@ ALTER TABLE ONLY tags
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: vacancies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY vacancies
+    ADD CONSTRAINT vacancies_pkey PRIMARY KEY (id);
 
 
 --
@@ -586,4 +635,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160614201434');
 INSERT INTO schema_migrations (version) VALUES ('20160616191545');
 
 INSERT INTO schema_migrations (version) VALUES ('20160619204703');
+
+INSERT INTO schema_migrations (version) VALUES ('20160623212429');
 

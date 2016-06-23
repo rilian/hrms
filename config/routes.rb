@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   resources :tags, only: :index
   resources :users
+  resources :vacancies
 
   root 'home#index'
 end

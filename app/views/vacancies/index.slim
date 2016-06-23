@@ -1,0 +1,17 @@
+h2.title
+  | VACANCIES &nbsp;
+  a.btn.btn-default.btn-pill href="/vacancies/new"
+    i.fa.fa-plus
+    | &nbsp; Add Vacancy
+
+table.table.pretty-table
+  thead
+    th = sort_link @q, :project
+    th = sort_link @q, :role
+    th = sort_link @q, :description
+    th = sort_link @q, :created_at, 'Created'
+    th Actions
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @vacancies

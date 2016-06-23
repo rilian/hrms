@@ -1,0 +1,23 @@
+= render 'shared/form_error', object: @vacancy
+
+= simple_form_for @vacancy, html: { class: 'form' } do |f|
+  .form-group
+    label.col-md-4.control-label
+      | Project
+    .col-md-7
+      = f.input :project, placeholder: 'Project name', label: false, class: 'input form-control'
+  .form-group
+    label.col-md-4.control-label
+      | Role
+    .col-md-7
+      = f.input :role, placeholder: 'Senior Lolcode Architect', label: false, class: 'input form-control'
+  .form-group
+    label.col-md-4.control-label
+      | Description
+    .col-md-7
+      = f.input :description, as: :text, placeholder: 'About the project and brief description of daily tasks', label: false, input_html: { rows: 10 }
+
+  .form-bordered
+    .form-group.form-actions
+      .text-center
+        = f.button :submit, (@vacancy.new_record? ? 'Create Vacancy' : 'Update Vacancy'), class: 'btn btn-success'
