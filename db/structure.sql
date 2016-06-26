@@ -194,7 +194,8 @@ CREATE TABLE people (
     updated_at timestamp without time zone NOT NULL,
     email character varying,
     updated_by_id integer,
-    status character varying
+    status character varying,
+    is_deleted boolean DEFAULT false NOT NULL
 );
 
 
@@ -547,6 +548,13 @@ CREATE INDEX index_notes_on_person_id ON notes USING btree (person_id);
 
 
 --
+-- Name: index_people_on_is_deleted; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_people_on_is_deleted ON people USING btree (is_deleted);
+
+
+--
 -- Name: index_taggings_on_taggable_id_and_taggable_type_and_context; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -637,4 +645,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160616191545');
 INSERT INTO schema_migrations (version) VALUES ('20160619204703');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623212429');
+
+INSERT INTO schema_migrations (version) VALUES ('20160626123050');
 

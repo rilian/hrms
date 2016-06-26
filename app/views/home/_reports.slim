@@ -3,10 +3,10 @@ h4
     i.fa.fa-line-chart
     |  Reports
 
-| #{(Person.where("linkedin = '' OR linkedin IS NULL").pluck(:id) - Attachment.pluck(:person_id)).size} People have no Linkedin or CV Attachment
+| #{(Person.not_deleted.where("linkedin = '' OR linkedin IS NULL").pluck(:id) - Attachment.pluck(:person_id)).size} People have no Linkedin or CV Attachment
 br
-| #{(Person.pluck(:id) - Note.pluck(:person_id)).size} People without notes
+| #{(Person.not_deleted.pluck(:id) - Note.pluck(:person_id)).size} People without notes
 br
-| #{Person.where('created_at > ?', 1.month.ago).count} People added last month
+| #{Person.not_deleted.where('created_at > ?', 1.month.ago).count} People added last month
 br
 | #{Note.where('created_at > ?', 1.month.ago).pluck(:person_id).uniq.count} Unique people contacted last month

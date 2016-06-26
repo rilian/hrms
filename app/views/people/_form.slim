@@ -87,5 +87,6 @@
         = f.input :cultural_fit, as: :text, label: false, placeholder: 'Explain if this person will be a good fit to our teams...', input_html: { rows: 1 }
 
       .form-group.form-actions
-        .text-center
+        .text-left style="width: 600px;"
+          a.btn style="text-align: left; width: 200px;" href="#{person_path(@person)}" data-method="delete" data-confirm="Are you sure?" Delete
           = f.button :submit, (@person.new_record? ? '+ Create Person' : 'Update Person'), class: 'btn btn-success'

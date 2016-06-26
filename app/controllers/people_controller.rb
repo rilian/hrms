@@ -1,9 +1,9 @@
 class PeopleController < ApplicationController
   load_and_authorize_resource
-  autocomplete :person, :name, full: true
+  autocomplete :person, :name, full: true, scopes: [:not_deleted]
 
   def index
-    @q = Person.accessible_by(current_ability).ransack(params[:q])
+    @q = Person.not_deleted.accessible_by(current_ability).ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
     @people = @q.result(distinct: true)
 
@@ -53,6 +53,12 @@ class PeopleController < ApplicationController
       flash.now[:error] = 'Person was not updated'
       render :edit
     end
+  end
+
+  def destroy
+    @person.update(is_deleted: true)
+    log_event(entity: @person, action: 'deleted')
+    redirect_to people_path, flash: { success: 'Person was deleted but can be restored manually' }
   end
 
 private

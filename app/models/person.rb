@@ -32,4 +32,6 @@ class Person < ActiveRecord::Base
   has_many :notes
 
   validates :name, presence: true
+
+  scope :not_deleted, ->() { where(is_deleted: false) }
 end
