@@ -50,6 +50,6 @@ class NotesController < ApplicationController
 private
 
   def note_params
-    params.require(:note).permit(:person_id, :type, :value, :created_at)
+    params.require(:note).permit(:person_id, :type, :value)
   end
 end

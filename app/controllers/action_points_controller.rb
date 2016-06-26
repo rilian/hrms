@@ -47,6 +47,6 @@ class ActionPointsController < ApplicationController
 private
 
   def action_point_params
-    params.require(:action_point).permit(:person_id, :is_completed, :type, :value, :perform_on, :created_at)
+    params.require(:action_point).permit(:person_id, :is_completed, :type, :value, :perform_on)
   end
 end

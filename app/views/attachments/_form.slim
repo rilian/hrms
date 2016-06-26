@@ -42,11 +42,6 @@
     .col-md-7
       = f.input :description, as: :text, placeholder: 'About this file', label: false, input_html: { rows: 10 }
 
-  .form-group
-    label.control-label
-      | Created At:
-    = f.input :created_at, as: :datetime, start_year: Date.today.year, end_year: 2013, include_blank: true, label: false
-
   .form-bordered
     .form-group.form-actions
       .text-center
