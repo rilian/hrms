@@ -34,7 +34,7 @@
       | Value
       span.text-danger *
     .col-md-7
-      = f.input :value, as: :text, placeholder: 'What happened', label: false, input_html: { rows: (defined?(partial_form) && partial_form.present?) ? 2 : 10 }
+      = f.input :value, as: :text, placeholder: 'What happened', label: false, input_html: { rows: (defined?(partial_form) && partial_form.present?) ? 1 : 10 }
 
   .form-bordered
     .form-group.form-actions

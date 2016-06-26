@@ -4,5 +4,5 @@ class ActionPoint < ActiveRecord::Base
   belongs_to :person
   belongs_to :updated_by, class_name: 'User'
 
-  validates :person, presence: true
+  validates :person, :value, presence: true
 end
