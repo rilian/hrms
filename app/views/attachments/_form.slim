@@ -2,7 +2,9 @@
 
 = simple_form_for @attachment, html: { class: 'form' } do |f|
   .form-group
-    - if @attachment.new_record?
+    - if defined?(partial_form) && partial_form.present?
+      input type="hidden" name="attachment[person_id]" value="#{@person.id}"
+    - elsif @attachment.new_record?
       - if params.dig(:attachment, :person_id).blank?
         = f.input :person_id, as: :hidden
         label.control-label
@@ -40,7 +42,7 @@
     label.col-md-4.control-label
       | Description
     .col-md-7
-      = f.input :description, as: :text, placeholder: 'About this file', label: false, input_html: { rows: 10 }
+      = f.input :description, as: :text, placeholder: 'About this file', label: false, input_html: { rows: (defined?(partial_form) && partial_form.present?) ? 1 : 10 }
 
   .form-bordered
     .form-group.form-actions

@@ -27,7 +27,7 @@ class AttachmentsController < ApplicationController
     @attachment = Attachment.new(attachment_params.merge!(updated_by: current_user))
     if @attachment.save
       log_event(entity: @attachment, action: 'created')
-      redirect_to attachments_path, flash: { success: 'Attachment created' }
+      redirect_to person_path(@attachment.person), flash: { success: 'Attachment created' }
     else
       flash.now[:error] = 'Attachment was not created'
       render :new
@@ -42,7 +42,7 @@ class AttachmentsController < ApplicationController
     @attachment = Attachment.accessible_by(current_ability).find(params[:id])
     if @attachment.update(attachment_params.merge!(updated_by: current_user))
       log_event(entity: @attachment, action: 'updated')
-      redirect_to attachments_path, flash: { success: 'Attachment updated' }
+      redirect_to person_path(@attachment.person), flash: { success: 'Attachment updated' }
     else
       flash.now[:error] = 'Attachment was not updated'
       render :edit

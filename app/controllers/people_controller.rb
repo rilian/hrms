@@ -27,6 +27,7 @@ class PeopleController < ApplicationController
 
   def show
     @action_point = ActionPoint.new(person: @person)
+    @attachment = Attachment.new(person: @person)
     @note = Note.new(person: @person)
   end
 

@@ -1,39 +1,37 @@
 = render 'shared/form_error', object: @action_point
 
-.row
-  .col-md-7
-    = simple_form_for @action_point, html: { class: 'form' } do |f|
-      .form-group
-        - if defined?(partial_form) && partial_form.present?
-          input type="hidden" name="action_point[person_id]" value="#{@person.id}"
-        - elsif @action_point.new_record?
-          - if params.dig(:action_point, :person_id).blank?
-            = f.input :person_id, as: :hidden
-            label.control-label
-              span.text-danger *
-              | Person:&nbsp;
-            input.select.form-control value="#{(Person.find_by_id(params.dig(:action_point, :person_id)) || @action_point.person)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#action_point_person_id" data-auto-focus="true"
-          - else
-            = f.input :person_id, as: :hidden, input_html: { value: params[:action_point][:person_id] }
-            label.control-label
-              span.text-danger *
-              | Person:&nbsp;
-            a href="#{person_path(Person.find_by_id(params.dig(:action_point, :person_id)))}" #{(Person.find_by_id(params.dig(:action_point, :person_id))).name}
-        - else
-          label.control-label Person&nbsp;
-          a href="#{person_path(@action_point.person)}" #{@action_point.person.name}
-
-      .form-group
+= simple_form_for @action_point, html: { class: 'form' } do |f|
+  .form-group
+    - if defined?(partial_form) && partial_form.present?
+      input type="hidden" name="action_point[person_id]" value="#{@person.id}"
+    - elsif @action_point.new_record?
+      - if params.dig(:action_point, :person_id).blank?
+        = f.input :person_id, as: :hidden
         label.control-label
-          | Action description
           span.text-danger *
-        = f.input :value, as: :text, placeholder: 'What should be done', label: false, input_html: { rows: (defined?(partial_form) && partial_form.present?) ? 1 : 10 }
+          | Person:&nbsp;
+        input.select.form-control value="#{(Person.find_by_id(params.dig(:action_point, :person_id)) || @action_point.person)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#action_point_person_id" data-auto-focus="true"
+      - else
+        = f.input :person_id, as: :hidden, input_html: { value: params[:action_point][:person_id] }
+        label.control-label
+          span.text-danger *
+          | Person:&nbsp;
+        a href="#{person_path(Person.find_by_id(params.dig(:action_point, :person_id)))}" #{(Person.find_by_id(params.dig(:action_point, :person_id))).name}
+    - else
+      label.control-label Person&nbsp;
+      a href="#{person_path(@action_point.person)}" #{@action_point.person.name}
 
-      = f.input :perform_on, as: :date, label: "Perform on:"
+  .form-group
+    label.control-label
+      | Action description
+      span.text-danger *
+    = f.input :value, as: :text, placeholder: 'What should be done', label: false, input_html: { rows: (defined?(partial_form) && partial_form.present?) ? 1 : 10 }
 
-      = f.input :is_completed, as: :boolean, label: 'Completed'
+  = f.input :perform_on, as: :date, label: "Perform on:"
 
-      .form-bordered
-        .form-group.form-actions
-          .text-center
-            = f.button :submit, (@action_point.new_record? ? '+ Create Action' : 'Update Action'), class: 'btn btn-success'
+  = f.input :is_completed, as: :boolean, label: 'Completed'
+
+  .form-bordered
+    .form-group.form-actions
+      .text-center
+        = f.button :submit, (@action_point.new_record? ? '+ Create Action' : 'Update Action'), class: 'btn btn-success'
