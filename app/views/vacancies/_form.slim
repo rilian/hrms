@@ -2,20 +2,17 @@
 
 = simple_form_for @vacancy, html: { class: 'form' } do |f|
   .form-group
-    label.col-md-4.control-label
+    label.control-label
       | Project
-    .col-md-7
-      = f.input :project, placeholder: 'Project name', label: false, class: 'input form-control'
+    = f.input :project, placeholder: 'Project name', label: false, class: 'input form-control'
   .form-group
-    label.col-md-4.control-label
+    label.control-label
       | Role
-    .col-md-7
-      = f.input :role, placeholder: 'Senior Lolcode Architect', label: false, class: 'input form-control'
+    = f.input :role, placeholder: 'Senior Lolcode Architect', label: false, class: 'input form-control'
   .form-group
-    label.col-md-4.control-label
+    label.control-label
       | Description
-    .col-md-7
-      = f.input :description, as: :text, placeholder: 'About the project and brief description of daily tasks', label: false, input_html: { rows: 10 }
+    = f.input :description, as: :text, placeholder: 'About the project and brief description of daily tasks', label: false, input_html: { rows: 3 }
 
   .form-bordered
     .form-group.form-actions

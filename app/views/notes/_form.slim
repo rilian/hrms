@@ -22,19 +22,17 @@
       a href="#{person_path(@note.person)}" #{@note.person.name}
 
   .form-group
-    label.col-md-4.control-label Type
-    .col-md-7
-      = f.input :type,
-                collection: current_user.accessible_note_types,
-                label: false,
-                include_blank: false,
-                input_html: { class: 'select form-control' }
+    label.control-label Type
+    = f.input :type,
+              collection: current_user.accessible_note_types,
+              label: false,
+              include_blank: false,
+              input_html: { class: 'select form-control' }
   .form-group
-    label.col-md-4.control-label
+    label.control-label
       | Value
       span.text-danger *
-    .col-md-7
-      = f.input :value, as: :text, placeholder: 'What happened', label: false, input_html: { rows: (defined?(partial_form) && partial_form.present?) ? 1 : 10 }
+    = f.input :value, as: :text, placeholder: 'What happened', label: false, input_html: { rows: (defined?(partial_form) && partial_form.present?) ? 1 : 3 }
 
   .form-bordered
     .form-group.form-actions
