@@ -1,4 +1,4 @@
-h1
+h2.title
   = @person.name.titleize
   | &nbsp;
   a href="#{edit_person_path(@person)}" Edit
@@ -39,15 +39,16 @@ p
   | City:&nbsp;
   = @person.city.presence || 'Kyiv'
 
-p
-  b Add Note
-  = render 'notes/form', partial_form: true
-p
-  b Add Action
-  = render 'action_points/form', partial_form: true
-p
-  b Add Attachment
-  = render 'attachments/form', partial_form: true
+- if params[:more].blank?
+  p
+    b Add Note
+    = render 'notes/form', partial_form: true
+  p
+    b Add Action
+    = render 'action_points/form', partial_form: true
+  p
+    b Add Attachment
+    = render 'attachments/form', partial_form: true
 
 - if params[:more].present?
   p
@@ -143,4 +144,4 @@ p
 
 - else
   p
-    a href="#{person_path(@person, more: 'true')}" More
+    a href="#{person_path(@person, more: 'true')}" View More
