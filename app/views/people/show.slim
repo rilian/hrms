@@ -1,8 +1,11 @@
 h2.title
   = @person.name.titleize
   | &nbsp;
-  a href="#{edit_person_path(@person)}" Edit
-
+  a.btn.btn-default href="#{edit_person_path(@person)}" Edit
+  | &nbsp;
+  a.btn.btn-default.js-show-quick-forms href="#" Show Quick Forms
+  | &nbsp;
+  a.btn.btn-default.js-show-more href="#" Show More Info
 p
   | Primary tech:&nbsp;
   - if @person.primary_tech.present?
@@ -11,12 +14,10 @@ p
   - else
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
-
 p
   | Status:&nbsp;
   span style="background-color: #{PERSON_STATUS_COLORS[@person.status]};"
     = @person.status.presence || 'n/a'
-
 p
   | Skype:&nbsp;
   - if @person.skype.present?
@@ -25,7 +26,6 @@ p
   - else
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
-
 p
   | LinkedIn:&nbsp;
   - if @person.linkedin.present?
@@ -34,12 +34,11 @@ p
   - else
     a href="#{edit_person_path(@person)}"
       i.fa.fa-pencil
-
 p
   | City:&nbsp;
   = @person.city.presence || 'Kyiv'
 
-- if params[:more].blank?
+.js-show-quick-forms-container style="display:none;"
   p
     b Add Note
     = render 'notes/form', partial_form: true
@@ -50,7 +49,7 @@ p
     b Add Attachment
     = render 'attachments/form', partial_form: true
 
-- if params[:more].present?
+.js-show-more-container style="display:none;"
   p
     | English:&nbsp;
     - if @person.english.present?
@@ -141,7 +140,3 @@ p
     = "#{@person.updated_at.strftime(t(:datetime_full))} (#{time_ago_in_words(@person.updated_at)} ago)"
     | &nbsp; by &nbsp;
     = @person.updated_by&.email&.split('@')&.first
-
-- else
-  p
-    a href="#{person_path(@person, more: 'true')}" View More

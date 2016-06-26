@@ -1,3 +1,6 @@
-h2.title Edit #{@person.name}
+h2.title
+  | Edit #{@person.name}
+  | &nbsp;
+  a.btn.btn-default href="#{person_path(@person)}" Back
 
 = render 'form'
