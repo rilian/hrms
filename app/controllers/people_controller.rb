@@ -26,6 +26,7 @@ class PeopleController < ApplicationController
   end
 
   def show
+    @note = Note.new(person: @person)
   end
 
   def new

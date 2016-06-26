@@ -2,7 +2,9 @@
 
 = simple_form_for @note, html: { class: 'form' } do |f|
   .form-group
-    - if @note.new_record?
+    - if defined?(partial_form) && partial_form.present?
+      input type="hidden" name="note[person_id]" value="#{@person.id}"
+    - elsif @note.new_record?
       - if params.dig(:note, :person_id).blank?
         = f.input :person_id, as: :hidden
         label.control-label
@@ -32,7 +34,7 @@
       | Value
       span.text-danger *
     .col-md-7
-      = f.input :value, as: :text, placeholder: 'What happened', label: false, input_html: { rows: 10 }
+      = f.input :value, as: :text, placeholder: 'What happened', label: false, input_html: { rows: (defined?(partial_form) && partial_form.present?) ? 2 : 10 }
 
   .form-bordered
     .form-group.form-actions

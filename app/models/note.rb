@@ -32,6 +32,6 @@ class Note < ActiveRecord::Base
   belongs_to :person
   belongs_to :updated_by, class_name: 'User'
 
-  validates :type, :person, presence: true
+  validates :type, :person, :value, presence: true
   validates :type, inclusion: { in: TYPES }
 end
