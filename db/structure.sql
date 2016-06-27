@@ -198,7 +198,8 @@ CREATE TABLE people (
     is_deleted boolean DEFAULT false NOT NULL,
     action_points_count integer,
     attachments_count integer,
-    notes_count integer
+    notes_count integer,
+    expected_salary character varying
 );
 
 
@@ -673,4 +674,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160623212429');
 INSERT INTO schema_migrations (version) VALUES ('20160626123050');
 
 INSERT INTO schema_migrations (version) VALUES ('20160627093617');
+
+INSERT INTO schema_migrations (version) VALUES ('20160627151119');
 

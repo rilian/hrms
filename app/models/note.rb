@@ -20,13 +20,11 @@ class Note < ActiveRecord::Base
     'Recommended',
     'Looking for Job',
     'Changed Job',
-    'Expected Salary',
     'Salary',
     'Other'
   ]
   RESTRICTED_TYPES = [
-    'Salary',
-    'Expected Salary'
+    'Salary'
   ]
 
   belongs_to :person, counter_cache: true

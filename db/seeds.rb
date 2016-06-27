@@ -1,6 +1,6 @@
 p1 = Person.create(name: 'Vasiliy Pupkin')
 n1 = Note.create(person: p1, type: 'Decision', value: "Let's hire him")
-n2 = Note.create(person: p1, type: 'Expected Salary', value: "500")
+n2 = Note.create(person: p1, type: 'Other', value: 'Great developer')
 ap1 = ActionPoint.create(person: p1, value: 'Meet in a cafe', perform_on: Date.tomorrow)
 ap2 = ActionPoint.create(person: p1, value: 'Hire', perform_on: Date.tomorrow)
 u = User.create(email: 'admin@example.com', password: 'password')

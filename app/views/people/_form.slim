@@ -52,6 +52,12 @@
         include_blank: true,
         input_html: { class: 'select form-control' }
 
+  - if current_user.role == 'admin'
+    .form-group
+      label.control-label
+        | Expected salary:
+      = f.input :expected_salary, placeholder: '1005000', label: false, class: 'input form-control'
+
   .form-group
     label.control-label
       | Email:
