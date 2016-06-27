@@ -1,8 +1,8 @@
 class AddCounterCaches < ActiveRecord::Migration
   def change
-    add_column :people, :action_points_count, :integer
-    add_column :people, :attachments_count, :integer
-    add_column :people, :notes_count, :integer
+    add_column :people, :action_points_count, :integer, default: 0
+    add_column :people, :attachments_count, :integer, default: 0
+    add_column :people, :notes_count, :integer, default: 0
     add_index :people, :action_points_count
     add_index :people, :attachments_count
     add_index :people, :notes_count
