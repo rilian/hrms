@@ -6,11 +6,34 @@
       span.text-danger *
       |  Name:
     = f.input :name, placeholder: 'Bohdan Kirkov', label: false, class: 'input form-control'
+
+  .form-group
+    label.control-label Primary Tech:
+    = f.input :primary_tech,
+        collection: Person::PRIMARY_TECHS,
+        label: false,
+        include_blank: false,
+        input_html: {class: 'select form-control'}
+
   .form-group
     label.control-label HR Status:
     select.select.form-control name="person[status]"
       - PERSON_STATUS_COLORS.each_pair do |status, color|
         option value="#{status}" style="background-color: #{color};" #{status}
+
+  .form-group
+    label.control-label
+      | Skype:
+    = f.input :skype, placeholder: 'ivan_ivanov', label: false, class: 'input form-control'
+  .form-group
+    label.control-label
+      | LinkedIn:
+    = f.input :linkedin, placeholder: 'https://linkedin.com/ivanivanov', label: false, class: 'input form-control'
+
+  .form-group
+    label.control-label
+      | City:
+    = f.input :city, placeholder: 'Kyiv', label: false, class: 'input form-control', input_html: { value: f.object.city.presence || 'Kyiv' }
 
   .form-group
     label.control-label Tags:
@@ -20,18 +43,7 @@
           option value="#{tag}" selected="selected" #{tag}
         - else
           option value="#{tag}" #{tag}
-  .form-group
-    label.control-label
-      | City:
-    = f.input :city, placeholder: 'Kyiv', label: false, class: 'input form-control', input_html: { value: f.object.city.presence || 'Kyiv' }
 
-  .form-group
-    label.control-label Primary Tech:
-    = f.input :primary_tech,
-        collection: Person::PRIMARY_TECHS,
-        label: false,
-        include_blank: false,
-        input_html: { class: 'select form-control' }
   .form-group
     label.control-label English level:
     = f.input :english,
@@ -42,16 +54,9 @@
 
   .form-group
     label.control-label
-      | Skype:
-    = f.input :skype, placeholder: 'ivan_ivanov', label: false, class: 'input form-control'
-  .form-group
-    label.control-label
-      | LinkedIn:
-    = f.input :linkedin, placeholder: 'https://linkedin.com/ivanivanov', label: false, class: 'input form-control'
-  .form-group
-    label.control-label
       | Email:
     = f.input :email, placeholder: 'dude@example.com', label: false, class: 'input form-control'
+
   .form-group
     label.control-label
       | Phone:

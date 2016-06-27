@@ -37,6 +37,15 @@ p
 p
   | City:&nbsp;
   = @person.city.presence || 'Kyiv'
+p
+  | Tags:&nbsp;
+  - unless @person.tag_list.empty?
+    - @person.tag_list.each do |tag|
+      = link_to tag, people_path(q: {by_tag_including: tag})
+      | &nbsp;
+  - else
+    a href="#{edit_person_path(@person)}"
+      i.fa.fa-pencil
 
 .js-show-quick-forms-container style="display:none;"
   p
@@ -55,15 +64,6 @@ p
     - if @person.english.present?
       strong
         = @person.english
-    - else
-      a href="#{edit_person_path(@person)}"
-        i.fa.fa-pencil
-  p
-    | Tags:&nbsp;
-    - unless @person.tag_list.empty?
-      - @person.tag_list.each do |tag|
-        = link_to tag, people_path(q: {by_tag_including: tag})
-        | &nbsp;
     - else
       a href="#{edit_person_path(@person)}"
         i.fa.fa-pencil
