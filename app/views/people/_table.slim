@@ -36,7 +36,7 @@
       br
       = link_to '+ Action', new_action_point_path(action_point: { person_id: record.id })
     td
-      - if record.attachments.size > 0
+      - if record.attachments_count > 0
         | Attachments:&nbsp;
         br
         - record.attachments.each do |attachment|

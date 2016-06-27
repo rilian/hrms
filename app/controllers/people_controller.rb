@@ -17,7 +17,7 @@ class PeopleController < ApplicationController
     @people = @people.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @people = @people.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @people = @people.includes(:notes, :attachments, :action_points, :updated_by)
+    @people = @people.includes(:attachments, :action_points, :updated_by, notes: [:updated_by])
 
     respond_to do |f|
       f.partial { render partial: 'table' }

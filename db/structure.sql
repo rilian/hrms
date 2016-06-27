@@ -195,7 +195,10 @@ CREATE TABLE people (
     email character varying,
     updated_by_id integer,
     status character varying,
-    is_deleted boolean DEFAULT false NOT NULL
+    is_deleted boolean DEFAULT false NOT NULL,
+    action_points_count integer,
+    attachments_count integer,
+    notes_count integer
 );
 
 
@@ -548,10 +551,31 @@ CREATE INDEX index_notes_on_person_id ON notes USING btree (person_id);
 
 
 --
+-- Name: index_people_on_action_points_count; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_people_on_action_points_count ON people USING btree (action_points_count);
+
+
+--
+-- Name: index_people_on_attachments_count; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_people_on_attachments_count ON people USING btree (attachments_count);
+
+
+--
 -- Name: index_people_on_is_deleted; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_people_on_is_deleted ON people USING btree (is_deleted);
+
+
+--
+-- Name: index_people_on_notes_count; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_people_on_notes_count ON people USING btree (notes_count);
 
 
 --
@@ -647,4 +671,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160619204703');
 INSERT INTO schema_migrations (version) VALUES ('20160623212429');
 
 INSERT INTO schema_migrations (version) VALUES ('20160626123050');
+
+INSERT INTO schema_migrations (version) VALUES ('20160627093617');
 
