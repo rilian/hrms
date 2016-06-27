@@ -44,7 +44,8 @@
         i.fa.fa-pencil
   p
     | City:&nbsp;
-    = @person.city.presence || 'Kyiv'
+    strong
+      = @person.city.presence || 'Kyiv'
   p
     | Tags:&nbsp;
     - unless @person.tag_list.empty?
