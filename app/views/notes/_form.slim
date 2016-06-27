@@ -30,7 +30,7 @@
               input_html: { class: 'select form-control' }
   .form-group
     label.control-label
-      | Value
+      | Note text
       span.text-danger *
     = f.input :value, as: :text, placeholder: 'What happened', label: false, input_html: { rows: (defined?(partial_form) && partial_form.present?) ? 1 : 3 }
 
