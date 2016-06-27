@@ -4,30 +4,39 @@
       i.fa.fa-line-chart
       |  Quick Stats
   div.card
-    .card-title People
+    .card-title
+      a href="/people" People
     .card-body
       | #{Person.count}
   div.card
-    .card-title Notes
+    .card-title
+      a href="/notes" Notes
     .card-body
       | #{Note.count}
   div.card
-    .card-title Actions
+    .card-title
+      a href="/action_points" Actions
     .card-body
       | #{ActionPoint.count}
   div.card
-    .card-title Attachments
+    .card-title
+      a href="/attachments" Attachments
     .card-body
       | #{Attachment.count} (#{directory_size(ENV['UPLOADS_DIR'])})
   div.card
-    .card-title Tags
+    .card-title
+      a href="/tags" Tags
     .card-body
       | #{ActsAsTaggableOn::Tag.count}
-  div.card
-    .card-title Users
-    .card-body
-      | #{User.count}
-  div.card
-    .card-title Events
-    .card-body
-      | #{Event.count}
+  - if current_ability.can? :manage, User
+    div.card
+      .card-title
+        a href="/users" Users
+      .card-body
+        | #{User.count}
+  - if current_ability.can? :manage, Event
+    div.card
+      .card-title
+        a href="/events" Events
+      .card-body
+        | #{Event.count}

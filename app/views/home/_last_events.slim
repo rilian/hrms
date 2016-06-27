@@ -3,7 +3,7 @@ h4
     i.fa.fa-line-chart
     |  Latest events
 
-- Event.order(created_at: :desc).limit(10).each do |record|
+- Event.order(created_at: :desc).limit(20).each do |record|
   = record.created_at.strftime(t(:datetime_full)).gsub(/\s+/, '&nbsp;').html_safe
   | ,&nbsp;
   = record.user.email.split('@').first
@@ -16,6 +16,8 @@ h4
     = link_to record.entity.email, users_path
   - elsif record.entity.respond_to?(:person)
     = link_to record.entity.person.name.titleize, person_path(record.entity.person)
+  - elsif record.entity.is_a?(Vacancy)
+    = link_to "Vacancy##{record.entity_id}", edit_vacancy_path(record.entity)
   - else
     = "#{record.entity_type}##{record.entity_id}"
   br
