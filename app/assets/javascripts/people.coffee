@@ -5,6 +5,10 @@ $(document).on 'ready page:load', ->
       allowClear: true
     ).length > 0 && $('.dashboard').css({ "height": "auto" })
 
+  $('.js-show-edit-form').click ->
+    $('.js-edit-form-container').show()
+    $('.js-show-container').hide()
+
   $('.js-show-more').click ->
     $('.js-show-more-container').show()
     $(this).hide()
