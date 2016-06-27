@@ -14,6 +14,7 @@ class PeopleController < ApplicationController
       @people = @people.tagged_with(params[:q][:by_tag_excluding], exclude: true)
     end
 
+    @count = @people.count
     @people = @people.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @people = @people.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 

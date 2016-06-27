@@ -37,6 +37,9 @@ h2.title
               - else
                 option value="#{tag}" #{tag}
 
+p
+  sub #{pluralize(@count, 'result')}
+
 table.table.pretty-table
   thead
     th = sort_link @q, :name
