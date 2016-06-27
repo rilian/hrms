@@ -47,12 +47,7 @@
         = link_to record.city, people_path(q: { city_eq: record.city })
         br
       - if record.linkedin.present?
-        ' LinkedIn:
-        a target="_blank" href="#{'https'.in?(record.linkedin) ? record.linkedin : 'https://' + record.linkedin}" Link
-        br
-      - if record.english.present?
-        ' English:
-        = link_to record.english, people_path(q: { english_eq: record.english })
+        a target="_blank" href="#{'https'.in?(record.linkedin) ? record.linkedin : 'https://' + record.linkedin}" LinkedIn
         br
       - unless record.tag_list.empty?
         ' Tags:&nbsp;
