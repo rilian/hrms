@@ -52,6 +52,6 @@ class VacanciesController < ApplicationController
 private
 
   def vacancy_params
-    params.require(:vacancy).permit(:project, :role, :description)
+    params.require(:vacancy).permit(:project, :role, :description, :tag)
   end
 end

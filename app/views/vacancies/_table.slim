@@ -3,9 +3,14 @@
 
 - @vacancies.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @vacancies.size - 1) && last_page?(@vacancies))
-    td = link_to record.project, edit_vacancy_path(record)
-    td = record.role
-    td = record.description
+    td = link_to record.project, vacancy_path(record)
+    td = link_to record.role, vacancy_path(record)
+    td
+      - if record.tag
+        = link_to record.tag, people_path(q: { by_tag_including: record.tag })
+      - else
+        | n/a
+    td = with_newlines(truncate(record.description, length: 300, escape: false))
     td = record.created_at.strftime(t(:datetime_full))
     td
       a.btn.btn-sm.btn-info.btn-pill href="#{edit_vacancy_path(record)}"

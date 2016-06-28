@@ -13,7 +13,10 @@
     label.control-label
       | Description
     = f.input :description, as: :text, placeholder: 'About the project and brief description of daily tasks', label: false, input_html: { rows: 3 }
-
+  .form-group
+    label.control-label
+      | Vacancy Tag
+    = f.input :tag, placeholder: 'bo-senior-2016', label: false, class: 'input form-control'
   .form-bordered
     .form-group.form-actions
       .text-center

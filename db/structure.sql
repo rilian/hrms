@@ -344,7 +344,8 @@ CREATE TABLE vacancies (
     description text,
     updated_by_id integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    tag character varying
 );
 
 
@@ -676,4 +677,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160626123050');
 INSERT INTO schema_migrations (version) VALUES ('20160627093617');
 
 INSERT INTO schema_migrations (version) VALUES ('20160627151119');
+
+INSERT INTO schema_migrations (version) VALUES ('20160628085818');
 
