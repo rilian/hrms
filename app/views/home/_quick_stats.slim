@@ -28,6 +28,11 @@
       a href="/tags" Tags
     .card-body
       | #{ActsAsTaggableOn::Tag.count}
+  div.card
+    .card-title
+      a href="/vacancies" Vacancies
+    .card-body
+      | #{Vacancy.count}
   - if current_ability.can? :manage, User
     div.card
       .card-title
