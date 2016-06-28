@@ -37,17 +37,6 @@ h2.title
               - else
                 option value="#{tag}" #{tag}
 
-p
-  sub #{pluralize(@count, 'result')}
-
-table.table.pretty-table
-  thead
-    th = sort_link @q, :name
-    th = sort_link @q, :primary_tech, 'Tech'
-    th = sort_link @q, :status
-    th Activity
-    th Info
-  tbody.js-loadable-list
-    = render 'table'
+= render 'people/table_header'
 
 = render 'shared/load_button', collection: @people
