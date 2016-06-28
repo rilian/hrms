@@ -2,10 +2,24 @@ h2.title Tags
 
 table.table.pretty-table
   thead
+    th Vacancy tags
+    th Vacancy
+    th People
+  tbody
+    - @vacancy_tags.each do |tag|
+      - vacancy = Vacancy.find_by_tag(tag)
+      tr
+        td = link_to tag, people_path(q: { by_tag_including: tag })
+        td = link_to "#{vacancy.project} #{vacancy.role}", vacancy_path(vacancy)
+        td = ActsAsTaggableOn::Tag.find_by_name(tag)&.taggings_count || 0
+
+table.table.pretty-table
+  thead
     th Tag
-    th Popularity
+    th People
   tbody
     - @tags.each do |record|
+      - next if record.name.in? @vacancy_tags
       tr
         td = link_to record.name, people_path(q: { by_tag_including: record.name })
         td = record.taggings_count
