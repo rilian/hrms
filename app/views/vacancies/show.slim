@@ -1,0 +1,33 @@
+.js-edit-form-container style="display:none;"
+  h2.title
+    | Edit #{@vacancy.project} #{@vacancy.role}
+    | &nbsp;
+    a.btn.btn-default href="#{vacancy_path(@vacancy)}" Back
+  = render 'vacancies/form'
+
+.js-show-container
+  h2.title
+    = "#{@vacancy.project} #{@vacancy.role}"
+    | &nbsp;
+    a.btn.btn-default.js-show-edit-form href="#" Edit
+  p
+    | Project:&nbsp;
+    = @vacancy.project
+  p
+    | Role:&nbsp;
+    = @vacancy.role
+  p
+    | Tag:&nbsp;
+    = link_to @vacancy.tag, people_path(q: { by_tag_including: @vacancy.tag })
+  p
+    | Description:&nbsp;
+    = with_newlines @vacancy.description
+  p
+    | Date:&nbsp;
+    = @vacancy.created_at.strftime(t(:datetime_full))
+
+  h4
+    | Candidates:
+
+  = render 'people/table_header'
+
