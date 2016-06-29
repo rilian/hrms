@@ -107,6 +107,42 @@ ALTER SEQUENCE attachments_id_seq OWNED BY attachments.id;
 
 
 --
+-- Name: dayoffs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE dayoffs (
+    id integer NOT NULL,
+    person_id integer NOT NULL,
+    type character varying,
+    notes text,
+    days integer DEFAULT 0 NOT NULL,
+    start_on date,
+    end_on date,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: dayoffs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE dayoffs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: dayoffs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE dayoffs_id_seq OWNED BY dayoffs.id;
+
+
+--
 -- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -386,6 +422,13 @@ ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY dayoffs ALTER COLUMN id SET DEFAULT nextval('dayoffs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
 
 
@@ -445,6 +488,14 @@ ALTER TABLE ONLY action_points
 
 ALTER TABLE ONLY attachments
     ADD CONSTRAINT attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dayoffs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY dayoffs
+    ADD CONSTRAINT dayoffs_pkey PRIMARY KEY (id);
 
 
 --
@@ -515,6 +566,13 @@ CREATE INDEX index_action_points_on_person_id ON action_points USING btree (pers
 --
 
 CREATE INDEX index_attachments_on_person_id ON attachments USING btree (person_id);
+
+
+--
+-- Name: index_dayoffs_on_person_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_dayoffs_on_person_id ON dayoffs USING btree (person_id);
 
 
 --
@@ -679,4 +737,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160627093617');
 INSERT INTO schema_migrations (version) VALUES ('20160627151119');
 
 INSERT INTO schema_migrations (version) VALUES ('20160628085818');
+
+INSERT INTO schema_migrations (version) VALUES ('20160629141248');
 
