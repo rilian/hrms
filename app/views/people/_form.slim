@@ -73,6 +73,7 @@
       label.control-label
         | Birthday:
       = f.input :day_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 18, include_blank: true, label: false
+
   .form-group
     label.control-label Cultural Fit / Notes:
     = f.input :cultural_fit, as: :text, label: false, placeholder: 'Explain if this person will be a good fit to our teams...', input_html: { rows: 1 }
