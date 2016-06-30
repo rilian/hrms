@@ -1,0 +1,57 @@
+= render 'shared/form_error', object: @dayoff
+
+= simple_form_for @dayoff, html: { class: 'form' } do |f|
+  .form-group
+    - if defined?(partial_form) && partial_form.present?
+      input type="hidden" name="dayoff[person_id]" value="#{@person.id}"
+    - elsif @dayoff.new_record?
+      - if params.dig(:dayoff, :person_id).blank?
+        = f.input :person_id, as: :hidden
+        label.control-label
+          span.text-danger *
+          | Person:&nbsp;
+        input.select.form-control value="#{(Person.find_by_id(params.dig(:dayoff, :person_id)) || @dayoff.person)&.name}" type="text" data-autocomplete="#{autocomplete_person_name_people_path}" data-id-element="#note_person_id" data-auto-focus="true"
+      - else
+        = f.input :person_id, as: :hidden, input_html: {value: params[:dayoff][:person_id]}
+        label.control-label
+          span.text-danger *
+          | Person:&nbsp;
+        a href="#{person_path(Person.find_by_id(params.dig(:dayoff, :person_id)))}" #{(Person.find_by_id(params.dig(:dayoff, :person_id))).name}
+    - else
+      label.control-label Person&nbsp;
+      a href="#{person_path(@dayoff.person)}" #{@dayoff.person.name}
+
+  .form-group
+    label.control-label Type:
+    = f.input :type,
+        collection: Dayoff::TYPES,
+        label: false,
+        include_blank: false,
+        input_html: {class: 'select form-control'}
+
+  .form-group
+    label.control-label
+      span.text-danger *
+      |  Number of working days:
+    = f.input :days, placeholder: '5', label: false, class: 'input form-control'
+
+  .form-group
+    label.control-label
+      | Start date:
+    = f.input :start_on, as: :string, include_blank: true, label: false, input_html: { class: 'datepicker' }
+
+  .form-group
+    label.control-label
+      | End date:
+    = f.input :end_on, as: :string, include_blank: true, label: false, input_html: { class: 'datepicker' }
+
+  .form-group
+    label.control-label
+      | Notes:
+      span.text-danger *
+    = f.input :notes, as: :text, placeholder: 'Additional info', label: false, input_html: {rows: (defined?(partial_form) && partial_form.present?) ? 1 : 3}
+
+  .form-bordered
+    .form-group.form-actions
+      .text-center
+        = f.button :submit, (@dayoff.new_record? ? 'Create Day off' : 'Update Day off'), class: 'btn btn-success'

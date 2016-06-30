@@ -10,6 +10,7 @@ class Ability
     when 'manager'
       can :manage, ActionPoint
       can :manage, Attachment
+      can :manage, Dayoff
       can :manage, Note, type: user.accessible_note_types
       can :manage, Person
     end
