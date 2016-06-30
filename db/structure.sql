@@ -115,7 +115,7 @@ CREATE TABLE dayoffs (
     person_id integer NOT NULL,
     type character varying,
     notes text,
-    days integer DEFAULT 0 NOT NULL,
+    days integer DEFAULT 1 NOT NULL,
     start_on date,
     end_on date,
     created_at timestamp without time zone,

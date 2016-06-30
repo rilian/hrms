@@ -4,7 +4,7 @@ class CreateDayoffs < ActiveRecord::Migration
       t.references :person, index: true, null: false
       t.string :type
       t.text :notes
-      t.integer :days, null: false, default: 0
+      t.integer :days, null: false, default: 1
       t.date :start_on
       t.date :end_on
 
