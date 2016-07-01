@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :action_points, except: :destroy
-  resources :attachments, except: :destroy
+  resources :action_points, except: [:show, :destroy]
+  resources :attachments, except: [:show, :destroy]
   resources :dayoffs, except: :show
   resources :events, only: :index
-  resources :notes, except: :destroy
+  resources :notes, except: [:show, :destroy]
   resources :people do
     get :autocomplete_person_name, on: :collection
   end
   resources :tags, only: :index
-  resources :users, except: :destroy
+  resources :users, except: [:show, :destroy]
   resources :vacancies, except: :destroy
 
   root 'home#index'

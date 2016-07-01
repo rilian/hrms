@@ -17,9 +17,6 @@ class NotesController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def new
   end
 
