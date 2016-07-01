@@ -1,0 +1,21 @@
+h2.title
+  | DAYS OFF &nbsp;
+  a.btn.btn-default.btn-pill href="/dayoffs/new"
+    i.fa.fa-plus
+    | &nbsp; Add day off
+
+table.table.pretty-table
+  thead
+    th = sort_link @q, :person, ['person_name'], 'Person'
+    th = sort_link @q, :type
+    th = sort_link @q, :days
+    th = sort_link @q, :notes
+    th = sort_link @q, :start_on
+    th = sort_link @q, :end_on
+    th = sort_link @q, :created_at, 'Created'
+    th colspan="2" Actions
+
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @dayoffs

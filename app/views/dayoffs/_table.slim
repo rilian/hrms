@@ -1,0 +1,19 @@
+- if @dayoffs.empty?
+  span class='js-page-last'
+
+- @dayoffs.each_with_index do |record, index|
+  tr class=('js-page-last' if (index == @dayoffs.size - 1) && last_page?(@dayoffs))
+    td = link_to record.person.name, person_path(record.person)
+    td = record.type
+    td = pluralize(record.days, 'day')
+    td = with_newlines(record.notes)
+    td = record.start_on
+    td = record.end_on
+    td = record.created_at.strftime(t(:datetime_full))
+    td colspan="2"
+      a.btn.btn-sm.btn-info.btn-pill href="#{edit_dayoff_path(record)}"
+        i.fa.fa-pencil
+        | &nbsp;Edit
+      a.btn.btn-sm.btn-danger.btn-pill href="#{dayoff_path(record)}" data-method="delete" data-confirm="Are you sure ?"
+        i.fa.fa-times
+        | &nbsp;Delete

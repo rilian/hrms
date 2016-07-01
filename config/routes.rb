@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :action_points, except: :destroy
   resources :attachments, except: :destroy
-  resources :dayoffs, except: :destroy
+  resources :dayoffs, except: :show
   resources :events, only: :index
   resources :notes, except: :destroy
   resources :people do

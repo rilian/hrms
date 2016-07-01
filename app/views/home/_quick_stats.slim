@@ -33,6 +33,11 @@
       a href="/vacancies" Vacancies
     .card-body
       | #{Vacancy.count}
+  div.card
+    .card-title
+      a href="/dayoffs" Days off
+    .card-body
+      | #{Dayoff.count}
   - if current_ability.can? :manage, User
     div.card
       .card-title
