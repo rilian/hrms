@@ -4,6 +4,7 @@ class Dayoff < ActiveRecord::Base
   TYPES = ['Vacation', 'Sick Leave']
 
   belongs_to :person
+  belongs_to :updated_by, class_name: 'User'
 
   validates :person, presence: true
   validates :type, inclusion: { in: TYPES }

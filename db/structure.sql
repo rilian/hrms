@@ -119,7 +119,8 @@ CREATE TABLE dayoffs (
     start_on date,
     end_on date,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    updated_by_id integer
 );
 
 
@@ -739,4 +740,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160627151119');
 INSERT INTO schema_migrations (version) VALUES ('20160628085818');
 
 INSERT INTO schema_migrations (version) VALUES ('20160629141248');
+
+INSERT INTO schema_migrations (version) VALUES ('20160701123126');
 
