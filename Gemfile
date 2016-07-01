@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', github: 'rails/rails', branch: '4-2-stable'
+gem 'rails', '4.2.7.rc1'
 gem 'pg'
 gem 'dotenv-rails'
 gem 'ransack'
