@@ -3,7 +3,7 @@ h4
     i.fa.fa-line-chart
     |  Latest events
 
-- Event.order(created_at: :desc).limit(20).each do |record|
+- Event.order(created_at: :desc).limit(20).includes(:user, :entity).each do |record|
   = record.created_at.strftime(t(:datetime_full)).gsub(/\s+/, '&nbsp;').html_safe
   | ,&nbsp;
   = record.user.email.split('@').first
