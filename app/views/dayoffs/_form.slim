@@ -22,7 +22,9 @@
       a href="#{person_path(@dayoff.person)}" #{@dayoff.person.name}
 
   .form-group
-    label.control-label Type:
+    label.control-label
+      span.text-danger *
+      |  Type:
     = f.input :type,
         collection: Dayoff::TYPES,
         label: false,
@@ -37,18 +39,19 @@
 
   .form-group
     label.control-label
-      | Start date:
+      span.text-danger *
+      |  Start date:
     = f.input :start_on, as: :string, include_blank: true, label: false, input_html: { class: 'datepicker' }
 
   .form-group
     label.control-label
-      | End date:
+      span.text-danger *
+      |  End date:
     = f.input :end_on, as: :string, include_blank: true, label: false, input_html: { class: 'datepicker' }
 
   .form-group
     label.control-label
       | Notes:
-      span.text-danger *
     = f.input :notes, as: :text, placeholder: 'Additional info', label: false, input_html: {rows: (defined?(partial_form) && partial_form.present?) ? 1 : 3}
 
   .form-bordered
