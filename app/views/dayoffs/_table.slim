@@ -7,8 +7,8 @@
     td = record.type
     td = pluralize(record.days, 'day')
     td = with_newlines(record.notes)
-    td = record.start_on
-    td = record.end_on
+    td = record.start_on&.to_formatted_s(:rfc822)
+    td = record.end_on&.to_formatted_s(:rfc822)
     td = record.created_at.strftime(t(:datetime_full))
     td colspan="2"
       a.btn.btn-sm.btn-info.btn-pill href="#{edit_dayoff_path(record)}"
