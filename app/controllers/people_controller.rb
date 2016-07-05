@@ -40,7 +40,7 @@ class PeopleController < ApplicationController
     @person = Person.new(person_params.merge!(updated_by: current_user))
     if @person.save
       log_event(entity: @person, action: 'created')
-      redirect_to people_path, flash: { success: 'Person created' }
+      redirect_to person_path(@person), flash: { success: 'Person created' }
     else
       flash.now[:error] = 'Person was not created'
       render :new
@@ -53,7 +53,7 @@ class PeopleController < ApplicationController
   def update
     if @person.update(person_params.merge!(updated_by: current_user))
       log_event(entity: @person, action: 'updated')
-      redirect_to people_path, flash: { success: 'Person updated' }
+      redirect_to person_path(@person), flash: { success: 'Person updated' }
     else
       flash.now[:error] = 'Person was not updated'
       render :edit
