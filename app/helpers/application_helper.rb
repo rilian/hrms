@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def active_class(path)
-    'active' if (path == request.path)
+    'active' if request.path.starts_with?(path)
   end
 
   def grade(mark)

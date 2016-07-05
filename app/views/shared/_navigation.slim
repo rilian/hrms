@@ -9,19 +9,19 @@
       a href="#{people_path}"
         i.fa.fa-users
         | &nbsp; People
+    li.item role="presentation" class="#{active_class('/vacancies')}"
+      a href="#{vacancies_path}"
+        i.fa.fa-tags
+        | &nbsp; Vacancies
     li.item role="presentation" class="#{active_class('/tags')}"
       a href="#{tags_path}"
         i.fa.fa-tags
         | &nbsp; Tags
-    li.item role="presentation"
-      a href="#{vacancies_path}"
-        i.fa.fa-tags
-        | &nbsp; Vacancies
-    li.item role="presentation"
+    li.item role="presentation" class="#{active_class('/dayoffs')}"
       a href="#{dayoffs_path}"
         i.fa.fa-tags
         | &nbsp; Days off
-    li.item role="presentation"
+    li.item role="presentation" class="#{active_class('/reports')}"
       a href="/reports"
         i.fa.fa-tags
         | &nbsp; Reports
