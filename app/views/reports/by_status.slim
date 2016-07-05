@@ -5,6 +5,13 @@ table.table.pretty-table
     th Status
     th People
   tbody
+    tr
+      td
+        span style="width: 10px; background-color: black;" &nbsp;&nbsp;&nbsp;&nbsp;
+        | &nbsp;
+        = link_to 'Not selected', people_path(q: { status_eq: '' })
+      td
+        = link_to Person.not_deleted.accessible_by(current_ability).where(status: '').count, people_path(q: { status_eq: '' })
     - PERSON_STATUS_COLORS.each_pair do |status, color|
       tr
         td
@@ -12,4 +19,4 @@ table.table.pretty-table
           | &nbsp;
           = link_to status, people_path(q: {status_eq: status})
         td
-          = link_to Person.not_deleted.accessible_by(current_ability).where(status: status).count, people_path(q: {status_eq: status})
+          = link_to Person.not_deleted.accessible_by(current_ability).where(status: status).count, people_path(q: { status_eq: status })
