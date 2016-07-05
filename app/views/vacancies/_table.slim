@@ -11,7 +11,7 @@
       - else
         | n/a
     td = with_newlines(truncate(record.description, length: 300, escape: false))
-    td = record.created_at.strftime(t(:datetime_full))
+    td = record.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
     td
       a.btn.btn-sm.btn-info.btn-pill href="#{edit_vacancy_path(record)}"
         i.fa.fa-pencil

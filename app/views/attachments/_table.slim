@@ -12,7 +12,7 @@
     td = with_newlines(record.description)
     td = link_to 'Download', Refile.attachment_url(record, :file)
     td = number_to_human_size(record.file_size)
-    td = record.created_at.strftime(t(:datetime_full))
+    td = record.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
     td
       = record.updated_at.strftime(t(:datetime_full))
       br

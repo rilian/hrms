@@ -10,7 +10,7 @@
         = link_to record.person.primary_tech, people_path(q: {primary_tech_eq: record.person.primary_tech})
     td = record.type
     td = with_newlines(record.value)
-    td = record.created_at.strftime(t(:datetime_full))
+    td = record.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
     td
       = record.updated_at.strftime(t(:datetime_full))
       br
