@@ -23,8 +23,7 @@ class Person < ActiveRecord::Base
     Upper-Intermediate
     Advanced
   )
-  SEARCH_STR = %w[name city phone skype linkedin primary_tech english
-    notes_value action_points_value].join('_or_') << '_cont'
+  SEARCH_STR = %w[name phone skype notes_value action_points_value].join('_or_') << '_cont'
 
   belongs_to :updated_by, class_name: 'User'
   has_many :action_points
