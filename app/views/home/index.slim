@@ -5,10 +5,7 @@ h2.title
     |  Sign out
 br
 
-form.form action="#{people_path}" method="GET"
-  input style="width: 250px" type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Search Person" value=""
-  button.btn.btn-primary.btn-wide style="width: 50px" type="submit" Search
-
+= render 'search'
 = render 'actions'
 = render 'quick_stats'
 = render 'reports'

@@ -1,52 +1,39 @@
 .cards
-  h4
-    span.label.label-info
-      i.fa.fa-line-chart
-      |  Quick Stats
   div.card
     .card-title
       a href="/people" People
-    .card-body
-      | #{Person.count}
+    .card-body #{Person.count}
   div.card
     .card-title
       a href="/notes" Notes
-    .card-body
-      | #{Note.count}
+    .card-body #{Note.count}
   div.card
     .card-title
       a href="/action_points" Actions
-    .card-body
-      | #{ActionPoint.count}
+    .card-body #{ActionPoint.count}
   div.card
     .card-title
-      a href="/attachments" Attachments
-    .card-body
-      | #{Attachment.count} (#{directory_size(ENV['UPLOADS_DIR'])})
+      a href="/attachments" Files
+    .card-body #{Attachment.count}
   div.card
     .card-title
       a href="/tags" Tags
-    .card-body
-      | #{ActsAsTaggableOn::Tag.count}
+    .card-body #{ActsAsTaggableOn::Tag.count}
   div.card
     .card-title
       a href="/vacancies" Vacancies
-    .card-body
-      | #{Vacancy.count}
+    .card-body #{Vacancy.count}
   div.card
     .card-title
       a href="/dayoffs" Days off
-    .card-body
-      | #{Dayoff.count}
+    .card-body #{Dayoff.count}
   - if current_ability.can? :manage, User
     div.card
       .card-title
         a href="/users" Users
-      .card-body
-        | #{User.count}
+      .card-body #{User.count}
   - if current_ability.can? :manage, Event
     div.card
       .card-title
         a href="/events" Events
-      .card-body
-        | #{Event.count}
+      .card-body #{Event.count}

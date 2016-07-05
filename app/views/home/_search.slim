@@ -1,0 +1,12 @@
+form.form action="#{people_path}" method="GET"
+  input style="width: 150px" type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Name" value=""
+  | &nbsp;
+  select style="width: 150px" name="q[status_eq]"
+    option value="" HR Status
+    - PERSON_STATUS_COLORS.each_pair do |status, color|
+      - if params.dig(:q, :status_eq) == status
+        option selected="selected" value="#{status}" style="background-color: #{color};" #{status}
+      - else
+        option value="#{status}" style="background-color: #{color};" #{status}
+  | &nbsp;
+  button.btn.btn-default type="submit" Search

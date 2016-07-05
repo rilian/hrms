@@ -7,12 +7,21 @@ h2.title
 .search-form
   form.form action="#{people_path}" method="GET"
     .row
-      .col-md-10
+      .col-md-3
         .form-group
-          input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Anything" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
+          input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Name, notes" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
+      .col-md-3
+        .form-group
+          select.select.form-control style="width: 150px" name="q[status_eq]"
+            option value="" HR Status
+            - PERSON_STATUS_COLORS.each_pair do |status, color|
+              - if params.dig(:q, :status_eq) == status
+                option selected="selected" value="#{status}" style="background-color: #{color};" #{status}
+              - else
+                option value="#{status}" style="background-color: #{color};" #{status}
       .col-md-2
-        .form-group
-          button.btn.btn-primary.btn-wide type="submit"
+        .form-group.form-actions
+          button.btn.btn-small.btn-primary type="submit"
             i.fa.fa-search
             | &nbsp; Search
     .row
