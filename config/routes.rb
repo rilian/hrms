@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   resources :people do
     get :autocomplete_person_name, on: :collection
   end
+  resources :reports, only: :index do
+    collection do
+      get :by_status
+    end
+  end
   resources :tags, only: :index
   resources :users, except: [:show, :destroy]
   resources :vacancies, except: :destroy

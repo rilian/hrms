@@ -1,0 +1,12 @@
+h2.title
+  | Reports &nbsp;
+
+a href="#{by_status_reports_path}" By HR status
+br
+| #{(Person.not_deleted.where("linkedin = '' OR linkedin IS NULL").pluck(:id) - Attachment.pluck(:person_id)).size} People have no Linkedin or CV Attachment
+br
+| #{(Person.not_deleted.pluck(:id) - Note.pluck(:person_id)).size} People without notes
+br
+| #{Person.not_deleted.where('created_at > ?', 1.month.ago).count} People added last month
+br
+| #{Note.where('created_at > ?', 1.month.ago).pluck(:person_id).uniq.count} Unique people contacted last month

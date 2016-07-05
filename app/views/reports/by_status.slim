@@ -1,0 +1,15 @@
+h2.title People by status
+
+table.table.pretty-table
+  thead
+    th Status
+    th People
+  tbody
+    - PERSON_STATUS_COLORS.each_pair do |status, color|
+      tr
+        td
+          span style="width: 10px; background-color: #{color};" &nbsp;&nbsp;&nbsp;&nbsp;
+          | &nbsp;
+          = link_to status, people_path(q: {status_eq: status})
+        td
+          = link_to Person.not_deleted.accessible_by(current_ability).where(status: status).count, people_path(q: {status_eq: status})
