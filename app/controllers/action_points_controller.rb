@@ -24,9 +24,9 @@ class ActionPointsController < ApplicationController
     @action_point = ActionPoint.new(action_point_params.merge!(updated_by: current_user))
     if @action_point.save
       log_event(entity: @action_point, action: 'created')
-      redirect_to person_path(@action_point.person), flash: { success: 'ActionPoint created' }
+      redirect_to person_path(@action_point.person), flash: { success: 'Action created' }
     else
-      flash.now[:error] = 'ActionPoint was not created'
+      flash.now[:error] = 'Action was not created'
       render :new
     end
   end
@@ -37,9 +37,9 @@ class ActionPointsController < ApplicationController
   def update
     if @action_point.update(action_point_params.merge!(updated_by: current_user))
       log_event(entity: @action_point, action: 'updated')
-      redirect_to person_path(@action_point.person), flash: { success: 'ActionPoint updated' }
+      redirect_to person_path(@action_point.person), flash: { success: 'Action updated' }
     else
-      flash.now[:error] = 'ActionPoint was not updated'
+      flash.now[:error] = 'Action was not updated'
       render :edit
     end
   end
