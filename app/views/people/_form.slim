@@ -75,7 +75,7 @@
     .form-group
       label.control-label
         | Birthday:
-      = f.input :day_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 18, include_blank: true, label: false
+    = f.input :day_of_birth, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { class: 'datepicker' }
 
   .form-group
     label.control-label Cultural Fit / Notes:
