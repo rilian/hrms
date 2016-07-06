@@ -19,7 +19,10 @@
     label.control-label HR Status:
     select.select.form-control name="person[status]"
       - PERSON_STATUS_COLORS.each_pair do |status, color|
-        option value="#{status}" style="background-color: #{color};" #{status}
+        - if @person.status == status
+          option selected="selected" value="#{status}" style="background-color: #{color};" #{status}
+        - else
+          option value="#{status}" style="background-color: #{color};" #{status}
 
   .form-group
     label.control-label
