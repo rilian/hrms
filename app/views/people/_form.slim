@@ -75,7 +75,7 @@
     .form-group
       label.control-label
         | Birthday:
-    = f.input :day_of_birth, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { class: 'datepicker' }
+    = f.input :day_of_birth, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: @person.day_of_birth.strftime('%d-%m-%Y'), class: 'datepicker' }
 
   .form-group
     label.control-label Cultural Fit / Notes:
