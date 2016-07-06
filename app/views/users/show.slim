@@ -1,0 +1,21 @@
+.js-edit-form-container style="display:none;"
+  h2.title
+    | Edit #{@user.email}
+    | &nbsp;
+    a.btn.btn-default href="#{user_path(@user)}" Back
+  = render 'users/form'
+
+.js-show-container
+  h2.title
+    = "#{@user.email}"
+    | &nbsp;
+    a.btn.btn-default.js-show-edit-form href="#" Edit
+  p
+    | Email:&nbsp;
+    = @user.email
+  p
+    | Role:&nbsp;
+    = @user.role
+  p
+    | Notifications:&nbsp;
+    = @user.notifications_enabled? ? 'yes' : 'no'

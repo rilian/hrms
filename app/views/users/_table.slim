@@ -4,7 +4,7 @@
 - @users.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @users.size - 1) && last_page?(@users))
     td
-      = record.email
+      = link_to record.email, user_path(record)
       - if current_user.email == record.email
         | &nbsp;
         span.label.label-warning

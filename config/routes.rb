@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
   resources :tags, only: :index
-  resources :users, except: [:show, :destroy]
+  resources :users, except: :destroy
   resources :vacancies, except: :destroy
 
   root 'home#index'
