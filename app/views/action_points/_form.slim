@@ -23,11 +23,15 @@
 
   .form-group
     label.control-label
-      | Action description
+      | Action description:
       span.text-danger *
     = f.input :value, as: :text, placeholder: 'What should be done', label: false, input_html: { rows: (defined?(partial_form) && partial_form.present?) ? 1 : 3 }
 
-  = f.input :perform_on, as: :date, label: "Perform on:"
+  .form-group
+    label.control-label
+      | Perform on:
+      span.text-danger *
+    = f.input :perform_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: @action_point.perform_on&.strftime('%d-%m-%Y'), class: 'datepicker' }
 
   = f.input :is_completed, as: :boolean, label: 'Completed'
 
