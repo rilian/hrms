@@ -4,7 +4,7 @@ class PeopleController < ApplicationController
 
   def index
     @q = Person.not_deleted.accessible_by(current_ability).ransack(params[:q])
-    @q.sorts = 'created_at desc' if @q.sorts.empty?
+    @q.sorts = 'updated_at desc' if @q.sorts.empty?
     @people = @q.result(distinct: true)
 
     if params.dig(:q, :by_tag_including)

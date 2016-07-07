@@ -19,7 +19,7 @@ class VacanciesController < ApplicationController
     @vacancy = Vacancy.find(params[:id])
 
     @q = Person.not_deleted.accessible_by(current_ability).ransack(params[:q])
-    @q.sorts = 'created_at desc' if @q.sorts.empty?
+    @q.sorts = 'updated_at desc' if @q.sorts.empty?
     @people = @q.result(distinct: true)
     @people = @people.tagged_with(@vacancy.tag, any: true)
     @count = @people.count
