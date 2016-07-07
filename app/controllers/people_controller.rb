@@ -20,6 +20,9 @@ class PeopleController < ApplicationController
 
     @people = @people.includes(:attachments, :action_points, :updated_by, notes: [:updated_by])
 
+    @tags = Person.not_deleted.accessible_by(current_ability).tag_counts_on(:tags)
+      .sort { |t1, t2| t2.taggings_count <=> t1.taggings_count }
+
     respond_to do |f|
       f.partial { render partial: 'table' }
       f.html
