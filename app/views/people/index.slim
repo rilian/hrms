@@ -29,7 +29,7 @@ h2.title
             | Tags
           select.form-control.js-select2-select multiple="multiple" name="q[by_tag_including][]" class="form-control"
             - @tags.each do |tag|
-              - if params.dig(:q, :by_tag_including) && tag.in?(Array.wrap(params[:q][:by_tag_including]))
+              - if params.dig(:q, :by_tag_including) && tag.name.in?(Array.wrap(params[:q][:by_tag_including]))
                 option value="#{tag}" selected="selected" #{tag}
               - else
                 option value="#{tag}" #{tag}
@@ -40,7 +40,7 @@ h2.title
             | Exclude Tags
           select.form-control.js-select2-select multiple="multiple" name="q[by_tag_excluding][]" class="form-control"
             - @tags.each do |tag|
-              - if params.dig(:q, :by_tag_excluding) && tag.in?(Array.wrap(params[:q][:by_tag_excluding]))
+              - if params.dig(:q, :by_tag_excluding) && tag.name.in?(Array.wrap(params[:q][:by_tag_excluding]))
                 option value="#{tag}" selected="selected" #{tag}
               - else
                 option value="#{tag}" #{tag}
