@@ -27,7 +27,7 @@ class Note < ActiveRecord::Base
     'Salary'
   ]
 
-  belongs_to :person, counter_cache: true
+  belongs_to :person, counter_cache: true, touch: true
   belongs_to :updated_by, class_name: 'User'
 
   validates :type, :person, :value, presence: true

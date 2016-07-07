@@ -3,7 +3,7 @@ class Dayoff < ActiveRecord::Base
 
   TYPES = ['Vacation', 'Sick Leave']
 
-  belongs_to :person
+  belongs_to :person, touch: true
   belongs_to :updated_by, class_name: 'User'
 
   validates :person, :start_on, :end_on, presence: true
