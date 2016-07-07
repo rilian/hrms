@@ -231,7 +231,7 @@ CREATE TABLE people (
     updated_at timestamp without time zone NOT NULL,
     email character varying,
     updated_by_id integer,
-    status character varying,
+    status character varying DEFAULT 'n/a'::character varying NOT NULL,
     is_deleted boolean DEFAULT false NOT NULL,
     action_points_count integer,
     attachments_count integer,
@@ -746,4 +746,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160629141248');
 INSERT INTO schema_migrations (version) VALUES ('20160701123126');
 
 INSERT INTO schema_migrations (version) VALUES ('20160707095608');
+
+INSERT INTO schema_migrations (version) VALUES ('20160707154815');
 
