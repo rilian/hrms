@@ -9,42 +9,60 @@ h2.title
     .row
       .col-md-3
         .form-group
+          label.control-label
+            | Query
           input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Name, notes" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
       .col-md-3
         .form-group
-          select.select.form-control style="width: 200px" name="q[status_eq]"
-            option value="" HR Status
+          label.control-label
+            | HR Status
+          select.select.form-control name="q[status_eq]"
+            option value="" not selected
             - PERSON_STATUS_COLORS.each_pair do |status, color|
               - if params.dig(:q, :status_eq) == status
                 option selected="selected" value="#{status}" style="background-color: #{color};" #{status}
               - else
                 option value="#{status}" style="background-color: #{color};" #{status}
-      .col-md-2
-        .form-group.form-actions
-          button.btn.btn-small.btn-primary type="submit"
-            i.fa.fa-search
-            | &nbsp; Search
-    .row
-      .col-md-6
+      .col-md-3
         .form-group
           label.control-label
-            | Tags:
+            | Tags
           select.form-control.js-select2-select multiple="multiple" name="q[by_tag_including][]" class="form-control"
             - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
               - if params.dig(:q, :by_tag_including) && tag.in?(Array.wrap(params[:q][:by_tag_including]))
                 option value="#{tag}" selected="selected" #{tag}
               - else
                 option value="#{tag}" #{tag}
-      .col-md-6
+    .row
+      .col-md-3
         .form-group
           label.control-label
-            | Exclude Tags:
+            | Exclude Tags
           select.form-control.js-select2-select multiple="multiple" name="q[by_tag_excluding][]" class="form-control"
             - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
               - if params.dig(:q, :by_tag_excluding) && tag.in?(Array.wrap(params[:q][:by_tag_excluding]))
                 option value="#{tag}" selected="selected" #{tag}
               - else
                 option value="#{tag}" #{tag}
+      .col-md-3
+        .form-group
+          label.control-label
+            | Exclude Statuses
+          select.form-control.js-select2-select multiple="multiple" name="q[status_not_in][]" class="form-control"
+            - PERSON_STATUS_COLORS.keys.each do |status|
+              /- puts params.dig(:q, :status_not_in)
+              - if params.dig(:q, :status_not_in) && status.in?(Array.wrap(params[:q][:status_not_in]))
+                option value="#{status}" selected="selected" #{status}
+              - else
+                option value="#{status}" #{status}
+
+      .col-md-2
+        .form-group
+          label.control-label
+            | &nbsp;
+          button.form-control.btn.btn-small.btn-primary type="submit"
+            i.fa.fa-search
+            | &nbsp; Search
 
 = render 'people/table_header'
 
