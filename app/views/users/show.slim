@@ -19,3 +19,15 @@
   p
     | Notifications:&nbsp;
     = @user.notifications_enabled? ? 'yes' : 'no'
+  p
+    | Hide tags:&nbsp;
+    - @user.hide_tags.each do |tag|
+      = link_to tag, people_path(q: { by_tag_including: tag })
+      | &nbsp;
+  p
+    | Hide statuses:&nbsp;
+    - @user.hide_statuses.each do |status|
+      span style="width: 10px; background-color: #{PERSON_STATUS_COLORS[status]};" &nbsp;&nbsp;&nbsp;&nbsp;
+      | &nbsp;
+      = link_to status, people_path(q: { status_eq: status })
+      | &nbsp;

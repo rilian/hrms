@@ -16,6 +16,27 @@
   .form-group
     label.control-label Notifications
     = f.input :notifications_enabled, as: :boolean, label: false
+
+  .form-group
+    label.control-label
+      | Exclude Tags
+    select.form-control.js-select2-select multiple="multiple" name="user[hide_tags][]" class="form-control"
+      - @tags.each do |tag|
+        - if tag.name.in?(@user.hide_tags)
+          option value="#{tag}" selected="selected" #{tag}
+        - else
+          option value="#{tag}" #{tag}
+
+  .form-group
+    label.control-label
+      | Exclude Statuses
+    select.form-control.js-select2-select multiple="multiple" name="user[hide_statuses][]" class="form-control"
+      - PERSON_STATUS_COLORS.keys.each do |status|
+        - if status.in?(@user.hide_statuses)
+          option value="#{status}" selected="selected" #{status}
+        - else
+          option value="#{status}" #{status}
+
   .form-group
     label.control-label New Password
     = f.input :password, label: false, input_html: { value: '' }

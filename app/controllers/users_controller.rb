@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
+  before_action :set_tags
 
   def index
     @q = User.accessible_by(current_ability).ransack(params[:q])
@@ -48,8 +49,14 @@ class UsersController < ApplicationController
 private
 
   def user_params
-    params.require(:user).permit(:email, :password, :notifications_enabled, :role).tap do |p|
+    params.require(:user).permit(
+      :email, :password, :notifications_enabled, :role, hide_tags: [], hide_statuses: []).tap do |p|
       p.delete(:password) if p[:password].blank?
     end
+  end
+
+  def set_tags
+    @tags = Person.not_deleted.accessible_by(current_ability).tag_counts_on(:tags)
+      .sort { |t1, t2| t2.taggings_count <=> t1.taggings_count }
   end
 end
