@@ -15,5 +15,6 @@ module HRMS
   class Application < Rails::Application
     config.active_record.schema_format = :sql
     config.active_record.raise_in_transactional_callbacks = true
+    config.time_zone = 'UTC'
   end
 end
