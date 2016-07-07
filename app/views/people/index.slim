@@ -40,18 +40,17 @@ h2.title
             | Exclude Tags
           select.form-control.js-select2-select multiple="multiple" name="q[by_tag_excluding][]" class="form-control"
             - @tags.each do |tag|
-              - if params.dig(:q, :by_tag_excluding) && tag.name.in?(Array.wrap(params[:q][:by_tag_excluding]))
-                option value="#{tag}" selected="selected" #{tag}
+              - if (params.dig(:q, :by_tag_excluding) && tag.name.in?(Array.wrap(params[:q][:by_tag_excluding]))) || (params.dig(:q, :by_tag_excluding).blank? && current_user.hide_tags.include?(tag.name))
+                option value="#{tag.name}" selected="selected" #{tag.name}
               - else
-                option value="#{tag}" #{tag}
+                option value="#{tag.name}" #{tag.name}
       .col-md-3
         .form-group
           label.control-label
             | Exclude Statuses
           select.form-control.js-select2-select multiple="multiple" name="q[status_not_in][]" class="form-control"
             - PERSON_STATUS_COLORS.keys.each do |status|
-              /- puts params.dig(:q, :status_not_in)
-              - if params.dig(:q, :status_not_in) && status.in?(Array.wrap(params[:q][:status_not_in]))
+              - if (params.dig(:q, :status_not_in) && status.in?(Array.wrap(params[:q][:status_not_in]))) || (params.dig(:q, :status_not_in).blank? && current_user.hide_statuses.include?(status))
                 option value="#{status}" selected="selected" #{status}
               - else
                 option value="#{status}" #{status}
