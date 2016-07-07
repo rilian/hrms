@@ -46,6 +46,13 @@
     | City:&nbsp;
     strong
       = @person.city.presence || 'Kyiv'
+  - vacancies = Vacancy.where(tag: @person.tag_list)
+  - if vacancies.present?
+    p
+      | Vacancies:&nbsp;
+      - vacancies.each do |vacancy|
+        = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
+        | &nbsp;
   p
     | Tags:&nbsp;
     - unless @person.tag_list.empty?
