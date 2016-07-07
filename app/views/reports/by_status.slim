@@ -5,13 +5,6 @@ table.table.pretty-table
     th Status
     th People
   tbody
-    tr
-      td
-        span style="width: 10px; background-color: black;" &nbsp;&nbsp;&nbsp;&nbsp;
-        | &nbsp;
-        = link_to 'Not selected', people_path(q: { status_blank: 'true' })
-      td
-        = link_to Person.not_deleted.accessible_by(current_ability).where("status = '' OR status IS NULL").count, people_path(q: { status_blank: 'true' })
     - PERSON_STATUS_COLORS.each_pair do |status, color|
       tr
         td
