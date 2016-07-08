@@ -85,8 +85,8 @@ Rails.application.configure do
     address: ENV['EMAIL_PROVIDER_ADDRESS'],
     user_name: ENV['EMAIL_PROVIDER_USERNAME'],
     password: ENV['EMAIL_PROVIDER_API_KEY'],
-    port: 587,
     domain: ENV['EMAIL_PROVIDER_DOMAIN_NAME'],
+    port: 587,
     authentication: 'plain',
     enable_starttls_auto: true
   }
