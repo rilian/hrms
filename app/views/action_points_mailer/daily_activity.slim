@@ -1,11 +1,14 @@
-| Hi #{@user.email},
+span
+  | Hi #{@user.email},
 br
 br
 
 = render 'action_points/daily_activity', records: @action_points
 
-| Thank you,
+span
+  | Thank you,
 br
-| HRMS
+span
+  | HRMS
 br
 = ENV['DOMAIN_NAME']
