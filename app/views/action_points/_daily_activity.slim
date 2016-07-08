@@ -3,7 +3,8 @@
   br
   br
 - else
-  | There #{records.size == 1 ? 'is' : 'are')} #{records.size} #{records.size == 1 ? 'action' : 'actions')} for #{@time.strftime(t(:datetime_full))}:
+  span
+    | There #{records.size == 1 ? 'is' : 'are'} #{records.size} #{records.size == 1 ? 'action' : 'actions'} for #{@time.strftime(t(:datetime_full))}:
   br
   br
   - records.each do |record|
