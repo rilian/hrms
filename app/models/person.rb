@@ -31,7 +31,15 @@ class Person < ActiveRecord::Base
   has_many :dayoffs
   has_many :notes
 
+  before_validation :cleanup
+
   validates :name, presence: true
 
   scope :not_deleted, ->() { where(is_deleted: false) }
+
+private
+
+  def cleanup
+    self.email = email.to_s.downcase
+  end
 end
