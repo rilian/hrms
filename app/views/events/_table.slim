@@ -18,5 +18,5 @@
     td
       = link_to record.action, events_path('q[action_eq]' => record.action)
       br
-      = record.params.reject {|k,_| k.in? %w[created_at updated_at] }.to_s.gsub('=>[nil, ', '=>[').chomp('}').reverse.chomp('{').reverse.gsub('["", ', '[').gsub('\r\n', ' '.html_safe)
+      = cleanup_event_params(record.params)
     td = record.created_at.strftime(t(:datetime_full)).gsub(/\s+/, '&nbsp;').html_safe
