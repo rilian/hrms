@@ -10,12 +10,12 @@ h2.title
       .col-md-3
         .form-group
           label.control-label
-            | Query
-          input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Name, notes" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
+            | Search by name
+          input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Name" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
       .col-md-3
         .form-group
           label.control-label
-            | HR Status
+            | HR status
           select.select.form-control name="q[status_eq]"
             option value="" not selected
             - PERSON_STATUS_COLORS.each_pair do |status, color|
@@ -37,7 +37,7 @@ h2.title
       .col-md-3
         .form-group
           label.control-label
-            | Exclude Tags
+            | Exclude tags
           select.form-control.js-select2-select multiple="multiple" name="q[by_tag_excluding][]" class="form-control"
             - @tags.each do |tag|
               - if (params.dig(:q, :by_tag_excluding) && tag.name.in?(Array.wrap(params[:q][:by_tag_excluding]))) || (params.dig(:q, :by_tag_excluding).blank? && current_user.hide_tags.include?(tag.name))
@@ -47,7 +47,7 @@ h2.title
       .col-md-3
         .form-group
           label.control-label
-            | Exclude Statuses
+            | Exclude statuses
           select.form-control.js-select2-select multiple="multiple" name="q[status_not_in][]" class="form-control"
             - PERSON_STATUS_COLORS.keys.each do |status|
               - if (params.dig(:q, :status_not_in) && status.in?(Array.wrap(params[:q][:status_not_in]))) || (params.dig(:q, :status_not_in).blank? && current_user.hide_statuses.include?(status))
