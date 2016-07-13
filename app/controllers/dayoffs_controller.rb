@@ -23,7 +23,7 @@ class DayoffsController < ApplicationController
   def create
     if @dayoff.save
       log_event(entity: @dayoff, action: 'created')
-      redirect_to person_path(@dayoff.person), flash: { success: 'Day off created' }
+      redirect_to dayoffs_path, flash: { success: 'Day off created' }
     else
       flash.now[:error] = 'Day off was not created'
       render :new
@@ -36,7 +36,7 @@ class DayoffsController < ApplicationController
   def update
     if @dayoff.update(dayoff_params.merge!(updated_by: current_user))
       log_event(entity: @dayoff, action: 'updated')
-      redirect_to person_path(@dayoff.person), flash: { success: 'Day off updated' }
+      redirect_to dayoffs_path, flash: { success: 'Day off updated' }
     else
       flash.now[:error] = 'Day off was not updated'
       render :edit
@@ -47,7 +47,7 @@ class DayoffsController < ApplicationController
     copy = @dayoff.dup
     @dayoff.destroy
     log_event(entity: copy, action: 'deleted')
-    redirect_to person_path(copy.person), flash: { success: 'Day off deleted' }
+    redirect_to dayoffs_path, flash: { success: 'Day off deleted' }
   end
 
   private
