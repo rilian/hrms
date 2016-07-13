@@ -17,6 +17,9 @@ class DayoffsController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def new
   end
 

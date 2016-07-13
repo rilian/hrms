@@ -1,0 +1,30 @@
+.js-edit-form-container style="display:none;"
+  h2.title
+    | Edit #{@dayoff.type}
+    | &nbsp;
+    a.btn.btn-default href="#{dayoff_path(@dayoff)}" Back
+  = render 'dayoffs/form'
+
+.js-show-container
+  h2.title
+    = "#{@dayoff.type} of #{@dayoff.person.name}"
+    | &nbsp;
+    a.btn.btn-default.js-show-edit-form href="#" Edit
+  p
+    | Person:&nbsp;
+    = link_to @dayoff.person.name, person_path(@dayoff.person)
+  p
+    | Type:&nbsp;
+    = @dayoff.type
+  p
+    | Number of days:&nbsp;
+    = @dayoff.days
+  p
+    | Start on:&nbsp;
+    = @dayoff.start_on&.to_formatted_s(:rfc822)
+  p
+    | End on:&nbsp;
+    = @dayoff.end_on&.to_formatted_s(:rfc822)
+  p
+    | Notes:&nbsp;
+    = @dayoff.notes
