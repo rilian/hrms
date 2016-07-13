@@ -19,23 +19,6 @@ module ApplicationHelper
     'active' if request.path.starts_with?(path)
   end
 
-  def grade(mark)
-    case mark
-    when 5
-      "5. Very good"
-    when 4
-      "4. Good"
-    when 3
-      "3. Middle"
-    when 2
-      "2. Bad"
-    when 1
-      "1. Very bad"
-    else
-      "Undefined"
-    end
-  end
-
   def with_newlines(str)
     str.gsub("\n", '<br/>').html_safe
   end
