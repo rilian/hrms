@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def active_class(path)
-    'active' if request.path.starts_with?(path)
+    'active' if URI.decode(request.fullpath).starts_with?(path)
   end
 
   def with_newlines(str)
@@ -30,5 +30,9 @@ module ApplicationHelper
   def last_page?(collection)
     offset = params[:offset].to_i || 0
     (limit + offset) >= collection.limit(nil).offset(nil).size
+  end
+
+  def employees_path
+    "/people?q[by_tag_including][]=#{ENV['EMPLOYEE_TAGS'].split(',').join('&q[by_tag_including][]=')}"
   end
 end
