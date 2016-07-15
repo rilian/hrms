@@ -9,11 +9,10 @@
       a href="#{people_path}"
         i.fa.fa-users
         | &nbsp; People
-    - if ENV['EMPLOYEE_TAGS'].present?
-      li.item role="presentation" class="#{active_class(employees_path)}"
-        a href="#{people_path(q: { by_tag_including: ENV['EMPLOYEE_TAGS'].split(',') })}"
-          i.fa.fa-users
-          | &nbsp; Employees
+    li.item role="presentation" class="#{active_class(employees_path)}"
+      a href="#{people_path(q: { status_in: ['Hired', 'Past employee'], sorts: 'status' })}"
+        i.fa.fa-users
+        | &nbsp; Employees
     li.item role="presentation" class="#{active_class('/vacancies')}"
       a href="#{vacancies_path}"
         i.fa.fa-tags

@@ -33,6 +33,6 @@ module ApplicationHelper
   end
 
   def employees_path
-    "/people?q[by_tag_including][]=#{ENV['EMPLOYEE_TAGS'].split(',').join('&q[by_tag_including][]=')}"
+    '/people?q[sorts]=status&q[status_in][]=Hired&q[status_in][]=Past+employee'
   end
 end
