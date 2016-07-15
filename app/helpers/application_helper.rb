@@ -33,6 +33,6 @@ module ApplicationHelper
   end
 
   def employees_path
-    '/people?q[sorts]=status&q[status_in][]=Hired&q[status_in][]=Past+employee'
+    '/people?page[limit]=10000&page[offset]=0&q[sorts]=status&q[status_in][]=Hired&q[status_in][]=Past+employee'
   end
 end

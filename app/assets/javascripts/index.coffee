@@ -14,6 +14,7 @@ $ ->
     query = window.location.search.substring(1)
     params = {}
     while match = search.exec(query)
+      # TODO: fix for case when there is an array of values
       params[decode(match[1])] = decode(match[2])
     params
 
