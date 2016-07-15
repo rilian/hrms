@@ -34,7 +34,7 @@ class VacanciesController < ApplicationController
     @vacancy = Vacancy.new(vacancy_params.merge!(updated_by: current_user))
     if @vacancy.save
       log_event(entity: @vacancy, action: 'created')
-      redirect_to vacancies_path, flash: { success: 'Vacancy created' }
+      redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || vacancies_path, flash: { success: 'Vacancy created' }
     else
       flash.now[:error] = 'Vacancy was not created'
       render :new
@@ -49,7 +49,7 @@ class VacanciesController < ApplicationController
     @vacancy = Vacancy.accessible_by(current_ability).find(params[:id])
     if @vacancy.update(vacancy_params.merge!(updated_by: current_user))
       log_event(entity: @vacancy, action: 'updated')
-      redirect_to vacancies_path, flash: { success: 'Vacancy updated' }
+      redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || vacancies_path, flash: { success: 'Vacancy updated' }
     else
       flash.now[:error] = 'Vacancy was not updated'
       render :edit

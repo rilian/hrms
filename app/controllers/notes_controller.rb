@@ -24,7 +24,7 @@ class NotesController < ApplicationController
     @note = Note.new(note_params.merge!(updated_by: current_user))
     if @note.save
       log_event(entity: @note, action: 'created')
-      redirect_to notes_path, flash: { success: 'Note created' }
+      redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || notes_path, flash: { success: 'Note created' }
     else
       flash.now[:error] = 'Note was not created'
       render :new
@@ -37,7 +37,7 @@ class NotesController < ApplicationController
   def update
     if @note.update(note_params.merge!(updated_by: current_user))
       log_event(entity: @note, action: 'updated')
-      redirect_to notes_path, flash: { success: 'Note updated' }
+      redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || notes_path, flash: { success: 'Note updated' }
     else
       flash.now[:error] = 'Note was not updated'
       render :edit
