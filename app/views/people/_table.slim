@@ -47,7 +47,7 @@
         = link_to record.city, people_path(q: { city_eq: record.city })
         br
       - if record.linkedin.present?
-        a target="_blank" href="#{record.linkedin_value)}" LinkedIn
+        a target="_blank" href="#{record.linkedin_value}" LinkedIn
         br
       - unless record.tag_list.empty?
         ' Tags:&nbsp;
