@@ -13,6 +13,7 @@ class Ability
       can :manage, Dayoff
       can :manage, Note, type: user.accessible_note_types
       can :manage, Person
+      can :manage, Vacancy
     end
   end
 end
