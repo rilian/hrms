@@ -37,6 +37,16 @@ class Person < ActiveRecord::Base
 
   scope :not_deleted, ->() { where(is_deleted: false) }
 
+  def linkedin_value
+    if self.linkedin.start_with?('https://')
+      self.linkedin
+    elsif self.linkedin.start_with?('http://')
+      self.linkedin.gsub('http://', 'https://')
+    else
+      "https://#{self.linkedin}"
+    end
+  end
+
 private
 
   def cleanup

@@ -38,7 +38,7 @@
     | LinkedIn:&nbsp;
     - if @person.linkedin.present?
       strong
-        a target="_blank" href="#{'https'.in?(@person.linkedin) ? @person.linkedin : 'https://' + @person.linkedin}" View
+        a target="_blank" href="#{@person.linkedin_value}" View
     - else
       a href="#{edit_person_path(@person)}"
         i.fa.fa-pencil

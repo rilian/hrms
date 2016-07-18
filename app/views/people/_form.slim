@@ -30,7 +30,10 @@
     = f.input :skype, placeholder: 'ivan_ivanov', label: false, class: 'input form-control'
   .form-group
     label.control-label
-      | LinkedIn:
+      | LinkedIn:&nbsp;
+      - if @person.linkedin.present?
+        strong
+          a target="_blank" href="#{@person.linkedin_value}" #{@person.linkedin_value}
     = f.input :linkedin, placeholder: 'https://linkedin.com/ivanivanov', label: false, class: 'input form-control'
 
   .form-group
