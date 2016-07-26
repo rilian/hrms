@@ -25,7 +25,8 @@ class Note < ActiveRecord::Base
     'Other'
   ]
   RESTRICTED_TYPES = [
-    'Salary'
+    'Salary',
+    'Performance Review'
   ]
 
   belongs_to :person, counter_cache: true, touch: true
