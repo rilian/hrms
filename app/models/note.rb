@@ -13,14 +13,15 @@ class Note < ActiveRecord::Base
     'Tech Interview - Office',
     'Additional Interview',
     'Additional Interview - Office',
-    'Test Assignment',
     'Decision',
+    'Test Assignment',
     'CEO Opinion',
     'Interview With CEO',
     'Recommended',
     'Looking for Job',
     'Changed Job',
     'Salary',
+    'Performance Review',
     'Other'
   ]
   RESTRICTED_TYPES = [
