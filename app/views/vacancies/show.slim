@@ -26,6 +26,33 @@
     | Date:&nbsp;
     = @vacancy.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
 
+
+.search-form
+  form.form action="#{vacancy_path(@vacancy)}" method="GET"
+    .row
+      .col-md-3
+        .form-group
+          label.control-label
+            | Search by name
+          input.form-control type="text" name="q[name_cont]" placeholder="Name" value="#{params[:q] && params[:q][:name_cont]}"
+      .col-md-3
+        .form-group
+          label.control-label
+            | HR status
+          select.select.form-control name="q[status_eq]"
+            option value="" not selected
+            - PERSON_STATUS_COLORS.each_pair do |status, color|
+              - if params.dig(:q, :status_eq) == status
+                option selected="selected" value="#{status}" style="background-color: #{color};" #{status}
+              - else
+                option value="#{status}" style="background-color: #{color};" #{status}
+      .col-md-2
+        .form-group
+          label.control-label
+            | &nbsp;
+          button.form-control.btn.btn-small.btn-primary type="submit"
+            i.fa.fa-search
+            | &nbsp; Search
   h4
     | Candidates:
 
