@@ -74,6 +74,12 @@
       | Phone:
     = f.input :phone, placeholder: '097 1234567', label: false, class: 'input form-control'
 
+  - if @person.status.in?(Person::EMPLOYEE_STATUSES)
+    .form-group
+      label.control-label
+        | Start Date:
+    = f.input :start_date, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: @person.start_date&.strftime('%d-%m-%Y'), class: 'datepicker' }
+
   - unless @person.new_record?
     .form-group
       label.control-label

@@ -23,6 +23,7 @@ class Person < ActiveRecord::Base
     Upper-Intermediate
     Advanced
   )
+  EMPLOYEE_STATUSES = ['Hired', 'Past employee']
 
   belongs_to :updated_by, class_name: 'User'
   has_many :action_points
