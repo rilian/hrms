@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   before_action :store_return_to_path, only: :index
-  before_action :deep_strip_params
+  before_action :deep_strip_params, only: :index
 
   rescue_from CanCan::AccessDenied do |e|
     redirect_to root_url, flash: { error: e.message }
@@ -30,6 +30,10 @@ class ApplicationController < ActionController::Base
     params.each_pair do |k, v|
       if v.is_a?(Hash) || v.is_a?(ActionController::Parameters)
         deep_strip_params!(v)
+      elsif v.is_a?(Array)
+        v.each_with_index do |v2, index|
+          v[index] = v2.squish
+        end
       else
         params[k] = v.squish
       end
@@ -38,7 +42,13 @@ class ApplicationController < ActionController::Base
 
   def deep_strip_params!(hash)
     hash.each_pair do |k, v|
-      hash[k] = v.squish
+      if v.is_a?(Array)
+        v.each_with_index do |v2, index|
+          v[index] = v2.squish
+        end
+      else
+        hash[k] = v.squish
+      end
     end
   end
 end
