@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :notes, except: [:show, :destroy]
   resources :people do
     get :autocomplete_person_name, on: :collection
+    get :autocomplete_employee_name, on: :collection
   end
   resources :reports, only: :index do
     collection do

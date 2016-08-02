@@ -1,6 +1,7 @@
 class PeopleController < ApplicationController
   load_and_authorize_resource
   autocomplete :person, :name, full: true, scopes: [:not_deleted]
+  autocomplete :employee, :name, class_name: 'Person', full: true, scopes: [:not_deleted, :employee]
 
   def index
     @q = Person.not_deleted.accessible_by(current_ability).ransack(params[:q])
