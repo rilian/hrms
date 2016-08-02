@@ -11,7 +11,7 @@ h2.title
         .form-group
           label.control-label
             | Search by name
-          input.form-control type="text" name="q[#{Person::SEARCH_STR}]" placeholder="Name" value="#{params[:q] && params[:q][Person::SEARCH_STR.to_sym]}"
+          input.form-control type="text" name="q[name_cont]" placeholder="Name" value="#{params[:q] && params[:q][:name_cont]}"
       .col-md-3
         .form-group
           label.control-label
