@@ -36,7 +36,7 @@ class Person < ActiveRecord::Base
   validates :name, presence: true
 
   scope :not_deleted, ->() { where(is_deleted: false) }
-  scope :employee, ->() { where(status: EMPLOYEE_STATUSES) }
+  scope :employee, ->() { where(status: EMPLOYEE_STATUSES).order(:status) }
 
   def linkedin_value
     if self.linkedin.start_with?('https://')
