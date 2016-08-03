@@ -48,11 +48,6 @@ class Person < ActiveRecord::Base
     end
   end
 
-  def allowed_vacation
-    return 0 unless start_date
-    (((Date.today - start_date).to_i.abs) / 365.25 * ENV['VACATION_PER_YEAR'].to_i).round(1)
-  end
-
 private
 
   def cleanup

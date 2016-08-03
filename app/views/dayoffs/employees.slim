@@ -5,6 +5,7 @@ table.table.pretty-table
   thead
     th Name
     th Start date
+    th Months worked
     th Allowed vacation
     th Used vacation
     th Unused vacation
@@ -24,12 +25,13 @@ table.table.pretty-table
           - else
             a href="#{edit_person_path(record)}"
               i.fa.fa-pencil
-        td = record.allowed_vacation
+        td = months_worked(record)
+        td = allowed_vacation(record)
         td
-          | 0
+          = used_vacation(record)
         td
-          | 0
+          = allowed_vacation(record) - used_vacation(record)
         td
-          | 0
+          = sick_leaves(record)
         td
-          | 0
+          = unpaid_days_off(record)
