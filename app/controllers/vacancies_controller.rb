@@ -21,9 +21,17 @@ class VacanciesController < ApplicationController
     @q = Person.not_deleted.accessible_by(current_ability).ransack(params[:q])
     @q.sorts = 'updated_at desc' if @q.sorts.empty?
     @people = @q.result(distinct: true)
-    @people = @people.tagged_with(@vacancy.tag, any: true)
+
+    tags = [@vacancy.tag]
+    tags += params[:q][:by_tag_including] if params.dig(:q, :by_tag_including)
+
+    @people = @people.tagged_with(tags.flatten)
+
     @count = @people.count
     @people = @people.includes(:attachments, :action_points, :updated_by, notes: [:updated_by])
+
+    @tags = Person.not_deleted.accessible_by(current_ability).tag_counts_on(:tags)
+              .sort { |t1, t2| t2.taggings_count <=> t1.taggings_count }
   end
 
   def new

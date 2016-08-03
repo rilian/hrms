@@ -49,6 +49,16 @@
                 option selected="selected" value="#{status}" style="background-color: #{color};" #{status}
               - else
                 option value="#{status}" style="background-color: #{color};" #{status}
+      .col-md-3
+        .form-group
+          label.control-label
+            | Tags
+          select.form-control.js-select2-select multiple="multiple" name="q[by_tag_including][]" class="form-control"
+            - @tags.each do |tag|
+              - if params.dig(:q, :by_tag_including) && tag.name.in?(Array.wrap(params[:q][:by_tag_including]))
+                option value="#{tag}" selected="selected" #{tag}
+              - else
+                option value="#{tag}" #{tag}
       .col-md-2
         .form-group
           label.control-label
