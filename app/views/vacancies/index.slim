@@ -9,7 +9,8 @@ table.table.pretty-table
     th = sort_link @q, :project
     th = sort_link @q, :role
     th = sort_link @q, :tag
-    th = sort_link @q, :description
+    th
+      | Candidates by status
     th = sort_link @q, :created_at, 'Created'
     th Actions
   tbody.js-loadable-list
