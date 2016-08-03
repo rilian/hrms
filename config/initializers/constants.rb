@@ -13,6 +13,7 @@ PERSON_STATUS_COLORS = {
   'Test assignment' => '#EE82EE',
   'Rejected, no go' => '#EB5E66',
   'Rejected, on hold' => '#FFAEB9',
+  'Waiting for CEO decision' => '#ADD8E6',
   'Hired' => '#7ff27f',
   'Past employee' => '#ffc3e1'
 }
