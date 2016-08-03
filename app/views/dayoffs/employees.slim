@@ -4,7 +4,12 @@ h2.title
 table.table.pretty-table
   thead
     th Name
-    th Start Date
+    th Start date
+    th Allowed vacation
+    th Used vacation
+    th Unused vacation
+    th Sick leaves
+    th Unpaid days off
   tbody
     - @employees.each do |record|
       tr
@@ -19,3 +24,12 @@ table.table.pretty-table
           - else
             a href="#{edit_person_path(record)}"
               i.fa.fa-pencil
+        td = record.allowed_vacation
+        td
+          | 0
+        td
+          | 0
+        td
+          | 0
+        td
+          | 0
