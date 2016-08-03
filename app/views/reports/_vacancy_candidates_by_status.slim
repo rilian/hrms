@@ -1,0 +1,10 @@
+table.table style="margin-top: -8px; width: 300px"
+  tbody
+    - vacancy_candidates_by_status(vacancy).each_pair do |status, count|
+      tr
+        td
+          span style="width: 10px; background-color: #{PERSON_STATUS_COLORS[status]};" &nbsp;&nbsp;&nbsp;&nbsp;
+          | &nbsp;
+          = link_to status, vacancy_path(vacancy, q: { status_eq: status })
+        td width="50px"
+          = link_to count, vacancy_path(vacancy, q: { status_eq: status })
