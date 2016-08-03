@@ -21,7 +21,7 @@ class DayoffsController < ApplicationController
   end
 
   def employees
-    @employees = Person.not_deleted.employee
+    @employees = Person.not_deleted.employee.order(:name)
   end
 
   def new
