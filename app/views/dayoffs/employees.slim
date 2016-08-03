@@ -1,0 +1,18 @@
+h2.title
+  | EMPLOYEE DAYS OFF &nbsp;
+
+table.table.pretty-table
+  thead
+    th Name
+    th Start Date
+  tbody
+    - @employees.each do |record|
+      tr
+        td = link_to record.name, person_path(record)
+        td
+          - if record.start_date.present?
+            strong
+              = record.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+          - else
+            a href="#{edit_person_path(record)}"
+              i.fa.fa-pencil

@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :action_points, except: [:show, :destroy]
   resources :attachments, except: [:show, :destroy]
-  resources :dayoffs
+  resources :dayoffs do
+    get :employees, on: :collection
+  end
   resources :events, only: :index
   resources :notes, except: [:show, :destroy]
   resources :people do

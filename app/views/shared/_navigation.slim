@@ -13,6 +13,10 @@
       a href="#{people_path(page: { limit: 10000, offset: 0 }, q: { status_in: ['Hired', 'Past employee'], sorts: ['status', 'name'] })}"
         i.fa.fa-users
         | &nbsp; Employees
+    li.item class="#{active_class('/dayoffs/employees')}"
+      a href="#{employees_dayoffs_path}"
+        i.fa
+          | &nbsp;&nbsp;&nbsp; Days off
     li.item role="presentation" class="#{active_class('/vacancies')}"
       a href="#{vacancies_path}"
         i.fa.fa-tags
@@ -25,7 +29,7 @@
       a href="#{tags_path}"
         i.fa.fa-tags
         | &nbsp; Tags
-    li.item role="presentation" class="#{active_class('/dayoffs')}"
+    li.item role="presentation" class="#{active_class('/dayoffs', exclude_str: 'dayoffs/employees')}"
       a href="#{dayoffs_path}"
         i.fa.fa-tags
         | &nbsp; Days off

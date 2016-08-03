@@ -20,6 +20,10 @@ class DayoffsController < ApplicationController
   def show
   end
 
+  def employees
+    @employees = Person.not_deleted.employee
+  end
+
   def new
   end
 
