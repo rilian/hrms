@@ -1,7 +1,7 @@
 module DayoffsHelper
   def allowed_vacation(person)
     return 0 unless person.start_date
-    (((Date.today - person.start_date).to_i.abs) / 365.25 * ENV['VACATION_PER_YEAR'].to_i).round(1)
+    (((Date.today - person.start_date).to_i.abs) / 365.25 * ENV['VACATION_PER_YEAR'].to_i).ceil
   end
 
   def used_vacation(person)
