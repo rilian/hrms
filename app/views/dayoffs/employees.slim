@@ -26,18 +26,22 @@ table.table.pretty-table
             td
               = record.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
               br
-              sub = "#{pluralize(months_worked(record), 'month')} ago"
+              sub = "#{pluralize(months_worked(record), 'month')}"
             td = allowed_vacation(record)
             td
               = used_vacation(record)
             td
-              = (allowed_vacation(record) - used_vacation(record)).ceil
+              - days = (allowed_vacation(record) - used_vacation(record)).ceil
+              - if days < 0
+                span style="color: red"
+                  strong
+                    = days
+              - else
+                = days
             td
               = sick_leaves(record)
             td
               = unpaid_days_off(record)
-            td
-              = link_to 'Add day off', new_dayoff_path(dayoff: { person_id: record.id }), class: 'btn btn-default', target: '_blank'
         - else
           td
             a href="#{edit_person_path(record)}"
@@ -52,5 +56,5 @@ table.table.pretty-table
             | &nbsp;
           td
             | &nbsp;
-          td
-            | &nbsp;
+        td
+          = link_to 'Add', new_dayoff_path(dayoff: {person_id: record.id}), class: 'btn btn-default', target: '_blank'
