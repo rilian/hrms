@@ -37,7 +37,7 @@ table.table.pretty-table
             td
               = unpaid_days_off(record)
             td
-              = link_to 'Add day off', new_dayoff_path(dayoff: { person_id: record.id }), class: 'btn btn-default'
+              = link_to 'Add day off', new_dayoff_path(dayoff: { person_id: record.id }), class: 'btn btn-default', target: '_blank'
         - else
           td
             a href="#{edit_person_path(record)}"
