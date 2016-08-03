@@ -18,7 +18,7 @@ table.table.pretty-table
   tbody
     - @employees.each do |record|
       tr
-        td
+        td width="200px"
           span style="width: 10px; background-color: #{PERSON_STATUS_COLORS[record.status]};" &nbsp;&nbsp;&nbsp;&nbsp;
           | &nbsp;
           = link_to record.name, person_path(record)
@@ -43,14 +43,14 @@ table.table.pretty-table
             a href="#{edit_person_path(record)}"
               i.fa.fa-pencil
           td
-            | -
+            | &nbsp;
           td
-            | -
+            | &nbsp;
           td
-            | -
+            | &nbsp;
           td
-            | -
+            | &nbsp;
           td
-            | -
+            | &nbsp;
           td
-            | -
+            | &nbsp;
