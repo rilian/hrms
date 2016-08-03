@@ -30,7 +30,7 @@ table.table.pretty-table
         td
           = used_vacation(record)
         td
-          = allowed_vacation(record) - used_vacation(record)
+          = (allowed_vacation(record) - used_vacation(record)).round(1)
         td
           = sick_leaves(record)
         td
