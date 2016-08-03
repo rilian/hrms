@@ -643,10 +643,31 @@ CREATE INDEX index_people_on_notes_count ON people USING btree (notes_count);
 
 
 --
+-- Name: index_people_on_status; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_people_on_status ON people USING btree (status);
+
+
+--
+-- Name: index_taggings_on_tag_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_tag_id ON taggings USING btree (tag_id);
+
+
+--
 -- Name: index_taggings_on_taggable_id_and_taggable_type_and_context; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_context ON taggings USING btree (taggable_id, taggable_type, context);
+
+
+--
+-- Name: index_taggings_on_taggable_id_and_taggable_type_and_tag_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_tag_id ON taggings USING btree (taggable_id, taggable_type, tag_id);
 
 
 --
@@ -751,4 +772,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160707095608');
 INSERT INTO schema_migrations (version) VALUES ('20160707154815');
 
 INSERT INTO schema_migrations (version) VALUES ('20160802171123');
+
+INSERT INTO schema_migrations (version) VALUES ('20160803122523');
 
