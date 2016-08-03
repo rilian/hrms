@@ -15,7 +15,7 @@
         tbody
           - vacancy_candidates_by_status(record).each_pair do |status, count|
             tr
-              td
+              td width="120px"
                 span style="width: 10px; background-color: #{PERSON_STATUS_COLORS[status]};" &nbsp;&nbsp;&nbsp;&nbsp;
                 | &nbsp;
                 = link_to status, vacancy_path(record, q: { status_eq: status })
