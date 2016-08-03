@@ -8,7 +8,10 @@ table.table.pretty-table
   tbody
     - @employees.each do |record|
       tr
-        td = link_to record.name, person_path(record)
+        td
+          span style="width: 10px; background-color: #{PERSON_STATUS_COLORS[record.status]};" &nbsp;&nbsp;&nbsp;&nbsp;
+          | &nbsp;
+          = link_to record.name, person_path(record)
         td
           - if record.start_date.present?
             strong
