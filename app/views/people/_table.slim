@@ -21,7 +21,7 @@
         | &nbsp;
         = action_point.value
         br
-      - unless record.notes_count
+      - if (record.notes_count || 0) > 0
         | Latest notes:
         br
         - Note::TYPES.each do |type|
