@@ -165,7 +165,7 @@
       = link_to 'Add Days off', new_dayoff_path(dayoff: { person_id: @person.id })
     - @person.dayoffs.order(start_on: :desc).each do |dayoff|
       p
-        a href="#{dayoff_path(dayoff)}" #{"#{pluralize(dayoff.days, 'day')} from #{dayoff.start_on&.to_formatted_s(:rfc822)} to #{dayoff.end_on&.to_formatted_s(:rfc822)}"}
+        a href="#{dayoff_path(dayoff)}" #{"#{dayoff.type} #{pluralize(dayoff.days, 'day')} from #{dayoff.start_on&.to_formatted_s(:rfc822)} to #{dayoff.end_on&.to_formatted_s(:rfc822)}"}
         | &nbsp;
         a href="#{edit_dayoff_path(dayoff)}"
           i.fa.fa-pencil
