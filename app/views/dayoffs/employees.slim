@@ -31,7 +31,7 @@ table.table.pretty-table
             td
               = used_vacation(record)
             td
-              - days = (allowed_vacation(record) - used_vacation(record)).ceil
+              - days = ([allowed_vacation(record), ENV['VACATION_PER_YEAR'].to_i].max - used_vacation(record)).ceil
               - if days < 0
                 span style="color: red"
                   strong
