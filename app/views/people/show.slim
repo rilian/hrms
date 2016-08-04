@@ -93,7 +93,7 @@
       - else
         a href="#{edit_person_path(@person)}"
           i.fa.fa-pencil
-    - if current_user.role == 'admin'
+    - if current_user.has_access_to_finances?
       p
         | Expected salary:&nbsp;
         - if @person.expected_salary.present?
@@ -142,9 +142,13 @@
       p
         = note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
         | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
-        a href="#{edit_note_path(note)}" #{note.type}
-        br
-        = with_newlines(note.value)
+
+        - if note.type.in?(current_user.accessible_note_types) || (!note.type.in?(current_user.accessible_note_types) && current_user.has_access_to_finances?)
+          a href="#{edit_note_path(note)}" #{note.type}
+          br
+          ' : #{with_newlines(note.value)}
+        - else
+          = "Content of this note is not available (#{note.type})"
 
     h3
       | Actions &nbsp;

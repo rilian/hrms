@@ -29,8 +29,11 @@
             - if note.present?
               = note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
               | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
-              a href="#{edit_note_path(note)}" #{note.type}
-              ' : #{with_newlines(truncate(note.value, length: 300, escape: false))}
+              - if note.type.in?(current_user.accessible_note_types) || (!note.type.in?(current_user.accessible_note_types) && current_user.has_access_to_finances?)
+                a href="#{edit_note_path(note)}" #{note.type}
+                ' : #{with_newlines(truncate(note.value, length: 300, escape: false))}
+              - else
+                = "Content of this note is not available (#{note.type})"
               br
       = link_to '+ Note', new_note_path(note: { person_id: record.id })
       br

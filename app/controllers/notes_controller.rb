@@ -1,5 +1,6 @@
 class NotesController < ApplicationController
   load_and_authorize_resource
+  before_action :check_access, only: [:edit, :update]
 
   def index
     @q = Note.accessible_by(current_ability).ransack(params[:q])
@@ -45,6 +46,13 @@ class NotesController < ApplicationController
   end
 
 private
+
+  def check_access
+    if !@note.type.in?(current_user.accessible_note_types) && !current_user.has_access_to_finances?
+      flash.now[:error] = "Content of this note is not available (#{@note.type})"
+      return redirect_to root_path
+    end
+  end
 
   def note_params
     params.require(:note).permit(:person_id, :type, :value)

@@ -10,7 +10,9 @@
         span.label.label-warning
           | YOU
     td = record.notifications_enabled? ? 'yes' : '-'
-    td = record.role
+    td = record.has_access_to_users? ? 'yes' : '-'
+    td = record.has_access_to_events? ? 'yes' : '-'
+    td = record.has_access_to_finances? ? 'yes' : '-'
     td = record.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
     td
       = record.updated_at.strftime(t(:datetime_full))

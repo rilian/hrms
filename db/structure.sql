@@ -348,9 +348,11 @@ CREATE TABLE users (
     updated_at timestamp without time zone NOT NULL,
     notifications_enabled boolean DEFAULT true NOT NULL,
     updated_by_id integer,
-    role character varying DEFAULT 'admin'::character varying NOT NULL,
     hide_tags character varying[] DEFAULT '{}'::character varying[],
-    hide_statuses character varying[] DEFAULT '{}'::character varying[]
+    hide_statuses character varying[] DEFAULT '{}'::character varying[],
+    has_access_to_finances boolean DEFAULT false,
+    has_access_to_events boolean DEFAULT false,
+    has_access_to_users boolean DEFAULT false
 );
 
 
@@ -774,4 +776,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160707154815');
 INSERT INTO schema_migrations (version) VALUES ('20160802171123');
 
 INSERT INTO schema_migrations (version) VALUES ('20160803122523');
+
+INSERT INTO schema_migrations (version) VALUES ('20160804084846');
 

@@ -24,7 +24,7 @@ class Note < ActiveRecord::Base
     'Performance Review',
     'Other'
   ]
-  RESTRICTED_TYPES = [
+  FINANCE_TYPES = [
     'Salary',
     'Performance Review'
   ]

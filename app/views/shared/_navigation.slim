@@ -38,12 +38,12 @@
         i.fa.fa-tags
         | &nbsp; Reports
     li.divider
-    - if current_ability.can? :manage, User
+    - if current_user.has_access_to_users?
       li.item role="presentation" class="#{active_class('/users')}"
         a href="#{users_path}"
           i.fa.fa-users
           | &nbsp; Users
-    - if current_ability.can? :manage, Event
+    - if current_user.has_access_to_events?
       li.item role="presentation" class="#{active_class('/events')}"
         a href="#{events_path}"
           i.fa.fa-paw

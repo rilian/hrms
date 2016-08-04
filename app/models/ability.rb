@@ -4,16 +4,13 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    case user.role
-    when 'admin'
-      can :manage, :all
-    when 'manager'
-      can :manage, ActionPoint
-      can :manage, Attachment
-      can :manage, Dayoff
-      can :manage, Note, type: user.accessible_note_types
-      can :manage, Person
-      can :manage, Vacancy
-    end
+    can :manage, ActionPoint
+    can :manage, Attachment
+    can :manage, Dayoff
+    can :manage, Event if user.has_access_to_events?
+    can :manage, Note
+    can :manage, Person
+    can :manage, Vacancy
+    can :manage, User if user.has_access_to_users?
   end
 end

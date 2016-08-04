@@ -50,9 +50,10 @@ private
 
   def user_params
     params.require(:user).permit(
-      :email, :password, :notifications_enabled, :role, hide_tags: [], hide_statuses: []).tap do |p|
-      p.delete(:password) if p[:password].blank?
-    end
+      :email, :password, :notifications_enabled, :has_access_to_users, :has_access_to_events, :has_access_to_finances,
+      hide_tags: [], hide_statuses: []).tap do |p|
+        p.delete(:password) if p[:password].blank?
+      end
   end
 
   def set_tags

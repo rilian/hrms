@@ -58,7 +58,7 @@
         include_blank: true,
         input_html: { class: 'select form-control' }
 
-  - if current_user.role == 'admin'
+  - if current_user.has_access_to_finances?
     .form-group
       label.control-label
         | Expected salary:
