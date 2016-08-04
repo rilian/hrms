@@ -31,13 +31,16 @@ table.table.pretty-table
             td
               = used_vacation(record)
             td
-              - days = ([allowed_vacation(record), ENV['VACATION_PER_YEAR'].to_i].max - used_vacation(record)).ceil
-              - if days < 0
+              - if remaining_vacation(record) < 0
                 span style="color: red"
                   strong
-                    = days
+                    = remaining_vacation(record)
+              - elsif remaining_vacation(record) >= ENV['VACATION_PER_YEAR'].to_i
+                span style="color: green"
+                  strong
+                    = remaining_vacation(record)
               - else
-                = days
+                = remaining_vacation(record)
             td
               = sick_leaves(record)
             td

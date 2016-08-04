@@ -21,4 +21,8 @@ module DayoffsHelper
     return 0 unless person.start_date
     (Date.today.year * 12 + Date.today.month) - (person.start_date.year * 12 + person.start_date.month)
   end
+
+  def remaining_vacation(person)
+    (allowed_vacation(person) - used_vacation(person)).ceil
+  end
 end
