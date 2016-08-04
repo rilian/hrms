@@ -40,14 +40,16 @@
   .form-group
     label.control-label
       span.text-danger *
-      |  Start date:
-    = f.input :start_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { class: 'datepicker' }
+      |  Start date (min #{f.object.person&.start_date&.strftime('%d-%m-%Y')}):
+    = f.input :start_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false,
+        input_html: { class: 'datepicker', data: { 'date-start-date' => f.object.person&.start_date&.strftime('%d-%m-%Y'), 'date-end-date' => 6.months.since.strftime('%d-%m-%Y') } }
 
   .form-group
     label.control-label
       span.text-danger *
       |  End date:
-    = f.input :end_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { class: 'datepicker' }
+    = f.input :end_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false,
+        input_html: { class: 'datepicker', data: { 'date-start-date' => f.object.person&.start_date&.strftime('%d-%m-%Y'), 'date-end-date' => 6.months.since.strftime('%d-%m-%Y') } }
 
   .form-group
     label.control-label
