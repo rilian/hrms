@@ -11,7 +11,9 @@ class Dayoff < ActiveRecord::Base
   validates :type, inclusion: { in: TYPES }
   validates :days, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 50 }
 
+  validate :dates_order
   validate :dates_intersection
+  validate :start_on_greater_or_equal_person_start_date
 
   private
 
@@ -20,5 +22,16 @@ class Dayoff < ActiveRecord::Base
     scope = scope.where('id != ?', self.id) if self.id.present?
     return unless scope.exists?
     errors.add(:start_on, 'already recorded for this person')
+  end
+
+  def dates_order
+    return if start_on <= end_on
+    errors.add(:start_on, 'should be earlier than end_on')
+  end
+
+  def start_on_greater_or_equal_person_start_date
+    return unless person&.start_date
+    return if start_on > person.start_date
+    errors.add(:start_on, 'should be later than person start_date')
   end
 end
