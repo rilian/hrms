@@ -3,6 +3,8 @@ h2.title
 
 a href="#{by_status_reports_path}" By HR status
 br
+a href="#{people_with_similar_name_reports_path}" People with similar name
+br
 | #{(Person.not_deleted.where("linkedin = '' OR linkedin IS NULL").pluck(:id) - Attachment.pluck(:person_id)).size} People have no Linkedin or CV Attachment
 br
 | #{(Person.not_deleted.pluck(:id) - Note.pluck(:person_id)).size} People without notes

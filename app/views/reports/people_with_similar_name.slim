@@ -1,0 +1,15 @@
+h2.title People with the same name
+
+table.table.pretty-table
+  thead
+    th Person
+    th Similar records
+  tbody
+    - @people.each do |record|
+      tr
+        td
+          = link_to "#{record[:person].name} (#{record[:person].id})", person_path(record[:person])
+        td
+          - record[:similars].each do |similar|
+            = link_to "#{similar.name} (#{similar.id})", person_path(similar)
+            br
