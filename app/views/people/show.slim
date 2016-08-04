@@ -161,7 +161,7 @@
         - if note.type.in?(current_user.accessible_note_types) || (!note.type.in?(current_user.accessible_note_types) && current_user.has_access_to_finances?)
           a href="#{edit_note_path(note)}" #{note.type}
           br
-          ' : #{with_newlines(note.value)}
+          ' #{with_newlines(note.value)}
         - else
           = "Content of this note is not available (#{note.type})"
 
