@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
   def people_with_similar_name
     @people = []
     previous_ids = []
-    Person.not_deleted.accessible_by(current_ability).each do |person|
+    Person.not_deleted.accessible_by(current_ability).find_each(batch_size: 50) do |person|
       similars = Person.not_deleted.accessible_by(current_ability)
                   .where('id NOT IN (?)', [person.id] + previous_ids)
                   .where('lower(name) = ?', person.name.downcase)
