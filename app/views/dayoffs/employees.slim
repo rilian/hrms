@@ -6,13 +6,10 @@ table.table.pretty-table
     th Name
     th Started
     th Vacation days allowed
-    td
-      strong
-        | Used vacation
-      br
-      sub = Dayoff::PAID_VACATION_TYPES.join(', ')
-    th Days remaining
+    th Vacation days used
+    th Vacation days remaining
     th Sick leaves
+    th Paid days off
     th Unpaid days off
     th Actions
   tbody
@@ -28,8 +25,7 @@ table.table.pretty-table
               br
               sub = "#{pluralize(months_worked(record), 'month')}"
             td = allowed_vacation(record)
-            td
-              = used_vacation(record)
+            td = used_vacation(record)
             td
               - if remaining_vacation(record) < 0
                 span style="color: red"
@@ -41,14 +37,15 @@ table.table.pretty-table
                     = remaining_vacation(record)
               - else
                 = remaining_vacation(record)
-            td
-              = sick_leaves(record)
-            td
-              = unpaid_days_off(record)
+            td = sick_leaves(record)
+            td = paid_days_off(record)
+            td = unpaid_days_off(record)
         - else
           td
             a href="#{edit_person_path(record)}"
               i.fa.fa-pencil
+          td
+            | &nbsp;
           td
             | &nbsp;
           td

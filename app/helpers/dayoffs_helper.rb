@@ -5,7 +5,7 @@ module DayoffsHelper
   end
 
   def used_vacation(person)
-    person.dayoffs.where(type: Dayoff::PAID_VACATION_TYPES).sum(:days)
+    person.dayoffs.where(type: 'Vacation').sum(:days)
   end
 
   def sick_leaves(person)
@@ -14,6 +14,10 @@ module DayoffsHelper
 
   def unpaid_days_off(person)
     person.dayoffs.where(type: 'Unpaid Day Off').sum(:days)
+  end
+
+  def paid_days_off(person)
+    person.dayoffs.where(type: 'Paid Day Off').sum(:days)
   end
 
   def months_worked(person)
