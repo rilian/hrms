@@ -135,9 +135,24 @@
         a href="#{edit_person_path(@person)}"
           i.fa.fa-pencil
 
+  h3
+    | Days off &nbsp;
+    = link_to 'Add', new_dayoff_path(dayoff: {person_id: @person.id}), class: 'btn btn-default'
+  - @person.dayoffs.order(start_on: :desc).each do |dayoff|
+    p
+      a href="#{dayoff_path(dayoff)}" #{dayoff.type}
+      | &nbsp;
+      | #{"#{pluralize(dayoff.days, 'day')} from #{dayoff.start_on&.to_formatted_s(:rfc822)} to #{dayoff.end_on&.to_formatted_s(:rfc822)}"}
+      | &nbsp;
+      a href="#{edit_dayoff_path(dayoff)}"
+        i.fa.fa-pencil
+      br
+      = with_newlines(dayoff.notes)
+
+  .js-show-more-container style="display:none;"
     h3
       | Latest notes &nbsp;
-      = link_to 'Add Note', new_note_path(note: { person_id: @person.id })
+      = link_to 'Add', new_note_path(note: { person_id: @person.id }), class: 'btn btn-default'
     - @person.notes.accessible_by(current_ability).order(created_at: :desc).each do |note|
       p
         = note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
@@ -152,7 +167,7 @@
 
     h3
       | Actions &nbsp;
-      = link_to 'Add Action', new_action_point_path(action_point: {person_id: @person.id})
+      = link_to 'Add', new_action_point_path(action_point: {person_id: @person.id}), class: 'btn btn-default'
     - @person.action_points.order(is_completed: :asc, perform_on: :asc).each do |action|
       p
         a href="#{edit_action_point_path(action)}" #{action.perform_on.strftime(t(:datetime_full)).gsub('00:00, ', '')}
@@ -161,20 +176,8 @@
         = with_newlines(action.value)
 
     h3
-      | Days off &nbsp;
-      = link_to 'Add Days off', new_dayoff_path(dayoff: { person_id: @person.id })
-    - @person.dayoffs.order(start_on: :desc).each do |dayoff|
-      p
-        a href="#{dayoff_path(dayoff)}" #{"#{dayoff.type} #{pluralize(dayoff.days, 'day')} from #{dayoff.start_on&.to_formatted_s(:rfc822)} to #{dayoff.end_on&.to_formatted_s(:rfc822)}"}
-        | &nbsp;
-        a href="#{edit_dayoff_path(dayoff)}"
-          i.fa.fa-pencil
-        br
-        = with_newlines(dayoff.notes)
-
-    h3
       | Attachments &nbsp;
-      = link_to 'Add Attachment', new_attachment_path(attachment: { person_id: @person.id })
+      = link_to 'Add', new_attachment_path(attachment: { person_id: @person.id }), class: 'btn btn-default'
     - @person.attachments.order(created_at: :desc).each do |attachment|
       p
         = link_to (attachment.name.present? ? attachment.name : attachment.file_filename), Refile.attachment_url(attachment, :file)
@@ -190,5 +193,5 @@
     p
       | Profile last updated &nbsp;
       = "#{@person.updated_at.strftime(t(:datetime_full))} (#{time_ago_in_words(@person.updated_at)} ago)"
-      | &nbsp; by &nbsp;
+      | &nbsp; by&nbsp;
       = @person.updated_by&.email&.split('@')&.first
