@@ -135,6 +135,15 @@
         a href="#{edit_person_path(@person)}"
           i.fa.fa-pencil
 
+    p
+      | Hiring Source:&nbsp;
+      - if @person.source.present?
+        strong
+          = @person.source
+      - else
+        a href="#{edit_person_path(@person)}"
+          i.fa.fa-pencil
+
   h3
     | Days off &nbsp;
     = link_to 'Add', new_dayoff_path(dayoff: {person_id: @person.id}), class: 'btn btn-default'

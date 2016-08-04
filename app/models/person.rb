@@ -24,6 +24,7 @@ class Person < ActiveRecord::Base
     Advanced
   )
   EMPLOYEE_STATUSES = ['Hired', 'Past employee']
+  SOURCES = %w(Reference Djinni LinkedIn DOU)
 
   belongs_to :updated_by, class_name: 'User'
   has_many :action_points
@@ -34,6 +35,7 @@ class Person < ActiveRecord::Base
   before_validation :cleanup
 
   validates :name, presence: true
+  validates :source, inclusion: { in: SOURCES }, allow_blank: true
 
   scope :not_deleted, ->() { where(is_deleted: false) }
   scope :employee, ->() { where(status: EMPLOYEE_STATUSES).order(:status) }

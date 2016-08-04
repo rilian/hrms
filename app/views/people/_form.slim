@@ -90,6 +90,14 @@
     label.control-label Cultural Fit / Notes:
     = f.input :cultural_fit, as: :text, label: false, placeholder: 'Explain if this person will be a good fit to our teams...', input_html: { rows: 1 }
 
+  .form-group
+    label.control-label Hiring Source:
+    = f.input :source,
+        collection: Person::SOURCES,
+        label: false,
+        include_blank: true,
+        input_html: { class: 'select form-control' }
+
   .form-group.form-actions
     .text-left style="width: 600px;"
       - if @person.persisted?

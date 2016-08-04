@@ -237,7 +237,8 @@ CREATE TABLE people (
     attachments_count integer,
     notes_count integer,
     expected_salary character varying,
-    start_date date
+    start_date date,
+    source character varying
 );
 
 
@@ -778,4 +779,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160802171123');
 INSERT INTO schema_migrations (version) VALUES ('20160803122523');
 
 INSERT INTO schema_migrations (version) VALUES ('20160804084846');
+
+INSERT INTO schema_migrations (version) VALUES ('20160804165139');
 
