@@ -152,9 +152,12 @@
       a href="#{dayoff_path(dayoff)}" #{dayoff.type}
       | &nbsp;
       | #{"#{pluralize(dayoff.days, 'day')} from #{dayoff.start_on&.to_formatted_s(:rfc822)} to #{dayoff.end_on&.to_formatted_s(:rfc822)}"}
-      | &nbsp;
+      | &nbsp;&nbsp;
       a href="#{edit_dayoff_path(dayoff)}"
         i.fa.fa-pencil
+      | &nbsp;&nbsp;
+      a href="#{dayoff_path(dayoff)}" data-method="delete" data-confirm="Are you sure ?"
+        i.fa.fa-times
       br
       = with_newlines(dayoff.notes)
 
