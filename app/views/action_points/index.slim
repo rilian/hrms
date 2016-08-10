@@ -4,6 +4,10 @@ h2.title
     i.fa.fa-plus
     | &nbsp; Add action
 
+| Filters:&nbsp;
+a href="/action_points/?q[perform_on_lteq]=#{Time.zone.now.strftime('%Y-%m-%d')}&q[is_completed_eq]=false"
+  | Past incomplete actions
+
 table.table.pretty-table
   thead
     th = sort_link @q, :person, ['person_name'], 'Person'
