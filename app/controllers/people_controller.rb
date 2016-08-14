@@ -26,6 +26,7 @@ class PeopleController < ApplicationController
 
     respond_to do |f|
       f.partial { render partial: 'table' }
+      f.json { render json: @people }
       f.html
     end
   end

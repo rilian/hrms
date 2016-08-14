@@ -5,7 +5,8 @@
     label.control-label
       span.text-danger *
       |  Name:
-    = f.input :name, placeholder: 'Bohdan Kirkov', label: false, class: 'input form-control'
+    .js-similar-people-container
+    = f.input :name, placeholder: 'Bohdan Kirkov', label: false, input_html: { class: 'input form-control js-person-name' }
 
   .form-group
     label.control-label Primary Tech:
