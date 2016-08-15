@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def store_return_to_path
     session[:return_to] = {} if session[:return_to].blank?
-    session[:return_to][request.params[:controller]] = request.fullpath
+    session[:return_to][request.params[:controller]] = request.fullpath unless request.fullpath.include?('.json')
   end
 
   def deep_strip_params
