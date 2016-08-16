@@ -99,6 +99,12 @@
         include_blank: true,
         input_html: { class: 'select form-control' }
 
+  - if @person.status.in?(Person::EMPLOYEE_STATUSES)
+    .form-group
+      label.control-label
+      | Override vacation days (default #{ENV['VACATION_PER_YEAR']}):
+      = f.input :vacation_override, placeholder: '10', label: false, class: 'input form-control'
+
   .form-group.form-actions
     .text-left style="width: 600px;"
       - if @person.persisted?

@@ -36,6 +36,7 @@ class Person < ActiveRecord::Base
 
   validates :name, presence: true
   validates :source, inclusion: { in: SOURCES }, allow_blank: true
+  validates :vacation_override, numericality: { only_integer: true}, allow_blank: true
 
   scope :not_deleted, ->() { where(is_deleted: false) }
   scope :employee, ->() { where(status: EMPLOYEE_STATUSES).order(:status) }

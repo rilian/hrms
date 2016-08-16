@@ -238,7 +238,8 @@ CREATE TABLE people (
     notes_count integer,
     expected_salary character varying,
     start_date date,
-    source character varying
+    source character varying,
+    vacation_override integer
 );
 
 
@@ -781,4 +782,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160803122523');
 INSERT INTO schema_migrations (version) VALUES ('20160804084846');
 
 INSERT INTO schema_migrations (version) VALUES ('20160804165139');
+
+INSERT INTO schema_migrations (version) VALUES ('20160816094539');
 

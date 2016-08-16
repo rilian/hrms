@@ -143,6 +143,11 @@
       - else
         a href="#{edit_person_path(@person)}"
           i.fa.fa-pencil
+    - if @person.status.in?(Person::EMPLOYEE_STATUSES)
+      - if @person.vacation_override.to_i > 0
+      p
+        | Override vacation days (default #{ENV['VACATION_PER_YEAR']}):&nbsp;
+        strong #{@person.vacation_override}
 
   - if @person.status.in?(Person::EMPLOYEE_STATUSES)
     h3
