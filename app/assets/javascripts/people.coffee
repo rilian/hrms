@@ -19,7 +19,7 @@ $(document).on 'ready page:load', ->
 
   $('.js-person-name').on 'keyup', ->
     if $(this).val().length > 1
-      $.ajax(url: "/people.json?q[name_cont]=#{$(this).val()}")
+      $.ajax(url: "/people.json?q[name_cont]=#{$(this).val()}&q[id_not_eq]=#{$(this).data('current-id')}")
         .done (response)->
           $('.js-similar-people-container').html('').append("Found #{response.length} similar people")
           if response.length < 10
