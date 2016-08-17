@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
     Person.not_deleted.accessible_by(current_ability).find_each(batch_size: 50) do |person|
       similars = Person.not_deleted.accessible_by(current_ability)
                   .where('id NOT IN (?)', [person.id] + previous_ids)
-                  .where('lower(name) = ?', person.name.downcase)
+                  .where('lower(name) ILIKE ?', "%#{person.name.downcase}%")
 
       if similars.exists?
         @people << {
