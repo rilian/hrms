@@ -4,14 +4,14 @@
   .form-group
     label.control-label
       span.text-danger *
-      | Name:
+      |  Name:
     .js-similar-people-container
-    = f.input :name, placeholder: 'Bohdan Kirkov', label: false, input_html: { class: 'input form-control js-person-name' }
+    = f.input :name, placeholder: 'Bohdan Kirkov', label: false, input_html: { class: 'input form-control js-person-name', data: { 'current-id' => @person.id } }
 
   .form-group
     label.control-label
       span.text-danger *
-      | Primary Tech:
+      |  Primary Tech:
     = f.input :primary_tech,
         collection: Person::PRIMARY_TECHS,
         label: false,
@@ -104,7 +104,7 @@
   - if @person.status.in?(Person::EMPLOYEE_STATUSES)
     .form-group
       label.control-label
-      | Override vacation days (default #{ENV['VACATION_PER_YEAR']}):
+        | Override vacation days (default #{ENV['VACATION_PER_YEAR']}):
       = f.input :vacation_override, placeholder: '10', label: false, class: 'input form-control'
 
   .form-group.form-actions
