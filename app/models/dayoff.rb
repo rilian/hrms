@@ -1,7 +1,7 @@
 class Dayoff < ActiveRecord::Base
   self.inheritance_column = nil
 
-  TYPES = ['Vacation', 'Sick Leave', 'Unpaid Day Off', 'Paid Day Off']
+  TYPES = ['Vacation', 'Sick Leave', 'Unpaid Day Off', 'Paid Day Off', 'Working Day Shift']
   PAID_VACATION_TYPES = ['Vacation', 'Paid Day Off']
 
   belongs_to :person, touch: true
