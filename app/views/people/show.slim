@@ -70,9 +70,10 @@
     p
       b Add Action
       = render 'action_points/form', partial_form: true
-    p
-      b Add Days off
-      = render 'dayoffs/form', partial_form: true
+    - if @person.status.in?(Person::EMPLOYEE_STATUSES)
+      p
+        b Add Days off
+        = render 'dayoffs/form', partial_form: true
     p
       b Add Attachment
       = render 'attachments/form', partial_form: true
