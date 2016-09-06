@@ -9,6 +9,7 @@ table.table.pretty-table
     th Vacation days used
     th Vacation days remaining
     th Sick leaves
+    th Overtimes
     th Paid days off
     th Unpaid days off
     th Actions
@@ -38,12 +39,15 @@ table.table.pretty-table
               - else
                 = remaining_vacation(record)
             td = sick_leaves(record)
+            td = overtime_days(record)
             td = paid_days_off(record)
             td = unpaid_days_off(record)
         - else
           td
             a href="#{edit_person_path(record)}"
               i.fa.fa-pencil
+          td
+            | &nbsp;
           td
             | &nbsp;
           td

@@ -9,6 +9,10 @@ module DayoffsHelper
     person.dayoffs.where(type: 'Vacation').sum(:days)
   end
 
+  def overtime_days(person)
+    person.dayoffs.where(type: 'Overtime').sum(:days)
+  end
+
   def sick_leaves(person)
     person.dayoffs.where(type: 'Sick Leave').sum(:days)
   end
@@ -27,6 +31,6 @@ module DayoffsHelper
   end
 
   def remaining_vacation(person)
-    (allowed_vacation(person) - used_vacation(person)).ceil
+    (allowed_vacation(person) + overtime_days(person) - used_vacation(person)).ceil
   end
 end
