@@ -42,14 +42,14 @@
       span.text-danger *
       |  Start date (min #{f.object.person&.start_date&.strftime('%d-%m-%Y')}):
     = f.input :start_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false,
-        input_html: { value: f.object.start_on&.strftime('%d-%m-%Y'), class: 'datepicker', data: { 'date-start-date' => f.object.person&.start_date&.strftime('%d-%m-%Y'), 'date-end-date' => 6.months.since.strftime('%d-%m-%Y'), 'date-days-of-week-disabled' => [0, 6] } }
+        input_html: { value: f.object.start_on&.strftime('%d-%m-%Y'), class: 'datepicker', data: { 'date-start-date' => f.object.person&.start_date&.strftime('%d-%m-%Y'), 'date-end-date' => 6.months.since.strftime('%d-%m-%Y') } }
 
   .form-group
     label.control-label
       span.text-danger *
       |  End date:
     = f.input :end_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false,
-        input_html: { value: f.object.end_on&.strftime('%d-%m-%Y'), class: 'datepicker', data: { 'date-start-date' => f.object.person&.start_date&.strftime('%d-%m-%Y'), 'date-end-date' => 6.months.since.strftime('%d-%m-%Y'), 'date-days-of-week-disabled' => [0, 6] } }
+        input_html: { value: f.object.end_on&.strftime('%d-%m-%Y'), class: 'datepicker', data: { 'date-start-date' => f.object.person&.start_date&.strftime('%d-%m-%Y'), 'date-end-date' => 6.months.since.strftime('%d-%m-%Y') } }
 
   .form-group
     label.control-label
