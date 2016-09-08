@@ -19,11 +19,28 @@ $(document).on 'ready page:load', ->
     $(this).hide()
 
   $('.js-person-name').on 'keyup', ->
-    if $(this).val().length > 1
-      $.ajax(url: "/people.json?q[name_cont]=#{$(this).val()}&q[id_not_eq]=#{$(this).data('current-id')}")
+    name = $(this).val().replace(/^\s+|\s+$/g, '');
+    if name.length > 1
+      $.ajax(url: "/people.json?q[name_cont]=#{name}&q[id_not_eq]=#{$(this).data('current-id')}")
         .done (response)->
-          $('.js-similar-people-container').html('').append("Found #{response.length} similar people")
-          if response.length < 10
-            $('.js-similar-people-container').append(": ")
-            for person in response
-              $('.js-similar-people-container').append("<a target='_blank' href='/people\/#{person["id"]}'>#{person["name"]}</a> &nbsp;")
+          if response.length > 0
+            $('.js-similar-people-container').html("Found #{response.length} similar people")
+            if response.length < 10
+              $('.js-similar-people-container').append(": ")
+              for person in response
+                $('.js-similar-people-container').append("<a target='_blank' href='/people\/#{person["id"]}'>#{person["name"]}</a> &nbsp;")
+          else
+            $('.js-similar-people-container').html('Similar people not found')
+
+      if name.indexOf(' ') > 0
+        reverse_name = name.split(/\s+/).reverse().join(' ')
+        $.ajax(url: "/people.json?q[name_cont]=#{reverse_name}&q[id_not_eq]=#{$(this).data('current-id')}")
+          .done (response)->
+            if response.length > 0
+              if $('.js-similar-people-container').html().length > 0
+                $('.js-similar-people-container').append('. ')
+              $('.js-similar-people-container').append("Found #{response.length} with reversed name")
+              if response.length < 10
+                $('.js-similar-people-container').append(": ")
+                for person in response
+                  $('.js-similar-people-container').append("<a target='_blank' href='/people\/#{person["id"]}'>#{person["name"]}</a> &nbsp;")
