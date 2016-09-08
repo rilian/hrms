@@ -2,7 +2,7 @@
   div.card
     .card-title
       a href="/people" People
-    .card-body #{Person.count}
+    .card-body #{Person.not_deleted.count}
   div.card
     .card-title
       a href="/notes" Notes
