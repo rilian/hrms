@@ -1,0 +1,15 @@
+h2.title Historical data
+
+table.table.pretty-table
+  thead
+    th Day
+    - HistoricalDataCollector::KLASSES.each do |klass|
+      th = klass
+  tbody
+    - @data.each_pair do |day, counts|
+      tr
+        td
+          = day
+        - counts.values.each do |count|
+          td
+            = count != '0' ? count : ''

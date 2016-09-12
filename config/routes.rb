@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     collection do
       get :by_status
       get :people_with_similar_name
+      get :historical_data
     end
   end
   resources :tags, only: :index

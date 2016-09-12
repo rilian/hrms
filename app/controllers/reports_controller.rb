@@ -22,4 +22,8 @@ class ReportsController < ApplicationController
       end
     end
   end
+
+  def historical_data
+    @data = HistoricalDataCollector.new.perform
+  end
 end
