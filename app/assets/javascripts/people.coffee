@@ -37,6 +37,7 @@ $(document).on 'ready page:load', ->
                 container.append("<a target='_blank' href='/people\/#{person["id"]}'>#{person["name"]}</a> &nbsp;")
 
   $('form#new_person').on 'submit', (e)->
-    if $('.js-similar-people-container').html().length > 0
-      if !confirm("There are people with similar surname.\nAre you sure you want to create one more?")
+    similar = $('.js-similar-people-container').text().replace(/^\s+|\s+$/g, '');
+    if similar.length > 0
+      if !confirm("There are people with similar surname.\nAre you sure you want to create one more?\n\n#{similar}")
         e.preventDefault()
