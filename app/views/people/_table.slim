@@ -9,6 +9,10 @@
       | &nbsp;
       a href="#{edit_person_path(record)}"
         i.fa.fa-pencil
+      - if record.linkedin.blank? && record.attachments.empty?
+        br
+        a.btn.btn-xs.btn-danger href="#{edit_person_path(record)}"
+          | Linkedin / CV missing
     td
       - if record.primary_tech.present?
         = link_to record.primary_tech, people_path(q: { primary_tech_eq: record.primary_tech })
