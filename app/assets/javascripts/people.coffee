@@ -35,3 +35,8 @@ $(document).on 'ready page:load', ->
               container.append(": ")
               for person in response
                 container.append("<a target='_blank' href='/people\/#{person["id"]}'>#{person["name"]}</a> &nbsp;")
+
+  $('form#new_person').on 'submit', (e)->
+    if $('.js-similar-people-container').html().length > 0
+      if !confirm("There are people with similar surname.\nAre you sure you want to create one more?")
+        e.preventDefault()
