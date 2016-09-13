@@ -19,7 +19,7 @@
     td style="background-color: #{PERSON_STATUS_COLORS[record.status]};"
       = link_to (record.status.presence || 'n/a'), people_path(q: {status_eq: record.status}), { style: 'color: black' }
     td
-      - if (record.action_points_count.where(is_completed: false) || 0) > 0
+      - if (record.action_points_count || 0) > 0
         | Upcoming Actions:
         br
         - record.action_points.order(perform_on: :asc).each do |action_point|
