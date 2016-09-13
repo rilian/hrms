@@ -14,6 +14,7 @@ class Person < ActiveRecord::Base
     PM
     QA/BA
     C/C++/Go
+    DBA
     HR
   )
   ENGLISH_LEVELS = %w(

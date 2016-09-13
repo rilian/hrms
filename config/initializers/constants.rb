@@ -16,5 +16,6 @@ PERSON_STATUS_COLORS = {
   'Hiring context' => '#99cfe0',
   'Waiting for decision' => '#ADD8E6',
   'Hired' => '#7ff27f',
+  'Contractor' => '#7ff270',
   'Past employee' => '#ffc3e1'
 }
