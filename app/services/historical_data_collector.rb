@@ -1,5 +1,5 @@
 class HistoricalDataCollector
-  KLASSES = [ActionPoint, Attachment, Dayoff, Event, Note, Person, User, Vacancy]
+  KLASSES = [Person, Note, ActionPoint, Attachment, Vacancy, Dayoff, Event, User]
 
   def initialize
     @data = {}

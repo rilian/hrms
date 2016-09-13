@@ -6,10 +6,14 @@ table.table.pretty-table
     - HistoricalDataCollector::KLASSES.each do |klass|
       th = klass
   tbody
-    - @data.each_pair do |day, counts|
+    - @data.reverse_each do |item|
       tr
         td
-          = day
-        - counts.values.each do |count|
+          = item.first
+        - item.last.values.each do |count|
           td
             = count != '0' ? count : ''
+  thead
+    th Day
+    - HistoricalDataCollector::KLASSES.each do |klass|
+      th = klass
