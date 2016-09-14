@@ -39,6 +39,7 @@ class Person < ActiveRecord::Base
   validates :source, inclusion: { in: SOURCES }, allow_blank: true
   validates :primary_tech, inclusion: { in: PRIMARY_TECHS }
   validates :vacation_override, numericality: { only_integer: true}, allow_blank: true
+  validates :email, :phone, :skype, uniqueness: true, allow_blank: true
 
   scope :not_deleted, ->() { where(is_deleted: false) }
   scope :employee, ->() { where(status: EMPLOYEE_STATUSES).order(:status) }
