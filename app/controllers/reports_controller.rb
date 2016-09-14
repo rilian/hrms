@@ -15,10 +15,10 @@ class ReportsController < ApplicationController
           OR (email IS NOT NULL AND email != '' AND email ILIKE ?)
           OR (phone IS NOT NULL AND phone != '' AND phone ILIKE ?)
           OR (skype IS NOT NULL AND skype != '' AND skype ILIKE ?)",
-          "%#{person.name.downcase.strip}%",
-          "%#{person.email.strip.presence || '#invalid#'}%",
-          "%#{person.phone.strip.presence || '#invalid#'}%",
-          "%#{person.skype.strip.presence || '#invalid#'}%")
+          "%#{person.name&.downcase&.strip}%",
+          "%#{person.email&.strip&.presence || '#invalid#'}%",
+          "%#{person.phone&.strip&.presence || '#invalid#'}%",
+          "%#{person.skype&.strip&.presence || '#invalid#'}%")
 
       if similars.exists?
         @people << {
