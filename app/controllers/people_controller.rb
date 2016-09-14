@@ -66,7 +66,7 @@ class PeopleController < ApplicationController
   end
 
   def destroy
-    @person.update(is_deleted: true)
+    @person.update_column(:is_deleted, true)
     log_event(entity: @person, action: 'deleted')
     redirect_to people_path, flash: { success: 'Person was deleted but can be restored manually' }
   end
