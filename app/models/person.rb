@@ -16,6 +16,7 @@ class Person < ActiveRecord::Base
     C/C++/Go
     DBA
     HR
+    Manager
   )
   ENGLISH_LEVELS = %w(
     Beginner/Elementary
