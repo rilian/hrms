@@ -14,6 +14,21 @@
     a.btn.btn-default.js-show-quick-forms href="#" Show Quick Forms
     | &nbsp;
     a.btn.btn-default.js-show-more href="#" Show More Info
+
+  - if @person.status.in?(Person::EMPLOYEE_STATUSES)
+    p
+      - if @person.photo.present?
+        img src="#{Refile.attachment_url(@person, :photo, :fit, 200, 200, format: 'jpg')}"
+      - else
+        | No photo yet
+    p
+      | Skills:&nbsp;
+      - if @person.skills.present?
+        strong
+          = @person.skills
+      - else
+        a href="#{edit_person_path(@person)}"
+          i.fa.fa-pencil
   p
     | Primary tech:&nbsp;
     - if @person.primary_tech.present?

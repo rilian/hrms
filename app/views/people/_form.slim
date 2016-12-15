@@ -112,6 +112,21 @@
         | Override vacation days (default #{ENV['VACATION_PER_YEAR']}):
       = f.input :vacation_override, placeholder: '10', label: false, class: 'input form-control'
 
+    .form-group
+      label.control-label
+        | Photo
+        span.text-danger *
+      - if @person.photo.present?
+        img src="#{Refile.attachment_url(@person, :photo, :fit, 200, 200, format: 'jpg')}"
+      - else
+        | No photo yet
+      br
+      = f.attachment_field :photo, label: false, class: 'input form-control'
+
+    .form-group
+      label.control-label Skills:
+      = f.input :skills, as: :text, label: false, placeholder: 'Skills assesment', input_html: { rows: 1 }
+
   .form-group.form-actions
     .text-left style="width: 600px;"
       - if @person.persisted?
