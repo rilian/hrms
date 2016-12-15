@@ -1,5 +1,6 @@
 class Person < ActiveRecord::Base
   acts_as_taggable_on :tags
+  attachment :photo
 
   PRIMARY_TECHS = %w(
     Ruby

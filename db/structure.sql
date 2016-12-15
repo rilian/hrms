@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.3
--- Dumped by pg_dump version 9.5.3
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -239,7 +239,12 @@ CREATE TABLE people (
     expected_salary character varying,
     start_date date,
     source character varying,
-    vacation_override integer
+    vacation_override integer,
+    photo_id character varying,
+    photo_filename character varying,
+    photo_size integer,
+    photo_content_type character varying,
+    skills text
 );
 
 
@@ -784,4 +789,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160804084846');
 INSERT INTO schema_migrations (version) VALUES ('20160804165139');
 
 INSERT INTO schema_migrations (version) VALUES ('20160816094539');
+
+INSERT INTO schema_migrations (version) VALUES ('20161215134733');
 
