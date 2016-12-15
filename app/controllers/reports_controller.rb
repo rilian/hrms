@@ -35,4 +35,9 @@ class ReportsController < ApplicationController
   def historical_data
     @data = HistoricalDataCollector.new.perform
   end
+
+  def employees
+    @people = Person.not_deleted.accessible_by(current_ability)
+                .where(status: Person::EMPLOYEE_STATUSES)
+  end
 end
