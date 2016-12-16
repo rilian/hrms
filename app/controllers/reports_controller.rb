@@ -38,7 +38,7 @@ class ReportsController < ApplicationController
 
   def employees
     @people = Person.not_deleted.accessible_by(current_ability)
-                .where(status: Person::EMPLOYEE_STATUSES)
+                .where(status: 'Hired')
                 .order(:status, :name)
   end
 end
