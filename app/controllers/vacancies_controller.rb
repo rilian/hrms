@@ -1,7 +1,7 @@
 class VacanciesController < ApplicationController
   def index
-    @q = Vacancy.accessible_by(current_ability).ransack(params[:q])
-    @q.sorts = 'created_at desc' if @q.sorts.empty?
+    @q = Vacancy.accessible_by(current_ability)
+           .order('status DESC, created_at desc').ransack(params[:q])
     @vacancies = @q.result
 
     @vacancies = @vacancies.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
@@ -67,6 +67,6 @@ class VacanciesController < ApplicationController
 private
 
   def vacancy_params
-    params.require(:vacancy).permit(:project, :role, :description, :tag)
+    params.require(:vacancy).permit(:status, :project, :role, :description, :tag)
   end
 end

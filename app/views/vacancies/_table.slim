@@ -3,6 +3,7 @@
 
 - @vacancies.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @vacancies.size - 1) && last_page?(@vacancies))
+    td = record.status
     td = link_to record.project, vacancy_path(record)
     td = link_to record.role, vacancy_path(record)
     td

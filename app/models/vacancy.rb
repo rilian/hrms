@@ -1,4 +1,6 @@
 class Vacancy < ActiveRecord::Base
+  STATUSES = %w(open closed)
+
   belongs_to :updated_by, class_name: 'User'
 
   validates :project, :role, :description, presence: true
@@ -7,6 +9,7 @@ class Vacancy < ActiveRecord::Base
       with: /\A[a-z0-9\-]+\Z/,
       message: 'format is invalid, only a-z, 0-9 and "-" characters allowed'
     }
+  validates :status, inclusion: { in: STATUSES }
 
   after_save :create_tag, on: :commit
 

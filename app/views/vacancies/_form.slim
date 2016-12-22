@@ -2,6 +2,13 @@
 
 = simple_form_for @vacancy, html: { class: 'form' } do |f|
   .form-group
+    label.control-label Status:
+    = f.input :status,
+        collection: Vacancy::STATUSES,
+        label: false,
+        include_blank: true,
+        input_html: { class: 'select form-control' }
+  .form-group
     label.control-label
       | Project
     = f.input :project, placeholder: 'Project name', label: false, class: 'input form-control'

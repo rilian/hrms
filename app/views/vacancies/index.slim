@@ -6,6 +6,7 @@ h2.title
 
 table.table.pretty-table
   thead
+    th = sort_link @q, :status
     th = sort_link @q, :project
     th = sort_link @q, :role
     th = sort_link @q, :tag
