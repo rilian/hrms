@@ -27,8 +27,8 @@ module DayoffsHelper
 
   def months_worked(person)
     return 0 unless person.start_date
-    ((person.finish_date || Date.today).year * 12 + (person.finish_date || Date.today).month)
-      - (person.start_date.year * 12 + person.start_date.month)
+    ((person.finish_date || Date.today).year * 12 - person.start_date.year * 12) +
+      (person.finish_date || Date.today).month - person.start_date.month
   end
 
   def remaining_vacation(person)
