@@ -135,13 +135,18 @@
         a href="#{edit_person_path(@person)}"
           i.fa.fa-pencil
     p
-      | Start Date:&nbsp;
+      | Employment Start Date:&nbsp;
       - if @person.start_date.present?
         strong
           = @person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
       - else
         a href="#{edit_person_path(@person)}"
           i.fa.fa-pencil
+    - if @person.finish_date.present?
+      p
+        | Employment Finish Date:&nbsp;
+        strong
+          = @person.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
     p
       | Date of birth:&nbsp;
       - if @person.day_of_birth.present?

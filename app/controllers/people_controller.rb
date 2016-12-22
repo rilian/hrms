@@ -76,7 +76,7 @@ private
   def person_params
     params.require(:person).permit(:name, :city, :phone, :skype, :linkedin, :email, :start_date,
       :primary_tech, :english, :cultural_fit, :day_of_birth, :status, :expected_salary, :source,
-      :vacation_override, :photo, :skills,
+      :vacation_override, :photo, :skills, :finish_date,
       tag_list: [])
   end
 end

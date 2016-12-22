@@ -2,7 +2,7 @@ module DayoffsHelper
   def allowed_vacation(person)
     return 0 unless person.start_date
     vacation_per_year = person.vacation_override.to_i > 0 ? person.vacation_override : ENV['VACATION_PER_YEAR'].to_i
-    (((Date.today - person.start_date).to_i.abs) / 365.25).ceil * vacation_per_year
+    ((((person.finish_date || Date.today) - person.start_date).to_i.abs) / 365.25).ceil * vacation_per_year
   end
 
   def used_vacation(person)
@@ -27,7 +27,8 @@ module DayoffsHelper
 
   def months_worked(person)
     return 0 unless person.start_date
-    (Date.today.year * 12 + Date.today.month) - (person.start_date.year * 12 + person.start_date.month)
+    ((person.finish_date || Date.today).year * 12 + (person.finish_date || Date.today).month)
+      - (person.start_date.year * 12 + person.start_date.month)
   end
 
   def remaining_vacation(person)

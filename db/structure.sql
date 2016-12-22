@@ -244,7 +244,8 @@ CREATE TABLE people (
     photo_filename character varying,
     photo_size integer,
     photo_content_type character varying,
-    skills text
+    skills text,
+    finish_date date
 );
 
 
@@ -791,4 +792,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160804165139');
 INSERT INTO schema_migrations (version) VALUES ('20160816094539');
 
 INSERT INTO schema_migrations (version) VALUES ('20161215134733');
+
+INSERT INTO schema_migrations (version) VALUES ('20161222094814');
 
