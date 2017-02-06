@@ -10,6 +10,8 @@
     = "#{@vacancy.project} #{@vacancy.role}"
     | &nbsp;
     a.btn.btn-default.js-show-edit-form href="#" Edit
+    | &nbsp;
+    a.btn.btn-info href="#{vacancy_path(@vacancy)}.csv" Export to CSV
   p
     | Project:&nbsp;
     = @vacancy.project

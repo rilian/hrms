@@ -32,6 +32,20 @@ class VacanciesController < ApplicationController
 
     @tags = Person.not_deleted.accessible_by(current_ability).tag_counts_on(:tags)
               .sort { |t1, t2| t2.taggings_count <=> t1.taggings_count }
+
+    respond_to do |f|
+      f.html
+      f.csv do
+        require 'csv'
+
+        send_data(CSV.generate do |csv|
+          csv << ['Name', 'Linkedin']
+          @people.each do |item|
+            csv << [item.name, item.linkedin]
+          end
+        end, filename: "vacancy-#{@vacancy.id}.csv")
+      end
+    end
   end
 
   def new
