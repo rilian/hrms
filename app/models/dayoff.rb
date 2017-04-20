@@ -1,10 +1,10 @@
-class Dayoff < ActiveRecord::Base
+class Dayoff < ApplicationRecord
   self.inheritance_column = nil
 
   TYPES = ['Vacation', 'Sick Leave', 'Unpaid Day Off', 'Paid Day Off', 'Working Day Shift', 'Overtime']
 
   belongs_to :person, touch: true
-  belongs_to :updated_by, class_name: 'User'
+  belongs_to :updated_by, class_name: 'User', optional: true
 
   validates :person, :start_on, :end_on, presence: true
   validates :type, inclusion: { in: TYPES }

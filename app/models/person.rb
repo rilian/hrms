@@ -1,4 +1,4 @@
-class Person < ActiveRecord::Base
+class Person < ApplicationRecord
   acts_as_taggable_on :tags
   attachment :photo
 
@@ -29,7 +29,7 @@ class Person < ActiveRecord::Base
   EMPLOYEE_STATUSES = ['Hired', 'Past employee']
   SOURCES = %w(Reference Djinni LinkedIn DOU)
 
-  belongs_to :updated_by, class_name: 'User'
+  belongs_to :updated_by, class_name: 'User', optional: true
   has_many :action_points
   has_many :attachments
   has_many :dayoffs

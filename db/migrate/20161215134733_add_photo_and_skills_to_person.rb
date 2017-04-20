@@ -1,4 +1,4 @@
-class AddPhotoAndSkillsToPerson < ActiveRecord::Migration
+class AddPhotoAndSkillsToPerson < ActiveRecord::Migration[4.2]
   def change
     add_column :people, :photo_id, :string
     add_column :people, :photo_filename, :string

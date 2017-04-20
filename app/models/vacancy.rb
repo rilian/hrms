@@ -1,7 +1,7 @@
-class Vacancy < ActiveRecord::Base
+class Vacancy < ApplicationRecord
   STATUSES = %w(open closed)
 
-  belongs_to :updated_by, class_name: 'User'
+  belongs_to :updated_by, class_name: 'User', optional: true
 
   validates :project, :role, :description, presence: true
   validates :tag, uniqueness: { case_sensitive: false },

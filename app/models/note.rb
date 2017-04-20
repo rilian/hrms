@@ -1,4 +1,4 @@
-class Note < ActiveRecord::Base
+class Note < ApplicationRecord
   self.inheritance_column = nil
 
   TYPES = [
@@ -30,7 +30,7 @@ class Note < ActiveRecord::Base
   ]
 
   belongs_to :person, counter_cache: true, touch: true
-  belongs_to :updated_by, class_name: 'User'
+  belongs_to :updated_by, class_name: 'User', optional: true
 
   validates :type, :person, :value, presence: true
   validates :type, inclusion: { in: TYPES }

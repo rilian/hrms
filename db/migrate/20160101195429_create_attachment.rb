@@ -1,4 +1,4 @@
-class CreateAttachment < ActiveRecord::Migration
+class CreateAttachment < ActiveRecord::Migration[4.2]
   def change
     create_table :attachments do |t|
       t.references :person, index: true, null: false
