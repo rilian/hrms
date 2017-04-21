@@ -1,12 +1,12 @@
-p1 = Person.create(name: 'Vasiliy Pupkin')
-n1 = Note.create(person: p1, type: 'Waiting for decision', value: 'Passed all interviews')
-n2 = Note.create(person: p1, type: 'Other', value: 'Great developer')
-ap1 = ActionPoint.create(person: p1, value: 'Meet in a cafe', perform_on: Date.tomorrow)
-ap2 = ActionPoint.create(person: p1, value: 'Hire', perform_on: Date.tomorrow)
-u = User.create(
-  email: 'admin@example.com',
-  password: '12345678',
-  has_access_to_users: true,
-  has_access_to_events: true,
-  has_access_to_finances: true
-)
+p = Person.where(name: 'Vasiliy Pupkin', primary_tech: 'Ruby').first_or_create!
+Note.where(person: p, type: 'Decision', value: 'Passed all interviews').first_or_create!
+Note.where(person: p, type: 'Other', value: 'Great developer').first_or_create!
+ActionPoint.where(person: p, value: 'Meet in a cafe', perform_on: Date.tomorrow).first_or_create!
+ActionPoint.where(person: p, value: 'Hire', perform_on: Date.tomorrow).first_or_create!
+User.find_or_create_by!(email: 'admin@example.com') do |u|
+  u.password = '12345678'
+  u.has_access_to_users = true
+  u.has_access_to_events = true
+  u.has_access_to_finances= true
+end
+

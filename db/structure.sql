@@ -1,12 +1,6 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -66,6 +60,18 @@ CREATE SEQUENCE action_points_id_seq
 --
 
 ALTER SEQUENCE action_points_id_seq OWNED BY action_points.id;
+
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
 
 
 --
@@ -151,7 +157,7 @@ CREATE TABLE events (
     id integer NOT NULL,
     entity_type character varying NOT NULL,
     entity_id integer NOT NULL,
-    params jsonb DEFAULT '{}'::jsonb NOT NULL,
+    params jsonb DEFAULT '"{}"'::jsonb NOT NULL,
     action character varying DEFAULT ''::character varying NOT NULL,
     user_id integer,
     created_at timestamp without time zone NOT NULL,
@@ -233,9 +239,9 @@ CREATE TABLE people (
     updated_by_id integer,
     status character varying DEFAULT 'n/a'::character varying NOT NULL,
     is_deleted boolean DEFAULT false NOT NULL,
-    action_points_count integer,
-    attachments_count integer,
-    notes_count integer,
+    action_points_count integer DEFAULT 0,
+    attachments_count integer DEFAULT 0,
+    notes_count integer DEFAULT 0,
     expected_salary character varying,
     start_date date,
     source character varying,
@@ -284,10 +290,10 @@ CREATE TABLE schema_migrations (
 CREATE TABLE taggings (
     id integer NOT NULL,
     tag_id integer,
-    taggable_id integer,
     taggable_type character varying,
-    tagger_id integer,
+    taggable_id integer,
     tagger_type character varying,
+    tagger_id integer,
     context character varying(128),
     created_at timestamp without time zone
 );
@@ -420,77 +426,77 @@ ALTER SEQUENCE vacancies_id_seq OWNED BY vacancies.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: action_points id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY action_points ALTER COLUMN id SET DEFAULT nextval('action_points_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: dayoffs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY dayoffs ALTER COLUMN id SET DEFAULT nextval('dayoffs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: people id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: taggings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY taggings ALTER COLUMN id SET DEFAULT nextval('taggings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: vacancies id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY vacancies ALTER COLUMN id SET DEFAULT nextval('vacancies_id_seq'::regclass);
 
 
 --
--- Name: action_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: action_points action_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY action_points
@@ -498,7 +504,15 @@ ALTER TABLE ONLY action_points
 
 
 --
--- Name: attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: attachments attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY attachments
@@ -506,7 +520,7 @@ ALTER TABLE ONLY attachments
 
 
 --
--- Name: dayoffs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: dayoffs dayoffs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY dayoffs
@@ -514,7 +528,7 @@ ALTER TABLE ONLY dayoffs
 
 
 --
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -522,7 +536,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: notes notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY notes
@@ -530,7 +544,7 @@ ALTER TABLE ONLY notes
 
 
 --
--- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: people people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY people
@@ -538,7 +552,15 @@ ALTER TABLE ONLY people
 
 
 --
--- Name: taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: taggings taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY taggings
@@ -546,7 +568,7 @@ ALTER TABLE ONLY taggings
 
 
 --
--- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tags
@@ -554,7 +576,7 @@ ALTER TABLE ONLY tags
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -562,7 +584,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: vacancies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: vacancies vacancies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY vacancies
@@ -661,10 +683,24 @@ CREATE INDEX index_people_on_status ON people USING btree (status);
 
 
 --
+-- Name: index_taggings_on_context; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_context ON taggings USING btree (context);
+
+
+--
 -- Name: index_taggings_on_tag_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_taggings_on_tag_id ON taggings USING btree (tag_id);
+
+
+--
+-- Name: index_taggings_on_taggable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_taggable_id ON taggings USING btree (taggable_id);
 
 
 --
@@ -679,6 +715,27 @@ CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_context ON tagg
 --
 
 CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_tag_id ON taggings USING btree (taggable_id, taggable_type, tag_id);
+
+
+--
+-- Name: index_taggings_on_taggable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_taggable_type ON taggings USING btree (taggable_type);
+
+
+--
+-- Name: index_taggings_on_tagger_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_tagger_id ON taggings USING btree (tagger_id);
+
+
+--
+-- Name: index_taggings_on_tagger_id_and_tagger_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taggings_on_tagger_id_and_tagger_type ON taggings USING btree (tagger_id, tagger_type);
 
 
 --
@@ -710,10 +767,10 @@ CREATE UNIQUE INDEX taggings_idx ON taggings USING btree (tag_id, taggable_id, t
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
+-- Name: taggings_idy; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+CREATE INDEX taggings_idy ON taggings USING btree (taggable_id, taggable_type, tagger_id, context);
 
 
 --
@@ -722,79 +779,46 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20151203230043');
+INSERT INTO "schema_migrations" (version) VALUES
+('20151203230043'),
+('20151206022806'),
+('20151206041810'),
+('20151213225759'),
+('20160101195429'),
+('20160130095024'),
+('20160130133849'),
+('20160205211842'),
+('20160205211843'),
+('20160205211844'),
+('20160205211845'),
+('20160207151033'),
+('20160229151543'),
+('20160318215647'),
+('20160328185638'),
+('20160404074238'),
+('20160418145542'),
+('20160614201155'),
+('20160614201434'),
+('20160616191545'),
+('20160619204703'),
+('20160623212429'),
+('20160626123050'),
+('20160627093617'),
+('20160627151119'),
+('20160628085818'),
+('20160629141248'),
+('20160701123126'),
+('20160707095608'),
+('20160707154815'),
+('20160802171123'),
+('20160803122523'),
+('20160804084846'),
+('20160804165139'),
+('20160816094539'),
+('20161215134733'),
+('20161222094814'),
+('20161222171351'),
+('20170420131250'),
+('20170420151339');
 
-INSERT INTO schema_migrations (version) VALUES ('20151206022806');
-
-INSERT INTO schema_migrations (version) VALUES ('20151206041810');
-
-INSERT INTO schema_migrations (version) VALUES ('20151213225759');
-
-INSERT INTO schema_migrations (version) VALUES ('20160101195429');
-
-INSERT INTO schema_migrations (version) VALUES ('20160130095024');
-
-INSERT INTO schema_migrations (version) VALUES ('20160130133849');
-
-INSERT INTO schema_migrations (version) VALUES ('20160205211842');
-
-INSERT INTO schema_migrations (version) VALUES ('20160205211843');
-
-INSERT INTO schema_migrations (version) VALUES ('20160205211844');
-
-INSERT INTO schema_migrations (version) VALUES ('20160205211845');
-
-INSERT INTO schema_migrations (version) VALUES ('20160207151033');
-
-INSERT INTO schema_migrations (version) VALUES ('20160229151543');
-
-INSERT INTO schema_migrations (version) VALUES ('20160318215647');
-
-INSERT INTO schema_migrations (version) VALUES ('20160328185638');
-
-INSERT INTO schema_migrations (version) VALUES ('20160404074238');
-
-INSERT INTO schema_migrations (version) VALUES ('20160418145542');
-
-INSERT INTO schema_migrations (version) VALUES ('20160614201155');
-
-INSERT INTO schema_migrations (version) VALUES ('20160614201434');
-
-INSERT INTO schema_migrations (version) VALUES ('20160616191545');
-
-INSERT INTO schema_migrations (version) VALUES ('20160619204703');
-
-INSERT INTO schema_migrations (version) VALUES ('20160623212429');
-
-INSERT INTO schema_migrations (version) VALUES ('20160626123050');
-
-INSERT INTO schema_migrations (version) VALUES ('20160627093617');
-
-INSERT INTO schema_migrations (version) VALUES ('20160627151119');
-
-INSERT INTO schema_migrations (version) VALUES ('20160628085818');
-
-INSERT INTO schema_migrations (version) VALUES ('20160629141248');
-
-INSERT INTO schema_migrations (version) VALUES ('20160701123126');
-
-INSERT INTO schema_migrations (version) VALUES ('20160707095608');
-
-INSERT INTO schema_migrations (version) VALUES ('20160707154815');
-
-INSERT INTO schema_migrations (version) VALUES ('20160802171123');
-
-INSERT INTO schema_migrations (version) VALUES ('20160803122523');
-
-INSERT INTO schema_migrations (version) VALUES ('20160804084846');
-
-INSERT INTO schema_migrations (version) VALUES ('20160804165139');
-
-INSERT INTO schema_migrations (version) VALUES ('20160816094539');
-
-INSERT INTO schema_migrations (version) VALUES ('20161215134733');
-
-INSERT INTO schema_migrations (version) VALUES ('20161222094814');
-
-INSERT INTO schema_migrations (version) VALUES ('20161222171351');
 

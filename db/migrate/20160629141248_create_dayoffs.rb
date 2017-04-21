@@ -1,4 +1,4 @@
-class CreateDayoffs < ActiveRecord::Migration
+class CreateDayoffs < ActiveRecord::Migration[4.2]
   def change
     create_table :dayoffs do |t|
       t.references :person, index: true, null: false

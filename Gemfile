@@ -1,15 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.7.rc1'
+gem 'rails', '5.1.0.rc2'
 gem 'pg'
 gem 'dotenv-rails'
 gem 'ransack'
 gem 'warden'
 gem 'devise'
-gem 'refile', require: 'refile/rails'
-gem 'refile-mini_magick'
+gem 'refile', github: 'refile/refile', require: 'refile/rails'
+gem 'refile-mini_magick', github: 'refile/refile-mini_magick'
+gem 'sinatra', github: 'sinatra/sinatra', branch: 'master'
 gem 'smarter_csv', require: false
-gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on', '~> 4.0'
 gem 'cancancan'
 
 # Frontend
@@ -32,7 +33,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'quiet_assets'
   gem 'bullet'
 end
 
