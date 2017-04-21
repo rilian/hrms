@@ -21,7 +21,6 @@ module HRMS
     config.autoload_paths += Dir[
       "#{config.root}/app/models/**/",
       "#{config.root}/app/services/**/",
-      "#{config.root}/app/workers/**/",
       "#{config.root}/app/helpers/**/",
       "#{config.root}/lib/**/"
     ]
