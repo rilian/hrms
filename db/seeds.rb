@@ -1,4 +1,4 @@
-p1 = Person.create(name: 'Vasiliy Pupkin')
+p1 = Person.create(name: 'Vasiliy Pupkin', primary_tech: 'Ruby')
 n1 = Note.create(person: p1, type: 'Waiting for decision', value: 'Passed all interviews')
 n2 = Note.create(person: p1, type: 'Other', value: 'Great developer')
 ap1 = ActionPoint.create(person: p1, value: 'Meet in a cafe', perform_on: Date.tomorrow)
