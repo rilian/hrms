@@ -45,6 +45,7 @@ class Person < ActiveRecord::Base
 
   scope :not_deleted, ->() { where(is_deleted: false) }
   scope :employee, ->() { where(status: EMPLOYEE_STATUSES).order(:status) }
+  scope :current_employee, ->() { where(status: 'Hired').order(:status) }
 
   def linkedin_value
     if self.linkedin.start_with?('https://')
