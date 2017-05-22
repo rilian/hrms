@@ -18,6 +18,9 @@ class Person < ActiveRecord::Base
     DBA
     HR
     Manager
+    PHP
+    Scala
+    UI/UX
   )
   ENGLISH_LEVELS = %w(
     Beginner/Elementary
