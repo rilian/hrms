@@ -1,0 +1,18 @@
+h2.title People by Technology
+
+table.table.pretty-table
+  thead
+    th Tech
+    th People
+    th Actions
+  tbody
+    - Person::PRIMARY_TECHS.each_with_index do |tech, index|
+      tr
+        td
+          span style="width: 10px; background-color: #{PERSON_STATUS_COLORS.values[index]};" &nbsp;&nbsp;&nbsp;&nbsp;
+          | &nbsp;
+          = link_to tech, people_path(q: { primary_tech_eq: tech })
+        td
+          = link_to Person.not_deleted.accessible_by(current_ability).where(primary_tech: tech).count, people_path(q: { primary_tech_eq: tech })
+        td
+          = link_to 'Export to CSV', by_technology_reports_path(format: :csv, primary_tech: tech)

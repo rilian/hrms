@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :reports, only: :index do
     collection do
       get :by_status
+      get :by_technology
       get :employees
       get :people_with_similar_name
       get :historical_data
