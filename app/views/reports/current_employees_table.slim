@@ -13,6 +13,7 @@ table.table.pretty-table
     th City
     th Email
     th Phone
+    th Position
   tbody
     - @people.each_with_index do |person, index|
       tr
@@ -53,6 +54,12 @@ table.table.pretty-table
         td
           - if person.phone.present?
             = person.phone
+          - else
+            a href="#{edit_person_path(person)}"
+              i.fa.fa-pencil
+        td
+          - if person.current_position.present?
+            = person.current_position
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
