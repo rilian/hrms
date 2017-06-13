@@ -1,0 +1,63 @@
+h2.title Current Employees Table
+= link_to 'Export Public Data to CSV', current_employees_table_reports_path(format: :csv)
+
+table.table.pretty-table
+  thead
+    th #
+    th Name
+    th Status
+    th Tech
+    th Birth
+    th Start/End Date
+    th City
+    th Email
+    th Phone
+  tbody
+    - @people.each_with_index do |person, index|
+      tr
+        td
+          = index
+        td
+          = link_to person.name, person_path(person.id)
+        td
+          span style="width: 10px; background-color: #{PERSON_STATUS_COLORS[person.status]};" &nbsp;&nbsp;&nbsp;&nbsp;
+          | &nbsp;
+          = link_to person.status, people_path(q: {status_eq: person.status})
+        td
+          = link_to person.primary_tech, people_path(q: {primary_tech_eq: person.primary_tech})
+        td
+          - if person.day_of_birth.present?
+            strong
+              = person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')
+          - else
+            a href="#{edit_person_path(person)}"
+              i.fa.fa-pencil
+        td
+          - if person.start_date.present?
+            strong
+              = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+          - else
+            a href="#{edit_person_path(person)}"
+              i.fa.fa-pencil
+          - if person.finish_date.present?
+            p
+              | -&nbsp;
+              strong
+                = person.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+        td
+          strong
+            = person.city.presence || 'Kyiv'
+        td
+          - if person.email.present?
+            strong
+              a href="mailto:#{person.email}" #{person.email}
+          - else
+            a href="#{edit_person_path(person)}"
+              i.fa.fa-pencil
+        td
+          - if person.phone.present?
+            strong
+              a href="tel:#{person.phone}" #{person.phone}
+          - else
+            a href="#{edit_person_path(person)}"
+              i.fa.fa-pencil

@@ -29,7 +29,7 @@ class Person < ActiveRecord::Base
     Upper-Intermediate
     Advanced
   )
-  EMPLOYEE_STATUSES = ['Hired', 'Past employee']
+  EMPLOYEE_STATUSES = ['Hired', 'Past employee', 'Contractor', 'Past contractor']
   SOURCES = %w(Reference Djinni LinkedIn DOU)
 
   belongs_to :updated_by, class_name: 'User'

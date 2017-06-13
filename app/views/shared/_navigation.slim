@@ -10,7 +10,7 @@
         i.fa.fa-users
         | &nbsp; People
     li.item role="presentation" class="#{active_class(employees_path)}"
-      a href="#{people_path(page: { limit: 10000, offset: 0 }, q: { status_in: ['Hired', 'Past employee', 'Contractor', 'Past contractor'], sorts: ['status', 'name'] })}"
+      a href="#{people_path(page: { limit: 10000, offset: 0 }, q: { status_in: Person::EMPLOYEE_STATUSES, sorts: ['status', 'name'] })}"
         i.fa.fa-users
         | &nbsp; Employees
     li.item class="#{active_class('/dayoffs/employees')}"
