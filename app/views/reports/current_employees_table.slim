@@ -24,42 +24,40 @@ table.table.pretty-table
         td
           span style="width: 10px; background-color: #{PERSON_STATUS_COLORS[person.status]};" &nbsp;&nbsp;&nbsp;&nbsp;
           | &nbsp;
-          = link_to person.status, people_path(q: {status_eq: person.status})
+          = person.status
         td
-          = link_to person.primary_tech, people_path(q: {primary_tech_eq: person.primary_tech})
+          = person.primary_tech
         td
           - if person.day_of_birth.present?
-            strong
-              = person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            = person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
         td
           - if person.start_date.present?
-            strong
-              = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
           - if person.finish_date.present?
             p
               | -&nbsp;
-              strong
-                = person.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+              = person.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
         td
-          strong
-            = person.city.presence || 'Kyiv'
+          - if person.city.present?
+            = person.city
+          - else
+            a href="#{edit_person_path(person)}"
+              i.fa.fa-pencil
         td
           - if person.email.present?
-            strong
-              a href="mailto:#{person.email}" #{person.email}
+            = person.email
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
         td
           - if person.phone.present?
-            strong
-              a href="tel:#{person.phone}" #{person.phone}
+            = person.phone
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
