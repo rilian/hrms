@@ -7,9 +7,8 @@ table.table.pretty-table
   thead
     th #
     th Name
-    th Tech
     th Birth
-    th Start/End Date
+    th Start Date
     th City
     th Email
     th Phone
@@ -22,8 +21,6 @@ table.table.pretty-table
         td
           = link_to person.name, person_path(person.id)
         td
-          = person.primary_tech
-        td
           - if person.day_of_birth.present?
             = person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')
           - else
@@ -35,10 +32,6 @@ table.table.pretty-table
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
-          - if person.finish_date.present?
-            p
-              | -&nbsp;
-              = person.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
         td
           - if person.city.present?
             = person.city
