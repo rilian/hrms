@@ -1,5 +1,7 @@
 h2.title Current Employees Table
 = link_to 'Export Public Data to CSV', current_employees_table_reports_path(format: :csv)
+br
+= "#{@people.count} employees"
 
 table.table.pretty-table
   thead
@@ -16,7 +18,7 @@ table.table.pretty-table
     - @people.each_with_index do |person, index|
       tr
         td
-          = index
+          = index + 1
         td
           = link_to person.name, person_path(person.id)
         td

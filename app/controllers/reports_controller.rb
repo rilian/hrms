@@ -49,8 +49,8 @@ class ReportsController < ApplicationController
 
   def current_employees_table
     @people = Person.not_deleted.accessible_by(current_ability)
-      .where(status: Person::EMPLOYEE_STATUSES)
-      .order(:status, :name)
+      .where(status: ['Hired', 'Contractor'])
+      .order(:name)
   end
 
   def people_with_similar_name
