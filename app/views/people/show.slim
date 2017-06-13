@@ -38,6 +38,14 @@
       a href="#{edit_person_path(@person)}"
         i.fa.fa-pencil
   p
+    | Current Position:&nbsp;
+    - if @person.current_position.present?
+      strong
+        = @person.current_position
+    - else
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
+  p
     | Status:&nbsp;
     span style="background-color: #{PERSON_STATUS_COLORS[@person.status]};"
       = @person.status.presence || 'n/a'
