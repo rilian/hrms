@@ -7,7 +7,6 @@ table.table.pretty-table
   thead
     th #
     th Name
-    th Status
     th Tech
     th Birth
     th Start/End Date
@@ -18,13 +17,9 @@ table.table.pretty-table
     - @people.each_with_index do |person, index|
       tr
         td
-          = index + 1
+          span style="width: 10px; background-color: #{PERSON_STATUS_COLORS[person.status]};" &nbsp;#{index + 1}&nbsp;
         td
           = link_to person.name, person_path(person.id)
-        td
-          span style="width: 10px; background-color: #{PERSON_STATUS_COLORS[person.status]};" &nbsp;&nbsp;&nbsp;&nbsp;
-          | &nbsp;
-          = person.status
         td
           = person.primary_tech
         td
