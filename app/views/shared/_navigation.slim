@@ -13,6 +13,10 @@
       a href="#{people_path(page: { limit: 10000, offset: 0 }, q: { status_in: Person::EMPLOYEE_STATUSES, sorts: ['status', 'name'] })}"
         i.fa.fa-users
         | &nbsp; Employees
+    li.item class="#{active_class('/reports/current_employees_table')}"
+      a href="#{current_employees_table_reports_path}"
+        i.fa
+          | &nbsp;&nbsp;&nbsp; Current
     li.item class="#{active_class('/dayoffs/employees')}"
       a href="#{employees_dayoffs_path}"
         i.fa
