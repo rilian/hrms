@@ -247,7 +247,8 @@ CREATE TABLE people (
     photo_content_type character varying,
     skills text,
     finish_date date,
-    current_position character varying
+    current_position character varying,
+    signed_nda boolean DEFAULT false NOT NULL
 );
 
 
@@ -801,4 +802,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161222094814');
 INSERT INTO schema_migrations (version) VALUES ('20161222171351');
 
 INSERT INTO schema_migrations (version) VALUES ('20170613134756');
+
+INSERT INTO schema_migrations (version) VALUES ('20170614153545');
 
