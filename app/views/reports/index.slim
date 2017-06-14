@@ -1,9 +1,12 @@
 h2.title
   | Reports &nbsp;
 
-a href="#{employees_reports_path}" Current Employees List
+a href="#{employees_simple_reports_path}" Current Employees (simple)
 br
 a href="#{current_employees_table_reports_path}" Current Employees Table
+| &nbsp;(
+a href="#{current_employees_table_reports_path(format: :csv)}" Export to CSV
+| )
 br
 a href="#{by_status_reports_path}" By HR status
 br

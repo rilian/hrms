@@ -51,12 +51,44 @@ class ReportsController < ApplicationController
     @people = Person.not_deleted.accessible_by(current_ability)
       .where(status: ['Hired', 'Contractor'])
       .order(:name)
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        require 'csv'
+
+        send_data(CSV.generate do |csv|
+          csv << [
+            'Name',
+            'Date of Birth',
+            'Starting Date',
+            'City',
+            'Email',
+            'Skype',
+            'Phone',
+            'Position'
+          ]
+          @people.each do |item|
+            csv << [
+              item.name,
+              (item.day_of_birth.present? ? item.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '') : 'n/a'),
+              (item.start_date.present? ? item.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '') : 'n/a'),
+              item.city,
+              item.email,
+              item.skype,
+              item.phone,
+              item.current_position
+            ]
+          end
+        end, filename: 'colleagues.csv')
+      end
+    end
   end
 
   def people_with_similar_name
     @people = []
     previous_ids = []
-    Person.not_deleted.accessible_by(current_ability).find_each(batch_size: 50) do |person|
+    Person.not_deleted.accessible_by(current_ability).find_each(batch_size: 25) do |person|
       similars = Person.not_deleted.accessible_by(current_ability)
         .where('id NOT IN (?)', [person.id] + previous_ids)
         .where("(lower(name) ILIKE ?)
@@ -84,9 +116,9 @@ class ReportsController < ApplicationController
     @data = HistoricalDataCollector.new.perform
   end
 
-  def employees
+  def employees_simple
     @people = Person.not_deleted.accessible_by(current_ability)
-                .where(status: 'Hired')
+                .where(status: ['Hired', 'Contractor'])
                 .order(:status, :name)
   end
 end
