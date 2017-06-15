@@ -18,8 +18,9 @@ Rails.application.routes.draw do
       get :by_technology
       get :current_employees_table
       get :employees_simple
-      get :people_with_similar_name
       get :historical_data
+      get :people_with_similar_name
+      get :searches
     end
   end
   resources :search, only: :index

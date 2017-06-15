@@ -1,0 +1,21 @@
+h1 Latest public searches
+
+p #{"Total #{Search.count} searches"}
+
+table.table.pretty-table
+  thead
+    th Query
+    th Path
+    th IP
+    th Time
+  tbody
+    - Search.order(created_at: :desc).limit(1000).each do |item|
+      tr
+        td
+          = item.query
+        td
+          = item.path
+        td
+          = item.ip
+        td
+          = item.created_at.strftime(t(:datetime_full))
