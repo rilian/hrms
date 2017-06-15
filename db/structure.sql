@@ -281,6 +281,39 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: searches; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE searches (
+    id integer NOT NULL,
+    query character varying,
+    path character varying,
+    ip character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: searches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE searches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: searches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE searches_id_seq OWNED BY searches.id;
+
+
+--
 -- Name: taggings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -465,6 +498,13 @@ ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::reg
 
 
 --
+-- Name: searches id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY searches ALTER COLUMN id SET DEFAULT nextval('searches_id_seq'::regclass);
+
+
+--
 -- Name: taggings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -538,6 +578,14 @@ ALTER TABLE ONLY notes
 
 ALTER TABLE ONLY people
     ADD CONSTRAINT people_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: searches searches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY searches
+    ADD CONSTRAINT searches_pkey PRIMARY KEY (id);
 
 
 --
@@ -804,4 +852,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161222171351');
 INSERT INTO schema_migrations (version) VALUES ('20170613134756');
 
 INSERT INTO schema_migrations (version) VALUES ('20170614153545');
+
+INSERT INTO schema_migrations (version) VALUES ('20170615073837');
 
