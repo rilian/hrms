@@ -6,14 +6,12 @@ class SearchController < ActionController::Base
   end
 
   def index
-    @query = params.permit(:query)[:query].to_s.gsub(/[^a-z\s]+/, '').gsub(/\s{2}/, ' ').strip.downcase
+    @query = params.permit(:query)[:query].to_s.gsub(/[^a-zA-Z\s']+/, '').gsub(/\s{2}/, ' ').strip.downcase
 
-    @people_count = if @query.present?
+    if @query.present?
       Search.create!(query: @query, ip: request.remote_ip, path: request.fullpath)
 
-      @people_count = @people = Person.not_deleted.ransack(name_cont: @query).result.count
-      else
-        0
-      end
+      @people = Person.not_deleted.ransack(name_cont: ' ' + @query).result
+    end
   end
 end

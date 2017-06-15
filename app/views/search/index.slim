@@ -1,8 +1,26 @@
 h1 Search Existing Candidates
 
+p System will show number of all similar candidates, but will list the full names only when last name entered exactly matches.
+
 form action="/search"
-  input name="query" value="#{@query}"
+  | Last name &nbsp;
+  input name="query" value="#{@query}" autofocus="true"
+  | &nbsp;
   input type="submit" value="Search"
 
-- if @people_count.present?
-  = "Found #{@people_count} candidates"
+- if @people.present?
+  | Found&nbsp;
+  strong
+    = pluralize(@people.count, 'candidate')
+  br
+  br
+  | Exact last name matches:
+  br
+  - found = false
+  - @people.each do |person|
+    - if person.name.dup.split(' ').last.downcase == @query.downcase
+      - found = true
+      p
+        strong
+          = person.name
+  = 'none :(' unless found
