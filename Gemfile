@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.7.rc1'
+gem 'rails', '4.2.8'
 gem 'pg'
 gem 'dotenv-rails'
 gem 'ransack'
@@ -29,6 +29,7 @@ gem 'rails-jquery-autocomplete'
 
 group :development, :test do
   gem 'byebug'
+  gem 'rb-readline'
 end
 
 group :development do
