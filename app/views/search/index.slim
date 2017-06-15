@@ -1,0 +1,8 @@
+h1 Search Existing Candidates
+
+form action="/search"
+  input name="query" value="#{@query}"
+  input type="submit" value="Search"
+
+- if @people_count.present?
+  = "Found #{@people_count} candidates"

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get :historical_data
     end
   end
+  resources :search, only: :index
   resources :tags, only: :index
   resources :users, except: :destroy
   resources :vacancies, except: :destroy
