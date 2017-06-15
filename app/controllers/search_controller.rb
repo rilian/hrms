@@ -6,7 +6,7 @@ class SearchController < ActionController::Base
   end
 
   def index
-    @query = params.permit(:query)[:query].gsub(/[^a-z\s]+/, '').gsub(/\s{2}/, ' ').strip.downcase
+    @query = params.permit(:query)[:query].to_s.gsub(/[^a-z\s]+/, '').gsub(/\s{2}/, ' ').strip.downcase
 
     @people_count = if @query.present?
       Search.create!(query: @query, ip: request.remote_ip, path: request.fullpath)
