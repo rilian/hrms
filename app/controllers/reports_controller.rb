@@ -48,9 +48,7 @@ class ReportsController < ApplicationController
   end
 
   def current_employees_table
-    @people = Person.not_deleted.accessible_by(current_ability)
-      .where(status: ['Hired', 'Contractor'])
-      .order(:name)
+    load_current_employees
 
     respond_to do |format|
       format.html
@@ -85,6 +83,10 @@ class ReportsController < ApplicationController
     end
   end
 
+  def current_employees_technical
+    load_current_employees
+  end
+
   def people_with_similar_name
     @people = []
     previous_ids = []
@@ -117,8 +119,14 @@ class ReportsController < ApplicationController
   end
 
   def employees_simple
+    load_current_employees
+  end
+
+  private
+
+  def load_current_employees
     @people = Person.not_deleted.accessible_by(current_ability)
-                .where(status: ['Hired', 'Contractor'])
-                .order(:status, :name)
+      .where(status: ['Hired', 'Contractor'])
+      .order(:status, :name)
   end
 end

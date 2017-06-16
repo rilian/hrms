@@ -1,4 +1,6 @@
 h2.title Current Employees Table
+= link_to 'Show technical info', current_employees_table_reports_path(show_technical: 'true')
+br
 = link_to 'Export Public Data to CSV', current_employees_table_reports_path(format: :csv)
 br
 = "#{@people.count} employees"
@@ -13,6 +15,8 @@ table.table.pretty-table
     th Email
     th Phone
     th Position
+    - if params[:show_technical].present?
+      th Signed NDA?
   tbody
     - @people.each_with_index do |person, index|
       tr
@@ -53,6 +57,12 @@ table.table.pretty-table
         td
           - if person.current_position.present?
             = person.current_position
+          - else
+            a href="#{edit_person_path(person)}"
+              i.fa.fa-pencil
+        td
+          - if person.signed_nda?
+            = 'yes'
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil

@@ -150,6 +150,13 @@
       - else
         a href="#{edit_person_path(@person)}"
           i.fa.fa-pencil
+      p
+        - if @person.signed_nda?
+          | NDA is signed
+        - else
+          | NDA is not signed&nbsp;
+          a href="#{edit_person_path(@person)}"
+            i.fa.fa-pencil
     - if @person.finish_date.present?
       p
         | Employment Finish Date:&nbsp;

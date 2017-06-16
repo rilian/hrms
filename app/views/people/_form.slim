@@ -71,12 +71,6 @@
         include_blank: true,
         input_html: { class: 'select form-control' }
 
-  - if current_user.has_access_to_finances?
-    .form-group
-      label.control-label
-        | Expected salary:
-      = f.input :expected_salary, placeholder: '1005000', label: false, class: 'input form-control'
-
   .form-group
     label.control-label
       | Email:
@@ -93,6 +87,11 @@
         | Start Date:
     = f.input :start_date, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: @person.start_date&.strftime('%d-%m-%Y'), class: 'datepicker' }
 
+    .form-group
+      label.control-label
+        | Signed NDA and related docs:
+    = f.input :signed_nda, label: false, input_html: {}
+
   - if @person.status.in?(Person::EMPLOYEE_STATUSES)
     .form-group
       label.control-label
@@ -104,6 +103,12 @@
       label.control-label
         | Birthday:
     = f.input :day_of_birth, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: @person.day_of_birth&.strftime('%d-%m-%Y'), class: 'datepicker' }
+
+  - if current_user.has_access_to_finances?
+    .form-group
+      label.control-label
+        | Expected salary:
+      = f.input :expected_salary, placeholder: '1005000', label: false, class: 'input form-control'
 
   .form-group
     label.control-label Cultural Fit / Notes:
@@ -136,7 +141,7 @@
 
     .form-group
       label.control-label Skills:
-      = f.input :skills, as: :text, label: false, placeholder: 'Skills assesment', input_html: { rows: 1 }
+      = f.input :skills, as: :text, label: false, placeholder: 'Skills assessment', input_html: { rows: 1 }
 
   .form-group.form-actions
     .text-left style="width: 600px;"
