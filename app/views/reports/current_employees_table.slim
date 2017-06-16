@@ -60,9 +60,10 @@ table.table.pretty-table
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
-        td
-          - if person.signed_nda?
-            = 'yes'
-          - else
-            a href="#{edit_person_path(person)}"
-              i.fa.fa-pencil
+        - if params[:show_technical].present?
+          td
+            - if person.signed_nda?
+              = 'yes'
+            - else
+              a href="#{edit_person_path(person)}"
+                i.fa.fa-pencil
