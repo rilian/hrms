@@ -12,6 +12,7 @@ table.table.pretty-table
     th Overtimes
     th Paid days off
     th Unpaid days off
+    th Working day shifts
     th Actions
   tbody
     - @employees.each do |record|
@@ -42,10 +43,13 @@ table.table.pretty-table
             td = overtime_days(record)
             td = paid_days_off(record)
             td = unpaid_days_off(record)
+            td = working_days_shifts(record)
         - else
           td
             a href="#{edit_person_path(record)}"
               i.fa.fa-pencil
+          td
+            | &nbsp;
           td
             | &nbsp;
           td

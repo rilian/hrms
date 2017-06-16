@@ -25,6 +25,10 @@ module DayoffsHelper
     person.dayoffs.where(type: 'Paid Day Off').sum(:days)
   end
 
+  def working_days_shifts(person)
+    person.dayoffs.where(type: 'Working Day Shift').sum(:days)
+  end
+
   def months_worked(person)
     return 0 unless person.start_date
     ((person.finish_date || Date.today).year * 12 - person.start_date.year * 12) +
