@@ -58,7 +58,8 @@ class PeopleController < ApplicationController
   def update
     if @person.update(person_params.merge!(updated_by: current_user))
       log_event(entity: @person, action: 'updated')
-      redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || people_path, flash: { success: 'Person updated' }
+      redirect_to person_path(@person)
+      # redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || people_path, flash: { success: 'Person updated' }
     else
       flash.now[:error] = 'Person was not updated'
       render :edit
