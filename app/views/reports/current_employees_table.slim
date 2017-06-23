@@ -13,6 +13,7 @@ table.table.pretty-table
     th Start Date
     th City
     th Email
+    th Skype
     th Phone
     th Position
     - if params[:show_technical].present?
@@ -45,6 +46,12 @@ table.table.pretty-table
         td
           - if person.email.present?
             = person.email
+          - else
+            a href="#{edit_person_path(person)}"
+              i.fa.fa-pencil
+        td
+          - if person.skype.present?
+            = person.skype
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
