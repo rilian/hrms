@@ -189,6 +189,9 @@
     h3
       | Days off &nbsp;
       = link_to 'Add', new_dayoff_path(dayoff: {person_id: @person.id}), class: 'btn btn-default'
+
+    p
+      | Remaining #{remaining_vacation(@person)} days out of #{allowed_vacation(@person)}
     - @person.dayoffs.order(start_on: :desc).each do |dayoff|
       p
         a href="#{dayoff_path(dayoff)}" #{dayoff.type}
