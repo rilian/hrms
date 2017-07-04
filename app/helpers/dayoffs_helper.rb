@@ -38,4 +38,9 @@ module DayoffsHelper
   def remaining_vacation(person)
     (allowed_vacation(person) + overtime_days(person) - used_vacation(person)).ceil
   end
+
+  def end_of_current_year(person)
+    person.start_date +
+      (Time.zone.now.year - @person.start_date.year + (Time.zone.now.yday < @person.start_date.yday ? 0 : 1)).years
+  end
 end
