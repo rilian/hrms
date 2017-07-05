@@ -26,10 +26,7 @@ table.table.pretty-table
               = record.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
               br
               sub = "#{pluralize(months_worked(record), 'month')}"
-            td
-              = allowed_vacation(record)
-              br
-              sub = "until #{end_of_current_year(record).strftime(t(:datetime_full)).gsub('00:00, ', '')}"
+            td = allowed_vacation(record)
             td = used_vacation(record)
             td
               - if remaining_vacation(record) < 0
@@ -42,6 +39,8 @@ table.table.pretty-table
                     = remaining_vacation(record)
               - else
                 = remaining_vacation(record)
+              br
+              sub = "until #{end_of_current_year(record).strftime(t(:datetime_full)).gsub('00:00, ', '')}"
             td = sick_leaves(record)
             td = overtime_days(record)
             td = paid_days_off(record)
