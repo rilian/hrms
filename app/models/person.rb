@@ -39,12 +39,14 @@ class Person < ActiveRecord::Base
   has_many :notes
 
   before_validation :cleanup
+  before_save :strip_values
 
   validates :name, presence: true
   validates :source, inclusion: { in: SOURCES }, allow_blank: true
   validates :primary_tech, inclusion: { in: PRIMARY_TECHS }
   validates :vacation_override, numericality: { only_integer: true}, allow_blank: true
   validates :email, :phone, :skype, :linkedin, uniqueness: { case_sensitive: false }, allow_blank: true
+  validates :phone, format: { with: /\A[\s\+\d]+\z/ }, allow_blank: true
 
   scope :not_deleted, ->() { where(is_deleted: false) }
   scope :employee, ->() { where(status: EMPLOYEE_STATUSES).order(:status) }
@@ -64,5 +66,14 @@ private
 
   def cleanup
     self.email = email.to_s.downcase
+  end
+
+  def strip_values
+    self.phone = self.phone.strip
+    self.current_position = self.current_position.strip
+    self.email = self.email.strip
+    self.skype = self.skype.strip
+    self.linkedin = self.linkedin.strip
+    self.name = self.name.strip
   end
 end
