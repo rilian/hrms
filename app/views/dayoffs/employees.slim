@@ -25,7 +25,7 @@ table.table.pretty-table
             td
               = record.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
               br
-              sub = "#{pluralize(months_worked(record), 'month')}"
+              sub = "#{months_worked(record) > 0 ? pluralize(months_worked(record), 'month') : 'not started'}"
             td = allowed_vacation(record)
             td = used_vacation(record)
             td
