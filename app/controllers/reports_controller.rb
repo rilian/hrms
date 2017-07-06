@@ -38,7 +38,7 @@ class ReportsController < ApplicationController
               item.city,
               item.email,
               item.skype,
-              "\"#{item.phone}\"",
+              "'#{item.phone}'",
               notes
             ]
           end
@@ -74,7 +74,7 @@ class ReportsController < ApplicationController
               item.city,
               item.email,
               item.skype,
-              "\"#{item.phone}\"",
+              "'#{item.phone}'",
               item.current_position
             ]
           end
