@@ -47,6 +47,7 @@ class Person < ActiveRecord::Base
   validates :vacation_override, numericality: { only_integer: true}, allow_blank: true
   validates :email, :phone, :skype, :linkedin, uniqueness: { case_sensitive: false }, allow_blank: true
   validates :phone, format: { with: /\A[\s\+\d]+\z/ }, allow_blank: true
+  validates :email, format: { with: /\A[a-z\@\.\-\'\+]+\z/ }, allow_blank: true
 
   scope :not_deleted, ->() { where(is_deleted: false) }
   scope :employee, ->() { where(status: EMPLOYEE_STATUSES).order(:status) }
