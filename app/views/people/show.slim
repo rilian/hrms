@@ -12,8 +12,6 @@
     a.btn.btn-default.js-show-edit-form href="#" Edit
     | &nbsp;
     a.btn.btn-default.js-show-quick-forms href="#" Show Quick Forms
-    | &nbsp;
-    a.btn.btn-default.js-show-more href="#" Show More Info
 
   - if @person.status.in?(Person::EMPLOYEE_STATUSES)
     p
@@ -86,97 +84,89 @@
       a href="#{edit_person_path(@person)}"
         i.fa.fa-pencil
 
-  .js-show-quick-forms-container style="display:none;"
+  p
+    | English:&nbsp;
+    - if @person.english.present?
+      strong
+        = @person.english
+    - else
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
+  - if current_user.has_access_to_finances?
     p
-      b Add Note
-      = render 'notes/form', partial_form: true
+      | Expected salary:&nbsp;
+      - if @person.expected_salary.present?
+        strong
+          = @person.expected_salary
+      - else
+        a href="#{edit_person_path(@person)}"
+          i.fa.fa-pencil
+  p
+    | Email:&nbsp;
+    - if @person.email.present?
+      strong
+        a href="mailto:#{@person.email}" #{@person.email}
+    - else
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
+  p
+    | Phone:&nbsp;
+    - if @person.phone.present?
+      strong
+        a href="tel:#{@person.phone}" #{@person.phone}
+    - else
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
+  p
+    | Employment Start Date:&nbsp;
+    - if @person.start_date.present?
+      strong
+        = @person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    - else
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
     p
-      b Add Action
-      = render 'action_points/form', partial_form: true
-    - if @person.status.in?(Person::EMPLOYEE_STATUSES)
-      p
-        b Add Days off
-        = render 'dayoffs/form', partial_form: true
+      - if @person.signed_nda?
+        | NDA is signed
+      - else
+        | NDA is not signed&nbsp;
+        a href="#{edit_person_path(@person)}"
+          i.fa.fa-pencil
+  p
+    | Salary type:&nbsp;
+    - if @person.salary_type.present?
+      strong
+        = @person.salary_type
+    - else
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
+  - if @person.finish_date.present?
     p
-      b Add Attachment
-      = render 'attachments/form', partial_form: true
+      | Employment Finish Date:&nbsp;
+      strong
+        = @person.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+  p
+    | Date of birth:&nbsp;
+    - if @person.day_of_birth.present?
+      strong
+        = @person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    - else
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
 
-  .js-show-more-container style="display:none;"
+  p
+    | Hiring Source:&nbsp;
+    - if @person.source.present?
+      strong
+        = @person.source
+    - else
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
+  - if @person.status.in?(Person::EMPLOYEE_STATUSES)
+    - if @person.vacation_override.to_i > 0
     p
-      | English:&nbsp;
-      - if @person.english.present?
-        strong
-          = @person.english
-      - else
-        a href="#{edit_person_path(@person)}"
-          i.fa.fa-pencil
-    - if current_user.has_access_to_finances?
-      p
-        | Expected salary:&nbsp;
-        - if @person.expected_salary.present?
-          strong
-            = @person.expected_salary
-        - else
-          a href="#{edit_person_path(@person)}"
-            i.fa.fa-pencil
-    p
-      | Email:&nbsp;
-      - if @person.email.present?
-        strong
-          a href="mailto:#{@person.email}" #{@person.email}
-      - else
-        a href="#{edit_person_path(@person)}"
-          i.fa.fa-pencil
-    p
-      | Phone:&nbsp;
-      - if @person.phone.present?
-        strong
-          a href="tel:#{@person.phone}" #{@person.phone}
-      - else
-        a href="#{edit_person_path(@person)}"
-          i.fa.fa-pencil
-    p
-      | Employment Start Date:&nbsp;
-      - if @person.start_date.present?
-        strong
-          = @person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
-      - else
-        a href="#{edit_person_path(@person)}"
-          i.fa.fa-pencil
-      p
-        - if @person.signed_nda?
-          | NDA is signed
-        - else
-          | NDA is not signed&nbsp;
-          a href="#{edit_person_path(@person)}"
-            i.fa.fa-pencil
-    - if @person.finish_date.present?
-      p
-        | Employment Finish Date:&nbsp;
-        strong
-          = @person.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
-    p
-      | Date of birth:&nbsp;
-      - if @person.day_of_birth.present?
-        strong
-          = @person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')
-      - else
-        a href="#{edit_person_path(@person)}"
-          i.fa.fa-pencil
-
-    p
-      | Hiring Source:&nbsp;
-      - if @person.source.present?
-        strong
-          = @person.source
-      - else
-        a href="#{edit_person_path(@person)}"
-          i.fa.fa-pencil
-    - if @person.status.in?(Person::EMPLOYEE_STATUSES)
-      - if @person.vacation_override.to_i > 0
-      p
-        | Override vacation days (default #{ENV['VACATION_PER_YEAR']}):&nbsp;
-        strong #{@person.vacation_override}
+      | Override vacation days (default #{ENV['VACATION_PER_YEAR']}):&nbsp;
+      strong #{@person.vacation_override}
 
   - if @person.status.in?(Person::EMPLOYEE_STATUSES)
     h3
@@ -209,7 +199,6 @@
         br
         = with_newlines(dayoff.notes)
 
-  .js-show-more-container style="display:none;"
     h3
       | Latest notes &nbsp;
       = link_to 'Add', new_note_path(note: { person_id: @person.id }), class: 'btn btn-default'
@@ -255,3 +244,19 @@
       = "#{@person.updated_at.strftime(t(:datetime_full))} (#{time_ago_in_words(@person.updated_at)} ago)"
       | &nbsp; by&nbsp;
       = @person.updated_by&.email&.split('@')&.first
+
+  .js-show-quick-forms-container style="display:none;"
+    h3 Quick Forms
+    p
+      b Add Note
+      = render 'notes/form', partial_form: true
+    p
+      b Add Action
+      = render 'action_points/form', partial_form: true
+    - if @person.status.in?(Person::EMPLOYEE_STATUSES)
+      p
+        b Add Days off
+        = render 'dayoffs/form', partial_form: true
+    p
+      b Add Attachment
+      = render 'attachments/form', partial_form: true
