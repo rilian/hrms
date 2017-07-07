@@ -130,7 +130,7 @@ class ReportsController < ApplicationController
 
   def load_current_employees
     @people = Person.not_deleted.accessible_by(current_ability)
-      .where(status: ['Hired', 'Contractor'])
+      .current_employee
       .order(:name)
   end
 end
