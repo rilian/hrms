@@ -247,7 +247,8 @@ CREATE TABLE people (
     skills text,
     finish_date date,
     current_position character varying,
-    signed_nda boolean DEFAULT false NOT NULL
+    signed_nda boolean DEFAULT false NOT NULL,
+    salary_type character varying
 );
 
 
@@ -855,4 +856,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170614153545');
 INSERT INTO schema_migrations (version) VALUES ('20170615073837');
 
 INSERT INTO schema_migrations (version) VALUES ('20170707082100');
+
+INSERT INTO schema_migrations (version) VALUES ('20170707114658');
 

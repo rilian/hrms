@@ -31,6 +31,7 @@ class Person < ActiveRecord::Base
   )
   EMPLOYEE_STATUSES = ['Hired', 'Past employee', 'Contractor', 'Past contractor']
   SOURCES = %w(Reference Djinni LinkedIn DOU)
+  SALARY_TYPES = %w(Monthly Hourly)
 
   belongs_to :updated_by, class_name: 'User'
   has_many :action_points
@@ -43,6 +44,7 @@ class Person < ActiveRecord::Base
 
   validates :name, presence: true
   validates :source, inclusion: { in: SOURCES }, allow_blank: true
+  validates :salary_type, inclusion: { in: SALARY_TYPES }, allow_blank: true
   validates :primary_tech, inclusion: { in: PRIMARY_TECHS }
   validates :vacation_override, numericality: { only_integer: true}, allow_blank: true
   validates :email, :phone, :skype, :linkedin, uniqueness: { case_sensitive: false }, allow_blank: true
@@ -51,7 +53,7 @@ class Person < ActiveRecord::Base
 
   scope :not_deleted, ->() { where(is_deleted: false) }
   scope :employee, ->() { where(status: EMPLOYEE_STATUSES).order(:status) }
-  scope :current_employee, ->() { where(status: 'Hired').order(:status) }
+  scope :current_employee, ->() { where(status: 'Hired').order(:name) }
 
   def linkedin_value
     if self.linkedin.start_with?('https://')
