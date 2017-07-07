@@ -110,13 +110,6 @@
       - else
         a href="#{edit_person_path(@person)}"
           i.fa.fa-pencil
-    p
-      | Cultural fit / Notes:&nbsp;
-      - if @person.cultural_fit.present?
-        = with_newlines(@person.cultural_fit)
-      - else
-        a href="#{edit_person_path(@person)}"
-          i.fa.fa-pencil
     - if current_user.has_access_to_finances?
       p
         | Expected salary:&nbsp;

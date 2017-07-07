@@ -111,10 +111,6 @@
       = f.input :expected_salary, placeholder: '1005000', label: false, class: 'input form-control'
 
   .form-group
-    label.control-label Cultural Fit / Notes:
-    = f.input :cultural_fit, as: :text, label: false, placeholder: 'Explain if this person will be a good fit to our teams...', input_html: { rows: 1 }
-
-  .form-group
     label.control-label Hiring Source:
     = f.input :source,
         collection: Person::SOURCES,
