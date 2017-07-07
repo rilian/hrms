@@ -47,6 +47,10 @@ class ReportsController < ApplicationController
     end
   end
 
+  def contractors_table
+    @people = Person.not_deleted.accessible_by(current_ability).where(status: 'Contractor').order(:name)
+  end
+
   def current_employees_table
     load_current_employees
 

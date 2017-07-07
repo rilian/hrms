@@ -17,6 +17,10 @@
       a href="#{current_employees_table_reports_path}"
         i.fa
           | &nbsp;&nbsp;&nbsp; Current
+    li.item class="#{active_class('/reports/contractors_table')}"
+      a href="#{contractors_table_reports_path}"
+        i.fa
+          | &nbsp;&nbsp;&nbsp; Contractors
     li.item class="#{active_class('/dayoffs/employees')}"
       a href="#{employees_dayoffs_path}"
         i.fa

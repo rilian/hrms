@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get :by_status
       get :by_technology
       get :current_employees_table
+      get :contractors_table
       get :employees_simple
       get :historical_data
       get :people_with_similar_name
