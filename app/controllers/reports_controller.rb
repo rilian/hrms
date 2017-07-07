@@ -38,7 +38,7 @@ class ReportsController < ApplicationController
               item.city,
               item.email,
               item.skype,
-              "'#{item.phone}'",
+              "'#{item.phone}",
               notes
             ]
           end
@@ -73,12 +73,12 @@ class ReportsController < ApplicationController
           @people.each do |item|
             csv << [
               item.name,
-              (item.day_of_birth.present? ? item.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '') : 'n/a'),
-              (item.start_date.present? ? item.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '') : 'n/a'),
+              (item.day_of_birth.present? ? item.day_of_birth.strftime(t(:for_csv)) : 'n/a'),
+              (item.start_date.present? ? item.start_date.strftime(t(:for_csv)) : 'n/a'),
               item.city,
               item.email,
               item.skype,
-              "'#{item.phone}'",
+              "'#{item.phone}",
               item.current_position
             ]
           end
