@@ -2,3 +2,4 @@ en:
   datetime_full: "%H:%M, %e %b %Y"
   datetime_short: "%e %b"
   day: "%e %b %Y"
+  for_csv: "%F"
