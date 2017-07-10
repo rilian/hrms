@@ -42,7 +42,7 @@ module DayoffsHelper
         else
           [item['remaining_vacation'] - [item['remaining_vacation'], VACATION_MAX_END_OF_YEAR_TRANSFER].min, 0].max
         end
-      item['transfer_days'] = item['remaining_vacation'] - item['burn_days']
+      item['transfer_days'] = [item['remaining_vacation'] - item['burn_days'], 0].max
 
       stats[year.to_s] = item
 
