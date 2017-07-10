@@ -36,8 +36,13 @@ module DayoffsHelper
 
       item['remaining_vacation'] = (item['total_vacation_days'] + item['overtime_days'] - item['used_vacation'])
 
-      item['burn_days'] = [item['remaining_vacation'] - [item['remaining_vacation'], VACATION_MAX_END_OF_YEAR_TRANSFER].min, 0].max
-      item['transfer_days'] = [item['remaining_vacation'], VACATION_MAX_END_OF_YEAR_TRANSFER].min
+      item['burn_days'] =
+        if cursor < Time.strptime(ENV['PROGRESSIVE_VACATION_SIZE_START_DATE'], '%m/%d/%Y')
+          0
+        else
+          [item['remaining_vacation'] - [item['remaining_vacation'], VACATION_MAX_END_OF_YEAR_TRANSFER].min, 0].max
+        end
+      item['transfer_days'] = item['remaining_vacation'] - item['burn_days']
 
       stats[year.to_s] = item
 
