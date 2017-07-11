@@ -33,7 +33,11 @@ table.table.pretty-table
               i.fa.fa-pencil
         td
           - if person.start_date.present?
-            = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            - if person.start_date > Time.zone.now
+              strong
+                = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            - else
+              = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
