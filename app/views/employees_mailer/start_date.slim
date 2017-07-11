@@ -1,0 +1,22 @@
+span
+  | Hi #{@user.email},
+br
+br
+
+| New employee #{@person.name} will start work on #{@person.start_date.strftime('%a, %e %b')}.
+br
+br
+| His HRMS profile link is #{link_to person_url(@person.id), person_url(@person.id)}
+br
+br
+| Please ensure he has desk, chair, and all the necessary equipment by that date.
+
+br
+br
+span
+  | Thank you,
+br
+span
+  | HRMS
+br
+= link_to ENV['DOMAIN_NAME'], ENV['DOMAIN_NAME']

@@ -35,6 +35,7 @@ end
 group :development do
   gem 'quiet_assets'
   gem 'bullet'
+  gem 'letter_opener'
 end
 
 group :production do
