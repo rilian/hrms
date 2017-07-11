@@ -31,7 +31,7 @@ table.table.pretty-table
             br
             sub = "#{months_worked(record) > 0 ? pluralize(months_worked(record), 'month') : 'not started'}"
 
-        - if record.start_date.present? && record.salary_type == 'Monthly'
+        - if record.start_date.present?
           - vacation_stats_per_year(record).tap do |stats|
             - stats[stats.keys.last].tap do |stat|
               - if stat.present?
@@ -120,22 +120,6 @@ table.table.pretty-table
                   = stats.values.inject(0) {|memo, stat| memo + stat['paid_days_off']}
                   | )
                 td = stat['working_days_shifts']
-        - elsif record.start_date.present? && record.salary_type != 'Monthly'
-          td
-            = record.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
-            br
-            sub = "#{months_worked(record) > 0 ? pluralize(months_worked(record), 'month') : 'not started'}"
-          td -
-          td -
-          td -
-          td -
-          td -
-          td -
-          td -
-          td -
-          td -
-          td -
-          td -
         - else
           td
             a href="#{edit_person_path(record)}"
