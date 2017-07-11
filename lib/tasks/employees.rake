@@ -1,7 +1,7 @@
 namespace :employees do
   desc 'Sends advance notification about new employees first day'
   task start_date: :environment do
-    employees = Person.not_deleted.accessible_by(current_ability).current_employee
+    employees = Person.not_deleted.current_employee
 
     employees.where('start_date >= ? AND start_date < ?', 7.days.since.strftime('%F'), 8.days.since.strftime('%F')).each do |person|
       User.where(notifications_enabled: true).pluck(:id).each do |user_id|
