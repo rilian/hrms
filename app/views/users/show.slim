@@ -14,9 +14,6 @@
     | Email:&nbsp;
     = @user.email
   p
-    | Role:&nbsp;
-    = @user.role
-  p
     | Notifications:&nbsp;
     = @user.notifications_enabled? ? 'yes' : 'no'
   p
