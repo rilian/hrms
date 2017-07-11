@@ -9,23 +9,21 @@ module DayoffsHelper
     return {} unless person.start_date
 
     stats = {}
-    cursor = person.start_date
+    current_date = person.start_date
     year = 0
-    previous_item = {}
 
-    while !(current_working_period(cursor - 1.year))
+    while !current_working_period(current_date - 1.year) && (person.finish_date.present? ? current_date < person.finish_date : true)
       period_dayoffs = person
         .dayoffs
-        .where('start_on >= ?', cursor.strftime(t(:for_csv)))
-        .where('start_on < ?', (cursor + 1.year - 1.day).strftime(t(:for_csv)))
+        .where('start_on >= ? AND start_on < ?', current_date.strftime(t(:for_csv)), (current_date + 1.year - 1.day).strftime(t(:for_csv)))
 
       item = {}
       item['year'] = year
-      item['period_start_date'] = cursor.strftime(t(:day)).strip
-      item['period_end_date'] = (cursor + 1.year - 1.day).strftime(t(:day)).strip
+      item['period_start_date'] = current_date.strftime(t(:day)).strip
+      item['period_end_date'] = (current_date + 1.year - 1.day).strftime(t(:day)).strip
       item['period'] = "#{item['period_start_date']} - #{item['period_end_date']}"
-      item['yearly_vacation_days'] = (person.vacation_override.to_i > 0 ? person.vacation_override : vacation_size(cursor, year).to_i)
-      item['total_vacation_days'] = item['yearly_vacation_days'] + (stats.values.last.present? ? stats.values.last['transfer_days'] : 0)
+      item['yearly_vacation_days_assigned'] = (person.vacation_override.to_i > 0 ? person.vacation_override : vacation_size(current_date, year).to_i)
+      item['total_vacation_days'] = item['yearly_vacation_days_assigned'] + (stats.values.last.present? ? stats.values.last['transfer_days'] : 0)
 
       item['used_vacation'] = period_dayoffs.where(type: 'Vacation').sum(:days)
       item['overtime_days'] = period_dayoffs.where(type: 'Overtime').sum(:days)
@@ -36,8 +34,9 @@ module DayoffsHelper
 
       item['remaining_vacation'] = (item['total_vacation_days'] + item['overtime_days'] - item['used_vacation'])
 
+      # do not burn before certain date
       item['burn_days'] =
-        if cursor < Time.strptime(ENV['PROGRESSIVE_VACATION_SIZE_START_DATE'], '%m/%d/%Y')
+        if current_date < Time.strptime(ENV['PROGRESSIVE_VACATION_SIZE_START_DATE'], '%m/%d/%Y')
           0
         else
           [item['remaining_vacation'] - [item['remaining_vacation'], VACATION_MAX_END_OF_YEAR_TRANSFER].min, 0].max
@@ -47,7 +46,7 @@ module DayoffsHelper
       stats[year.to_s] = item
 
       year += 1
-      cursor += 1.year
+      current_date += 1.year
     end
 
     puts stats
