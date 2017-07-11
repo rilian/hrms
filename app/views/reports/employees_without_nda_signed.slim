@@ -1,0 +1,14 @@
+h2.title Current Employees without NDA signed
+= "#{@people.count} employees"
+
+table.table.pretty-table
+  thead
+    th #
+    th Name
+  tbody
+    - @people.each_with_index do |person, index|
+      tr
+        td
+          = index + 1
+        td
+          = link_to person.name, edit_person_path(person)

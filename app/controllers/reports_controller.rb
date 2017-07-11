@@ -51,6 +51,10 @@ class ReportsController < ApplicationController
     @people = Person.not_deleted.accessible_by(current_ability).where(status: 'Contractor').order(:name)
   end
 
+  def employees_without_nda_signed
+    @people = Person.not_deleted.accessible_by(current_ability).current_employee.where(signed_nda: false).order(:name)
+  end
+
   def current_employees_table
     load_current_employees
 

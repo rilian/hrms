@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get :current_employees_table
       get :contractors_table
       get :employees_simple
+      get :employees_without_nda_signed
       get :historical_data
       get :people_with_similar_name
       get :searches
