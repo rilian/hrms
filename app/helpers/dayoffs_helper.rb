@@ -22,7 +22,7 @@ module DayoffsHelper
       item['period_start_date'] = current_date.strftime(t(:day)).strip
       item['period_end_date'] = (current_date + 1.year - 1.day).strftime(t(:day)).strip
       item['period'] = "#{item['period_start_date']} - #{item['period_end_date']}"
-      item['yearly_vacation_days_assigned'] = (person.vacation_override.to_i > 0 ? person.vacation_override : vacation_size(current_date, year).to_i)
+      item['yearly_vacation_days_assigned'] = [person.vacation_override.to_i, vacation_size(current_date, year).to_i].max
       item['total_vacation_days'] = item['yearly_vacation_days_assigned'] + (stats.values.last.present? ? stats.values.last['transfer_days'] : 0)
 
       item['used_vacation'] = period_dayoffs.where(type: 'Vacation').sum(:days)
