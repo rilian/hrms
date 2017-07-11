@@ -40,11 +40,8 @@ table.table.pretty-table
                   br
                   | to
                   br
-                    - if (Time.zone.now - Time.new(stat['period_end_date_formatted'])) < 3.months
-                      span style="color: red"
-                        = stat['period_end_date'].gsub(/\s/, '&nbsp;').html_safe
-                    - else
-                      = stat['period_end_date'].gsub(/\s/, '&nbsp;').html_safe
+                  = stat['period_end_date'].gsub(/\s/, '&nbsp;').html_safe
+                  br
                   = "#{(stat['year'] + 1).to_i.ordinalize} year"
                 td
                   = stat['yearly_vacation_days_assigned']
