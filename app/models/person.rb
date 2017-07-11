@@ -46,10 +46,11 @@ class Person < ActiveRecord::Base
   validates :source, inclusion: { in: SOURCES }, allow_blank: true
   validates :salary_type, inclusion: { in: SALARY_TYPES }, allow_blank: true
   validates :primary_tech, inclusion: { in: PRIMARY_TECHS }
-  validates :vacation_override, numericality: { only_integer: true}, allow_blank: true
+  validates :vacation_override, numericality: { only_integer: true }, allow_blank: true
   validates :email, :phone, :skype, :linkedin, uniqueness: { case_sensitive: false }, allow_blank: true
   validates :phone, format: { with: /\A[\s\+\d]+\z/ }, allow_blank: true
   validates :email, format: { with: /\A[a-z\@\.\-\'\+]+\z/ }, allow_blank: true
+  validates :start_date, :email, :phone, presence: { message: 'should be present for employee' }, if: ->(p) { p.status.in?(EMPLOYEE_STATUSES) }
 
   scope :not_deleted, ->() { where(is_deleted: false) }
   scope :employee, ->() { where(status: EMPLOYEE_STATUSES).order(:status) }
