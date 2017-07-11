@@ -34,91 +34,92 @@ table.table.pretty-table
         - if record.start_date.present? && record.salary_type == 'Monthly'
           - vacation_stats_per_year(record).tap do |stats|
             - stats[stats.keys.last].tap do |stat|
-              td
-                = stat['period_start_date'].gsub(/\s/, '&nbsp;').html_safe
-                br
-                | -
-                br
-                = stat['period_end_date'].gsub(/\s/, '&nbsp;').html_safe
-                br
-                = "#{stat['year'].to_i.ordinalize} year"
-              td
-                = stat['yearly_vacation_days_assigned']
-                | &nbsp;(
-                = stats.values.inject(0) { |memo, stat| memo + stat['yearly_vacation_days_assigned'] }
-                | )
-              td = stat['total_vacation_days']
-              td
-                - if stat['used_vacation'] >= stat['total_vacation_days']
-                  span style="color: red"
-                    strong
-                      = stat['used_vacation']
-                - elsif stat['used_vacation'] == 0
-                  span style="color: green"
-                    strong 0
-                - else
-                  = stat['used_vacation']
-                | &nbsp;(
-                = stats.values.inject(0) {|memo, stat| memo + stat['used_vacation']}
-                | )
-              td
-                - if stat['remaining_vacation'] >= stat['total_vacation_days']
-                  span style="color: green"
-                    strong
-                      = stat['remaining_vacation']
-                - elsif stat['remaining_vacation'] <= 0
-                  span style="color: red"
-                    strong
-                      = stat['remaining_vacation']
-                - else
-                  = stat['remaining_vacation']
-              td
-                - if stat['burn_days'] > 0
-                  span style="color: red"
-                    strong
-                      = stat['burn_days']
-                - else
-                  = stat['burn_days']
-                | &nbsp;(
-                = stats.values.inject(0) {|memo, stat| memo + stat['burn_days']}
-                | )
-              td = stat['transfer_days']
-              td
-                - if stat['overtime_days'] > 0
-                  span style="color: green"
-                    strong
-                      = stat['overtime_days']
-                - else
-                  | 0
-                | &nbsp;(
-                = stats.values.inject(0) {|memo, stat| memo + stat['overtime_days']}
-                | )
-              td
-                - if stat['sick_leave_days'] > 0
-                  span style="color: green"
-                    strong
-                      = stat['sick_leave_days']
-                - else
-                  | 0
-                | &nbsp;(
-                = stats.values.inject(0) {|memo, stat| memo + stat['sick_leave_days']}
-                | )
-              td
-                = stat['unpaid_days_off']
-                | &nbsp;(
-                = stats.values.inject(0) {|memo, stat| memo + stat['unpaid_days_off']}
-                | )
-              td
-                - if stat['paid_days_off'] > 0
-                  span style="color: green"
-                    strong
-                      = stat['paid_days_off']
-                - else
-                  | 0
-                | &nbsp;(
-                = stats.values.inject(0) {|memo, stat| memo + stat['paid_days_off']}
-                | )
-              td = stat['working_days_shifts']
+              - if stat.present?
+                td
+                  = stat['period_start_date'].gsub(/\s/, '&nbsp;').html_safe
+                  br
+                  | -
+                  br
+                  = stat['period_end_date'].gsub(/\s/, '&nbsp;').html_safe
+                  br
+                  = "#{stat['year'].to_i.ordinalize} year"
+                td
+                  = stat['yearly_vacation_days_assigned']
+                  | &nbsp;(
+                  = stats.values.inject(0) { |memo, stat| memo + stat['yearly_vacation_days_assigned'] }
+                  | )
+                td = stat['total_vacation_days']
+                td
+                  - if stat['used_vacation'] >= stat['total_vacation_days']
+                    span style="color: red"
+                      strong
+                        = stat['used_vacation']
+                  - elsif stat['used_vacation'] == 0
+                    span style="color: green"
+                      strong 0
+                  - else
+                    = stat['used_vacation']
+                  | &nbsp;(
+                  = stats.values.inject(0) {|memo, stat| memo + stat['used_vacation']}
+                  | )
+                td
+                  - if stat['remaining_vacation'] >= stat['total_vacation_days']
+                    span style="color: green"
+                      strong
+                        = stat['remaining_vacation']
+                  - elsif stat['remaining_vacation'] <= 0
+                    span style="color: red"
+                      strong
+                        = stat['remaining_vacation']
+                  - else
+                    = stat['remaining_vacation']
+                td
+                  - if stat['burn_days'] > 0
+                    span style="color: red"
+                      strong
+                        = stat['burn_days']
+                  - else
+                    = stat['burn_days']
+                  | &nbsp;(
+                  = stats.values.inject(0) {|memo, stat| memo + stat['burn_days']}
+                  | )
+                td = stat['transfer_days']
+                td
+                  - if stat['overtime_days'] > 0
+                    span style="color: green"
+                      strong
+                        = stat['overtime_days']
+                  - else
+                    | 0
+                  | &nbsp;(
+                  = stats.values.inject(0) {|memo, stat| memo + stat['overtime_days']}
+                  | )
+                td
+                  - if stat['sick_leave_days'] > 0
+                    span style="color: green"
+                      strong
+                        = stat['sick_leave_days']
+                  - else
+                    | 0
+                  | &nbsp;(
+                  = stats.values.inject(0) {|memo, stat| memo + stat['sick_leave_days']}
+                  | )
+                td
+                  = stat['unpaid_days_off']
+                  | &nbsp;(
+                  = stats.values.inject(0) {|memo, stat| memo + stat['unpaid_days_off']}
+                  | )
+                td
+                  - if stat['paid_days_off'] > 0
+                    span style="color: green"
+                      strong
+                        = stat['paid_days_off']
+                  - else
+                    | 0
+                  | &nbsp;(
+                  = stats.values.inject(0) {|memo, stat| memo + stat['paid_days_off']}
+                  | )
+                td = stat['working_days_shifts']
         - elsif record.start_date.present? && record.salary_type != 'Monthly'
           td
             = record.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
