@@ -220,51 +220,51 @@
         br
         = with_newlines(dayoff.notes)
 
-    h3
-      | Latest notes &nbsp;
-      = link_to 'Add', new_note_path(note: { person_id: @person.id }), class: 'btn btn-default'
-    - @person.notes.accessible_by(current_ability).order(updated_at: :desc).each do |note|
-      p
-        = note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
-        | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
-
-        - if note.type.in?(current_user.accessible_note_types) || (!note.type.in?(current_user.accessible_note_types) && current_user.has_access_to_finances?)
-          a href="#{edit_note_path(note)}" #{note.type}
-          br
-          ' #{with_newlines(note.value)}
-        - else
-          = "Content of this note is not available (#{note.type})"
-
-    h3
-      | Actions &nbsp;
-      = link_to 'Add', new_action_point_path(action_point: {person_id: @person.id}), class: 'btn btn-default'
-    - @person.action_points.order(is_completed: :asc, perform_on: :desc).each do |action|
-      p
-        a href="#{edit_action_point_path(action)}" #{action.perform_on.strftime(t(:datetime_full)).gsub('00:00, ', '')}
-        | &nbsp; #{action.is_completed? ? 'completed' : ''}
-        br
-        = with_newlines(action.value)
-
-    h3
-      | Attachments &nbsp;
-      = link_to 'Add', new_attachment_path(attachment: { person_id: @person.id }), class: 'btn btn-default'
-    - @person.attachments.order(created_at: :desc).each do |attachment|
-      p
-        = link_to (attachment.name.present? ? attachment.name : attachment.file_filename), Refile.attachment_url(attachment, :file)
-        - if attachment.description.present?
-          br
-          = with_newlines(attachment.description)
-        br
-    h3
-      | Other &nbsp;
+  h3
+    | Latest notes &nbsp;
+    = link_to 'Add', new_note_path(note: { person_id: @person.id }), class: 'btn btn-default'
+  - @person.notes.accessible_by(current_ability).order(updated_at: :desc).each do |note|
     p
-      | Profile created &nbsp;
-      = "#{@person.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')} (#{time_ago_in_words(@person.created_at)} ago)"
+      = note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+      | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
+
+      - if note.type.in?(current_user.accessible_note_types) || (!note.type.in?(current_user.accessible_note_types) && current_user.has_access_to_finances?)
+        a href="#{edit_note_path(note)}" #{note.type}
+        br
+        ' #{with_newlines(note.value)}
+      - else
+        = "Content of this note is not available (#{note.type})"
+
+  h3
+    | Actions &nbsp;
+    = link_to 'Add', new_action_point_path(action_point: {person_id: @person.id}), class: 'btn btn-default'
+  - @person.action_points.order(is_completed: :asc, perform_on: :desc).each do |action|
     p
-      | Profile last updated &nbsp;
-      = "#{@person.updated_at.strftime(t(:datetime_full))} (#{time_ago_in_words(@person.updated_at)} ago)"
-      | &nbsp; by&nbsp;
-      = @person.updated_by&.email&.split('@')&.first
+      a href="#{edit_action_point_path(action)}" #{action.perform_on.strftime(t(:datetime_full)).gsub('00:00, ', '')}
+      | &nbsp; #{action.is_completed? ? 'completed' : ''}
+      br
+      = with_newlines(action.value)
+
+  h3
+    | Attachments &nbsp;
+    = link_to 'Add', new_attachment_path(attachment: { person_id: @person.id }), class: 'btn btn-default'
+  - @person.attachments.order(created_at: :desc).each do |attachment|
+    p
+      = link_to (attachment.name.present? ? attachment.name : attachment.file_filename), Refile.attachment_url(attachment, :file)
+      - if attachment.description.present?
+        br
+        = with_newlines(attachment.description)
+      br
+  h3
+    | Other &nbsp;
+  p
+    | Profile created &nbsp;
+    = "#{@person.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')} (#{time_ago_in_words(@person.created_at)} ago)"
+  p
+    | Profile last updated &nbsp;
+    = "#{@person.updated_at.strftime(t(:datetime_full))} (#{time_ago_in_words(@person.updated_at)} ago)"
+    | &nbsp; by&nbsp;
+    = @person.updated_by&.email&.split('@')&.first
 
   .js-show-quick-forms-container style="display:none;"
     h3 Quick Forms
