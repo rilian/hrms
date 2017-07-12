@@ -4,6 +4,7 @@ table.table.pretty-table
   thead
     th Tech
     th People
+    th Employees
     th Actions
   tbody
     - Person::PRIMARY_TECHS.each_with_index do |tech, index|
@@ -14,5 +15,7 @@ table.table.pretty-table
           = link_to tech, people_path(q: { primary_tech_eq: tech })
         td
           = link_to Person.not_deleted.accessible_by(current_ability).where(primary_tech: tech).count, people_path(q: { primary_tech_eq: tech })
+        td
+          = link_to Person.not_deleted.accessible_by(current_ability).current_employee.where(primary_tech: tech).count, people_path(q: { primary_tech_eq: tech, status_eq: 'Hired' })
         td
           = link_to 'Export to XLSX', by_technology_reports_path(format: :xlsx, primary_tech: tech)
