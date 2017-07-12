@@ -8,41 +8,43 @@ class ReportsController < ApplicationController
   def by_technology
     respond_to do |format|
       format.html
-      format.csv do
-        require 'csv'
-
+      format.xlsx do
         people = Person.not_deleted.accessible_by(current_ability).where(primary_tech: params[:primary_tech])
 
-        send_data(CSV.generate do |csv|
-          csv << [
-            'Name',
-            'HR Status',
-            'City',
-            'Email',
-            'Skype',
-            'Phone',
-            'Notes'
-          ]
-          people.each do |item|
-            notes = item.notes.accessible_by(current_ability).order(updated_at: :desc).map do |note|
-              if note.type.in?(current_user.accessible_note_types) || (!note.type.in?(current_user.accessible_note_types) && current_user.has_access_to_finances?)
-                [
-                  note.created_at.strftime(t(:day)),
-                  note.value
-                ].join("\r\n".html_safe)
-              end
-            end.join("\r\n---------------\r\n".html_safe)
-            csv << [
-              item.name,
-              item.status,
-              item.city,
-              item.email,
-              item.skype,
-              "'#{item.phone}",
-              notes
-            ]
+        Axlsx::Package.new do |p|
+          p.use_shared_strings = true
+          wb = p.workbook
+          wb.add_worksheet(name: params[:primary_tech]) do |sheet|
+            sheet.add_row [
+              'Name',
+              'HR Status',
+              'City',
+              'Email',
+              'Skype',
+              'Phone',
+              'Notes']
+            people.each do |item|
+              notes = item.notes.accessible_by(current_ability).order(updated_at: :desc).map do |note|
+                if note.type.in?(current_user.accessible_note_types) || (!note.type.in?(current_user.accessible_note_types) && current_user.has_access_to_finances?)
+                  [
+                    note.created_at.strftime(t(:day)),
+                    note.value
+                  ].join("\r\n".html_safe)
+                end
+              end.join("\r\n---------------\r\n".html_safe)
+              sheet.add_row [
+                item.name,
+                item.status,
+                item.city,
+                item.email,
+                item.skype,
+                "'#{item.phone}",
+                notes
+              ]
+            end
+            send_data p.to_stream().read, filename: "#{params[:primary_tech].underscore}.xlsx"
           end
-        end, filename: "#{params[:primary_tech].underscore}.csv")
+        end
       end
     end
   end

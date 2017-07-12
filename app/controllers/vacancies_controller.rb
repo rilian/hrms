@@ -35,15 +35,18 @@ class VacanciesController < ApplicationController
 
     respond_to do |f|
       f.html
-      f.csv do
-        require 'csv'
-
-        send_data(CSV.generate do |csv|
-          csv << ['Name', 'Linkedin']
-          @people.each do |item|
-            csv << [item.name, item.linkedin]
+      f.xlsx do
+        Axlsx::Package.new do |p|
+          p.use_shared_strings = true
+          wb = p.workbook
+          wb.add_worksheet(name: params[:primary_tech]) do |sheet|
+            sheet.add_row ['Name', 'Linkedin']
+            @people.each do |item|
+              sheet.add_row [item.name, item.linkedin]
+            end
           end
-        end, filename: "vacancy-#{@vacancy.id}.csv")
+          send_data p.to_stream().read, filename: "vacancy-#{@vacancy.id}.xlsx"
+        end
       end
     end
   end
