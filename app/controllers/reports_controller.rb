@@ -60,33 +60,35 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv do
-        require 'csv'
-
-        send_data(CSV.generate do |csv|
-          csv << [
-            'Name',
-            'Date of Birth',
-            'Starting Date',
-            'City',
-            'Email',
-            'Skype',
-            'Phone',
-            'Position'
-          ]
-          @people.each do |item|
-            csv << [
-              item.name,
-              (item.day_of_birth.present? ? item.day_of_birth.strftime(t(:for_csv)) : 'n/a'),
-              (item.start_date.present? ? item.start_date.strftime(t(:for_csv)) : 'n/a'),
-              item.city,
-              item.email,
-              item.skype,
-              "'#{item.phone}",
-              item.current_position
-            ]
+      format.xlsx do
+        Axlsx::Package.new do |p|
+          p.use_shared_strings = true
+          wb = p.workbook
+          wb.add_worksheet(name: 'Employees') do |sheet|
+            sheet.add_row [
+              'Name',
+              'Date of Birth',
+              'Starting Date',
+              'City',
+              'Email',
+              'Skype',
+              'Phone',
+              'Position']
+            @people.each do |item|
+              sheet.add_row [
+                item.name,
+                (item.day_of_birth.present? ? item.day_of_birth.strftime(t(:for_csv)) : 'n/a'),
+                (item.start_date.present? ? item.start_date.strftime(t(:for_csv)) : 'n/a'),
+                item.city,
+                item.email,
+                item.skype,
+                "'#{item.phone}",
+                item.current_position
+              ]
+            end
           end
-        end, filename: 'colleagues.csv')
+          send_data p.to_stream().read, filename: "colleagues-#{Time.zone.now.strftime('%F')}.xlsx"
+        end
       end
     end
   end

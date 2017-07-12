@@ -11,6 +11,7 @@ gem 'refile-mini_magick'
 gem 'smarter_csv', require: false
 gem 'acts-as-taggable-on'
 gem 'cancancan'
+gem 'axlsx', '2.1.0.pre'
 
 # Frontend
 gem 'slim-rails'
