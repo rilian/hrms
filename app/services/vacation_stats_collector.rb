@@ -7,7 +7,7 @@ class VacationStatsCollector
   end
 
   def perform
-    return true unless @person.start_date
+    return true if @person.start_date.blank? || @person.start_date > Time.zone.now
 
     current_date = @person.start_date
     year = 0
