@@ -31,7 +31,7 @@ table.table.pretty-table
             br
             sub = "#{months_worked(record) > 0 ? pluralize(months_worked(record), 'month') : 'not started'}"
 
-        - if record.start_date.present?
+        - if record.start_date.present? && record.start_date <= Time.zone.now
           - vacation_stats_per_year(record.id).tap do |stats|
             - stats[stats.keys.last].tap do |stat|
               - if stat.present?
@@ -124,15 +124,15 @@ table.table.pretty-table
           td
             a href="#{edit_person_path(record)}"
               i.fa.fa-pencil
-          td ?
-          td ?
-          td ?
-          td ?
-          td ?
-          td ?
-          td ?
-          td ?
-          td ?
-          td ?
-          td ?
+          td -
+          td -
+          td -
+          td -
+          td -
+          td -
+          td -
+          td -
+          td -
+          td -
+          td -
         td = link_to 'Add', new_dayoff_path(dayoff: {person_id: record.id}), class: 'btn btn-default', target: '_blank'
