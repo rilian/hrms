@@ -32,7 +32,7 @@ table.table.pretty-table
             sub = "#{months_worked(record) > 0 ? pluralize(months_worked(record), 'month') : 'not started'}"
 
         - if record.start_date.present?
-          - vacation_stats_per_year(record).tap do |stats|
+          - vacation_stats_per_year(record.id).tap do |stats|
             - stats[stats.keys.last].tap do |stat|
               - if stat.present?
                 td
