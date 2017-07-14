@@ -2,15 +2,25 @@ span
   | Hi #{@user.email},
 br
 br
-
 | New employee #{@person.name} will start work on #{@person.start_date.strftime('%a, %e %b')}.
 br
+| City: #{@person.city}
 br
-| His HRMS profile link is #{link_to person_url(@person.id), person_url(@person.id)}
+| Primary tech: #{@person.primary_tech}
+br
+| Current Position: #{@person.current_position}
+br
+| Skype: #{@person.skype}
+br
+| Email: #{@person.email}
+br
+| Phone: #{@person.phone}
 br
 br
-| Please ensure he has desk, chair, and all the necessary equipment by that date.
-
+| Their HRMS profile link is #{link_to person_url(@person.id), person_url(@person.id)}
+br
+br
+| Please ensure they have desk, chair, and all the necessary equipment by that date.
 br
 br
 span
