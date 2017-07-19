@@ -63,6 +63,31 @@ class ReportsController < ApplicationController
     @people_table = @people
       .map { |p| [p.id, p.name, p.day_of_birth&.strftime('%d %b'), p.day_of_birth&.strftime('%m-%d') || '99-99'] }
       .sort { |a, b| a[3].to_s <=> b[3].to_s }
+
+    respond_to do |format|
+      format.html
+      format.xlsx do
+        Axlsx::Package.new do |p|
+          p.use_shared_strings = true
+          wb = p.workbook
+          wb.add_worksheet(name: 'Employee Birthdays') do |sheet|
+            sheet.add_row %w(Date Name)
+
+            current_month = nil
+            @people_table.each do |record|
+              if record[2].present? && current_month != record[2].split(' ').last
+                current_month = record[2].split(' ').last
+                sheet.add_row [record[2].split(' ').last, '']
+              end
+
+              sheet.add_row [record[2], record[1]]
+            end
+          end
+
+          send_data p.to_stream().read, filename: "birthdays-#{Time.zone.now.strftime('%F')}.xlsx"
+        end
+      end
+    end
   end
 
   def current_employees_table
