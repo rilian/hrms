@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get :by_technology
       get :current_employees_table
       get :contractors_table
+      get :employees_by_birthday_month
       get :employees_simple
       get :employees_without_nda_signed
       get :historical_data

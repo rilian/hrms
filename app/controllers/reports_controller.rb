@@ -54,7 +54,15 @@ class ReportsController < ApplicationController
   end
 
   def employees_without_nda_signed
-    @people = Person.not_deleted.accessible_by(current_ability).current_employee.where(signed_nda: false).order(:name)
+    load_current_employees
+    @people = @people.where(signed_nda: false).order(:name)
+  end
+
+  def employees_by_birthday_month
+    load_current_employees
+    @people_table = @people
+      .map { |p| [p.id, p.name, p.day_of_birth&.strftime('%d %b'), p.day_of_birth&.strftime('%m-%d') || '99-99'] }
+      .sort { |a, b| a[3].to_s <=> b[3].to_s }
   end
 
   def current_employees_table

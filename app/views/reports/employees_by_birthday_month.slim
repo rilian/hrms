@@ -1,0 +1,21 @@
+h2.title Current Employees Birthdays Table
+
+table.table.pretty-table
+  thead
+    th Birth
+    th Name
+  tbody
+    - current_month = nil
+    - @people_table.each do |record|
+      - if record[2].present? && current_month != record[2].split(' ').last
+        - current_month = record[2].split(' ').last
+        tr
+          th colspan="2" = record[2].split(' ').last
+      tr
+        td
+          - if record[2].present?
+            = record[2]
+          - else
+            a href="#{edit_person_path(record[0])}"
+              i.fa.fa-pencil
+        td = link_to record[1], person_path(record[0])
