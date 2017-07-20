@@ -5,17 +5,17 @@ table.table.pretty-table
   thead
     th Name
     th Period Info
-    th Vacation days assigned
+    th Vacation days assigned (total)
     th Vacation days total for period
-    th Vacation days used
+    th Vacation days used (total)
     th Remain vacation days
-    th Days may burn by period end
+    th Days may burn by period end (total)
     th Days transfer to next period
-    th Overtimes
-    th Sick leaves
-    th Unpaid days off
-    th Paid days off
-    th Work day shifts
+    th Overtimes (total)
+    th Sick leaves (total)
+    th Unpaid days off (total)
+    th Paid days off (total)
+    th Work day shifts (total)
     th Actions
   tbody
     - @employees.each do |record|
@@ -119,7 +119,11 @@ table.table.pretty-table
                   | &nbsp;(
                   = stats.values.inject(0) {|memo, stat| memo + stat['paid_days_off']}
                   | )
-                td = stat['working_days_shifts']
+                td
+                  = stat['working_days_shifts']
+                  | &nbsp;(
+                  = stats.values.inject(0) {|memo, stat| memo + stat['working_days_shifts']}
+                  | )
         - else
           td
             a href="#{edit_person_path(record)}"
