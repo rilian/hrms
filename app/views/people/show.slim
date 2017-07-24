@@ -133,6 +133,14 @@
         a href="#{edit_person_path(@person)}"
           i.fa.fa-pencil
   p
+    | Employee ID:&nbsp;
+    - if @person.employee_id.present?
+      strong
+        = @person.employee_id
+    - else
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
+  p
     | Salary type:&nbsp;
     - if @person.salary_type.present?
       strong

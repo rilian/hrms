@@ -97,6 +97,11 @@
 
   .form-group
     label.control-label
+      | Employee ID:
+  = f.input :employee_id, label: false, input_html: {}
+
+  .form-group
+    label.control-label
       | Signed NDA and related docs:
   = f.input :signed_nda, label: false, input_html: {}
 
