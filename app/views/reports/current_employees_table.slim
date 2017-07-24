@@ -8,6 +8,7 @@ br
 table.table.pretty-table
   thead
     th #
+    th ID
     th Name
     th Birth
     th Start Date
@@ -23,6 +24,8 @@ table.table.pretty-table
       tr
         td
           span style="width: 10px; background-color: #{PERSON_STATUS_COLORS[person.status]};" &nbsp;#{index + 1}&nbsp;
+        td
+          = person.employee_id
         td
           = link_to person.name, person_path(person.id)
         td
