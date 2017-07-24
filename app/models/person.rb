@@ -30,7 +30,6 @@ class Person < ActiveRecord::Base
     Advanced
   )
   EMPLOYEE_STATUSES = ['Hired', 'Past employee', 'Contractor', 'Past contractor']
-  SOURCES = %w(Reference Djinni LinkedIn DOU)
   SALARY_TYPES = %w(Monthly Hourly)
 
   belongs_to :updated_by, class_name: 'User'
@@ -43,7 +42,6 @@ class Person < ActiveRecord::Base
   before_save :strip_values
 
   validates :name, presence: true
-  validates :source, inclusion: { in: SOURCES }, allow_blank: true
   validates :salary_type, inclusion: { in: SALARY_TYPES }, allow_blank: true
   validates :primary_tech, inclusion: { in: PRIMARY_TECHS }
   validates :vacation_override, numericality: { only_integer: true }, allow_blank: true

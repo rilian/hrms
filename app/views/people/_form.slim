@@ -119,11 +119,7 @@
 
   .form-group
     label.control-label Hiring Source:
-    = f.input :source,
-        collection: Person::SOURCES,
-        label: false,
-        include_blank: true,
-        input_html: { class: 'select form-control' }
+    = f.input :source, placeholder: 'Reference Djinni LinkedIn DOU', label: false, class: 'input form-control'
 
   .form-group
     label.control-label
