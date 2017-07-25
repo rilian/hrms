@@ -1,5 +1,5 @@
 h2.title Funnel Report
-= "#{@vacancies.count} open vacancies"
+= link_to "#{@vacancies.count} open vacancies", vacancies_path(q: { status_eq: 'open' })
 
 = simple_form_for :funnel, html: { method: :get, class: 'form' } do |f|
   ' From
