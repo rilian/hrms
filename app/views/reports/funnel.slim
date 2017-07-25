@@ -1,0 +1,75 @@
+h2.title Funnel Report
+= "#{@vacancies.count} open vacancies"
+
+= simple_form_for :funnel, html: { method: :get, class: 'form' } do |f|
+  ' From
+  = link_to 'current week', funnel_reports_path
+  = f.input :start_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:funnel][:start_date], class: 'datepicker' }
+  ' To
+  = f.input :finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: {value: params[:funnel][:finish_date], class: 'datepicker'}
+  = f.button :submit, 'View Report', class: 'btn btn-success'
+
+br
+
+table.table.pretty-table
+  thead
+    th Vacancy
+    th Number of touched candidates
+  tbody
+  - @vacancies.each do |vacancy|
+    - people = Person.accessible_by(current_ability).not_deleted.tagged_with([vacancy.tag].flatten) \
+        .where('updated_at >= ? AND updated_at <= ?', \
+          Time.strptime(params[:funnel][:start_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00', \
+          Time.strptime(params[:funnel][:finish_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00')
+    tr
+      td = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
+      td
+        = link_to people.count, people_path(q: { updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date] })
+
+/table.table.pretty-table
+/  thead
+/    th #
+/    th Vacancy
+/    th Contact Type
+/    th Status
+/    th Last Update
+/    th Name
+/    th City
+/    th Email
+/    th Skype
+/    th Created
+/    th Source
+/  tbody
+/    - @people.each_with_index do |person, index|
+/      tr
+/        td = index + 1
+/        td
+/          - vacancies = Vacancy.where(tag: person.tag_list)
+/          - if vacancies.present?
+/            - vacancies.each do |vacancy|
+/              = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
+/              | &nbsp;
+/        td
+/          - if person.skype.present?
+/            ' Skype
+/          - elsif person.email.present?
+/            ' Email
+/          - elsif person.linkedin.present?
+/            ' Linkedin
+/          - elsif person.phone.present?
+/            ' Phone
+/          - else
+/            ' n/a
+/        td
+/          span style="background-color: #{PERSON_STATUS_COLORS[person.status]};"
+/            = person.status.presence || 'n/a'
+/        td
+/          = person.updated_at.year == Time.zone.now.year ? person.updated_at.strftime('%d %b') : person.updated_at.strftime('%d %b %Y')
+/          ',
+/          = person.updated_by&.email&.split('@')&.first
+/        td = link_to person.name.titleize, person_path(person)
+/        td = person.city
+/        td = person.email
+/        td = person.skype
+/        td = person.created_at.strftime('%d %b %Y')
+/        td = person.source

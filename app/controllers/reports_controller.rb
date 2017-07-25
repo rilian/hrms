@@ -167,19 +167,19 @@ class ReportsController < ApplicationController
     load_current_employees
   end
 
-  def funnel_update
-    params[:funnel] = { date: Time.zone.now.strftime('%d-%m-%Y') } if params[:funnel].blank?
+  def funnel
+    params[:funnel] = {
+      start_date: Time.zone.now.beginning_of_week.strftime('%d-%m-%Y'),
+      finish_date: Time.zone.now.end_of_week.strftime('%d-%m-%Y')
+    } if params[:funnel].blank?
 
-    @people =
-      if funnel_update_params[:date].blank?
-        Person.none
-      else
-        Person.all.where(
-          'updated_at >= ? AND updated_at < ?',
-          Time.strptime(funnel_update_params[:date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
-          (Time.strptime(funnel_update_params[:date], '%d-%m-%Y') + 1.day).strftime('%Y-%m-%d') + ' 00:00:00'
-        ).order(:updated_at)
-      end
+    @vacancies = Vacancy.where(status: 'open').order(:created_at)
+
+    # @people = Person.all.where(
+    #   'updated_at >= ? AND updated_at <= ?',
+    #   Time.strptime(funnel_update_params[:start_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
+    #   Time.strptime(funnel_update_params[:finish_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00'
+    # ).order(:updated_at)
   end
 
   private
@@ -191,6 +191,6 @@ class ReportsController < ApplicationController
   end
 
   def funnel_update_params
-    params.require(:funnel).permit(:date)
+    params.require(:funnel).permit(:start_date, :finish_date)
   end
 end
