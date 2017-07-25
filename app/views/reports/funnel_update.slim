@@ -1,13 +1,10 @@
 h2.title Funnel Update Report
-= link_to 'Export Public Data to XLSX', funnel_update_reports_path(format: :xlsx)
+//= link_to 'Export Public Data to XLSX', funnel_update_reports_path(format: :xlsx)
 br
 = "#{@people.count} persons"
 
 = simple_form_for :funnel, html: { method: :get, class: 'form' } do |f|
-  .form-group
-    label.control-label
-      | Date:
-  = f.input :date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: Time.zone.now.strftime('%d-%m-%Y'), class: 'datepicker' }
+  = f.input :date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:funnel][:date], class: 'datepicker' }
   = f.button :submit, 'View Report', class: 'btn btn-success'
 
 table.table.pretty-table
@@ -47,7 +44,10 @@ table.table.pretty-table
         td
           span style="background-color: #{PERSON_STATUS_COLORS[person.status]};"
             = person.status.presence || 'n/a'
-        td = person.updated_at.strftime('%d %b %Y')
+        td
+          = person.updated_at.strftime('%d %b %Y')
+          ',
+          = person.updated_by&.email&.split('@')&.first
         td = person.created_at.strftime('%d %b %Y')
         td = link_to person.name.titleize, person_path(person)
         td = person.city

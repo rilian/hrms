@@ -168,6 +168,8 @@ class ReportsController < ApplicationController
   end
 
   def funnel_update
+    params[:funnel] = { date: Time.zone.now.strftime('%d-%m-%Y') } if params[:funnel].blank?
+
     @people =
       if funnel_update_params[:date].blank?
         Person.none
