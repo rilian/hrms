@@ -11,8 +11,6 @@ h2.title Funnel Report
   = f.input :finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: {value: params[:funnel][:finish_date], class: 'datepicker'}
   = f.button :submit, 'View Report', class: 'btn btn-success'
 
-br
-
 - no_status_statuses = ['n/a', 'Pinged, no response']
 - not_interested_statuses = ['Not interested', 'Not interested, on hold', 'Rejected, no go', 'Rejected, on hold']
 - interested_statuses = ['Discussing an opportunity', 'Interested, ping later', 'Interested, on hold']
