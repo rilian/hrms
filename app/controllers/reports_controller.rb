@@ -167,11 +167,28 @@ class ReportsController < ApplicationController
     load_current_employees
   end
 
+  def funnel_update
+    @people =
+      if funnel_update_params[:date].blank?
+        Person.none
+      else
+        Person.all.where(
+          'updated_at >= ? AND updated_at < ?',
+          Time.strptime(funnel_update_params[:date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
+          (Time.strptime(funnel_update_params[:date], '%d-%m-%Y') + 1.day).strftime('%Y-%m-%d') + ' 00:00:00'
+        ).order(:updated_at)
+      end
+  end
+
   private
 
   def load_current_employees
     @people = Person.not_deleted.accessible_by(current_ability)
       .current_employee
       .order(:name)
+  end
+
+  def funnel_update_params
+    params.require(:funnel).permit(:date)
   end
 end

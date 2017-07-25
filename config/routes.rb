@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get :employees_by_birthday_month
       get :employees_simple
       get :employees_without_nda_signed
+      get :funnel_update
       get :historical_data
       get :people_with_similar_name
       get :searches

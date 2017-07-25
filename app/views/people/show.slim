@@ -67,6 +67,7 @@
     | City:&nbsp;
     strong
       = @person.city.presence || 'Kyiv'
+
   - vacancies = Vacancy.where(tag: @person.tag_list)
   - if vacancies.present?
     p
