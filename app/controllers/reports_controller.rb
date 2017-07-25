@@ -174,12 +174,6 @@ class ReportsController < ApplicationController
     } if params[:funnel].blank?
 
     @vacancies = Vacancy.where(status: 'open').order(:created_at)
-
-    # @people = Person.all.where(
-    #   'updated_at >= ? AND updated_at <= ?',
-    #   Time.strptime(funnel_update_params[:start_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
-    #   Time.strptime(funnel_update_params[:finish_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00'
-    # ).order(:updated_at)
   end
 
   private
