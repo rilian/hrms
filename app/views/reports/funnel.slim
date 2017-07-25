@@ -15,6 +15,8 @@ table.table.pretty-table
   thead
     th Vacancy
     th Number of touched candidates
+    th No status
+    th Not interested or rejected
   tbody
   - @vacancies.each do |vacancy|
     - people = Person.accessible_by(current_ability).not_deleted.tagged_with([vacancy.tag].flatten) \
@@ -25,6 +27,12 @@ table.table.pretty-table
       td = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
       td
         = link_to people.count, people_path(q: { updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date] })
+      td
+        - no_status_statuses = ['n/a', 'Pinged, no response']
+        = link_to people.where(status: no_status_statuses).count, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], status_in: no_status_statuses })
+      td
+        - not_interested_statuses = ['Not interested', 'Not interested, on hold', 'Rejected, no go', 'Rejected, on hold']
+        = link_to people.where(status: not_interested_statuses).count, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], status_in: not_interested_statuses})
 
 /table.table.pretty-table
 /  thead
