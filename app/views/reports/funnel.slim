@@ -21,6 +21,7 @@ table.table.pretty-table
     th Interview process
     th Passed Interview
     th Hired
+    th By
   tbody
   - @vacancies.each do |vacancy|
     - people = Person.accessible_by(current_ability).not_deleted.tagged_with([vacancy.tag].flatten) \
@@ -49,6 +50,9 @@ table.table.pretty-table
       td
         - hired_statuses = ['Hired', 'Contractor', 'Past employee', 'Past contractor']
         = link_to people.where(status: hired_statuses).count, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], status_in: hired_statuses})
+      td
+        - people.pluck(:updated_by_id).uniq.each do |by_id|
+          = link_to "#{people.where(updated_by_id: by_id).count}&nbsp;#{User.find(by_id).email.split('@').first}".html_safe, people_path(q: { updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], updated_by_id_eq: by_id })
 
 /table.table.pretty-table
 /  thead
