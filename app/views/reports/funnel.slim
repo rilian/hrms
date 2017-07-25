@@ -13,16 +13,41 @@ h2.title Funnel Report
 
 br
 
+- no_status_statuses = ['n/a', 'Pinged, no response']
+- not_interested_statuses = ['Not interested', 'Not interested, on hold', 'Rejected, no go', 'Rejected, on hold']
+- interested_statuses = ['Discussing an opportunity', 'Interested, ping later', 'Interested, on hold']
+- interview_statuses = ['Initial interview', 'Technical interview', 'Test assignment']
+- passed_interview_statuses = ['Waiting for decision']
+- hired_statuses = ['Hired', 'Contractor', 'Past employee', 'Past contractor']
+
 table.table.pretty-table
   thead
     th Vacancy
     th Touched candidates
-    th No status
-    th Not interested or rejected
-    th Interested
-    th Interview process
-    th Passed Interview
-    th Hired
+    th
+      'No status
+      br
+      sub = no_status_statuses.join(', ')
+    th
+      'Not interested or rejected
+      br
+      sub = not_interested_statuses.join(', ')
+    th
+      'Interested
+      br
+      sub = interested_statuses.join(', ')
+    th
+      'Interview process
+      br
+      sub = interview_statuses.join(', ')
+    th
+      'Passed Interview
+      br
+      sub = passed_interview_statuses.join(', ')
+    th
+      'Hired
+      br
+      sub = hired_statuses.join(', ')
     th Source
     th Updated By
   tbody
@@ -36,22 +61,16 @@ table.table.pretty-table
         td
           = link_to people.count, people_path(q: { updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date] })
         td
-          - no_status_statuses = ['n/a', 'Pinged, no response']
           = link_to people.where(status: no_status_statuses).count, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], status_in: no_status_statuses })
         td
-          - not_interested_statuses = ['Not interested', 'Not interested, on hold', 'Rejected, no go', 'Rejected, on hold']
           = link_to people.where(status: not_interested_statuses).count, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], status_in: not_interested_statuses})
         td
-          - interested_statuses = ['Discussing an opportunity', 'Interested, ping later', 'Interested, on hold']
           = link_to people.where(status: interested_statuses).count, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], status_in: interested_statuses})
         td
-          - interview_statuses = ['Initial interview', 'Technical interview', 'Test assignment']
           = link_to people.where(status: interview_statuses).count, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], status_in: interview_statuses})
         td
-          - passed_interview_statuses = ['Waiting for decision']
           = link_to people.where(status: passed_interview_statuses).count, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], status_in: passed_interview_statuses})
         td
-          - hired_statuses = ['Hired', 'Contractor', 'Past employee', 'Past contractor']
           = link_to people.where(status: hired_statuses).count, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], status_in: hired_statuses})
         td
           - people.pluck(:source).uniq.each do |source|
