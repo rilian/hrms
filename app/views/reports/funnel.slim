@@ -21,6 +21,7 @@ h2.title Funnel Report
 table.table.pretty-table
   thead
     th Vacancy
+    th Created candidates
     th Touched candidates
     th
       'No status
@@ -50,12 +51,18 @@ table.table.pretty-table
     th Updated By
   tbody
     - @vacancies.each do |vacancy|
+      - people_created = Person.accessible_by(current_ability).not_deleted.tagged_with([vacancy.tag].flatten) \
+          .where('people.created_at >= ? AND people.created_at <= ?', \
+            Time.strptime(params[:funnel][:start_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00', \
+            Time.strptime(params[:funnel][:finish_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00')
       - people = Person.accessible_by(current_ability).not_deleted.tagged_with([vacancy.tag].flatten) \
-          .where('updated_at >= ? AND updated_at <= ?', \
+          .where('people.updated_at >= ? AND people.updated_at <= ?', \
             Time.strptime(params[:funnel][:start_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00', \
             Time.strptime(params[:funnel][:finish_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00')
       tr
         td = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
+        td
+          = link_to people_created.count, people_path(q: { created_at_gteq: params[:funnel][:start_date], created_at_lteq: params[:funnel][:finish_date] })
         td
           = link_to people.count, people_path(q: { updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date] })
         td
