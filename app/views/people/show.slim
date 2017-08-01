@@ -126,13 +126,13 @@
     - else
       a href="#{edit_person_path(@person)}"
         i.fa.fa-pencil
-    p
-      - if @person.signed_nda?
-        | NDA is signed
-      - else
-        | NDA is not signed&nbsp;
-        a href="#{edit_person_path(@person)}"
-          i.fa.fa-pencil
+  p
+    - if @person.signed_nda?
+      | NDA is signed
+    - else
+      | NDA is not signed&nbsp;
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
   p
     | Employee ID:&nbsp;
     - if @person.employee_id.present?
@@ -149,6 +149,15 @@
     - else
       a href="#{edit_person_path(@person)}"
         i.fa.fa-pencil
+  p
+    | Last 1-1 meeting with management:&nbsp;
+    - if @person.last_one_on_one_meeting_at.present?
+      strong
+        = @person.last_one_on_one_meeting_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    - else
+      a href="#{edit_person_path(@person)}"
+        i.fa.fa-pencil
+
   - if @person.finish_date.present?
     p
       | Employment Finish Date:&nbsp;

@@ -1,0 +1,16 @@
+h2.title Current Employees by Date of Last 1-1 Meeting with Management
+
+table.table.pretty-table
+  thead
+    th Last Meeting
+    th Name
+  tbody
+    - @people.each do |record|
+      tr
+        td
+          - if record.last_one_on_one_meeting_at.present?
+            = record.last_one_on_one_meeting_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+          - else
+            a href="#{edit_person_path(record)}"
+              i.fa.fa-pencil
+        td = link_to record.name, person_path(record)

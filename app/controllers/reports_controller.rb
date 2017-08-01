@@ -167,6 +167,11 @@ class ReportsController < ApplicationController
     load_current_employees
   end
 
+  def employees_by_last_one_on_one_meeting_date
+    load_current_employees
+    @people = @people.reorder('last_one_on_one_meeting_at IS NOT NULL, last_one_on_one_meeting_at ASC').order(:name)
+  end
+
   def funnel
     params[:funnel] = {
       start_date: Time.zone.now.beginning_of_week.strftime('%d-%m-%Y'),

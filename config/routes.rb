@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get :current_employees_table
       get :contractors_table
       get :employees_by_birthday_month
+      get :employees_by_last_one_on_one_meeting_date
       get :employees_simple
       get :employees_without_nda_signed
       get :funnel

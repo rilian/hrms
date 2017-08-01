@@ -249,7 +249,8 @@ CREATE TABLE people (
     current_position character varying,
     signed_nda boolean DEFAULT false NOT NULL,
     salary_type character varying,
-    employee_id character varying
+    employee_id character varying,
+    last_one_on_one_meeting_at date
 );
 
 
@@ -861,4 +862,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170707082100');
 INSERT INTO schema_migrations (version) VALUES ('20170707114658');
 
 INSERT INTO schema_migrations (version) VALUES ('20170724171851');
+
+INSERT INTO schema_migrations (version) VALUES ('20170801114924');
 
