@@ -37,6 +37,7 @@ namespace :employees do
   desc 'Sends advance notification about 1-1 meetings'
   task one_on_one_meeting: :environment do
     employees = Person.not_deleted.current_employee
+      .where('city ILIKE ?', 'Kyiv')
       .where('start_date < ?', Time.zone.now.strftime('%F'))
       .reorder('last_one_on_one_meeting_at IS NOT NULL, last_one_on_one_meeting_at ASC')
       .order(:name).limit(10)
