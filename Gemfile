@@ -12,6 +12,7 @@ gem 'smarter_csv', require: false
 gem 'acts-as-taggable-on'
 gem 'cancancan'
 gem 'axlsx', '2.1.0.pre'
+gem 'sentry-raven'
 
 # Frontend
 gem 'slim-rails'
