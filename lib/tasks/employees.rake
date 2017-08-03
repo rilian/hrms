@@ -38,7 +38,7 @@ namespace :employees do
   task one_on_one_meeting: :environment do
     employees = Person.not_deleted.current_employee
       .reorder('last_one_on_one_meeting_at IS NOT NULL, last_one_on_one_meeting_at ASC')
-      .limit(10)
+      .order(:name).limit(10)
 
     User.where(one_on_one_notifications_enabled: true).pluck(:id).each do |user_id|
       EmployeesMailer.one_on_one(user_id, employees).deliver_now
