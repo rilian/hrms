@@ -1,0 +1,44 @@
+span
+  | Hi #{@user.email},
+br
+br
+| Here is the list of employees to run 1-1 meeting for this week #{Time.zone.now.beginning_of_week.strftime('%a, %e %b')} - #{(Time.zone.now.beginning_of_week + 4.days).strftime('%a, %e %b')}
+br
+br
+- %w(Monday Tuesday Wednesday Thursday Friday).each_with_index do |day, index|
+  strong
+    = day
+  |:
+  br
+  - if @employees[index * 2].present?
+    - employee = @employees[index * 2]
+    = link_to employee.name, person_url(employee)
+    '&nbsp;(last meeting
+    - if employee.last_one_on_one_meeting_at.present?
+      = employee.last_one_on_one_meeting_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    - else
+      |never
+    |, email: #{employee.email}, skype: #{employee.skype}, phone: #{employee.phone}
+    |)
+  - else
+    'none
+  br
+
+  - if @employees[index * 2 + 1].present?
+    - employee = @employees[index * 2 + 1]
+    = link_to employee.name, person_url(employee)
+    '&nbsp;(last meeting
+    - if employee.last_one_on_one_meeting_at.present?
+      = employee.last_one_on_one_meeting_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    - else
+      |never
+    |, email: #{employee.email}, skype: #{employee.skype}, phone: #{employee.phone}
+    |)
+  - else
+    'none
+  br
+  br
+
+| Please arrange meeting with them
+
+= render 'shared/mail_footer'

@@ -10,4 +10,14 @@ class EmployeesMailer < ActionMailer::Base
       to: @user.email
     )
   end
+
+  def one_on_one(user_id, employees)
+    @user = User.find(user_id)
+    @employees = employees
+
+    mail(
+      subject: "[HRMS] 1-1 meeting plan for the week #{Time.zone.now.beginning_of_week.strftime('%a, %e %b')} - #{(Time.zone.now.beginning_of_week + 4.days).strftime('%a, %e %b')}",
+      to: @user.email
+    )
+  end
 end

@@ -5,3 +5,7 @@ end
 every :day, at: '0:05am' do
   rake 'employees:start_date'
 end
+
+every :monday, at: '0:05am' do
+  rake 'employees:one_on_one_meeting'
+end
