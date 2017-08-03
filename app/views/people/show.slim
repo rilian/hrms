@@ -1,6 +1,6 @@
 .js-edit-form-container style="display:none;"
   h2.title
-    | Edit #{@person.name}
+    | Edit #{@person.name.titleize}
     | &nbsp;
     a.btn.btn-default href="#{person_path(@person)}" Back
   = render 'people/form'
