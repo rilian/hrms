@@ -398,7 +398,8 @@ CREATE TABLE users (
     hide_statuses character varying[] DEFAULT '{}'::character varying[],
     has_access_to_finances boolean DEFAULT false,
     has_access_to_events boolean DEFAULT false,
-    has_access_to_users boolean DEFAULT false
+    has_access_to_users boolean DEFAULT false,
+    one_on_one_notifications_enabled boolean DEFAULT false
 );
 
 
@@ -864,4 +865,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170707114658');
 INSERT INTO schema_migrations (version) VALUES ('20170724171851');
 
 INSERT INTO schema_migrations (version) VALUES ('20170801114924');
+
+INSERT INTO schema_migrations (version) VALUES ('20170803155139');
 

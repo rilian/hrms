@@ -18,6 +18,9 @@
   .form-group
     label.control-label Notifications
     = f.input :notifications_enabled, as: :boolean, label: false
+  .form-group
+    label.control-label 1-1 Meeting Notifications
+    = f.input :one_on_one_notifications_enabled, as: :boolean, label: false
 
   .form-group
     label.control-label
