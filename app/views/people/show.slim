@@ -105,8 +105,12 @@
   p
     | Email:&nbsp;
     - if @person.email.present?
-      strong
-        a href="mailto:#{@person.email}" #{@person.email}
+      - if @person.status.in?(Person::EMPLOYEE_STATUSES) && !ENV['COMPANY_EMAIL_MASK'].in?(@person.email)
+        span style="color: red"
+          = @person.email
+      - else
+        strong
+          = @person.email
     - else
       a href="#{edit_person_path(@person)}"
         i.fa.fa-pencil
@@ -196,7 +200,7 @@
           | Period
         th
           | Data
-      - vacation_stats_per_year(@person).reverse_each.to_h.each_pair do |index, item|
+      - vacation_stats_per_year(@person.id).reverse_each.to_h.each_pair do |index, item|
         tr
           td
             = "#{item['period']}, #{(item['year'] + 1).ordinalize} year"

@@ -52,7 +52,11 @@ table.table.pretty-table
               i.fa.fa-pencil
         td
           - if person.email.present?
-            = person.email
+            - if !ENV['COMPANY_EMAIL_MASK'].in?(person.email)
+              span style="color: red"
+                = person.email
+            - else
+              = person.email
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
