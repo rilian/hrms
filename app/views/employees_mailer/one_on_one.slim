@@ -1,44 +1,28 @@
-span
-  | Hi #{@user.email},
-br
-br
-| Here is the list of employees to run 1-1 meeting for this week #{Time.zone.now.beginning_of_week.strftime('%a, %e %b')} - #{(Time.zone.now.beginning_of_week + 4.days).strftime('%a, %e %b')}
-br
-br
-- %w(Monday Tuesday Wednesday Thursday Friday).each_with_index do |day, index|
-  strong
-    = day
-  |:
-  br
-  - if @employees[index * 2].present?
-    - employee = @employees[index * 2]
-    = link_to employee.name.titleize, person_url(employee)
-    '&nbsp;(last meeting
-    - if employee.last_one_on_one_meeting_at.present?
-      = employee.last_one_on_one_meeting_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
-    - else
-      |never
-    |, email: #{employee.email}, skype: #{employee.skype}, phone: #{employee.phone}
-    |), #{link_to 'add meeting note here', new_note_url(note: { person_id: employee.id })}
-  - else
-    'none
-  br
+p Hi #{@user.email},
+p There are total of #{@employees.count} employees waiting for 1-1 meeting.
+p Here is the list of employees to run 1-1 meeting for this week #{Time.zone.now.beginning_of_week.strftime('%a, %e %b')} - #{(Time.zone.now.beginning_of_week + 4.days).strftime('%a, %e %b')}
+- break_all = false
+- 0.upto(4).each do |i|
+  - break if break_all
+  p
+    strong #{(Time.zone.now.beginning_of_week + i.days).strftime('%a, %e %b')}
+    |:
+  - [@employees[i * 2], @employees[i * 2 + 1]].each do |employee|
+    p
+      - if employee.present?
+        = link_to employee.name.titleize, person_url(employee)
+        '&nbsp;(last meeting
+        - if employee.last_one_on_one_meeting_at.present?
+          = employee.last_one_on_one_meeting_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+        - else
+          |never
+        |, email: #{employee.email}, skype: #{employee.skype}, phone: #{employee.phone}
+        |), #{link_to '[add meeting note]', new_note_url(note: { person_id: employee.id })}
+      - else
+        'none
+        - break_all = true
+        break
 
-  - if @employees[index * 2 + 1].present?
-    - employee = @employees[index * 2 + 1]
-    = link_to employee.name.titleize, person_url(employee)
-    '&nbsp;(last meeting
-    - if employee.last_one_on_one_meeting_at.present?
-      = employee.last_one_on_one_meeting_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
-    - else
-      |never
-    |, email: #{employee.email}, skype: #{employee.skype}, phone: #{employee.phone}
-    |), #{link_to 'add meeting note here', new_note_url(note: { person_id: employee.id })}
-  - else
-    'none
-  br
-  br
-
-| Please arrange meeting with them
+p Please arrange meeting with them and update "last_one_on_one_meeting_at" and add meeting notes afterwards.
 
 = render 'shared/mail_footer'

@@ -37,10 +37,11 @@ namespace :employees do
   desc 'Sends advance notification about 1-1 meetings'
   task one_on_one_meeting: :environment do
     employees = Person.not_deleted.current_employee
-      .where('city ILIKE ?', 'Kyiv')
+      .where('city ILIKE ?', ENV['MAIN_CITY'])
       .where('start_date < ?', Time.zone.now.strftime('%F'))
+      .where('last_one_on_one_meeting_at IS NULL OR last_one_on_one_meeting_at < ?', 3.months.ago.strftime('%F'))
       .reorder('last_one_on_one_meeting_at IS NOT NULL, last_one_on_one_meeting_at ASC')
-      .order(:name).limit(10)
+      .order(:name)
 
     User.where(one_on_one_notifications_enabled: true).pluck(:id).each do |user_id|
       EmployeesMailer.one_on_one(user_id, employees).deliver_now
