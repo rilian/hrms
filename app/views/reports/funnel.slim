@@ -3,9 +3,13 @@ h2.title Funnel Report
 
 = simple_form_for :funnel, html: { method: :get, class: 'form' } do |f|
   ' From
+  
+  = link_to 'today', funnel_reports_path(funnel: { start_date: Time.zone.now.strftime('%d-%m-%Y'), finish_date: 1.day.since.strftime('%d-%m-%Y') })
+  ',
   = link_to 'current week', funnel_reports_path
   ',
-  = link_to 'today', funnel_reports_path(funnel: { start_date: Time.zone.now.strftime('%d-%m-%Y'), finish_date: 1.day.since.strftime('%d-%m-%Y') })
+  = link_to 'past and current week', funnel_reports_path(funnel: { start_date: (Time.zone.now - 7.days).beginning_of_week.strftime('%d-%m-%Y'), finish_date: Time.zone.now.end_of_week.strftime('%d-%m-%Y') })
+
   = f.input :start_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:funnel][:start_date], class: 'datepicker' }
   ' To
   = f.input :finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: {value: params[:funnel][:finish_date], class: 'datepicker'}
