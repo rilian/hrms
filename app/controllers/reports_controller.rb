@@ -177,6 +177,7 @@ class ReportsController < ApplicationController
       start_date: Time.zone.now.beginning_of_week.strftime('%d-%m-%Y'),
       finish_date: Time.zone.now.end_of_week.strftime('%d-%m-%Y')
     } if params[:funnel].blank?
+    params[:funnel][:start_date], params[:funnel][:finish_date] = params[:funnel][:finish_date], params[:funnel][:start_date] if Time.strptime(params[:funnel][:start_date], '%d-%m-%Y') > Time.strptime(params[:funnel][:finish_date], '%d-%m-%Y')
 
     @vacancies = Vacancy.where(status: 'open').order(:created_at)
 
