@@ -179,6 +179,12 @@ class ReportsController < ApplicationController
     } if params[:funnel].blank?
 
     @vacancies = Vacancy.where(status: 'open').order(:created_at)
+
+    @funnel = FunnelStatsCollector.new(
+      scope: Person.accessible_by(current_ability).not_deleted,
+      start_date: funnel_update_params[:start_date],
+      finish_date: funnel_update_params[:finish_date]
+    ).perform
   end
 
   private
