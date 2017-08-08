@@ -185,6 +185,46 @@ class ReportsController < ApplicationController
       start_date: funnel_update_params[:start_date],
       finish_date: funnel_update_params[:finish_date]
     ).perform
+
+    if params['xlsx'].present?
+      Axlsx::Package.new do |p|
+        p.use_shared_strings = true
+        wb = p.workbook
+        wb.add_worksheet(name: 'Funnel') do |sheet|
+          sheet.add_row [
+            'Vacancy',
+            'Created candidates',
+            'Touched candidates',
+            'No status',
+            'Not interested or rejected',
+            'Interested',
+            'Interview process',
+            'Passed Interview',
+            'Hired',
+            'Source',
+            'Updated By'
+          ]
+
+          @funnel.each do |item|
+            sheet.add_row [
+              item[:vacancy_title],
+              item[:people_created],
+              item[:people_updated_count],
+              item[:people_no_status_count],
+              item[:people_not_interested_count],
+              item[:people_interested_count],
+              item[:people_interview_count],
+              item[:people_passed_interview_count],
+              item[:people_hired_count],
+              item[:sources].map { |i| "#{i[1]} #{i[0]}" }.join("\r\n"),
+              item[:updates].map { |i| "#{i[:count]} #{i[:name]}" }.join("\r\n")
+            ]
+          end
+        end
+        send_data p.to_stream().read, filename: "funnel--#{funnel_update_params[:start_date]}--#{funnel_update_params[:finish_date]}.xlsx"
+        return
+      end
+    end
   end
 
   private

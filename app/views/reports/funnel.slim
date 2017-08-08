@@ -3,7 +3,7 @@ h2.title Funnel Report
 
 = simple_form_for :funnel, html: { method: :get, class: 'form' } do |f|
   ' From
-  
+
   = link_to 'today', funnel_reports_path(funnel: { start_date: Time.zone.now.strftime('%d-%m-%Y'), finish_date: 1.day.since.strftime('%d-%m-%Y') })
   ',
   = link_to 'current week', funnel_reports_path
@@ -14,6 +14,8 @@ h2.title Funnel Report
   ' To
   = f.input :finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: {value: params[:funnel][:finish_date], class: 'datepicker'}
   = f.button :submit, 'View Report', class: 'btn btn-success'
+  '&nbsp;
+  = f.button :submit, 'Download XLSX', name: 'xlsx', value: 'Download XLSX', class: 'btn btn-success'
 
 table.table.pretty-table
   thead
