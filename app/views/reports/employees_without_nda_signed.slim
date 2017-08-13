@@ -5,6 +5,7 @@ table.table.pretty-table
   thead
     th #
     th Name
+    th Files
   tbody
     - @people.each_with_index do |person, index|
       tr
@@ -12,3 +13,8 @@ table.table.pretty-table
           = index + 1
         td
           = link_to person.name, edit_person_path(person)
+        td
+          - person.attachments.each do |attachment|
+            = link_to attachment.name, Refile.attachment_url(attachment, :file)
+            '&nbsp;
+
