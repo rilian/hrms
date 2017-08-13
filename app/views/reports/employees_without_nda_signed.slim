@@ -12,7 +12,10 @@ table.table.pretty-table
         td
           = index + 1
         td
-          = link_to person.name, edit_person_path(person)
+          = link_to person.name, person_path(person)
+          '&nbsp;
+          a href="#{edit_person_path(person)}"
+            i.fa.fa-pencil
         td
           - person.attachments.each do |attachment|
             = link_to attachment.name, Refile.attachment_url(attachment, :file)
