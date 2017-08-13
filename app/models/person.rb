@@ -46,6 +46,7 @@ class Person < ActiveRecord::Base
   validates :primary_tech, inclusion: { in: PRIMARY_TECHS }
   validates :vacation_override, numericality: { only_integer: true }, allow_blank: true
   validates :email, :phone, :skype, :linkedin, uniqueness: { case_sensitive: false }, allow_blank: true
+  validates :name, format: { with: /\A[a-zA-Z\d\s\-\'\(\)]+\z/, message: 'invalid symbols. Only A-Z, digits, braces, quote and space allowed' }, allow_blank: true
   validates :phone, format: { with: /\A[\s\+\d]+\z/ }, allow_blank: true
   validates :email, format: { with: /\A[0-9a-z\@\.\-\'\+]+\z/ }, allow_blank: true
   validates :start_date, presence: { message: 'should be present for current employee' }, if: ->(p) { p.status.in?(EMPLOYEE_STATUSES) }
