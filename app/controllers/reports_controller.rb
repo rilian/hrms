@@ -55,7 +55,9 @@ class ReportsController < ApplicationController
 
   def employees_without_nda_signed
     load_current_employees
-    @people = @people.where(signed_nda: false).order(:name)
+    unless params[:show_all] == 'true'
+      @people = @people.where(signed_nda: false)
+    end
   end
 
   def employees_by_birthday_month

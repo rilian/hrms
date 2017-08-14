@@ -1,10 +1,14 @@
 h2.title Current Employees without NDA signed
-= "#{@people.count} employees"
+= "#{@people.count} employees did not sign"
+br
+= link_to 'show all', employees_without_nda_signed_reports_path(show_all: 'true')
 
 table.table.pretty-table
   thead
     th #
     th Name
+    - if params[:show_all] == 'true'
+      th NDA Signed?
     th Files
   tbody
     - @people.each_with_index do |person, index|
@@ -16,6 +20,9 @@ table.table.pretty-table
           '&nbsp;
           a href="#{edit_person_path(person)}"
             i.fa.fa-pencil
+        - if params[:show_all] == 'true'
+          td
+            = person.signed_nda? ? 'yes' : ''
         td
           - person.attachments.each do |attachment|
             = link_to attachment.name, Refile.attachment_url(attachment, :file)
