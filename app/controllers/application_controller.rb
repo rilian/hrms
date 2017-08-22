@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
           v[index] = v2.squish
         end
       else
-        params[k] = v.squish
+        params[k] = v.to_s.squish
       end
     end
   end

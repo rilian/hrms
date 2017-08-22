@@ -24,6 +24,7 @@ class Dayoff < ActiveRecord::Base
   end
 
   def dates_order
+    return if start_on.blank? || end_on.blank?
     return if start_on <= end_on
     errors.add(:start_on, 'should be earlier than end_on')
   end
