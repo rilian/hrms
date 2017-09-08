@@ -21,6 +21,7 @@ class Person < ActiveRecord::Base
     PHP
     Scala
     UI/UX
+    ML
   )
   ENGLISH_LEVELS = %w(
     Beginner/Elementary
