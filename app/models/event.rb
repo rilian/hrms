@@ -12,4 +12,10 @@ class Event < ActiveRecord::Base
       user: user
     )
   end
+  
+  private
+
+  ransacker :params_as_str do
+    Arel.sql("#{arel_table.name}.params::varchar")
+  end
 end
