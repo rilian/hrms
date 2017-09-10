@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.9'
+gem 'rails', '5.1.2'
 gem 'pg'
 gem 'dotenv-rails'
 gem 'ransack'
 gem 'warden'
 gem 'devise'
-gem 'refile', require: 'refile/rails'
+gem 'refile', require: 'refile/rails', github: 'refile/refile'
 gem 'refile-mini_magick'
 gem 'smarter_csv', require: false
 gem 'acts-as-taggable-on'
@@ -35,7 +35,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'quiet_assets'
   gem 'bullet'
   gem 'letter_opener'
 end

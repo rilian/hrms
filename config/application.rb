@@ -13,8 +13,15 @@ Bundler.require(*Rails.groups)
 
 module HRMS
   class Application < Rails::Application
+    config.autoload_paths += Dir[
+      "#{config.root}/app/models/**/",
+      "#{config.root}/app/services/**/",
+      "#{config.root}/app/workers/**/",
+      "#{config.root}/app/helpers/**/",
+      "#{config.root}/lib/**/"
+    ]
+
     config.active_record.schema_format = :sql
-    config.active_record.raise_in_transactional_callbacks = true
     config.time_zone = 'UTC'
   end
 end

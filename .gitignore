@@ -9,3 +9,4 @@
 .byebug_history
 *.copy
 *.log
+public/assets

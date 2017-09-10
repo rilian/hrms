@@ -44,6 +44,7 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params.merge!(updated_by: current_user))
     if @person.save
+      @person.update!(photo: person_photo_params[:photo]) if person_photo_params[:photo].present?
       log_event(entity: @person, action: 'created')
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || people_path, flash: { success: 'Person created' }
     else
@@ -74,10 +75,14 @@ class PeopleController < ApplicationController
 
 private
 
+  def person_photo_params
+    params.require(:person).permit(:photo)
+  end
+
   def person_params
     params.require(:person).permit(:name, :city, :phone, :skype, :linkedin, :email, :start_date,
       :primary_tech, :current_position, :english, :day_of_birth, :status, :expected_salary, :source,
-      :vacation_override, :photo, :skills, :finish_date, :signed_nda, :salary_type, :employee_id,
+      :vacation_override, :skills, :finish_date, :signed_nda, :salary_type, :employee_id,
       :last_one_on_one_meeting_at,
       tag_list: [])
   end
