@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '5.1.2'
+gem 'websocket-driver', '0.6.4'
 gem 'pg'
 gem 'dotenv-rails'
 gem 'ransack'

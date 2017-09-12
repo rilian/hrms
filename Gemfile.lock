@@ -251,7 +251,7 @@ GEM
     uniform_notifier (1.10.0)
     warden (1.2.7)
       rack (>= 1.0)
-    websocket-driver (0.6.5)
+    websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     whenever (0.9.7)
@@ -293,6 +293,7 @@ DEPENDENCIES
   therubyracer
   uglifier
   warden
+  websocket-driver (= 0.6.4)
   whenever
 
 BUNDLED WITH
