@@ -58,6 +58,8 @@ class FunnelStatsCollector
       result << item
     end
 
-    result.sort { |a, b| b[:people_updated_count] <=> a[:people_updated_count] }
+    # sort by most updated vacancy
+    # result.sort { |a, b| b[:people_updated_count] <=> a[:people_updated_count] }
+    result
   end
 end
