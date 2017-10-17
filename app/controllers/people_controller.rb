@@ -58,6 +58,7 @@ class PeopleController < ApplicationController
 
   def update
     if @person.update(person_params.merge!(updated_by: current_user))
+      @person.update!(photo: person_photo_params[:photo]) if person_photo_params[:photo].present?
       log_event(entity: @person, action: 'updated')
       redirect_to person_path(@person)
       # redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || people_path, flash: { success: 'Person updated' }
