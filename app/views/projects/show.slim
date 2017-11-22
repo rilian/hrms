@@ -1,0 +1,21 @@
+.js-edit-form-container style="display:none;"
+  h2.title
+    | Edit #{@project.name}
+    | &nbsp;
+    a.btn.btn-default href="#{project_path(@project)}" Back
+  = render 'projects/form'
+
+.js-show-container
+  h2.title
+    = "#{@project.name}"
+    | &nbsp;
+    a.btn.btn-default.js-show-edit-form href="#" Edit
+  p
+    | Status:&nbsp;
+    = @project.status
+  p
+    | Description:&nbsp;
+    = @project.description
+  p
+    | Started:&nbsp;
+    = @project.started_at&.to_formatted_s(:rfc822)
