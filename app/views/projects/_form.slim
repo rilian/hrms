@@ -1,0 +1,27 @@
+= render 'shared/form_error', object: @project
+
+= simple_form_for @project, html: { class: 'form' } do |f|
+  .form-group
+    label.control-label
+      | Name
+      span.text-danger *
+    = f.input :name, label: false
+
+  .form-group
+    label.control-label Type
+    = f.input :status,
+              collection: Project::STATUSES,
+              label: false,
+              include_blank: false,
+              input_html: { class: 'select form-control' }
+
+  .form-group
+    label.control-label
+      | Description
+      span.text-danger *
+    = f.input :description, as: :text, placeholder: 'Describe customer, goals, etc', label: false, input_html: { rows: 3 }
+
+  .form-bordered
+    .form-group.form-actions
+      .text-center
+        = f.button :submit, (@project.new_record? ? 'Create Project' : 'Update Project'), class: 'btn btn-success'

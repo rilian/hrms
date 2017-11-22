@@ -1,0 +1,18 @@
+h2.title
+  | PROJECTS &nbsp;
+  a.btn.btn-default.btn-pill href="/projects/new"
+    i.fa.fa-plus
+    | &nbsp; Add project
+
+table.table.pretty-table
+  thead
+    th = sort_link @q, :name
+    th = sort_link @q, :status
+    th = sort_link @q, :created_at, 'Created'
+    th = sort_link @q, :updated_at, 'Updated'
+    th colspan="2" Actions
+
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @projects

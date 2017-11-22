@@ -1,0 +1,20 @@
+- if @projects.empty?
+  span class='js-page-last'
+
+- @projects.each_with_index do |record, index|
+  tr class=('js-page-last' if (index == @projects.size - 1) && last_page?(@projects))
+    td
+      = link_to record.name, project_path(record)
+    td
+      = record.status
+    td
+      = record.description
+    td = record.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    td
+      = record.updated_at.strftime(t(:datetime_full))
+      br
+      = record.updated_by&.email&.split('@')&.first
+    td colspan="2"
+      a href="#{edit_project_path(record)}" class="btn btn-sm btn-info btn-pill"
+        i.fa.fa-pencil
+        | &nbsp;Edit
