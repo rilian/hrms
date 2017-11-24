@@ -5,7 +5,6 @@ class CreateProjects < ActiveRecord::Migration[5.1]
       t.text :description
       t.string :status, null: false, default: 'active'
       t.date :started_at
-      t.datetime :updated_at
       t.integer :updated_by_id
       t.timestamps null: false
     end

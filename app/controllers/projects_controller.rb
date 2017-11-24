@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource
+  autocomplete :project, :name, full: true
 
   def index
     @q = Project.accessible_by(current_ability).ransack(params[:q])
@@ -18,6 +19,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @project_note = ProjectNote.new(project: @project)
+    @project.project_notes = @project.project_notes.includes(:updated_by)
   end
 
   def new

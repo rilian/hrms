@@ -279,6 +279,39 @@ ALTER SEQUENCE people_id_seq OWNED BY people.id;
 
 
 --
+-- Name: project_notes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE project_notes (
+    id bigint NOT NULL,
+    project_id integer NOT NULL,
+    value text,
+    updated_by_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: project_notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE project_notes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: project_notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE project_notes_id_seq OWNED BY project_notes.id;
+
+
+--
 -- Name: projects; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -290,7 +323,8 @@ CREATE TABLE projects (
     started_at date,
     updated_at timestamp without time zone NOT NULL,
     updated_by_id integer,
-    created_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    project_notes_count integer DEFAULT 0
 );
 
 
@@ -541,6 +575,13 @@ ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::reg
 
 
 --
+-- Name: project_notes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY project_notes ALTER COLUMN id SET DEFAULT nextval('project_notes_id_seq'::regclass);
+
+
+--
 -- Name: projects id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -636,6 +677,14 @@ ALTER TABLE ONLY notes
 
 ALTER TABLE ONLY people
     ADD CONSTRAINT people_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: project_notes project_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY project_notes
+    ADD CONSTRAINT project_notes_pkey PRIMARY KEY (id);
 
 
 --
@@ -778,6 +827,13 @@ CREATE INDEX index_people_on_status ON people USING btree (status);
 
 
 --
+-- Name: index_project_notes_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_notes_on_project_id ON project_notes USING btree (project_id);
+
+
+--
 -- Name: index_taggings_on_tag_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -886,6 +942,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170724171851'),
 ('20170801114924'),
 ('20170803155139'),
-('20171122062431');
+('20171122062431'),
+('20171124182544'),
+('20171124182837');
 
 

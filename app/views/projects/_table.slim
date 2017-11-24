@@ -5,6 +5,17 @@
   tr class=('js-page-last' if (index == @projects.size - 1) && last_page?(@projects))
     td = link_to record.name, project_path(record)
     td = record.status
+    td
+      - if (record.project_notes_count || 0) > 0
+        | Latest project notes:
+        br
+        - record.project_notes.accessible_by(current_ability).order(updated_at: :desc).each do |project_note|
+          = project_note.created_at.strftime(t(:day))
+          | &nbsp;
+          a href="#{edit_project_note_path(project_note)}" edit
+          ' : #{with_newlines(truncate(project_note.value, length: 300, escape: false))}
+          br
+      = link_to '+ Project Note', new_project_note_path(project_note: { project_id: record.id })
     td = record.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
     td
       = record.updated_at.strftime(t(:datetime_full))

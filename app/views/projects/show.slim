@@ -15,7 +15,25 @@
     = @project.status
   p
     | Description:&nbsp;
-    = @project.description
+    = with_newlines(@project.description)
   p
     | Started:&nbsp;
     = @project.started_at&.to_formatted_s(:rfc822)
+
+  h3
+    | Latest notes &nbsp;
+    = link_to 'Add', new_project_note_path(project_note: { project_id: @project.id }), class: 'btn btn-default'
+  - @project.project_notes.accessible_by(current_ability).order(updated_at: :desc).each do |project_note|
+    p
+      = project_note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+      | &nbsp;(#{project_note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
+
+      a href="#{edit_project_note_path(project_note)}" edit
+      br
+      ' #{with_newlines(project_note.value)}
+
+  .js-show-quick-forms-container style="display:none;"
+    h3 Quick Forms
+    p
+      b Add Project Note
+      = render 'project_notes/form', partial_form: true

@@ -9,11 +9,13 @@ Rails.application.routes.draw do
   resources :events, only: :index
   resources :notes, except: [:show, :destroy]
   resources :people do
-    get :autocomplete_person_name, on: :collection
     get :autocomplete_employee_name, on: :collection
-  resources :project_notes, except: [:show, :destroy]
+    get :autocomplete_person_name, on: :collection
   end
-  resources :projects, except: [:destroy]
+  resources :project_notes, except: [:show, :destroy]
+  resources :projects, except: [:destroy] do
+    get :autocomplete_project_name, on: :collection
+  end
   resources :reports, only: :index do
     collection do
       get :by_status

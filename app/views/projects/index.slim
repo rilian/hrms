@@ -8,6 +8,7 @@ table.table.pretty-table
   thead
     th = sort_link @q, :name
     th = sort_link @q, :status
+    th Activity
     th = sort_link @q, :created_at, 'Created'
     th = sort_link @q, :updated_at, 'Updated'
     th colspan="2" Actions

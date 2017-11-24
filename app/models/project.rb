@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   belongs_to :updated_by, class_name: 'User'
+  has_many :project_notes
 
   STATUSES = ['active', 'finished']
 
