@@ -1,0 +1,18 @@
+h2.title
+  | PROJECT NOTES &nbsp;
+  a.btn.btn-default.btn-pill href="/project_notes/new"
+    i.fa.fa-plus
+    | &nbsp; Add project note
+
+table.table.pretty-table
+  thead
+    th = sort_link @q, :project, ['project_name'], 'Project'
+    th = sort_link @q, :value
+    th = sort_link @q, :created_at, 'Created'
+    th = sort_link @q, :updated_at, 'Updated'
+    th colspan="2" Actions
+
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @project_notes
