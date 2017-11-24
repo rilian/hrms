@@ -9,7 +9,7 @@ class ActionPointsController < ApplicationController
     @action_points = @action_points.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @action_points = @action_points.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @action_points = @action_points.includes(:person)
+    @action_points = @action_points.includes(:person, :updated_by)
 
     respond_to do |f|
       f.partial { render partial: 'table' }

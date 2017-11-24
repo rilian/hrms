@@ -28,7 +28,7 @@ class VacanciesController < ApplicationController
     @people = @people.tagged_with(tags.flatten)
 
     @count = @people.count
-    @people = @people.includes(:attachments, :action_points, :updated_by, notes: [:updated_by])
+    @people = @people.includes(:attachments, :action_points, :updated_by, :taggings, notes: [:updated_by])
 
     @tags = Person.not_deleted.accessible_by(current_ability).tag_counts_on(:tags)
               .sort { |t1, t2| t2.taggings_count <=> t1.taggings_count }

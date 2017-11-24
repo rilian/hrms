@@ -19,7 +19,7 @@ class PeopleController < ApplicationController
     @people = @people.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @people = @people.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @people = @people.includes(:attachments, :action_points, :updated_by, notes: [:updated_by])
+    @people = @people.includes(:attachments, :action_points, :updated_by, :taggings, notes: [:updated_by])
 
     @tags = Person.not_deleted.accessible_by(current_ability).tag_counts_on(:tags)
       .sort { |t1, t2| t2.taggings_count <=> t1.taggings_count }
@@ -32,6 +32,8 @@ class PeopleController < ApplicationController
   end
 
   def show
+    @person.notes = @person.notes.includes(:updated_by)
+
     @action_point = ActionPoint.new(person: @person)
     @attachment = Attachment.new(person: @person)
     @dayoff = Dayoff.new(person: @person)

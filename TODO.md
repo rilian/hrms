@@ -1,4 +1,4 @@
-# TODO
+# TODO (needs update)
 
 ## Major
 
@@ -16,4 +16,3 @@
 * Non-authenticated access by UUID
 * Offer Email generation
 * SaaS
-* Editable note types
