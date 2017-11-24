@@ -276,6 +276,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   letter_opener
+  nokogiri (= 1.8.0)
   pg
   puma
   rails (= 5.1.2)
@@ -296,4 +297,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.16.0.pre.2
+   1.16.0
