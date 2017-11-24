@@ -23,14 +23,20 @@
   h3
     | Latest notes &nbsp;
     = link_to 'Add', new_project_note_path(project_note: { project_id: @project.id }), class: 'btn btn-default'
-  - @project.project_notes.accessible_by(current_ability).order(updated_at: :desc).each do |project_note|
-    p
-      = project_note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
-      | &nbsp;(#{project_note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
 
-      a href="#{edit_project_note_path(project_note)}" edit
-      br
-      ' #{with_newlines(project_note.value)}
+  table.table.pretty-table
+    thead
+      th Date
+      th Note
+      th Actions
+    tbody
+      - @project.project_notes.accessible_by(current_ability).order(updated_at: :desc).each do |project_note|
+        tr
+          td = project_note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            | &nbsp;(#{project_note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
+          td = with_newlines(project_note.value)
+          td
+            a href="#{edit_project_note_path(project_note)}" edit
 
   .js-show-quick-forms-container style="display:none;"
     h3 Quick Forms
