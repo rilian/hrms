@@ -9,6 +9,9 @@
       - if record.entity.is_a?(Person)
         br
         = link_to record.entity.name.titleize, person_path(record.entity)
+      - if record.entity.is_a?(Project)
+        br
+        = link_to record.entity.name.titleize, project_path(record.entity)
       - elsif record.entity.is_a?(User)
         br
         = link_to record.entity.email.split('@').first + '@...', user_path(record.entity)
