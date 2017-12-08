@@ -30,6 +30,7 @@ class DayoffsController < ApplicationController
   def create
     if @dayoff.save
       log_event(entity: @dayoff, action: 'created')
+      @dayoff.person.update(updated_by_id: current_user.id)
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || dayoffs_path, flash: { success: 'Day off created' }
     else
       flash.now[:error] = 'Day off was not created'
@@ -43,6 +44,7 @@ class DayoffsController < ApplicationController
   def update
     if @dayoff.update(dayoff_params.merge!(updated_by: current_user))
       log_event(entity: @dayoff, action: 'updated')
+      @dayoff.person.update(updated_by_id: current_user.id)
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || dayoffs_path, flash: { success: 'Day off updated' }
     else
       flash.now[:error] = 'Day off was not updated'
