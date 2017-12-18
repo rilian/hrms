@@ -1,7 +1,7 @@
 class Expense < ActiveRecord::Base
   self.inheritance_column = nil
 
-  TYPES = ['Conference', 'Other']
+  TYPES = ['Business Trip', 'Conference', 'Other']
 
   belongs_to :person, touch: true
   belongs_to :updated_by, class_name: 'User'
