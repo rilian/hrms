@@ -37,6 +37,7 @@ class Person < ActiveRecord::Base
   has_many :action_points
   has_many :attachments
   has_many :dayoffs
+  has_many :expenses
   has_many :notes
 
   before_validation :cleanup

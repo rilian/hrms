@@ -33,10 +33,10 @@ class PeopleController < ApplicationController
 
   def show
     @person.notes = @person.notes.includes(:updated_by)
-
     @action_point = ActionPoint.new(person: @person)
     @attachment = Attachment.new(person: @person)
     @dayoff = Dayoff.new(person: @person)
+    @expense = Expense.new(person: @person)
     @note = Note.new(person: @person)
   end
 
