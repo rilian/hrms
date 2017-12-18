@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
         Axlsx::Package.new do |p|
           p.use_shared_strings = true
           wb = p.workbook
-          wb.add_worksheet(name: params[:primary_tech]) do |sheet|
+          wb.add_worksheet(name: params[:primary_tech].gsub(/[^a-zA-Z\s0-9]+/, '-')) do |sheet|
             sheet.add_row [
               'Name',
               'HR Status',
