@@ -75,11 +75,11 @@ private
   end
 
   def strip_values
-    self.phone = self.phone.strip
-    self.current_position = self.current_position.strip
-    self.email = self.email.strip
-    self.skype = self.skype.strip
-    self.linkedin = self.linkedin.strip
-    self.name = self.name.strip
+    self.phone = self.phone.to_s.strip
+    self.current_position = self.current_position.to_s.strip
+    self.email = self.email.to_s.strip
+    self.skype = self.skype.to_s.strip
+    self.linkedin = self.linkedin.to_s.strip
+    self.name = self.name.to_s.strip
   end
 end
