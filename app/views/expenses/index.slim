@@ -1,0 +1,20 @@
+h2.title
+  | EXPENSES &nbsp;
+  a.btn.btn-default.btn-pill href="/expenses/new"
+    i.fa.fa-plus
+    | &nbsp; Add expense
+
+table.table.pretty-table
+  thead
+    th = sort_link @q, :person, ['person_name'], 'Person'
+    th = sort_link @q, :type
+    th = sort_link @q, :amount
+    th = sort_link @q, :notes
+    th = sort_link @q, :recorded_on
+    th = sort_link @q, :created_at, 'Created'
+    th colspan="2" Actions
+
+  tbody.js-loadable-list
+    = render 'table'
+
+= render 'shared/load_button', collection: @expenses

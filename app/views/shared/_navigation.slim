@@ -25,6 +25,10 @@
       a href="#{employees_dayoffs_path}"
         i.fa
           | &nbsp;&nbsp;&nbsp; Days off
+    li.item class="#{active_class('/expenses')}"
+      a href="#{expenses_path}"
+        i.fa
+          | &nbsp;&nbsp;&nbsp; Expenses
     li.item role="presentation" class="#{active_class('/vacancies')}"
       a href="#{vacancies_path}"
         i.fa.fa-tags

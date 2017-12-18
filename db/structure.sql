@@ -185,6 +185,42 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
+-- Name: expenses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE expenses (
+    id bigint NOT NULL,
+    person_id bigint NOT NULL,
+    type character varying DEFAULT 'Other'::character varying NOT NULL,
+    notes text DEFAULT ''::text NOT NULL,
+    amount integer DEFAULT 0 NOT NULL,
+    recorded_on date,
+    updated_by_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: expenses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE expenses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: expenses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE expenses_id_seq OWNED BY expenses.id;
+
+
+--
 -- Name: notes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -561,6 +597,13 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 
 
 --
+-- Name: expenses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY expenses ALTER COLUMN id SET DEFAULT nextval('expenses_id_seq'::regclass);
+
+
+--
 -- Name: notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -661,6 +704,14 @@ ALTER TABLE ONLY dayoffs
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: expenses expenses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY expenses
+    ADD CONSTRAINT expenses_pkey PRIMARY KEY (id);
 
 
 --
@@ -782,6 +833,13 @@ CREATE INDEX index_events_on_params ON events USING gin (params);
 --
 
 CREATE INDEX index_events_on_user_id ON events USING btree (user_id);
+
+
+--
+-- Name: index_expenses_on_person_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_expenses_on_person_id ON expenses USING btree (person_id);
 
 
 --
@@ -944,6 +1002,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170803155139'),
 ('20171122062431'),
 ('20171124182544'),
-('20171124182837');
+('20171124182837'),
+('20171218111352');
 
 

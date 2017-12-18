@@ -1,0 +1,27 @@
+.js-edit-form-container style="display:none;"
+  h2.title
+    | Edit Expense
+    | &nbsp;
+    a.btn.btn-default href="#{expense_path(@expense)}" Back
+  = render 'expenses/form'
+
+.js-show-container
+  h2.title
+    = "#{@expense.type} of #{@expense.person.name}"
+    | &nbsp;
+    a.btn.btn-default.js-show-edit-form href="#" Edit
+  p
+    | Person:&nbsp;
+    = link_to @expense.person.name, person_path(@expense.person)
+  p
+    | Type:&nbsp;
+    = @expense.type
+  p
+    | Amount:&nbsp;
+    = '$' + @expense.amount.to_s
+  p
+    | Recorded on:&nbsp;
+    = @expense.recorded_on&.to_formatted_s(:rfc822)
+  p
+    | Notes:&nbsp;
+    = @expense.notes

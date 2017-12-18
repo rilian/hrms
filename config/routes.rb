@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get :employees, on: :collection
   end
   resources :events, only: :index
+  resources :expenses
   resources :notes, except: [:show, :destroy]
   resources :people do
     get :autocomplete_employee_name, on: :collection

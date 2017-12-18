@@ -1,0 +1,55 @@
+= render 'shared/form_error', object: @expense
+
+= simple_form_for @expense, html: { class: 'form' } do |f|
+  .form-group
+    - if defined?(partial_form) && partial_form.present?
+      input type="hidden" name="expense[person_id]" value="#{@person.id}"
+    - elsif @expense.new_record?
+      - if params.dig(:expense, :person_id).blank?
+        = f.input :person_id, as: :hidden
+        label.control-label
+          span.text-danger *
+          | Person:&nbsp;
+        input.select.form-control value="#{(Person.find_by_id(params.dig(:expense, :person_id)) || @expense.person)&.name}" type="text" data-autocomplete="#{autocomplete_employee_name_people_path}" data-id-element="#expense_person_id" data-auto-focus="true"
+      - else
+        = f.input :person_id, as: :hidden, input_html: {value: params[:expense][:person_id]}
+        label.control-label
+          span.text-danger *
+          | Person:&nbsp;
+        a href="#{person_path(Person.find_by_id(params.dig(:expense, :person_id)))}" #{(Person.find_by_id(params.dig(:expense, :person_id))).name}
+    - else
+      label.control-label Person&nbsp;
+      a href="#{person_path(@expense.person)}" #{@expense.person.name}
+
+  .form-group
+    label.control-label
+      span.text-danger *
+      |  Type:
+    = f.input :type,
+        collection: Expense::TYPES,
+        label: false,
+        include_blank: false,
+        input_html: { class: 'select form-control' }
+
+  .form-group
+    label.control-label
+      span.text-danger *
+      |  Amount, $:
+    = f.input :amount, placeholder: '10', label: false, class: 'input form-control'
+
+  .form-group
+    label.control-label
+      span.text-danger *
+      |  Recorded on (min #{f.object.person&.start_date&.strftime('%d-%m-%Y')}):
+    = f.input :recorded_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false,
+        input_html: { value: f.object.recorded_on&.strftime('%d-%m-%Y'), class: 'datepicker', data: { 'date-start-date' => f.object.person&.start_date&.strftime('%d-%m-%Y'), 'date-end-date' => 6.months.since.strftime('%d-%m-%Y') } }
+
+  .form-group
+    label.control-label
+      | Notes:
+    = f.input :notes, as: :text, placeholder: 'Additional info', label: false, input_html: {rows: (defined?(partial_form) && partial_form.present?) ? 1 : 3}
+
+  .form-bordered
+    .form-group.form-actions
+      .text-center
+        = f.button :submit, (@expense.new_record? ? 'Create Expense' : 'Update Expense'), class: 'btn btn-success'

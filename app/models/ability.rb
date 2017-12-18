@@ -8,6 +8,7 @@ class Ability
     can :manage, Attachment
     can :manage, Dayoff
     can :manage, Event if user.has_access_to_events?
+    can :manage, Expense
     can :manage, Note
     can :manage, Person
     can :manage, Project

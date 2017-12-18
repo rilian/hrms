@@ -1,0 +1,23 @@
+- if @expenses.empty?
+  span class='js-page-last'
+
+- @expenses.each_with_index do |record, index|
+  tr class=('js-page-last' if (index == @expenses.size - 1) && last_page?(@expenses))
+    td = link_to record.person.name, person_path(record.person)
+    td = link_to record.type, expense_path(record)
+    td = '$' + record.amount.to_s
+    td = with_newlines(record.notes)
+    td = record.recorded_on&.to_formatted_s(:rfc822)
+    td = record.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    td colspan="2"
+      a.btn.btn-sm.btn-default.btn-pill href="#{expense_path(record)}"
+        i
+        | &nbsp;View
+      | &nbsp;
+      a.btn.btn-sm.btn-info.btn-pill href="#{edit_expense_path(record)}"
+        i.fa.fa-pencil
+        | &nbsp;Edit
+      | &nbsp;
+      a.btn.btn-sm.btn-danger.btn-pill href="#{expense_path(record)}" data-method="delete" data-confirm="Are you sure ?"
+        i.fa.fa-times
+        | &nbsp;Delete
