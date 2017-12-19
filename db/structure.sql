@@ -193,7 +193,7 @@ CREATE TABLE expenses (
     person_id bigint NOT NULL,
     type character varying DEFAULT 'Other'::character varying NOT NULL,
     notes text DEFAULT ''::text NOT NULL,
-    amount integer DEFAULT 0 NOT NULL,
+    amount integer NOT NULL,
     recorded_on date,
     updated_by_id integer,
     created_at timestamp without time zone NOT NULL,
@@ -1003,6 +1003,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171122062431'),
 ('20171124182544'),
 ('20171124182837'),
-('20171218111352');
+('20171218111352'),
+('20171219190759');
 
 
