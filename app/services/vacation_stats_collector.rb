@@ -57,8 +57,10 @@ class VacationStatsCollector
   def vacation_size(date, year)
     if date < Time.strptime(ENV['PROGRESSIVE_VACATION_SIZE_START_DATE'], '%m/%d/%Y')
       ENV['VACATION_PER_YEAR'].to_i
-    else
+    elsif date < Time.strptime(ENV['PROGRESSIVE_VACATION_SIZE_START_DATE_2'], '%m/%d/%Y')
       VACATION_PER_YEAR_SIZE[year.to_s].presence || VACATION_PER_YEAR_SIZE.values.last
+    else
+      VACATION_PER_YEAR_SIZE_2[year.to_s].presence || VACATION_PER_YEAR_SIZE_2.values.last
     end
   end
 
