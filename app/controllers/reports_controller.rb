@@ -134,6 +134,10 @@ class ReportsController < ApplicationController
     load_current_employees
   end
 
+  def employees_expenses
+    load_current_employees
+  end
+
   def people_with_similar_name
     @people = []
     previous_ids = []

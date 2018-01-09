@@ -1,0 +1,38 @@
+h2.title Current Employees expenses
+br
+
+table.table.pretty-table
+  thead
+    th #
+    th Name
+    th Start Date
+    th Total
+    - Expense::TYPES.each do |type|    
+      th 
+        = type.capitalize + ' Total'
+  tbody
+    - @people.each_with_index do |person, index|
+      tr
+        td
+          = index + 1
+        td
+          = link_to person.name, person_path(person)
+          '&nbsp;
+          a href="#{edit_person_path(person)}"
+            i.fa.fa-pencil
+        td
+          - if person.start_date.present?
+            - if person.start_date > Time.zone.now
+              strong
+                = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            - else
+              = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+          - else
+            a href="#{edit_person_path(person)}"
+              i.fa.fa-pencil            
+        td
+          = person.expenses.sum(:amount)
+        - Expense::TYPES.each do |type|
+          td
+            = person.expenses.where(type: type).sum(:amount)
+            
