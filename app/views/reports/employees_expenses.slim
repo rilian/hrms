@@ -5,34 +5,75 @@ table.table.pretty-table
   thead
     th #
     th Name
-    th Start Date
     th Total
+    th Period Info
+    th Period Total
+    th Period Remainig
     - Expense::TYPES.each do |type|    
-      th 
-        = type.capitalize + ' Total'
+      th = type
   tbody
-    - @people.each_with_index do |person, index|
+    - @people.each_with_index do |record, index|
       tr
         td
           = index + 1
-        td
-          = link_to person.name, person_path(person)
-          '&nbsp;
-          a href="#{edit_person_path(person)}"
+        td width="200"
+          = link_to record.name, person_path(record)
+          '
+          a href="#{edit_person_path(record)}"
             i.fa.fa-pencil
+          - if record.start_date.present?
+            br
+            = record.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            br
+            sub = "#{months_worked(record) > 0 ? pluralize(months_worked(record), 'month') : 'not started'}"
         td
-          - if person.start_date.present?
-            - if person.start_date > Time.zone.now
-              strong
-                = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+          - if record.start_date.present? && record.start_date <= Time.zone.now
+            - total_expenses = record.expenses.sum(:amount)
+            - if total_expenses >= (ENV['EXPENSES_LIMIT_PER_YEAR'].to_i / 12) * months_worked(record)
+              span style="color: red"
+                strong
+                  = total_expenses
             - else
-              = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
-          - else
-            a href="#{edit_person_path(person)}"
-              i.fa.fa-pencil            
-        td
-          = person.expenses.sum(:amount)
-        - Expense::TYPES.each do |type|
-          td
-            = person.expenses.where(type: type).sum(:amount)
-            
+              = total_expenses
+
+        - if record.start_date.present? && record.start_date <= Time.zone.now
+          - expenses_stats_per_year(record.id).tap do |stats|
+            - stats[stats.keys.last].tap do |stat|
+              - if stat.present?
+                td
+                  = stat['period_start_date'].gsub(/\s/, '&nbsp;').html_safe
+                  br
+                  | to
+                  br
+                  = stat['period_end_date'].gsub(/\s/, '&nbsp;').html_safe
+                  br
+                  = "#{(stat['year'] + 1).to_i.ordinalize} year"
+                td
+                  - if stat['total_expenses'] >= ENV['EXPENSES_LIMIT_PER_YEAR'].to_i
+                    span style="color: red"
+                      strong
+                        = stat['total_expenses']
+                  - else
+                    = stat['total_expenses']
+                td
+                  - if stat['remaining_expenses'] < ENV['EXPENSES_LIMIT_PER_YEAR'].to_i / 12
+                    span style="color: red"
+                      strong
+                        = stat['remaining_expenses']
+                  - elsif stat['remaining_expenses'] == ENV['EXPENSES_LIMIT_PER_YEAR'].to_i
+                    span style="color: green"
+                      strong
+                        = stat['remaining_expenses']
+                  - else
+                    = stat['remaining_expenses']
+                - Expense::TYPES.each do |type|
+                  td
+                    = stat['total_expenses_by_type'][type]
+
+
+
+
+
+
+
+
