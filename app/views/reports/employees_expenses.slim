@@ -29,7 +29,7 @@ table.table.pretty-table
         td
           - if record.start_date.present? && record.start_date <= Time.zone.now
             - total_expenses = record.expenses.sum(:amount)
-            - if total_expenses >= (ENV['EXPENSES_LIMIT_PER_YEAR'].to_i / 12) * months_worked(record)
+            - if total_expenses > 0 && total_expenses >= (ENV['EXPENSES_LIMIT_PER_YEAR'].to_i / 12) * months_worked(record)
               span style="color: red"
                 strong
                   = total_expenses
