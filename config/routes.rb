@@ -19,8 +19,8 @@ Rails.application.routes.draw do
   end
   resources :reports, only: :index do
     collection do
-      get :by_status
-      get :by_technology
+      # get :by_status
+      # get :by_technology
       get :current_employees_table
       get :contractors_table
       get :employees_by_birthday_month
@@ -28,8 +28,8 @@ Rails.application.routes.draw do
       get :employees_expenses
       get :employees_simple
       get :employees_without_nda_signed
-      get :funnel
-      get :historical_data
+      # get :funnel
+      # get :historical_data
       get :people_with_similar_name
       get :searches
     end
