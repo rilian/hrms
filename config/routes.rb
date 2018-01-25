@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       get :employees_expenses
       get :employees_simple
       get :employees_without_nda_signed
-      # get :funnel
+      get :funnel
       # get :historical_data
       get :people_with_similar_name
       get :searches
