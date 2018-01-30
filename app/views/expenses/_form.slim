@@ -42,7 +42,7 @@
       span.text-danger *
       |  Recorded on (min #{f.object.person&.start_date&.strftime('%d-%m-%Y')}):
     = f.input :recorded_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false,
-        input_html: { value: f.object.recorded_on&.strftime('%d-%m-%Y'), class: 'datepicker', data: { 'date-start-date' => f.object.person&.start_date&.strftime('%d-%m-%Y'), 'date-end-date' => 6.months.since.strftime('%d-%m-%Y') } }
+        input_html: { value: f.object.recorded_on&.strftime('%d-%m-%Y'), class: 'datepicker', data: { 'date-start-date' => f.object.person&.start_date&.strftime('%d-%m-%Y'), 'date-end-date' => 2.years.since.strftime('%d-%m-%Y') } }
 
   .form-group
     label.control-label
