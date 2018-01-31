@@ -3,7 +3,7 @@
 
 - @events.each_with_index do |record, index|
   tr class=('js-page-last' if (index == @events.size - 1) && last_page?(@events))
-    td = record.user.email.split('@').first
+    td = record.user.present? ? record.user.email.split('@').first : 'n/a'
     td
       = link_to "#{record.entity_type}##{record.entity_id}", events_path('q[entity_type_eq]' => record.entity_type, 'q[entity_id_eq]' => record.entity_id)
       - if record.entity.is_a?(Person)
