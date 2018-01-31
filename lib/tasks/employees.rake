@@ -2,7 +2,7 @@ namespace :employees do
   desc 'Sends advance notification about new employees first day'
   task start_date: :environment do
     ids = []
-    employees = Person.not_deleted.current_employee
+    employees = Person.not_deleted.where(status: ['Hired', 'Contractor'])
 
     # who comes 1st day in 1 week
     ids += employees
