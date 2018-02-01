@@ -3,6 +3,10 @@ h2.title
   a.btn.btn-default.btn-pill href="/vacancies/new"
     i.fa.fa-plus
     | &nbsp; Add Vacancy
+br
+= link_to 'Show only open vacancies', vacancies_path(q: { status_eq: 'open' })
+br
+= "#{@vacancies.count} vacancies"
 
 table.table.pretty-table
   thead
