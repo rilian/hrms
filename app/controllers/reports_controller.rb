@@ -178,7 +178,6 @@ class ReportsController < ApplicationController
     @people = @people
       .where('city ILIKE ?', ENV['MAIN_CITY'])
       .where('start_date < ?', Time.zone.now.strftime('%F'))
-      .where('last_one_on_one_meeting_at IS NULL OR last_one_on_one_meeting_at < ?', 3.months.ago.strftime('%F'))
       .reorder('last_one_on_one_meeting_at IS NOT NULL, last_one_on_one_meeting_at ASC')
       .order(:name)    
   end
