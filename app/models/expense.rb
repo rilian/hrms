@@ -1,4 +1,6 @@
 class Expense < ActiveRecord::Base
+  include ChangesTracker
+
   self.inheritance_column = nil
 
   TYPES = ['Business Trip', 'Conference', 'Other']

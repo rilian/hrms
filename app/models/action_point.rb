@@ -1,4 +1,6 @@
 class ActionPoint < ActiveRecord::Base
+  include ChangesTracker
+
   self.inheritance_column = nil
 
   belongs_to :person, counter_cache: true, touch: true

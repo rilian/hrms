@@ -1,4 +1,6 @@
 class Vacancy < ActiveRecord::Base
+  include ChangesTracker
+
   STATUSES = %w(open closed)
 
   belongs_to :updated_by, class_name: 'User'

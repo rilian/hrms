@@ -1,4 +1,6 @@
 class Dayoff < ActiveRecord::Base
+  include ChangesTracker
+
   self.inheritance_column = nil
 
   TYPES = ['Vacation', 'Sick Leave', 'Unpaid Day Off', 'Paid Day Off', 'Working Day Shift', 'Overtime']
