@@ -6,7 +6,7 @@ module Concerns::Event
       entity: entity,
       action: action,
       user: current_user,
-      params: entity.previous_changes
+      params: entity.extract_tracked_changes
     )
   end
 end

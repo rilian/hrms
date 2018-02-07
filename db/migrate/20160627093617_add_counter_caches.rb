@@ -1,4 +1,4 @@
-class AddCounterCaches < ActiveRecord::Migration
+class AddCounterCaches < ActiveRecord::Migration[4.2]
   def change
     add_column :people, :action_points_count, :integer, default: 0
     add_column :people, :attachments_count, :integer, default: 0

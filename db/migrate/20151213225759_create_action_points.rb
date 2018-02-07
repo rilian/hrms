@@ -1,4 +1,4 @@
-class CreateActionPoints < ActiveRecord::Migration
+class CreateActionPoints < ActiveRecord::Migration[4.2]
   def change
     create_table :action_points do |t|
       t.references :person, index: true, null: false

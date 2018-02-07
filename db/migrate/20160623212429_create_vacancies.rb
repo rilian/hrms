@@ -1,4 +1,4 @@
-class CreateVacancies < ActiveRecord::Migration
+class CreateVacancies < ActiveRecord::Migration[4.2]
   def change
     create_table :vacancies do |t|
       t.string :project
