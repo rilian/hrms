@@ -1,4 +1,6 @@
 class Person < ActiveRecord::Base
+  include ChangesTracker
+
   acts_as_taggable_on :tags
   attachment :photo
 

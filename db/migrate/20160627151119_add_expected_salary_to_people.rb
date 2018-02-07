@@ -1,4 +1,4 @@
-class AddExpectedSalaryToPeople < ActiveRecord::Migration
+class AddExpectedSalaryToPeople < ActiveRecord::Migration[4.2]
   def change
     add_column :people, :expected_salary, :string
 

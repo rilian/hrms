@@ -1,4 +1,4 @@
-class AddUpdatedByToEntities < ActiveRecord::Migration
+class AddUpdatedByToEntities < ActiveRecord::Migration[4.2]
   def change
     add_column :action_points, :updated_by_id, :integer
     add_column :assessments, :updated_by_id, :integer

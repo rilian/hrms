@@ -8,7 +8,7 @@ class CreateExpenses < ActiveRecord::Migration[5.1]
       t.date :recorded_on
       t.integer :updated_by_id
 
-      t.timestamps    	
+      t.timestamps
     end
   end
 end
