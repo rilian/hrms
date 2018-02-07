@@ -17,6 +17,7 @@ class Note < ActiveRecord::Base
     'Additional Interview - Office',
     'Decision',
     'Test Assignment',
+    'CV Review',
     'CEO Opinion',
     'Interview With CEO',
     'Recommended',
