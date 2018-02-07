@@ -1,4 +1,6 @@
 class Note < ActiveRecord::Base
+  include ChangesTracker
+
   self.inheritance_column = nil
 
   TYPES = [
