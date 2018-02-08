@@ -19,11 +19,6 @@
         input_html: { class: 'select form-control' }
 
   .form-group
-    label.control-label
-      | Current Position:
-    = f.input :current_position, placeholder: 'ProjectName Dev', label: false, class: 'input form-control'
-
-  .form-group
     label.control-label HR Status:
     select.select.form-control name="person[status]"
       - PERSON_STATUS_COLORS.each_pair do |status, color|

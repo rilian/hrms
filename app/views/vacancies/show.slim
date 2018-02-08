@@ -13,6 +13,9 @@
     | &nbsp;
     a.btn.btn-info href="#{vacancy_path(@vacancy)}.xlsx" Export to XLSX
   p
+    | Status:&nbsp;
+    = @vacancy.status
+  p
     | Project:&nbsp;
     = @vacancy.project
   p

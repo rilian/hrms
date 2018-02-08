@@ -68,13 +68,15 @@
     strong
       = @person.city.presence || ENV['MAIN_CITY']
 
-  - vacancies = Vacancy.where(tag: @person.tag_list)
+  - vacancies = Vacancy.where(tag: @person.tag_list).order(id: :desc)
   - if vacancies.present?
     p
       | Vacancies:&nbsp;
       - vacancies.each do |vacancy|
         = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
-        | &nbsp;
+        | &nbsp;(
+        = vacancy.status
+        | )&nbsp;
   p
     | Tags:&nbsp;
     - unless @person.tag_list.empty?
@@ -275,6 +277,7 @@
         ' #{with_newlines(note.value)}
       - else
         = "Content of this note is not available (#{note.type})"
+    br
 
   h3
     | Actions &nbsp;
