@@ -1,0 +1,94 @@
+= render 'shared/form_error', object: @person
+
+= simple_form_for @person, html: { class: 'form' } do |f|
+  .form-group
+    label.control-label
+      span.text-danger *
+      |  Name:
+    .js-similar-people-container
+    = f.input :name, placeholder: 'Bohdan Kirkov', label: false, input_html: { class: 'input form-control js-person-name', data: { 'current-id' => @person.id } }
+
+  .form-group
+    label.control-label
+      span.text-danger *
+      |  Primary Tech:
+    = f.input :primary_tech,
+        collection: Person::PRIMARY_TECHS,
+        label: false,
+        include_blank: true,
+        input_html: { class: 'select form-control' }
+
+  .form-group
+    label.control-label
+      | Current Position:
+    = f.input :current_position, placeholder: 'ProjectName Dev', label: false, class: 'input form-control'
+
+  .form-group
+    label.control-label HR Status:
+    select.select.form-control name="person[status]"
+      - PERSON_STATUS_COLORS.each_pair do |status, color|
+        - if @person.status == status
+          option selected="selected" value="#{status}" style="background-color: #{color};" #{status}
+        - else
+          option value="#{status}" style="background-color: #{color};" #{status}
+
+  .form-group
+    label.control-label
+      | Skype:
+    = f.input :skype, placeholder: 'ivan_ivanov', label: false, class: 'input form-control'
+  .form-group
+    label.control-label
+      | LinkedIn:&nbsp;
+      - if @person.linkedin.present?
+        strong
+          a target="_blank" href="#{@person.linkedin_value}" #{@person.linkedin_value}
+    = f.input :linkedin, placeholder: 'https://linkedin.com/johndoe', label: false, class: 'input form-control'
+
+  .form-group
+    label.control-label
+      | City:
+    = f.input :city, placeholder: ENV['MAIN_CITY'], label: false, class: 'input form-control', input_html: { value: f.object.city.presence || 'Kyiv' }
+
+  .form-group
+    label.control-label
+      | Tags:
+
+    select.form-control.js-select2-select multiple="multiple" name="person[tag_list][]"
+      option value="" Select a tag
+      - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
+        - if tag.in?(@person.tag_list)
+          option value="#{tag}" selected="selected" #{tag}
+        - else
+          option value="#{tag}" #{tag}
+    - if @person.tag_list.present?
+      sup
+        | (Click main X to remove all tags)
+  .form-group
+    label.control-label English level:
+    = f.input :english,
+        collection: Person::ENGLISH_LEVELS,
+        label: false,
+        include_blank: true,
+        input_html: { class: 'select form-control' }
+
+  .form-group
+    label.control-label
+      | Email:
+    = f.input :email, placeholder: 'dude@example.com', label: false, class: 'input form-control'
+
+  .form-group
+    label.control-label
+      | Phone:
+    = f.input :phone, placeholder: '097 1234567', label: false, class: 'input form-control'
+
+  .form-group
+    label.control-label Hiring Source:
+    = f.input :source, placeholder: 'Reference Djinni LinkedIn DOU', label: false, class: 'input form-control'
+
+  .form-group
+    label.control-label Skills:
+    = f.input :skills, as: :text, label: false, placeholder: 'Skills assessment', input_html: { rows: 1 }
+
+  .form-group.form-actions
+    .text-left style="width: 600px;"      
+      = f.button :submit, '+ Create Person', class: 'btn btn-success'
