@@ -48,6 +48,7 @@ CREATE TABLE action_points (
 --
 
 CREATE SEQUENCE action_points_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -98,6 +99,7 @@ CREATE TABLE attachments (
 --
 
 CREATE SEQUENCE attachments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -135,6 +137,7 @@ CREATE TABLE dayoffs (
 --
 
 CREATE SEQUENCE dayoffs_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -157,7 +160,7 @@ CREATE TABLE events (
     id integer NOT NULL,
     entity_type character varying NOT NULL,
     entity_id integer NOT NULL,
-    params jsonb DEFAULT '{}'::jsonb NOT NULL,
+    params jsonb DEFAULT '"{}"'::jsonb NOT NULL,
     action character varying DEFAULT ''::character varying NOT NULL,
     user_id integer,
     created_at timestamp without time zone NOT NULL,
@@ -170,6 +173,7 @@ CREATE TABLE events (
 --
 
 CREATE SEQUENCE events_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -240,6 +244,7 @@ CREATE TABLE notes (
 --
 
 CREATE SEQUENCE notes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -274,9 +279,9 @@ CREATE TABLE people (
     updated_by_id integer,
     status character varying DEFAULT 'n/a'::character varying NOT NULL,
     is_deleted boolean DEFAULT false NOT NULL,
-    action_points_count integer,
-    attachments_count integer,
-    notes_count integer,
+    action_points_count integer DEFAULT 0,
+    attachments_count integer DEFAULT 0,
+    notes_count integer DEFAULT 0,
     expected_salary character varying,
     start_date date,
     source character varying,
@@ -300,6 +305,7 @@ CREATE TABLE people (
 --
 
 CREATE SEQUENCE people_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -357,9 +363,9 @@ CREATE TABLE projects (
     description text,
     status character varying DEFAULT 'active'::character varying NOT NULL,
     started_at date,
-    updated_at timestamp without time zone NOT NULL,
     updated_by_id integer,
     created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     project_notes_count integer DEFAULT 0
 );
 
@@ -411,6 +417,7 @@ CREATE TABLE searches (
 --
 
 CREATE SEQUENCE searches_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -432,10 +439,10 @@ ALTER SEQUENCE searches_id_seq OWNED BY searches.id;
 CREATE TABLE taggings (
     id integer NOT NULL,
     tag_id integer,
-    taggable_id integer,
     taggable_type character varying,
-    tagger_id integer,
+    taggable_id integer,
     tagger_type character varying,
+    tagger_id integer,
     context character varying(128),
     created_at timestamp without time zone
 );
@@ -446,6 +453,7 @@ CREATE TABLE taggings (
 --
 
 CREATE SEQUENCE taggings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -476,6 +484,7 @@ CREATE TABLE tags (
 --
 
 CREATE SEQUENCE tags_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -518,6 +527,7 @@ CREATE TABLE users (
 --
 
 CREATE SEQUENCE users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -554,6 +564,7 @@ CREATE TABLE vacancies (
 --
 
 CREATE SEQUENCE vacancies_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -744,6 +755,14 @@ ALTER TABLE ONLY project_notes
 
 ALTER TABLE ONLY projects
     ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -938,13 +957,6 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (re
 --
 
 CREATE UNIQUE INDEX taggings_idx ON taggings USING btree (tag_id, taggable_id, taggable_type, context, tagger_id, tagger_type);
-
-
---
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
 
 
 --
