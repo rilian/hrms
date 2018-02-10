@@ -49,7 +49,7 @@ class ExpensesController < ApplicationController
   end
 
   def destroy
-    copy = @expense.dup
+    copy = @expense.clone
     @expense.destroy
     log_event(entity: copy, action: 'deleted')
     redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || expenses_path, flash: { success: 'Expense deleted' }

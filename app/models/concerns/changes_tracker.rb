@@ -6,9 +6,11 @@ module ChangesTracker
   end
 
   def extract_tracked_changes
-    tracked_changes = @_tracked_changes.clone
-    @_tracked_changes.clear
-
+    if @_tracked_changes
+      tracked_changes = @_tracked_changes.clone
+      @_tracked_changes.clear
+    end
+    
     tracked_changes || {}
   end
 

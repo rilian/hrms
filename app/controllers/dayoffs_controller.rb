@@ -53,7 +53,7 @@ class DayoffsController < ApplicationController
   end
 
   def destroy
-    copy = @dayoff.dup
+    copy = @dayoff.clone
     @dayoff.destroy
     log_event(entity: copy, action: 'deleted')
     redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || dayoffs_path, flash: { success: 'Day off deleted' }
