@@ -15,6 +15,7 @@ class Dayoff < ActiveRecord::Base
   validate :dates_order
   validate :dates_intersection
   validate :start_on_greater_or_equal_person_start_date
+  validate :end_on_greater_or_equal_person_start_date
 
   private
 
@@ -27,7 +28,7 @@ class Dayoff < ActiveRecord::Base
 
   def dates_order
     return if start_on.blank? || end_on.blank?
-    return if start_on <= end_on
+    return if start_on <= end_on || (start_on > end_on && type == 'Working Day Shift')
     errors.add(:start_on, 'should be earlier than end_on')
   end
 
@@ -35,5 +36,11 @@ class Dayoff < ActiveRecord::Base
     return unless person&.start_date
     return if start_on > person.start_date
     errors.add(:start_on, 'should be later than person start_date')
+  end
+
+  def end_on_greater_or_equal_person_start_date
+    return unless person&.start_date
+    return if end_on > person.start_date
+    errors.add(:end_on, 'should be later than person start_date')
   end
 end
