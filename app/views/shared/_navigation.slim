@@ -30,7 +30,7 @@
         i.fa
           | &nbsp;&nbsp;&nbsp; Expenses
     li.item role="presentation" class="#{active_class('/vacancies')}"
-      a href="#{vacancies_path}"
+      a href="#{vacancies_path(q: { status_eq: 'open' })}"
         i.fa.fa-tags
         | &nbsp; Vacancies
     li.item role="presentation" class="#{active_class('/action_points')}"

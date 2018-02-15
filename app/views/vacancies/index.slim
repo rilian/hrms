@@ -5,6 +5,8 @@ h2.title
     | &nbsp; Add Vacancy
 br
 = link_to 'Show only open vacancies', vacancies_path(q: { status_eq: 'open' })
+',
+= link_to 'Show all vacancies', vacancies_path
 br
 = "#{@vacancies.count} vacancies"
 
