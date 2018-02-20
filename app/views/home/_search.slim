@@ -9,4 +9,12 @@ form.form action="#{people_path}" method="GET"
       - else
         option value="#{status}" style="background-color: #{color};" #{status}
   | &nbsp;
+  select style="width: 150px" name="q[primary_tech_eq]"
+    option value="" Technology
+    - Person::PRIMARY_TECHS.each do |item|
+      - if params.dig(:q, :primary_tech_eq) == item
+        option selected="selected" value="#{item}" #{item}
+      - else
+        option value="#{item}" #{item}
+  | &nbsp;
   button.btn.btn-default type="submit" Search
