@@ -3,34 +3,26 @@ class Note < ActiveRecord::Base
 
   self.inheritance_column = nil
 
+  TYPE_SALARY = 'Salary'
+  TYPE_PERFORMANCE_REVIEW = 'Performance Review'
   TYPES = [
-    'Email',
-    'LinkedIn Message',
-    'Initial Interview',
-    'Initial Interview - Office',
-    'Skype Conversation',
-    'Skype Call',
-    'Phone Call',
-    'Tech Interview',
-    'Tech Interview - Office',
-    'Additional Interview',
-    'Additional Interview - Office',
-    'Decision',
-    'Test Assignment',
+    "Recruiter's Note",
     'CV Review',
+    'Message From Candidate',
+    'Conversation / Call',
+    'Initial Interview',
+    'Tech Interview',
+    'Additional Interview',
+    'Test Assignment',
     'CEO Opinion',
-    'Interview With CEO',
+    'Decision',
     'Recommended',
-    'Looking for Job',
-    'Changed Job',
-    'Salary',
-    'Performance Review',
+    TYPE_SALARY,
+    "Manager's Note",
+    TYPE_PERFORMANCE_REVIEW,
     'Other'
   ]
-  FINANCE_TYPES = [
-    'Salary',
-    'Performance Review'
-  ]
+  FINANCE_TYPES = [TYPE_SALARY, TYPE_PERFORMANCE_REVIEW]
 
   belongs_to :person, counter_cache: true, touch: true
   belongs_to :updated_by, class_name: 'User'
