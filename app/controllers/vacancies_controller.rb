@@ -35,19 +35,19 @@ class VacanciesController < ApplicationController
 
     respond_to do |f|
       f.html
-      f.xlsx do
-        Axlsx::Package.new do |p|
-          p.use_shared_strings = true
-          wb = p.workbook
-          wb.add_worksheet(name: params[:primary_tech]) do |sheet|
-            sheet.add_row ['Name', 'Linkedin']
-            @people.each do |item|
-              sheet.add_row [item.name, item.linkedin]
-            end
-          end
-          send_data p.to_stream().read, filename: "vacancy-#{@vacancy.id}.xlsx"
-        end
-      end
+      # f.xlsx do
+      #   Axlsx::Package.new do |p|
+      #     p.use_shared_strings = true
+      #     wb = p.workbook
+      #     wb.add_worksheet(name: params[:primary_tech]) do |sheet|
+      #       sheet.add_row ['Name', 'Linkedin']
+      #       @people.each do |item|
+      #         sheet.add_row [item.name, item.linkedin]
+      #       end
+      #     end
+      #     send_data p.to_stream().read, filename: "vacancy-#{@vacancy.id}.xlsx"
+      #   end
+      # end
     end
   end
 

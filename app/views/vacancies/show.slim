@@ -10,8 +10,8 @@
     = "#{@vacancy.project} #{@vacancy.role}"
     | &nbsp;
     a.btn.btn-default.js-show-edit-form href="#" Edit
-    | &nbsp;
-    a.btn.btn-info href="#{vacancy_path(@vacancy)}.xlsx" Export to XLSX
+    /| &nbsp;
+    /a.btn.btn-info href="#{vacancy_path(@vacancy)}.xlsx" Export to XLSX
   p
     | Status:&nbsp;
     = @vacancy.status
