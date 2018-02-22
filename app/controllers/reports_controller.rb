@@ -56,7 +56,9 @@ class ReportsController < ApplicationController
   def employees_without_nda_signed
     load_current_employees
     unless params[:show_all] == 'true'
-      @people = @people.where(signed_nda: false)
+      @people = @people
+        .where(signed_nda: false)
+        .where('start_date < ?', Time.zone.now.strftime('%F'))
     end
   end
 
