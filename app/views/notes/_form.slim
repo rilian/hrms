@@ -24,7 +24,7 @@
   .form-group
     label.control-label Type
     = f.input :type,
-              collection: current_user.accessible_note_types,
+              collection: current_user.has_access_to_finances? ? Note::TYPES : (Note::TYPES - Note::FINANCE_TYPES),
               label: false,
               include_blank: false,
               input_html: { class: 'select form-control' }

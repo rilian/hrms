@@ -50,7 +50,7 @@ class NotesController < ApplicationController
 private
 
   def check_access
-    if !@note.type.in?(current_user.accessible_note_types) && !current_user.has_access_to_finances?
+    if @note.type.in?(Note::FINANCE_TYPES) && !current_user.has_access_to_finances?
       flash.now[:error] = "Content of this note is not available (#{@note.type})"
       return redirect_to root_path
     end

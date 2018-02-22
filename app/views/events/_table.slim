@@ -21,7 +21,7 @@
     td
       = link_to record.action, events_path('q[action_eq]' => record.action)
       br
-      - if record.entity.is_a?(Note) && !record.entity.type.in?(current_user.accessible_note_types) && !current_user.has_access_to_finances?
+      - if record.entity.is_a?(Note) && (record.entity.type.in?(Note::FINANCE_TYPES) && !current_user.has_access_to_finances?)
         = "Content of this note is not available (#{record.entity.type})"
       - else
         = cleanup_event_params(record.params)

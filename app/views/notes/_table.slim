@@ -10,7 +10,7 @@
         = link_to record.person.primary_tech, people_path(q: {primary_tech_eq: record.person.primary_tech})
     td = record.type
     td
-      - if record.type.in?(current_user.accessible_note_types) || (!record.type.in?(current_user.accessible_note_types) && current_user.has_access_to_finances?)
+      - if !record.type.in?(Note::FINANCE_TYPES) || (record.type.in?(Note::FINANCE_TYPES) && current_user.has_access_to_finances?)
         = with_newlines(record.value)
       - else
         = "Content of this note is not available (#{record.type})"

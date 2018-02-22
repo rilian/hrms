@@ -25,7 +25,7 @@ class ReportsController < ApplicationController
               'Notes']
             people.each do |item|
               notes = item.notes.accessible_by(current_ability).order(updated_at: :desc).map do |note|
-                if note.type.in?(current_user.accessible_note_types) || (!note.type.in?(current_user.accessible_note_types) && current_user.has_access_to_finances?)
+                if !note.type.in?(Note::FINANCE_TYPES) || (note.type.in?(Note::FINANCE_TYPES) && current_user.has_access_to_finances?)
                   [
                     note.created_at.strftime(t(:day)),
                     note.value
