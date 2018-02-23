@@ -42,7 +42,7 @@
   .form-group
     label.control-label
       | City:
-    = f.input :city, placeholder: ENV['MAIN_CITY'], label: false, class: 'input form-control', input_html: { value: f.object.city.presence || 'Kyiv' }
+    = f.input :city, placeholder: ENV['MAIN_CITY'], label: false, class: 'input form-control', input_html: { value: f.object.city.presence }
 
   .form-group
     label.control-label
