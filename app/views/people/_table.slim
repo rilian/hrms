@@ -26,7 +26,7 @@
           - next if action_point.is_completed
           a href="#{edit_action_point_path(action_point)}" #{action_point.perform_on.strftime(t(:datetime_full)).gsub('00:00, ', '')}
           | &nbsp;
-          = action_point.value
+          = with_newlines(action_point.value)
           br
 
       - if (record.notes_count || 0) > 0

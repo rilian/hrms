@@ -24,4 +24,4 @@
     = @expense.recorded_on&.to_formatted_s(:rfc822)
   p
     | Notes:&nbsp;
-    = @expense.notes
+    = with_newlines(@expense.notes)

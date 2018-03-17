@@ -27,4 +27,4 @@
     = @dayoff.end_on&.to_formatted_s(:rfc822)
   p
     | Notes:&nbsp;
-    = @dayoff.notes
+    = with_newlines(@dayoff.notes)

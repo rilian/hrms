@@ -26,7 +26,7 @@
     = link_to @vacancy.tag, people_path(q: { by_tag_including: @vacancy.tag })
   p
     | Description:&nbsp;
-    = with_newlines @vacancy.description
+    = with_newlines(@vacancy.description)
   p
     | Date:&nbsp;
     = @vacancy.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
