@@ -26,9 +26,9 @@ p
 
 - if @person.linkedin.present?
   p
-  | LinkedIn:&nbsp;
-  strong
-    a target="_blank" href="#{@person.linkedin_value}" View
+    | LinkedIn:&nbsp;
+    strong
+      a target="_blank" href="#{@person.linkedin_value}" View
 
 - if @person.city.present?
   p
@@ -37,26 +37,26 @@ p
 
 - vacancies = Vacancy.where(tag: @person.tag_list).order(id: :desc)
 - if vacancies.present?
-p
-  | Vacancies:&nbsp;
-  - vacancies.each do |vacancy|
-    = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
-    | &nbsp;(
-    = vacancy.status
-    | )&nbsp;
+  p
+    | Vacancies:&nbsp;
+    - vacancies.each do |vacancy|
+      = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
+      | &nbsp;(
+      = vacancy.status
+      | )&nbsp;
 
 - unless @person.tag_list.empty?
   p
-  | Tags:&nbsp;
-  - @person.tag_list.each do |tag|
-    = link_to tag, people_path(q: {by_tag_including: tag})
-    | &nbsp;
+    | Tags:&nbsp;
+    - @person.tag_list.each do |tag|
+      = link_to tag, people_path(q: {by_tag_including: tag})
+      | &nbsp;
 
 - if @person.english.present?
-p
-  | English:&nbsp;
-  strong
-    = @person.english
+  p
+    | English:&nbsp;
+    strong
+      = @person.english
 
 - if current_user.has_access_to_finances? && @person.expected_salary.present?
   p
@@ -117,15 +117,3 @@ h3
     - if attachment.description.present?
       br = with_newlines(attachment.description)
   br
-
-h3
-  | Other &nbsp;
-
-p
-| Profile created &nbsp;
-= "#{@person.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')} (#{time_ago_in_words(@person.created_at)} ago)"
-p
-| Profile last updated &nbsp;
-= "#{@person.updated_at.strftime(t(:datetime_full))} (#{time_ago_in_words(@person.updated_at)} ago)"
-| &nbsp; by&nbsp;
-= @person.updated_by&.email&.split('@')&.first

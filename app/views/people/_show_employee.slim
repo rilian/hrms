@@ -1,26 +1,21 @@
-p
-  - if @person.photo.present?
+- if @person.photo.present?
+  p
     img src="#{Refile.attachment_url(@person, :photo, :fit, 200, 200, format: 'jpg')}"
-  - else
-    | No photo
 
 - if @person.skills.present?
   p
-  | Skills:&nbsp;
-  strong
-    = @person.skills
+    | Skills:&nbsp;
+    strong = @person.skills
 
 - if @person.primary_tech.present?
   p
-  | Primary tech:&nbsp;
-  strong
-    = @person.primary_tech
+    | Primary tech:&nbsp;
+    strong = @person.primary_tech
 
 - if @person.current_position.present?
   p
-  | Current Position:&nbsp;
-  strong
-    = @person.current_position
+    | Current Position:&nbsp;
+    strong = @person.current_position
 
 p
   | Status:&nbsp;
@@ -29,50 +24,47 @@ p
 
 - if @person.skype.present?
   p
-  | Skype:&nbsp;
-  strong
-    a href="skype:#{@person.skype}" #{@person.skype}
+    | Skype:&nbsp;
+    strong
+      a href="skype:#{@person.skype}" #{@person.skype}
 
 - if @person.linkedin.present?
   p
-  | LinkedIn:&nbsp;
-  strong
-    a target="_blank" href="#{@person.linkedin_value}" View
+    | LinkedIn:&nbsp;
+    strong
+      a target="_blank" href="#{@person.linkedin_value}" View
 
 - if @person.city.present?
   p
     | City:&nbsp;
-    strong
-      = @person.city.presence
+    strong = @person.city.presence
 
 - vacancies = Vacancy.where(tag: @person.tag_list).order(id: :desc)
 - if vacancies.present?
-p
-  | Vacancies:&nbsp;
-  - vacancies.each do |vacancy|
-    = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
-    | &nbsp;(
-    = vacancy.status
-    | )&nbsp;
+  p
+    | Vacancies:&nbsp;
+    - vacancies.each do |vacancy|
+      = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
+      | &nbsp;(
+      = vacancy.status
+      | )&nbsp;
 
 - unless @person.tag_list.empty?
   p
-  | Tags:&nbsp;
-  - @person.tag_list.each do |tag|
-    = link_to tag, people_path(q: {by_tag_including: tag})
-    | &nbsp;
+    | Tags:&nbsp;
+    - @person.tag_list.each do |tag|
+      = link_to tag, people_path(q: {by_tag_including: tag})
+      | &nbsp;
 
 - if @person.english.present?
-p
-  | English:&nbsp;
-  strong
-    = @person.english
+  p
+    | English:&nbsp;
+    strong = @person.english
 
 - if current_user.has_access_to_finances? && @person.expected_salary.present?
   p
     | Expected salary:&nbsp;
-    strong
-      = @person.expected_salary
+    strong = @person.expected_salary
 
 - if @person.email.present?
   p
@@ -81,8 +73,7 @@ p
       span style="color: red"
         = @person.email
     - else
-      strong
-        = @person.email
+      strong = @person.email
 
 - if @person.phone.present?
   p
@@ -93,8 +84,7 @@ p
 - if @person.start_date.present?
   p
     | Employment Start Date:&nbsp;
-    strong
-      = @person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    strong = @person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
 
 p
   - if @person.signed_nda?
@@ -104,41 +94,34 @@ p
       | NDA is not signed
 
 - if @person.employee_id.present?
-p
-  | Employee ID:&nbsp;
-  strong
-    = @person.employee_id
+  p
+    | Employee ID:&nbsp;
+    strong = @person.employee_id
 
 - if @person.salary_type.present?
   p
     | Salary type:&nbsp;
-    strong
-      = @person.salary_type
+    strong = @person.salary_type
 
 - if @person.last_one_on_one_meeting_at.present?
   p
     | Last 1-1 meeting with management:&nbsp;
-    strong
-      = @person.last_one_on_one_meeting_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    strong = @person.last_one_on_one_meeting_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
 
 - if @person.finish_date.present?
   p
     | Employment Finish Date:&nbsp;
-    strong
-      = @person.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    strong = @person.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
 
 - if @person.day_of_birth.present?
   p
     | Date of birth:&nbsp;
-    strong
-      = @person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')
+    strong = @person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')
 
 - if @person.source.present?
   p
     | Hiring Source:&nbsp;
-    strong
-      = @person.source
-
+    strong = @person.source
 
 - if @person.vacation_override.to_i > 0
   p
@@ -255,15 +238,3 @@ h3
       br
       = with_newlines(attachment.description).as_json()
   br
-
-h3
-  | Other &nbsp;
-
-p
-| Profile created &nbsp;
-= "#{@person.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')} (#{time_ago_in_words(@person.created_at)} ago)"
-p
-| Profile last updated &nbsp;
-= "#{@person.updated_at.strftime(t(:datetime_full))} (#{time_ago_in_words(@person.updated_at)} ago)"
-| &nbsp; by&nbsp;
-= @person.updated_by&.email&.split('@')&.first
