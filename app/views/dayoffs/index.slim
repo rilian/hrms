@@ -1,8 +1,9 @@
 h2.title
   | DAYS OFF &nbsp;
-  a.btn.btn-default.btn-pill href="/dayoffs/new"
-    i.fa.fa-plus
-    | &nbsp; Add day off
+  - if Ability.new(current_user).can?(:create, Dayoff)
+    a.btn.btn-default.btn-pill href="/dayoffs/new"
+      i.fa.fa-plus
+      | &nbsp; Add day off
 
 table.table.pretty-table
   thead

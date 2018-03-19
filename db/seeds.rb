@@ -8,5 +8,7 @@ u = User.create(
   password: '12345678',
   has_access_to_users: true,
   has_access_to_events: true,
-  has_access_to_finances: true
+  has_access_to_finances: true,
+  has_access_to_dayoffs: true,
+  has_access_to_expenses: true
 )

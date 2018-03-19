@@ -518,7 +518,9 @@ CREATE TABLE users (
     has_access_to_finances boolean DEFAULT false,
     has_access_to_events boolean DEFAULT false,
     has_access_to_users boolean DEFAULT false,
-    one_on_one_notifications_enabled boolean DEFAULT false
+    one_on_one_notifications_enabled boolean DEFAULT false,
+    has_access_to_expenses boolean DEFAULT false,
+    has_access_to_dayoffs boolean DEFAULT false
 );
 
 
@@ -1016,6 +1018,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171124182544'),
 ('20171124182837'),
 ('20171218111352'),
-('20171219190759');
+('20171219190759'),
+('20180319174634');
 
 

@@ -1,8 +1,9 @@
 h2.title
   | EXPENSES &nbsp;
-  a.btn.btn-default.btn-pill href="/expenses/new"
-    i.fa.fa-plus
-    | &nbsp; Add expense
+  - if Ability.new(current_user).can?(:create, Expense)
+    a.btn.btn-default.btn-pill href="/expenses/new"
+      i.fa.fa-plus
+      | &nbsp; Add expense
 
 table.table.pretty-table
   thead

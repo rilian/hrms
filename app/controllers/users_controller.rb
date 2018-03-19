@@ -51,7 +51,7 @@ private
   def user_params
     params.require(:user).permit(
       :email, :password, :has_access_to_users, :has_access_to_events, :has_access_to_finances,
-      :notifications_enabled, :one_on_one_notifications_enabled,
+      :notifications_enabled, :one_on_one_notifications_enabled, :has_access_to_dayoffs, :has_access_to_expenses,
       hide_tags: [], hide_statuses: []).tap do |p|
         p.delete(:password) if p[:password].blank?
       end

@@ -16,6 +16,12 @@
     label.control-label Access to Finances
     = f.input :has_access_to_finances, label: false
   .form-group
+    label.control-label Access to Dayoffs
+    = f.input :has_access_to_dayoffs, label: false
+  .form-group
+    label.control-label Access to Expenses
+    = f.input :has_access_to_expenses, label: false
+  .form-group
     label.control-label Notifications
     = f.input :notifications_enabled, as: :boolean, label: false
   .form-group

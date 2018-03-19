@@ -1,15 +1,17 @@
 .js-edit-form-container style="display:none;"
-  h2.title
-    | Edit Day off
-    | &nbsp;
-    a.btn.btn-default href="#{dayoff_path(@dayoff)}" Back
-  = render 'dayoffs/form'
+  - if Ability.new(current_user).can?(:edit, @dayoff)
+    h2.title
+      | Edit Day off
+      | &nbsp;
+      a.btn.btn-default href="#{dayoff_path(@dayoff)}" Back
+    = render 'dayoffs/form'
 
 .js-show-container
   h2.title
     = "#{@dayoff.type} of #{@dayoff.person.name}"
-    | &nbsp;
-    a.btn.btn-default.js-show-edit-form href="#" Edit
+    - if Ability.new(current_user).can?(:edit, @dayoff)
+      | &nbsp;
+      a.btn.btn-default.js-show-edit-form href="#" Edit
   p
     | Person:&nbsp;
     = link_to @dayoff.person.name, person_path(@dayoff.person)

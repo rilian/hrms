@@ -16,7 +16,8 @@ table.table.pretty-table
     th Unpaid days off (total)
     th Paid days off (total)
     th Work day shifts (total)
-    th Actions
+    - if Ability.new(current_user).can?(:create, Dayoff)
+      th Actions
   tbody
     - @employees.each do |record|
       tr
@@ -139,4 +140,5 @@ table.table.pretty-table
           td -
           td -
           td -
-        td = link_to 'Add', new_dayoff_path(dayoff: {person_id: record.id}), class: 'btn btn-default', target: '_blank'
+        - if Ability.new(current_user).can?(:create, Dayoff)
+          td = link_to 'Add', new_dayoff_path(dayoff: {person_id: record.id}), class: 'btn btn-default', target: '_blank'

@@ -14,11 +14,13 @@
       a.btn.btn-sm.btn-default.btn-pill href="#{dayoff_path(record)}"
         i
         | &nbsp;View
-      | &nbsp;
-      a.btn.btn-sm.btn-info.btn-pill href="#{edit_dayoff_path(record)}"
-        i.fa.fa-pencil
-        | &nbsp;Edit
-      | &nbsp;
-      a.btn.btn-sm.btn-danger.btn-pill href="#{dayoff_path(record)}" data-method="delete" data-confirm="Are you sure ?"
-        i.fa.fa-times
-        | &nbsp;Delete
+      - if Ability.new(current_user).can?(:edit, record)
+        | &nbsp;
+        a.btn.btn-sm.btn-info.btn-pill href="#{edit_dayoff_path(record)}"
+          i.fa.fa-pencil
+          | &nbsp;Edit
+      - if Ability.new(current_user).can?(:destroy, record)
+        | &nbsp;
+        a.btn.btn-sm.btn-danger.btn-pill href="#{dayoff_path(record)}" data-method="delete" data-confirm="Are you sure ?"
+          i.fa.fa-times
+          | &nbsp;Delete

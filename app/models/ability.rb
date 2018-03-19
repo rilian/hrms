@@ -6,9 +6,20 @@ class Ability
 
     can :manage, ActionPoint
     can :manage, Attachment
-    can :manage, Dayoff
+    if user.has_access_to_dayoffs?
+      can :manage, Dayoff
+    else
+      can [:read, :employees], Dayoff
+    end
+
     can :manage, Event if user.has_access_to_events?
-    can :manage, Expense
+
+    if user.has_access_to_expenses?
+      can :manage, Expense
+    else
+      can :read, Expense
+    end
+
     can :manage, Note
     can :manage, Person
     can :manage, Project

@@ -1,15 +1,17 @@
 .js-edit-form-container style="display:none;"
-  h2.title
-    | Edit Expense
-    | &nbsp;
-    a.btn.btn-default href="#{expense_path(@expense)}" Back
-  = render 'expenses/form'
+  - if Ability.new(current_user).can?(:edit, @expense)
+    h2.title
+      | Edit Expense
+      | &nbsp;
+      a.btn.btn-default href="#{expense_path(@expense)}" Back
+    = render 'expenses/form'
 
 .js-show-container
   h2.title
     = "#{@expense.type} of #{@expense.person.name}"
-    | &nbsp;
-    a.btn.btn-default.js-show-edit-form href="#" Edit
+    - if Ability.new(current_user).can?(:edit, @expense)
+      | &nbsp;
+      a.btn.btn-default.js-show-edit-form href="#" Edit
   p
     | Person:&nbsp;
     = link_to @expense.person.name, person_path(@expense.person)
