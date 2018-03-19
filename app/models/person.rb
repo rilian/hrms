@@ -53,7 +53,7 @@ class Person < ActiveRecord::Base
   validates :name, format: { with: /\A[a-zA-Z\d\s\-\'\(\)]+\z/, message: 'invalid symbols. Only A-Z, digits, braces, quote and space allowed' }, allow_blank: true
   validates :phone, format: { with: /\A[\s\+\,\d]+\z/ }, allow_blank: true
   validates :email, format: { with: /\A[0-9a-z\@\.\_\-\'\+]+\z/ }, allow_blank: true
-  validates :skype, format: { with: /\A[0-9a-z\:\_\-]+\z/ }, allow_blank: true
+  validates :skype, format: { with: /\A[0-9a-z\.\:\_\-]+\z/ }, allow_blank: true
   validates :start_date, presence: { message: 'should be present for current employee' }, if: ->(p) { p.status.in?(EMPLOYEE_STATUSES) && !p.new_record? }
   validates :email, :phone, presence: { message: 'should be present for current employee' }, if: ->(p) { p.status.in?(EMPLOYEE_STATUSES) && p.start_date.present? && p.start_date <= Time.zone.now }
 
