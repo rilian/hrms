@@ -2,22 +2,23 @@
   span class='js-page-last'
 
 - @attachments.each_with_index do |record, index|
-  tr class=('js-page-last' if (index == @attachments.size - 1) && last_page?(@attachments))
-    td
-      = link_to record.person.name, person_path(record.person)
-      - if record.person.primary_tech.present?
+  - if !(record.name.presence || record.file_filename).include?('offer') || ((record.name.presence || attachment.file_filename).include?('offer') && current_user.has_access_to_finances?)
+    tr class=('js-page-last' if (index == @attachments.size - 1) && last_page?(@attachments))
+      td
+        = link_to record.person.name, person_path(record.person)
+        - if record.person.primary_tech.present?
+          br
+          = link_to record.person.primary_tech, people_path(q: {primary_tech_eq: record.person.primary_tech})
+      td = record.name
+      td = with_newlines(record.description)
+      td = link_to 'Download', Refile.attachment_url(record, :file)
+      td = number_to_human_size(record.file_size)
+      td = record.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+      td
+        = record.updated_at.strftime(t(:datetime_full))
         br
-        = link_to record.person.primary_tech, people_path(q: {primary_tech_eq: record.person.primary_tech})
-    td = record.name
-    td = with_newlines(record.description)
-    td = link_to 'Download', Refile.attachment_url(record, :file)
-    td = number_to_human_size(record.file_size)
-    td = record.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
-    td
-      = record.updated_at.strftime(t(:datetime_full))
-      br
-      = record.updated_by&.email&.split('@')&.first
-    td
-      a.btn.btn-sm.btn-info.btn-pill href="#{edit_attachment_path(record)}"
-        i.fa.fa-pencil
-        | &nbsp; Edit
+        = record.updated_by&.email&.split('@')&.first
+      td
+        a.btn.btn-sm.btn-info.btn-pill href="#{edit_attachment_path(record)}"
+          i.fa.fa-pencil
+          | &nbsp; Edit
