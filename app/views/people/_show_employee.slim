@@ -232,9 +232,10 @@ h3
   = link_to 'Add', new_attachment_path(attachment: {person_id: @person.id}), class: 'btn btn-default'
 
 - @person.attachments.order(created_at: :desc).each do |attachment|
-  p
-    = link_to (attachment.name.present? ? attachment.name : attachment.file_filename), Refile.attachment_url(attachment, :file)
-    - if attachment.description.present?
-      br
-      = with_newlines(attachment.description).as_json()
-  br
+  - if !(attachment.name.presence || attachment.file_filename).include?('offer') || ((attachment.name.presence || attachment.file_filename).include?('offer') && current_user.has_access_to_finances?)
+    p
+      = link_to (attachment.name.present? ? attachment.name : attachment.file_filename), Refile.attachment_url(attachment, :file)
+      - if attachment.description.present?
+        br
+        = with_newlines(attachment.description).as_json()
+    br
