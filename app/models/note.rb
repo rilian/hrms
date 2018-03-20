@@ -5,6 +5,7 @@ class Note < ActiveRecord::Base
 
   TYPE_SALARY = 'Salary'
   TYPE_PERFORMANCE_REVIEW = 'Performance Review'
+  TYPE_EXIT_INTERVIEW = 'Exit Interview'
   TYPES = [
     "Recruiter's Note",
     'CV Review',
@@ -20,9 +21,10 @@ class Note < ActiveRecord::Base
     TYPE_SALARY,
     "Manager's Note",
     TYPE_PERFORMANCE_REVIEW,
+    TYPE_EXIT_INTERVIEW,
     'Other'
   ]
-  FINANCE_TYPES = [TYPE_SALARY, TYPE_PERFORMANCE_REVIEW]
+  FINANCE_TYPES = [TYPE_SALARY, TYPE_PERFORMANCE_REVIEW, TYPE_EXIT_INTERVIEW]
 
   belongs_to :person, counter_cache: true, touch: true
   belongs_to :updated_by, class_name: 'User'
