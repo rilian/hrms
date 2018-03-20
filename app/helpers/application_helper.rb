@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def with_newlines(str)
-    str.gsub("\n", '<br/>').html_safe.gsub(URI.regexp, '<a href="\0">\0</a>').html_safe
+    str.gsub("\n", '<br/>').html_safe.gsub(URI.regexp(%w(http https)), '<a href="\0">\0</a>').html_safe
   end
 
   def limit
