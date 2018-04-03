@@ -88,10 +88,10 @@ p
 
 p
   - if @person.signed_nda?
-    | NDA is signed
+    | Signed Documents
   - else
     span style="color: red"
-      | NDA is not signed
+      | Documents are not signed!
 
 - if @person.employee_id.present?
   p

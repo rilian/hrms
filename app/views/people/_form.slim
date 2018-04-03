@@ -102,7 +102,7 @@
 
   .form-group
     label.control-label
-      | Signed NDA and related docs:
+      | Signed Documents? Person has #{@person.attachments.count} attachments: #{@person.attachments.map(:name).join(' ')}
   = f.input :signed_nda, label: false, input_html: {}
 
   .form-group
