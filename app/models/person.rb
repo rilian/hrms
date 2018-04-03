@@ -56,6 +56,7 @@ class Person < ActiveRecord::Base
   validates :skype, format: { with: /\A[0-9a-z\.\:\_\-]+\z/ }, allow_blank: true
   validates :start_date, presence: { message: 'should be present for current employee' }, if: ->(p) { p.status.in?(EMPLOYEE_STATUSES) && !p.new_record? }
   validates :email, :phone, presence: { message: 'should be present for current employee' }, if: ->(p) { p.status.in?(EMPLOYEE_STATUSES) && p.start_date.present? && p.start_date <= Time.zone.now }
+  validate :finish_date_greater_or_equal_start_date
 
   scope :not_deleted, ->() { where(is_deleted: false) }
   scope :employee, ->() { where(status: EMPLOYEE_STATUSES).order(:status) }
@@ -85,5 +86,10 @@ private
     self.skype = self.skype.to_s.strip
     self.linkedin = self.linkedin.to_s.strip.split('?').first.to_s
     self.name = self.name.to_s.strip
+  end
+
+  def finish_date_greater_or_equal_start_date
+    return if start_date.blank? || finish_date.blank? || start_date <= finish_date
+    errors.add(:start_date, 'should be earlier than finish_date')
   end
 end
