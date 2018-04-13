@@ -19,11 +19,11 @@ class FunnelStatsCollector
       people_created = @scope.tagged_with([vacancy.tag].flatten)
           .where('people.created_at >= ? AND people.created_at <= ?',
             Time.strptime(@start_date, '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
-            Time.strptime(@finish_date, '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00')
+            (Time.strptime(@finish_date, '%d-%m-%Y') + 1.day).strftime('%Y-%m-%d') + ' 00:00:00')
       people = @scope.tagged_with([vacancy.tag].flatten)
           .where('people.updated_at >= ? AND people.updated_at <= ?',
             Time.strptime(@start_date, '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
-            Time.strptime(@finish_date, '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00')
+            (Time.strptime(@finish_date, '%d-%m-%Y') + 1.day).strftime('%Y-%m-%d') + ' 00:00:00')
 
       item = {
         vacancy_title: "#{vacancy.project}, #{vacancy.role}",
