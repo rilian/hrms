@@ -181,13 +181,14 @@ class ReportsController < ApplicationController
       .where('city ILIKE ?', ENV['MAIN_CITY'])
       .where('start_date < ?', Time.zone.now.strftime('%F'))
       .reorder('last_one_on_one_meeting_at IS NOT NULL, last_one_on_one_meeting_at ASC')
-      .order(:name)    
+      .order(:name)
   end
 
   def funnel
     params[:funnel] = {
       start_date: Time.zone.now.beginning_of_week.strftime('%d-%m-%Y'),
-      finish_date: Time.zone.now.end_of_week.strftime('%d-%m-%Y')
+      finish_date: Time.zone.now.end_of_week.strftime('%d-%m-%Y'),
+      user_email: '',
     } if params[:funnel].blank?
     params[:funnel][:start_date], params[:funnel][:finish_date] = params[:funnel][:finish_date], params[:funnel][:start_date] if Time.strptime(params[:funnel][:start_date], '%d-%m-%Y') > Time.strptime(params[:funnel][:finish_date], '%d-%m-%Y')
 
@@ -196,7 +197,8 @@ class ReportsController < ApplicationController
     @funnel = FunnelStatsCollector.new(
       scope: Person.accessible_by(current_ability).not_deleted,
       start_date: funnel_update_params[:start_date],
-      finish_date: funnel_update_params[:finish_date]
+      finish_date: funnel_update_params[:finish_date],
+      user_email: funnel_update_params[:user_email]
     ).perform
 
     if params['xlsx'].present?
@@ -249,6 +251,6 @@ class ReportsController < ApplicationController
   end
 
   def funnel_update_params
-    params.require(:funnel).permit(:start_date, :finish_date)
+    params.require(:funnel).permit(:start_date, :finish_date, :user_email)
   end
 end

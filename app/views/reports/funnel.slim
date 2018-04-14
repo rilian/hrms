@@ -2,7 +2,7 @@ h2.title Funnel Report
 = link_to "#{@vacancies.count} open vacancies", vacancies_path(q: { status_eq: 'open' })
 
 = simple_form_for :funnel, html: { method: :get, class: 'form' } do |f|
-  ' From
+  label.control-label From&nbsp;
 
   = link_to 'today', funnel_reports_path(funnel: { start_date: Time.zone.now.strftime('%d-%m-%Y'), finish_date: 1.day.since.strftime('%d-%m-%Y') })
   ',
@@ -11,8 +11,19 @@ h2.title Funnel Report
   = link_to 'past and current week', funnel_reports_path(funnel: { start_date: (Time.zone.now - 7.days).beginning_of_week.strftime('%d-%m-%Y'), finish_date: Time.zone.now.end_of_week.strftime('%d-%m-%Y') })
 
   = f.input :start_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:funnel][:start_date], class: 'datepicker' }
-  ' To
+  label.control-label to &nbsp;
   = f.input :finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: {value: params[:funnel][:finish_date], class: 'datepicker'}
+
+  div.form-group
+    label.control-label Updated by user:
+    select.select.form-control name="funnel[user_email]"
+      option value=""
+      - User.order(:email).each do |user|
+        - if params[:funnel] && params[:funnel][:user_email].presence == user.email
+          option value="#{user.email}" selected="selected" #{user.email}
+        - else
+          option value="#{user.email}" #{user.email}
+
   = f.button :submit, 'View Report', class: 'btn btn-success'
   '&nbsp;
   = f.button :submit, 'Download XLSX', name: 'xlsx', value: 'Download XLSX', class: 'btn btn-success'
