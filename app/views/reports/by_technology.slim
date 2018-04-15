@@ -18,4 +18,4 @@ table.table.pretty-table
         td
           = link_to Person.not_deleted.accessible_by(current_ability).current_employee.where(primary_tech: tech).count, people_path(q: { primary_tech_eq: tech, status_eq: 'Hired' })
         td
-          = link_to 'Export all to XLSX', by_technology_reports_path(format: :xlsx, primary_tech: tech)
+          = link_to 'Export to XLSX', by_technology_reports_path(format: :xlsx, primary_tech: tech)
