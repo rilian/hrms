@@ -1,4 +1,5 @@
 class DayoffsController < ApplicationController
+  include DayoffsHelper
   load_and_authorize_resource
 
   def index
@@ -22,6 +23,68 @@ class DayoffsController < ApplicationController
 
   def employees
     @employees = Person.accessible_by(current_ability, :read).not_deleted.current_employee.order(:name)
+
+    respond_to do |format|
+      format.html
+      format.xlsx do
+        Axlsx::Package.new do |p|
+          p.use_shared_strings = true
+          wb = p.workbook
+          wb.add_worksheet(name: 'Dayoffs') do |sheet|
+            sheet.add_row [
+              'Name',
+              'Start Date',
+              'Months worked',
+              'Current year',
+              'Period start',
+              'Period end',
+              'Vacation days assigned (total)',
+              'Vacation days total for period',
+              'Vacation days used (total)',
+              'Remain vacation days',
+              'Days may burn by period end (total)',
+              'Days transfer to next period',
+              'Overtimes (total)',
+              'Sick leaves (total)',
+              'Unpaid days off (total)',
+              'Paid days off (total)',
+              'Work day shifts (total)'
+            ]
+
+            @employees.each do |record|
+              if record.start_date.present? && record.start_date <= Time.zone.now
+                vacation_stats_per_year(record.id).tap do |stats|
+                  stats[stats.keys.last].tap do |stat|
+                    sheet.add_row [
+                      record.name,
+                      record.start_date.strftime(t(:day)).gsub('00:00, ', ''),
+                      months_worked(record),
+                      (stat['year'] + 1).to_i,
+                      stat['period_start_date'],
+                      stat['period_end_date'],
+                      "#{stat['yearly_vacation_days_assigned']} (#{stats.values.inject(0) { |memo, stat| memo + stat['yearly_vacation_days_assigned'] }})",
+                      stat['total_vacation_days'],
+                      "#{stat['used_vacation']} (#{stats.values.inject(0) {|memo, stat| memo + stat['used_vacation']}})",
+                      stat['remaining_vacation'],
+                      "#{stat['burn_days']} (#{stats.values.inject(0) {|memo, stat| memo + stat['burn_days']}})",
+                      stat['transfer_days'],
+                      "#{stat['overtime_days']} (#{stats.values.inject(0) {|memo, stat| memo + stat['overtime_days']}})",
+                      "#{stat['sick_leave_days']} (#{stats.values.inject(0) {|memo, stat| memo + stat['sick_leave_days']}})",
+                      "#{stat['unpaid_days_off']} (#{stats.values.inject(0) {|memo, stat| memo + stat['unpaid_days_off']}})",
+                      "#{stat['paid_days_off']} (#{stats.values.inject(0) {|memo, stat| memo + stat['paid_days_off']}})",
+                      "#{stat['working_days_shifts']} (#{stats.values.inject(0) {|memo, stat| memo + stat['working_days_shifts']}})"
+                    ]
+                  end
+                end
+              end
+            end
+          end
+
+          send_data p.to_stream().read, filename: "dayoffs-#{Time.zone.now.strftime(t(:for_csv)).gsub('00:00, ', '')}.xlsx"
+          return
+        end
+      end
+    end
   end
 
   def new

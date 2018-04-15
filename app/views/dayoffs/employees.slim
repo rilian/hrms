@@ -1,6 +1,9 @@
 h2.title
   | EMPLOYEE DAYS OFF &nbsp;
 
+= link_to 'Export to XLSX', employees_dayoffs_path(format: :xlsx)
+br
+
 table.table.pretty-table
   thead
     th Name
