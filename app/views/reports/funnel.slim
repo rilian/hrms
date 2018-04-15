@@ -61,21 +61,23 @@ table.table.pretty-table
     th Updated By
   tbody
     - @funnel.each do |item|
+      - finish_date = (Time.strptime(params[:funnel][:finish_date], '%d-%m-%Y') + 1.day).strftime('%Y-%m-%d')
       tr
         td = link_to item[:vacancy_title], vacancy_path(item[:vacancy_id])
-        td = link_to item[:people_created], people_path(q: { created_at_gteq: params[:funnel][:start_date], created_at_lteq: params[:funnel][:finish_date], by_tag_including: [item[:vacancy_tag]] })
-        td = link_to item[:people_updated_count], people_path(q: { updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], by_tag_including: [item[:vacancy_tag]] })
-        td = link_to item[:people_no_status_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::NO_STATUS_STATUSES })
-        td = link_to item[:people_not_interested_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::NOT_INTERESTED_STATUSES })
-        td = link_to item[:people_interested_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::INTERESTED_STATUSES })
-        td = link_to item[:people_interview_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::INTERVIEW_STATUSES })
-        td = link_to item[:people_passed_interview_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::PASSED_INTERVIEW_STATUSES })
-        td = link_to item[:people_hired_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::HIRED_STATUSES })
+        td = link_to item[:people_created], people_path(q: { created_at_gteq: params[:funnel][:start_date], created_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]] })
+        td = link_to item[:people_updated_count], people_path(q: { updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]] })
+        td = link_to item[:people_no_status_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::NO_STATUS_STATUSES })
+        td = link_to item[:people_not_interested_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::NOT_INTERESTED_STATUSES })
+        td = link_to item[:people_interested_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::INTERESTED_STATUSES })
+        td = link_to item[:people_interview_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::INTERVIEW_STATUSES })
+        td = link_to item[:people_passed_interview_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::PASSED_INTERVIEW_STATUSES })
+        td = link_to item[:people_hired_count], people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]], status_in: FunnelStatsCollector::HIRED_STATUSES })
         td
           - item[:sources].each_pair do |source, count|
-            = link_to "#{count}&nbsp;#{source}".html_safe, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], by_tag_including: [item[:vacancy_tag]], source_eq: source})
+            - source_hash = source == 'n/a' ? { source_blank: '1' } : { source_eq: source }
+            = link_to "#{count}&nbsp;#{source}".html_safe, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]]}.merge(source_hash))
             br
         td
           - item[:updates].each do |update|
-            = link_to "#{update[:count]}&nbsp;#{update[:name]}".html_safe, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: params[:funnel][:finish_date], by_tag_including: [item[:vacancy_tag]], updated_by_id_eq: update[:by_id]})
+            = link_to "#{update[:count]}&nbsp;#{update[:name]}".html_safe, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]], updated_by_id_eq: update[:by_id]})
             br
