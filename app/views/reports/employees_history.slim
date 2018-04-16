@@ -5,10 +5,10 @@ table.table.pretty-table
     th Name
     th Period of work
   tbody
-    - current_month = nil
+    - current_year = nil
     - @people_table.each do |record|
-      - if record[2].present? && current_month != record[2].split('-').first
-        - current_month = record[2]
+      - if record[2].present? && current_year != record[2].split('-').first
+        - current_year = record[2].split('-').first
         tr
           th colspan="2" = record[2].split('-').first
       tr
