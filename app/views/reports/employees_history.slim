@@ -1,0 +1,19 @@
+h2.title Employees History
+
+table.table.pretty-table
+  thead
+    th Name
+    th Period of work
+  tbody
+    - current_month = nil
+    - @people_table.each do |record|
+      - if record[2].present? && current_month != record[2].split('-').first
+        - current_month = record[2]
+        tr
+          th colspan="2" = record[2].split('-').first
+      tr
+        td = link_to record[1], person_path(record[0])
+        td
+          = record[3]
+          - if record[4].present?
+            | &nbsp;-&nbsp;#{record[4]}

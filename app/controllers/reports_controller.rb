@@ -140,6 +140,15 @@ class ReportsController < ApplicationController
     load_current_employees
   end
 
+  def employees_history
+    @people = Person.not_deleted.accessible_by(current_ability)
+      .where(status: ['Hired', 'Past employee'])
+      .order(:start_date)
+    @people_table = @people
+      .map { |p| [p.id, p.name, p.start_date&.strftime('%Y-%m'), p.start_date&.strftime('%e %b %Y'), p.finish_date&.strftime('%e %b %Y')] }
+      .sort { |a, b| a[2].to_s <=> b[2].to_s } # technical field
+  end
+
   def people_with_similar_name
     @people = []
     previous_ids = []
