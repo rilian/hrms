@@ -266,6 +266,6 @@ class ReportsController < ApplicationController
   end
 
   def funnel_update_params
-    params.require(:funnel).permit(:start_date, :finish_date, :user_email)
+    params.require(:funnel).permit(:start_date, :finish_date, :user_email, :vacancy_id)
   end
 end
