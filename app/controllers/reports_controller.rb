@@ -201,7 +201,13 @@ class ReportsController < ApplicationController
     } if params[:funnel].blank?
     params[:funnel][:start_date], params[:funnel][:finish_date] = params[:funnel][:finish_date], params[:funnel][:start_date] if Time.strptime(params[:funnel][:start_date], '%d-%m-%Y') > Time.strptime(params[:funnel][:finish_date], '%d-%m-%Y')
 
-    @vacancies = Vacancy.where(status: 'open').order(:created_at)
+    @vacancies = Vacancy
+    if funnel_update_params[:vacancy_id].present?
+      @vacancies = @vacancies.where(status: 'open')
+    else
+      @vacancies = @vacancies.where(id: funnel_update_params[:vacancy_id])
+    end
+    @vacancies = @vacancies.order(:created_at)
 
     @funnel = FunnelStatsCollector.new(
       scope: Person.accessible_by(current_ability).not_deleted,

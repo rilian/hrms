@@ -17,3 +17,7 @@
       a.btn.btn-sm.btn-info.btn-pill href="#{edit_vacancy_path(record)}"
         i.fa.fa-pencil
         | &nbsp; Edit
+      | &nbsp;
+      a.btn.btn-sm.btn-info.btn-pill href="#{funnel_reports_path(vacancy_id: record.id, start_date: record.created_at.strftime('%d-%m-%Y'), finish_date: Time.zone.now.strftime('%d-%m-%Y'))}"
+        i.fa.fa-pencil
+        | &nbsp; Funnel
