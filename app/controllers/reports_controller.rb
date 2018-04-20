@@ -203,9 +203,9 @@ class ReportsController < ApplicationController
 
     @vacancies = Vacancy
     if funnel_update_params[:vacancy_id].present?
-      @vacancies = @vacancies.where(status: 'open')
-    else
       @vacancies = @vacancies.where(id: funnel_update_params[:vacancy_id])
+    else
+      @vacancies = @vacancies.where(status: 'open')
     end
     @vacancies = @vacancies.order(:created_at)
 
