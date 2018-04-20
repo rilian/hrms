@@ -211,6 +211,7 @@ class ReportsController < ApplicationController
 
     @funnel = FunnelStatsCollector.new(
       scope: Person.accessible_by(current_ability).not_deleted,
+      vacancies: @vacancies,
       start_date: funnel_update_params[:start_date],
       finish_date: funnel_update_params[:finish_date],
       user_email: funnel_update_params[:user_email]

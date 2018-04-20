@@ -6,8 +6,9 @@ class FunnelStatsCollector
   PASSED_INTERVIEW_STATUSES = ['Waiting for decision']
   HIRED_STATUSES = ['Hired', 'Contractor', 'Past employee', 'Past contractor']
 
-  def initialize(scope:, start_date:, finish_date:, user_email:)
+  def initialize(scope:, vacancies:, start_date:, finish_date:, user_email:)
     @scope = scope
+    @vacancies = vacancies
     @start_date = start_date
     @finish_date = finish_date
     @user = User.find_by_email(user_email)
@@ -16,7 +17,7 @@ class FunnelStatsCollector
   def perform
     result = []
 
-    Vacancy.where(status: 'open').each do |vacancy|
+    @vacancies.each do |vacancy|
       people_created = @scope.tagged_with([vacancy.tag].flatten)
       people_created = people_created.where(updated_by_id: @user.id) if @user.present?
       people_created = people_created
