@@ -38,17 +38,17 @@ class DayoffsController < ApplicationController
               'Current year',
               'Period start',
               'Period end',
-              'Vacation days assigned (total)',
+              'Vacation days assigned',
               'Vacation days total for period',
-              'Vacation days used (total)',
+              'Vacation days used',
               'Remain vacation days',
-              'Days may burn by period end (total)',
+              'Days may burn by period end',
               'Days transfer to next period',
-              'Overtimes (total)',
-              'Sick leaves (total)',
-              'Unpaid days off (total)',
-              'Paid days off (total)',
-              'Work day shifts (total)'
+              'Overtimes',
+              'Sick leaves',
+              'Unpaid days off',
+              'Paid days off',
+              'Work day shifts'
             ]
 
             @employees.each do |record|
@@ -62,17 +62,17 @@ class DayoffsController < ApplicationController
                       (stat['year'] + 1).to_i,
                       stat['period_start_date'],
                       stat['period_end_date'],
-                      "#{stat['yearly_vacation_days_assigned']} (#{stats.values.inject(0) { |memo, stat| memo + stat['yearly_vacation_days_assigned'] }})",
+                      stat['yearly_vacation_days_assigned'],
                       stat['total_vacation_days'],
-                      "#{stat['used_vacation']} (#{stats.values.inject(0) {|memo, stat| memo + stat['used_vacation']}})",
+                      stat['used_vacation'],
                       stat['remaining_vacation'],
-                      "#{stat['burn_days']} (#{stats.values.inject(0) {|memo, stat| memo + stat['burn_days']}})",
+                      stat['burn_days'],
                       stat['transfer_days'],
-                      "#{stat['overtime_days']} (#{stats.values.inject(0) {|memo, stat| memo + stat['overtime_days']}})",
-                      "#{stat['sick_leave_days']} (#{stats.values.inject(0) {|memo, stat| memo + stat['sick_leave_days']}})",
-                      "#{stat['unpaid_days_off']} (#{stats.values.inject(0) {|memo, stat| memo + stat['unpaid_days_off']}})",
-                      "#{stat['paid_days_off']} (#{stats.values.inject(0) {|memo, stat| memo + stat['paid_days_off']}})",
-                      "#{stat['working_days_shifts']} (#{stats.values.inject(0) {|memo, stat| memo + stat['working_days_shifts']}})"
+                      stat['overtime_days'],
+                      stat['sick_leave_days'],
+                      stat['unpaid_days_off'],
+                      stat['paid_days_off'],
+                      stat['working_days_shifts']
                     ]
                   end
                 end
