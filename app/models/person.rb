@@ -20,10 +20,12 @@ class Person < ActiveRecord::Base
     DBA
     HR
     Manager
+    Sales
     PHP
     Scala
     UI/UX
     ML
+    Python
   )
   ENGLISH_LEVELS = %w(
     Beginner/Elementary
