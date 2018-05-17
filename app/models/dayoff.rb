@@ -16,8 +16,16 @@ class Dayoff < ActiveRecord::Base
   validate :dates_intersection
   validate :start_on_greater_or_equal_person_start_date
   validate :end_on_greater_or_equal_person_start_date
+  validate :belongs_to_single_working_period
 
   private
+
+  def belongs_to_single_working_period
+    next_period_start_date = self.person.start_date
+    next_period_start_date += 1.year while next_period_start_date <= self.start_on
+    return if self.end_on < next_period_start_date
+    errors.add(:end_on, 'belongs to next working period')
+  end
 
   def dates_intersection
     scope = Dayoff.where(person_id: person_id, start_on: start_on)
