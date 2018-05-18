@@ -21,6 +21,7 @@ class Dayoff < ActiveRecord::Base
   private
 
   def belongs_to_single_working_period
+    return if self.person.blank?
     next_period_start_date = self.person.start_date
     next_period_start_date += 1.year while next_period_start_date <= self.start_on
     return if self.end_on < next_period_start_date
