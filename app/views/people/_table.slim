@@ -16,10 +16,17 @@
     td
       - if record.primary_tech.present?
         = link_to record.primary_tech, people_path(q: { primary_tech_eq: record.primary_tech })
-    td style="background-color: #{PERSON_STATUS_COLORS[record.status]};"
-      = link_to (record.status.presence || 'n/a'), people_path(q: {status_eq: record.status}), { style: 'color: black' }
+    td
+      div style="background-color: #{PERSON_STATUS_COLORS[record.status]};"
+        = link_to (record.status.presence || 'n/a'), people_path(q: {status_eq: record.status}), { style: 'color: black' }
       - if record.start_date.present?
+        | Start:&nbsp;
         = record.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+        br
+      - if record.finish_date.present?
+        | Finish:&nbsp;
+        = record.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+        br
     td
       - if (record.action_points_count || 0) > 0
         | Upcoming Actions:
