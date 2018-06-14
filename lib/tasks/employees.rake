@@ -49,7 +49,7 @@ namespace :employees do
   end
 
   desc 'Sends advance notification about performance reviews'
-  task one_on_one_meeting: :environment do
+  task performance_review: :environment do
     employees = Person.not_deleted.current_employee
       .where('city ILIKE ?', ENV['MAIN_CITY'])
       .where('start_date < ?', 6.months.ago.strftime('%F'))
