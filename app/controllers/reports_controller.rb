@@ -193,15 +193,6 @@ class ReportsController < ApplicationController
       .order(:name)
   end
 
-  def employees_by_last_one_on_one_meeting_date
-    load_current_employees
-    @people = @people
-      .where('city ILIKE ?', ENV['MAIN_CITY'])
-      .where('start_date < ?', Time.zone.now.strftime('%F'))
-      .reorder('last_performance_review_at IS NOT NULL, last_performance_review_at ASC')
-      .order(:name)
-  end
-
   def employees_without_performance_review
     load_current_employees
 
