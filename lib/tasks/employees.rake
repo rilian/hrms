@@ -47,4 +47,19 @@ namespace :employees do
       EmployeesMailer.one_on_one(user_id, employees).deliver_now
     end
   end
+
+  desc 'Sends advance notification about performance reviews'
+  task one_on_one_meeting: :environment do
+    employees = Person.not_deleted.current_employee
+      .where('city ILIKE ?', ENV['MAIN_CITY'])
+      .where('start_date < ?', 6.months.ago.strftime('%F'))
+      .where('finish_date IS NULL OR finish_date > ?', Time.zone.now.strftime('%F'))
+      .where('last_performance_review_at IS NULL OR last_performance_review_at < ?', 6.months.ago.strftime('%F'))
+      .reorder('last_performance_review_at IS NOT NULL, last_performance_review_at ASC')
+      .order(:name)
+
+    User.where(one_on_one_notifications_enabled: true).pluck(:id).each do |user_id|
+      EmployeesMailer.performance_review(user_id, employees).deliver_now
+    end
+  end
 end
