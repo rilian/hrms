@@ -51,7 +51,6 @@ namespace :employees do
   desc 'Sends advance notification about performance reviews'
   task performance_review: :environment do
     employees = Person.not_deleted.current_employee
-      .where('city ILIKE ?', ENV['MAIN_CITY'])
       .where('start_date < ?', 6.months.ago.strftime('%F'))
       .where('finish_date IS NULL OR finish_date > ?', Time.zone.now.strftime('%F'))
       .where('last_performance_review_at IS NULL OR last_performance_review_at < ?', 6.months.ago.strftime('%F'))

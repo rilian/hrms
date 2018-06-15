@@ -197,7 +197,6 @@ class ReportsController < ApplicationController
     load_current_employees
 
     @people = @people
-      .where('city ILIKE ?', ENV['MAIN_CITY'])
       .where('start_date < ?', Time.zone.now.strftime('%F'))
       .where('finish_date IS NULL OR finish_date > ?', Time.zone.now.strftime('%F'))
       .where('last_performance_review_at IS NULL OR last_performance_review_at < ?', 6.months.ago.strftime('%F'))
