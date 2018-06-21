@@ -117,6 +117,11 @@
 
   .form-group
     label.control-label
+      | Next performance review planned:
+  = f.input :next_performance_review_at, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: @person.next_performance_review_at&.strftime('%d-%m-%Y'), class: 'datepicker' }
+
+  .form-group
+    label.control-label
       | Finish Date:
   = f.input :finish_date, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: @person.finish_date&.strftime('%d-%m-%Y'), class: 'datepicker' }
 

@@ -113,6 +113,11 @@ p
     | Last performance review:&nbsp;
     strong = @person.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
 
+- if @person.next_performance_review_at.present?
+  p
+    | Next performance review planned:&nbsp;
+    strong = @person.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+
 - if @person.finish_date.present?
   p
     | Employment Finish Date:&nbsp;

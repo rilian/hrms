@@ -5,16 +5,13 @@ br
 
 table.table.pretty-table
   thead
-    th #
     th Name
     - if params[:show_all] == 'true'
       th NDA Signed?
     th Files
   tbody
-    - @people.each_with_index do |person, index|
+    - @people.each_with_index do |person|
       tr
-        td
-          = index + 1
         td
           = link_to person.name, person_path(person)
           '&nbsp;

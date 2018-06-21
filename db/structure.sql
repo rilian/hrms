@@ -297,7 +297,8 @@ CREATE TABLE people (
     salary_type character varying,
     employee_id character varying,
     last_one_on_one_meeting_at date,
-    last_performance_review_at date
+    last_performance_review_at date,
+    next_performance_review_at date
 );
 
 
@@ -812,154 +813,154 @@ ALTER TABLE ONLY vacancies
 -- Name: index_action_points_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_action_points_on_person_id ON public.action_points USING btree (person_id);
+CREATE INDEX index_action_points_on_person_id ON action_points USING btree (person_id);
 
 
 --
 -- Name: index_attachments_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_attachments_on_person_id ON public.attachments USING btree (person_id);
+CREATE INDEX index_attachments_on_person_id ON attachments USING btree (person_id);
 
 
 --
 -- Name: index_dayoffs_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_dayoffs_on_person_id ON public.dayoffs USING btree (person_id);
+CREATE INDEX index_dayoffs_on_person_id ON dayoffs USING btree (person_id);
 
 
 --
 -- Name: index_events_on_entity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_entity_id ON public.events USING btree (entity_id);
+CREATE INDEX index_events_on_entity_id ON events USING btree (entity_id);
 
 
 --
 -- Name: index_events_on_entity_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_entity_type ON public.events USING btree (entity_type);
+CREATE INDEX index_events_on_entity_type ON events USING btree (entity_type);
 
 
 --
 -- Name: index_events_on_params; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_params ON public.events USING gin (params);
+CREATE INDEX index_events_on_params ON events USING gin (params);
 
 
 --
 -- Name: index_events_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
+CREATE INDEX index_events_on_user_id ON events USING btree (user_id);
 
 
 --
 -- Name: index_expenses_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_expenses_on_person_id ON public.expenses USING btree (person_id);
+CREATE INDEX index_expenses_on_person_id ON expenses USING btree (person_id);
 
 
 --
 -- Name: index_notes_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notes_on_person_id ON public.notes USING btree (person_id);
+CREATE INDEX index_notes_on_person_id ON notes USING btree (person_id);
 
 
 --
 -- Name: index_people_on_action_points_count; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_people_on_action_points_count ON public.people USING btree (action_points_count);
+CREATE INDEX index_people_on_action_points_count ON people USING btree (action_points_count);
 
 
 --
 -- Name: index_people_on_attachments_count; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_people_on_attachments_count ON public.people USING btree (attachments_count);
+CREATE INDEX index_people_on_attachments_count ON people USING btree (attachments_count);
 
 
 --
 -- Name: index_people_on_is_deleted; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_people_on_is_deleted ON public.people USING btree (is_deleted);
+CREATE INDEX index_people_on_is_deleted ON people USING btree (is_deleted);
 
 
 --
 -- Name: index_people_on_notes_count; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_people_on_notes_count ON public.people USING btree (notes_count);
+CREATE INDEX index_people_on_notes_count ON people USING btree (notes_count);
 
 
 --
 -- Name: index_people_on_status; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_people_on_status ON public.people USING btree (status);
+CREATE INDEX index_people_on_status ON people USING btree (status);
 
 
 --
 -- Name: index_project_notes_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_project_notes_on_project_id ON public.project_notes USING btree (project_id);
+CREATE INDEX index_project_notes_on_project_id ON project_notes USING btree (project_id);
 
 
 --
 -- Name: index_taggings_on_tag_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taggings_on_tag_id ON public.taggings USING btree (tag_id);
+CREATE INDEX index_taggings_on_tag_id ON taggings USING btree (tag_id);
 
 
 --
 -- Name: index_taggings_on_taggable_id_and_taggable_type_and_context; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_context ON public.taggings USING btree (taggable_id, taggable_type, context);
+CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_context ON taggings USING btree (taggable_id, taggable_type, context);
 
 
 --
 -- Name: index_taggings_on_taggable_id_and_taggable_type_and_tag_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_tag_id ON public.taggings USING btree (taggable_id, taggable_type, tag_id);
+CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_tag_id ON taggings USING btree (taggable_id, taggable_type, tag_id);
 
 
 --
 -- Name: index_tags_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_tags_on_name ON public.tags USING btree (name);
+CREATE UNIQUE INDEX index_tags_on_name ON tags USING btree (name);
 
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
+CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
 -- Name: taggings_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX taggings_idx ON public.taggings USING btree (tag_id, taggable_id, taggable_type, context, tagger_id, tagger_type);
+CREATE UNIQUE INDEX taggings_idx ON taggings USING btree (tag_id, taggable_id, taggable_type, context, tagger_id, tagger_type);
 
 
 --
@@ -1021,6 +1022,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171218111352'),
 ('20171219190759'),
 ('20180319174634'),
-('20180614152142');
+('20180614152142'),
+('20180621092446');
 
 

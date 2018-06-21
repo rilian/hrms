@@ -199,6 +199,7 @@ class ReportsController < ApplicationController
     @people = @people
       .where('start_date < ?', Time.zone.now.strftime('%F'))
       .where('finish_date IS NULL OR finish_date > ?', Time.zone.now.strftime('%F'))
+      .where('next_performance_review_at IS NULL OR next_performance_review_at < ?', Time.zone.now.strftime('%F')) \
       .where('last_performance_review_at IS NULL OR last_performance_review_at < ?', 6.months.ago.strftime('%F'))
       .reorder('last_performance_review_at IS NOT NULL, last_performance_review_at ASC')
       .order(:name)

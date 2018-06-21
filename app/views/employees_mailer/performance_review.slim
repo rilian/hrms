@@ -16,6 +16,11 @@ p Here is the list of employees to run performance review for this week #{Time.z
           = employee.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
         - else
           |never
+        '&nbsp; next review planned &nbsp;
+        - if employee.next_performance_review_at.present?
+          = employee.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+        - else
+          |n/a
         |, email: #{employee.email}, skype: #{employee.skype}, phone: #{employee.phone}
         |), #{link_to '[add meeting note]', new_note_url(note: { person_id: employee.id })}
       - else
@@ -23,6 +28,6 @@ p Here is the list of employees to run performance review for this week #{Time.z
         - break_all = true
         break
 
-p Please arrange meeting with them and update "last_performance_review_at" and add meeting notes afterwards.
+p Please arrange meeting with them and update "last performance review" or "next performance review" and add meeting notes afterwards.
 
 = render 'shared/mail_footer'
