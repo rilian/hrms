@@ -31,7 +31,7 @@
     label.control-label
       | Perform on:
       span.text-danger *
-    = f.input :perform_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: @action_point.perform_on&.strftime('%d-%m-%Y'), class: 'datepicker' }
+    = f.input :perform_on, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: @action_point.perform_on&.strftime('%d-%m-%Y'), class: 'datepicker', autocomplete: 'off' }
 
   = f.input :is_completed, as: :boolean, label: 'Completed'
 
