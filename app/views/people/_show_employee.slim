@@ -18,9 +18,19 @@
     strong = @person.current_position
 
 p
-  | Status:&nbsp;
+  | Current Status:&nbsp;
   span style="background-color: #{PERSON_STATUS_COLORS[@person.status]};"
     = @person.status.presence || 'n/a'
+
+p
+  | Status history:&nbsp;
+  br
+  - hr_status_updates(@person.id).each do |item|
+    = item.last.strftime(t(:day))
+    |&nbsp;
+    span style="background-color: #{PERSON_STATUS_COLORS[item.first&.last]};"
+      = item.first&.last.presence || 'n/a'
+    br
 
 - if @person.skype.present?
   p
