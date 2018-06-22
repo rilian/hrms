@@ -125,6 +125,9 @@ h3
   - if !(attachment.name.presence || attachment.file_filename).include?('offer') || ((attachment.name.presence || attachment.file_filename).include?('offer') && current_user.has_access_to_finances?)
     p
       = link_to (attachment.name.present? ? attachment.name : attachment.file_filename), Refile.attachment_url(attachment, :file)
+      |&nbsp;(
+      = attachment.created_at.strftime(t(:day)).gsub('00:00, ', '')
+      |)
       - if attachment.description.present?
         br = with_newlines(attachment.description)
     br
