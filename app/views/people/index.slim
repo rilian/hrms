@@ -37,6 +37,18 @@ h2.title
       .col-md-3
         .form-group
           label.control-label
+            | Technology
+          select.select.form-control name="q[primary_tech_eq]"
+            option value="" not selected
+            - Person::PRIMARY_TECHS.each do |item|
+              - if params.dig(:q, :primary_tech_eq) == item
+                option selected="selected" value="#{item}" #{item}
+              - else
+                option value="#{item}" #{item}
+                
+      .col-md-3
+        .form-group
+          label.control-label
             | Exclude tags
           select.form-control.js-select2-select multiple="multiple" name="q[by_tag_excluding][]" class="form-control"
             - @tags.each do |tag|
@@ -55,6 +67,7 @@ h2.title
               - else
                 option value="#{status}" #{status}
 
+    .row
       .col-md-2
         .form-group
           label.control-label
