@@ -5,27 +5,28 @@ class Person < ActiveRecord::Base
   attachment :photo
 
   PRIMARY_TECHS = %w(
-    Ruby
-    Frontend
-    Fullstack
-    NET
-    Java
-    iOS
     Android
-    Salesforce
-    DevOps
-    PM
-    QA/BA
     C/C++/Go
     DBA
+    DevOps
+    Frontend
+    Fullstack
     HR
+    iOS
+    Java
     Manager
-    Sales
-    PHP
-    Scala
-    UI/UX
     ML
+    NET
+    PHP
+    PM
     Python
+    Ruby
+    Sales
+    Salesforce
+    Scala
+    QA/BA
+    UI/UX
+    Wordpress
   )
   ENGLISH_LEVELS = %w(
     Beginner/Elementary
