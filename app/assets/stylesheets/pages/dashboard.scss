@@ -36,6 +36,7 @@ $side-panel-color: #354052;
     width: 15%;
     background: $side-panel-color;
     overflow-y: auto;
+    -webkit-overflow-scrolling:touch;
   }
 
   .content {
@@ -43,6 +44,7 @@ $side-panel-color: #354052;
     padding: 20px 10px;
     overflow-x: auto;
     overflow-y: auto;
+    -webkit-overflow-scrolling:touch;
   }
 }
 
