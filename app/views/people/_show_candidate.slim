@@ -26,7 +26,7 @@ p
 - if @person.skills.present?
   p
     | Skills:&nbsp;
-    strong = @person.skills
+    strong = with_newlines(@person.skills)
 
 - if @person.skype.present?
   p
