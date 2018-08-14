@@ -27,6 +27,7 @@ class Person < ActiveRecord::Base
     QA/BA
     UI/UX
     Wordpress
+    Xamarin
   )
   ENGLISH_LEVELS = %w(
     Beginner/Elementary
