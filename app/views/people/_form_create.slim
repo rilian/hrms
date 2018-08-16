@@ -31,6 +31,7 @@
     label.control-label
       | Skype:
     = f.input :skype, placeholder: 'ivan_ivanov', label: false, class: 'input form-control'
+
   .form-group
     label.control-label
       | LinkedIn:&nbsp;
@@ -38,6 +39,14 @@
         strong
           a target="_blank" href="#{@person.linkedin_value}" #{@person.linkedin_value}
     = f.input :linkedin, placeholder: 'https://linkedin.com/johndoe', label: false, class: 'input form-control'
+
+  .form-group
+    label.control-label
+      | Github:&nbsp;
+      - if @person.github.present?
+        strong
+          a target="_blank" href="#{@person.github_value}" #{@person.github_value}
+    = f.input :github, placeholder: 'https://github.com/johndoe', label: false, class: 'input form-control'
 
   .form-group
     label.control-label
@@ -85,5 +94,5 @@
     = f.input :skills, as: :text, label: false, placeholder: 'Skills assessment', input_html: { rows: 1 }
 
   .form-group.form-actions
-    .text-left style="width: 600px;"      
+    .text-left style="width: 600px;"
       = f.button :submit, '+ Create Person', class: 'btn btn-success'

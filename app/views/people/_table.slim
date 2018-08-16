@@ -67,6 +67,9 @@
       - if record.linkedin.present?
         a target="_blank" href="#{record.linkedin_value}" LinkedIn
         br
+      - if record.github.present?
+        a target="_blank" href="#{record.github_value}" Github
+        br
       - unless record.tag_list.empty?
         ' Tags:&nbsp;
         - record.tag_list.each do |tag|

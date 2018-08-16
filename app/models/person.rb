@@ -54,7 +54,7 @@ class Person < ActiveRecord::Base
   validates :salary_type, inclusion: { in: SALARY_TYPES }, allow_blank: true
   validates :primary_tech, inclusion: { in: PRIMARY_TECHS }
   validates :vacation_override, numericality: { only_integer: true }, allow_blank: true
-  validates :email, :phone, :skype, :linkedin, uniqueness: { case_sensitive: false, conditions: -> { not_deleted } }, allow_blank: true
+  validates :email, :phone, :skype, :linkedin, :github, uniqueness: { case_sensitive: false, conditions: -> { not_deleted } }, allow_blank: true
   validates :name, format: { with: /\A[a-zA-Z\d\s\-\'\(\)]+\z/, message: 'invalid symbols. Only A-Z, digits, braces, quote and space allowed' }, allow_blank: true
   validates :phone, format: { with: /\A[\s\+\,\d]+\z/ }, allow_blank: true
   validates :email, format: { with: /\A[0-9a-z\@\.\_\-\'\+]+\z/ }, allow_blank: true
@@ -77,6 +77,16 @@ class Person < ActiveRecord::Base
     end
   end
 
+  def github_value
+    if self.github.start_with?('https://')
+      self.github
+    elsif self.github.start_with?('http://')
+      self.github.gsub('http://', 'https://')
+    else
+      "https://#{self.github}"
+    end
+  end
+
 private
 
   def cleanup
@@ -90,6 +100,7 @@ private
     self.email = self.email.to_s.strip
     self.skype = self.skype.to_s.strip
     self.linkedin = self.linkedin.to_s.strip.split('?').first.to_s
+    self.github = self.github.to_s.strip.split('?').first.to_s
     self.name = self.name.to_s.strip
   end
 

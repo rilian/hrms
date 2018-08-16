@@ -40,6 +40,12 @@ p
     strong
       a target="_blank" href="#{@person.linkedin_value}" View
 
+- if @person.github.present?
+  p
+    | Github:&nbsp;
+    strong
+      a target="_blank" href="#{@person.github_value}" View
+
 - if @person.city.present?
   p
     | City:&nbsp;

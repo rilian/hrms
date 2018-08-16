@@ -14,6 +14,7 @@ namespace :import do
       person.city = item[:city] if item[:city].present?
       person.skype = item[:skype] if item[:skype].present?
       person.linkedin = item[:linkedin] if item[:linkedin].present?
+      person.github = item[:github] if item[:github].present?
       person.primary_tech = ENV['PEOPLE_PRIMARY_TECH']
       person.save!
 

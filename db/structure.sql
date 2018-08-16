@@ -298,7 +298,8 @@ CREATE TABLE people (
     employee_id character varying,
     last_one_on_one_meeting_at date,
     last_performance_review_at date,
-    next_performance_review_at date
+    next_performance_review_at date,
+    github character varying
 );
 
 
@@ -1023,6 +1024,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171219190759'),
 ('20180319174634'),
 ('20180614152142'),
-('20180621092446');
+('20180621092446'),
+('20180816132516');
 
 
