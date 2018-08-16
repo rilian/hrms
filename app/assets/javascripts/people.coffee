@@ -28,13 +28,13 @@ $(document).on 'ready page:load', ->
 
       $.ajax(url: query)
         .done (response)->
-          container.html('')
+          container.html('<span color=red></span>')
           if response.length > 0
-            container.html("Found #{response.length} similar people")
-            if response.length < 10
+            container.html("<span style='color:red'>Found #{response.length} similar people</span>")
+            if response.length < 15
               container.append(": ")
               for person in response
-                container.append("<a target='_blank' href='/people\/#{person["id"]}'>#{person["name"]}</a> &nbsp;")
+                container.append("<a target='_blank' href='/people\/#{person["id"]}'><span style='color:maroon'>#{person["name"]}</span></a> &nbsp;")
 
   $('form#new_person').on 'submit', (e)->
     similar = $('.js-similar-people-container').text().replace(/^\s+|\s+$/g, '');
