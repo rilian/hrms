@@ -1,4 +1,4 @@
-h2.title People with the same name
+h2.title People with similar values
 
 table.table.pretty-table
   thead
@@ -8,8 +8,10 @@ table.table.pretty-table
     - @people.each do |record|
       tr
         td
-          = link_to "#{record[:person].name} (#{record[:person].id})", person_path(record[:person])
+          = link_to "(#{Person.find(record[:person]).id}) #{Person.find(record[:person]).name}", person_path(record[:person])
         td
-          - record[:similars].each do |similar|
-            = link_to "#{similar.name} (#{similar.id})", person_path(similar)
-            br
+          - %i(name email phone skype github linkedin).each do |prop|
+            - if record["similar_#{prop.to_s}".to_sym].present?
+              - record["similar_#{prop.to_s}".to_sym].each do |similar|
+                = link_to "(#{similar}) #{Person.find(similar).name}, #{prop.to_s} '#{Person.find(record[:person]).send(prop)}' vs '#{Person.find(similar).send(prop)}'", person_path(similar)
+                br
