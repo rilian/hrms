@@ -13,5 +13,5 @@ table.table.pretty-table
           - %i(name email phone skype github linkedin).each do |prop|
             - if record["similar_#{prop.to_s}".to_sym].present?
               - record["similar_#{prop.to_s}".to_sym].each do |similar|
-                = link_to "(#{similar}) #{Person.find(similar).name}, #{prop.to_s} '#{Person.find(record[:person]).send(prop)}' vs '#{Person.find(similar).send(prop)}'", person_path(similar)
+                = link_to "(#{similar}) #{Person.find(similar).name}, #{prop.to_s} '#{Person.find(record[:person]).send(prop)}' ~ '#{Person.find(similar).send(prop)}'", person_path(similar)
                 br
