@@ -6,6 +6,11 @@
   = render 'people/form'
 
 .js-show-container
+  - if @person.is_deleted?
+    h1
+      span style="color: red" DELETED
+      br
+
   h2.title
     = @person.name.titleize
     | &nbsp;
