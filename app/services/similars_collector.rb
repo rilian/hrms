@@ -8,7 +8,8 @@ class SimilarsCollector
     Person.not_deleted.find_each(batch_size: 25) do |person|
       puts "Working with ID #{person.id}"
       %i(name email phone skype github linkedin).each do |prop|
-        next if person.send(prop).to_s.downcase.strip.blank?
+        val = person.send(prop).to_s.downcase.strip
+        next if val.blank? || val.size < 4
 
         similar_ids = Person.not_deleted
                         .where('id NOT IN (?)', [person.id] + previous_ids)
