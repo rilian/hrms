@@ -95,12 +95,12 @@ private
   end
 
   def strip_values
-    self.phone = self.phone.to_s.strip
+    self.phone = self.phone.to_s.strip.gsub(' ', '')
     self.current_position = self.current_position.to_s.strip
     self.email = self.email.to_s.strip
     self.skype = self.skype.to_s.strip
-    self.linkedin = self.linkedin.to_s.strip.split('?').first.to_s
-    self.github = self.github.to_s.strip.split('?').first.to_s
+    self.linkedin = self.linkedin.to_s.strip.split('?').first.to_s.chomp('/')
+    self.github = self.github.to_s.strip.split('?').first.to_s.strip
     self.name = self.name.to_s.strip
   end
 
