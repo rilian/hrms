@@ -99,7 +99,7 @@ private
     self.current_position = self.current_position.to_s.strip
     self.email = self.email.to_s.strip
     self.skype = self.skype.to_s.strip
-    self.linkedin = self.linkedin.to_s.strip.split('?').first.to_s.chomp('/')
+    self.linkedin = self.linkedin.to_s.chomp('/').strip
     self.github = self.github.to_s.strip.split('?').first.to_s.strip
     self.name = self.name.to_s.strip
   end
