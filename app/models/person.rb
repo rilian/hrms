@@ -4,31 +4,32 @@ class Person < ActiveRecord::Base
   acts_as_taggable_on :tags
   attachment :photo
 
-  PRIMARY_TECHS = %w(
-    Android
-    C/C++/Go
-    DBA
-    DevOps
-    Frontend
-    Fullstack
-    HR
-    iOS
-    Java
-    Manager
-    ML
-    NET
-    PHP
-    PM
-    Python
-    Ruby
-    Sales
-    Salesforce
-    Scala
-    QA/BA
-    UI/UX
-    Wordpress
-    Xamarin
-  )
+  PRIMARY_TECHS = [
+    'Android',
+    'C/C++/Go',
+    'DBA',
+    'DevOps',
+    'Frontend',
+    'Fullstack',
+    'HR',
+    'iOS',
+    'Java',
+    'Manager',
+    'ML',
+    'NET',
+    'Office Manager',
+    'PHP',
+    'PM',
+    'Python',
+    'Ruby',
+    'Sales',
+    'Salesforce',
+    'Scala',
+    'QA/BA',
+    'UI/UX',
+    'Wordpress',
+    'Xamarin'
+  ]
   ENGLISH_LEVELS = %w(
     Beginner/Elementary
     Pre-Intermediate
