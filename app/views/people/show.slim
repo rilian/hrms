@@ -1,9 +1,70 @@
 .js-edit-form-container style="display:none;"
   h2.title
-    | Edit #{@person.name.titleize}
+    | #{@person.name.titleize}
     | &nbsp;
-    a.btn.btn-default href="#{person_path(@person)}" Back
+    a.btn.btn-default.js-show-btn href="#" Info
+    | &nbsp;
+    a.btn.btn-default.js-show-notes-btn href="#" Notes
+    | &nbsp;
+    a.btn.btn-default.js-show-performance-btn href="#" Performance
+    | &nbsp;
   = render 'people/form'
+
+.js-notes-container style="display:none;"
+  h2.title
+    = @person.name.titleize
+    | &nbsp;
+    a.btn.btn-default.js-show-btn href="#" Info
+    | &nbsp;
+    a.btn.btn-default.js-show-notes-btn href="#" Notes
+    | &nbsp;
+    a.btn.btn-default.js-show-performance-btn href="#" Performance
+    | &nbsp;
+
+  h3
+    | Latest notes &nbsp;
+    = link_to 'Add', new_note_path(note: {person_id: @person.id}), class: 'btn btn-default'
+
+  - @person.notes.accessible_by(current_ability).where(type: (Note::TYPES - Note::FINANCE_TYPES)).order(updated_at: :desc).each do |note|
+    p
+      = note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+      | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
+
+      - if !note.type.in?(Note::FINANCE_TYPES) || (note.type.in?(Note::FINANCE_TYPES) && current_user.has_access_to_finances?)
+        a href="#{edit_note_path(note)}" #{note.type}
+        br
+        ' #{with_newlines(note.value)}
+      - else
+        = "Content of this note is not available (#{note.type})"
+    br
+
+.js-performance-container style="display:none;"
+  h2.title
+    = @person.name.titleize
+    | &nbsp;
+    a.btn.btn-default.js-show-btn href="#" Info
+    | &nbsp;
+    a.btn.btn-default.js-show-notes-btn href="#" Notes
+    | &nbsp;
+    a.btn.btn-default.js-show-performance-btn href="#" Performance
+    | &nbsp;
+
+  h3
+    | Latest performance notes &nbsp;
+    = link_to 'Add', new_note_path(note: {person_id: @person.id}), class: 'btn btn-default'
+
+  - @person.notes.accessible_by(current_ability).where(type: Note::FINANCE_TYPES).order(updated_at: :desc).each do |note|
+    p
+      = note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+      | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
+
+      - if !note.type.in?(Note::FINANCE_TYPES) || (note.type.in?(Note::FINANCE_TYPES) && current_user.has_access_to_finances?)
+        a href="#{edit_note_path(note)}" #{note.type}
+        br
+        ' #{with_newlines(note.value)}
+      - else
+        = "Content of this note is not available (#{note.type})"
+    br
 
 .js-show-container
   - if @person.is_deleted?
@@ -17,9 +78,14 @@
     a.btn.btn-default.js-show-edit-form href="#" Edit
     | &nbsp;
     a.btn.btn-default.js-show-quick-forms href="#" Show Quick Forms
+    | &nbsp;
+    a.btn.btn-default.js-show-notes-btn href="#" Notes
+    | &nbsp;
+    a.btn.btn-default.js-show-performance-btn href="#" Performance
+    | &nbsp;
     - if current_user.has_access_to_events?
+      a.btn.btn-default href="#{events_path(q: {entity_id_eq: @person.id, action_starts_with: 'person.'})}" Events
       | &nbsp;
-      a.btn.btn-default href="#{events_path(q: { entity_id_eq: @person.id, action_starts_with: 'person.'})}" Events
 
   - if @person.status.in?(Person::EMPLOYEE_STATUSES)
     = render 'people/show_employee'

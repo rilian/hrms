@@ -7,8 +7,28 @@ $(document).on 'ready page:load', ->
   )
 
   $('.js-show-edit-form').click ->
-    $('.js-edit-form-container').show()
     $('.js-show-container').hide()
+    $('.js-edit-form-container').show()
+    $('.js-notes-container').hide()
+    $('.js-performance-container').hide()
+
+  $('.js-show-btn').click ->
+    $('.js-show-container').show()
+    $('.js-edit-form-container').hide()
+    $('.js-notes-container').hide()
+    $('.js-performance-container').hide()
+
+  $('.js-show-notes-btn').click ->
+    $('.js-show-container').hide()
+    $('.js-edit-form-container').hide()
+    $('.js-notes-container').show()
+    $('.js-performance-container').hide()
+
+  $('.js-show-performance-btn').click ->
+    $('.js-show-container').hide()
+    $('.js-edit-form-container').hide()
+    $('.js-notes-container').hide()
+    $('.js-performance-container').show()
 
   $('.js-show-more').click ->
     $('.js-show-more-container').show()
