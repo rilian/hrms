@@ -4,10 +4,11 @@
     | &nbsp;
     a.btn.btn-default.js-show-btn href="#" Info
     | &nbsp;
-    a.btn.btn-default.js-show-notes-btn href="#" Notes
+    a.btn.btn-default.js-show-notes-btn href="#" Notes & Actions
     | &nbsp;
-    a.btn.btn-default.js-show-performance-btn href="#" Performance
-    | &nbsp;
+    - if current_user.has_access_to_finances?
+      a.btn.btn-default.js-show-performance-btn href="#" Performance
+      | &nbsp;
   = render 'people/form'
 
 .js-notes-container style="display:none;"
@@ -16,10 +17,11 @@
     | &nbsp;
     a.btn.btn-default.js-show-btn href="#" Info
     | &nbsp;
-    a.btn.btn-default.js-show-notes-btn href="#" Notes
+    a.btn.btn-default.js-show-notes-btn href="#" Notes & Actions
     | &nbsp;
-    a.btn.btn-default.js-show-performance-btn href="#" Performance
-    | &nbsp;
+    - if current_user.has_access_to_finances?
+      a.btn.btn-default.js-show-performance-btn href="#" Performance
+      | &nbsp;
 
   h3
     | Latest notes &nbsp;
@@ -38,16 +40,28 @@
         = "Content of this note is not available (#{note.type})"
     br
 
+  h3
+    | Actions &nbsp;
+    = link_to 'Add', new_action_point_path(action_point: {person_id: @person.id}), class: 'btn btn-default'
+
+  - @person.action_points.order(is_completed: :asc, perform_on: :desc).each do |action|
+    p
+      a href="#{edit_action_point_path(action)}" #{action.perform_on.strftime(t(:datetime_full)).gsub('00:00, ', '')}
+      | &nbsp; #{action.is_completed? ? 'completed' : ''}
+      br
+      = with_newlines(action.value)
+
 .js-performance-container style="display:none;"
   h2.title
     = @person.name.titleize
     | &nbsp;
     a.btn.btn-default.js-show-btn href="#" Info
     | &nbsp;
-    a.btn.btn-default.js-show-notes-btn href="#" Notes
+    a.btn.btn-default.js-show-notes-btn href="#" Notes & Actions
     | &nbsp;
-    a.btn.btn-default.js-show-performance-btn href="#" Performance
-    | &nbsp;
+    - if current_user.has_access_to_finances?
+      a.btn.btn-default.js-show-performance-btn href="#" Performance
+      | &nbsp;
 
   h3
     | Latest performance notes &nbsp;
@@ -79,10 +93,12 @@
     | &nbsp;
     a.btn.btn-default.js-show-quick-forms href="#" Show Quick Forms
     | &nbsp;
-    a.btn.btn-default.js-show-notes-btn href="#" Notes
-    | &nbsp;
-    a.btn.btn-default.js-show-performance-btn href="#" Performance
-    | &nbsp;
+    - if @person.status.in?(Person::EMPLOYEE_STATUSES)
+      a.btn.btn-default.js-show-notes-btn href="#" Notes & Actions
+      | &nbsp;
+      - if current_user.has_access_to_finances?
+        a.btn.btn-default.js-show-performance-btn href="#" Performance
+        | &nbsp;
     - if current_user.has_access_to_events?
       a.btn.btn-default href="#{events_path(q: {entity_id_eq: @person.id, action_starts_with: 'person.'})}" Events
       | &nbsp;
