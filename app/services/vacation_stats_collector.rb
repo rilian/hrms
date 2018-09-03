@@ -28,6 +28,7 @@ class VacationStatsCollector
       item['used_vacation'] = period_dayoffs.where(type: 'Vacation').sum(:days)
       item['overtime_days'] = period_dayoffs.where(type: 'Overtime').sum(:days)
       item['sick_leave_days'] = period_dayoffs.where(type: 'Sick Leave').sum(:days)
+      item['remaining_sick_leave_days'] = (ENV['SICK_LEAVE_DAYS_PER_YEAR'] || 0) - item['sick_leave_days']
       item['unpaid_days_off'] = period_dayoffs.where(type: 'Unpaid Day Off').sum(:days)
       item['paid_days_off'] = period_dayoffs.where(type: 'Paid Day Off').sum(:days)
       item['working_days_shifts'] = period_dayoffs.where(type: 'Working Day Shift').sum(:days)
