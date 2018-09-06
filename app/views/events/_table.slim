@@ -21,8 +21,8 @@
     td
       = link_to record.action, events_path('q[action_eq]' => record.action)
       br
-      - if record.entity.is_a?(Note) && (record.entity.type.in?(Note::FINANCE_TYPES) && !current_user.has_access_to_finances?)
-        = "Content of this note is not available (#{record.entity.type})"
+      - if record.entity.is_a?(Note) && record.entity.type.in?(Note::FINANCE_TYPES)
+        = "Content of this note is not available here (#{record.entity.type})"
       - else
         = cleanup_event_params(record.params)
     td = record.created_at.strftime(t(:datetime_full)).gsub(/\s+/, '&nbsp;').html_safe

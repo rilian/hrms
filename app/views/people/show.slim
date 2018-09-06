@@ -6,7 +6,7 @@
     | &nbsp;
     a.btn.btn-default.js-show-notes-btn href="#" Notes & Actions
     | &nbsp;
-    - if current_user.has_access_to_finances?
+    - if current_user.has_access_to_performance?
       a.btn.btn-default.js-show-performance-btn href="#" Performance
       | &nbsp;
   = render 'people/form'
@@ -19,7 +19,7 @@
     | &nbsp;
     a.btn.btn-default.js-show-notes-btn href="#" Notes & Actions
     | &nbsp;
-    - if current_user.has_access_to_finances?
+    - if current_user.has_access_to_performance?
       a.btn.btn-default.js-show-performance-btn href="#" Performance
       | &nbsp;
 
@@ -32,7 +32,7 @@
       = note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
       | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
 
-      - if !note.type.in?(Note::FINANCE_TYPES) || (note.type.in?(Note::FINANCE_TYPES) && current_user.has_access_to_finances?)
+      - if !note.type.in?(Note::FINANCE_TYPES) || (note.type.in?(Note::FINANCE_TYPES) && (note.person.status.in?(Person::EMPLOYEE_STATUSES) && current_user.has_access_to_performance?) || (!note.person.status.in?(Person::EMPLOYEE_STATUSES) && current_user.has_access_to_finances?))
         a href="#{edit_note_path(note)}" #{note.type}
         br
         ' #{with_newlines(note.value)}
@@ -59,7 +59,7 @@
     | &nbsp;
     a.btn.btn-default.js-show-notes-btn href="#" Notes & Actions
     | &nbsp;
-    - if current_user.has_access_to_finances?
+    - if current_user.has_access_to_performance?
       a.btn.btn-default.js-show-performance-btn href="#" Performance
       | &nbsp;
 
@@ -96,7 +96,7 @@
     - if @person.status.in?(Person::EMPLOYEE_STATUSES)
       a.btn.btn-default.js-show-notes-btn href="#" Notes & Actions
       | &nbsp;
-      - if current_user.has_access_to_finances?
+      - if current_user.has_access_to_performance?
         a.btn.btn-default.js-show-performance-btn href="#" Performance
         | &nbsp;
     - if current_user.has_access_to_events?

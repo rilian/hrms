@@ -140,7 +140,7 @@
         | Birthday:
     = f.input :day_of_birth, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: @person.day_of_birth&.strftime('%d-%m-%Y'), class: 'datepicker', autocomplete: 'off' }
 
-  - if current_user.has_access_to_finances?
+  - if (@person.status.in?(Person::EMPLOYEE_STATUSES) && current_user.has_access_to_performance?) || (!@person.status.in?(Person::EMPLOYEE_STATUSES) && current_user.has_access_to_finances?)
     .form-group
       label.control-label
         | Expected salary:

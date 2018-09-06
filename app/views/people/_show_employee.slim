@@ -77,7 +77,7 @@ p
     | English:&nbsp;
     strong = @person.english
 
-- if current_user.has_access_to_finances? && @person.expected_salary.present?
+- if current_user.has_access_to_performance? && @person.expected_salary.present?
   p
     | Expected salary:&nbsp;
     strong = @person.expected_salary
