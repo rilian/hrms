@@ -44,7 +44,7 @@
         - record.notes.accessible_by(current_ability).order(updated_at: :desc).each do |note|
           = note.created_at.strftime(t(:day))
           | &nbsp;
-          - if !note.type.in?(Note::FINANCE_TYPES) || (note.type.in?(Note::FINANCE_TYPES) && current_user.has_access_to_finances?)
+          - if !note.type.in?(Note::FINANCE_TYPES)
             a href="#{edit_note_path(note)}" #{note.type}
             ' : #{with_newlines(truncate(note.value, length: 300, escape: false))}
           - else
