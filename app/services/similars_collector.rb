@@ -5,9 +5,9 @@ class SimilarsCollector
   def perform
     previous_ids = []
     results = []
-    Person.not_deleted.find_each(batch_size: 25) do |person|
+    Person.not_deleted.find_each(batch_size: 100) do |person|
       puts "Working with ID #{person.id}"
-      %i(name email phone skype github linkedin).each do |prop|
+      %i(name email personal_email phone skype github linkedin).each do |prop|
         val = person.send(prop).to_s.downcase.strip
         next if val.blank? || val.size < 4
 

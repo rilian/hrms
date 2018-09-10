@@ -55,10 +55,10 @@ class Person < ActiveRecord::Base
   validates :salary_type, inclusion: { in: SALARY_TYPES }, allow_blank: true
   validates :primary_tech, inclusion: { in: PRIMARY_TECHS }
   validates :vacation_override, numericality: { only_integer: true }, allow_blank: true
-  validates :email, :phone, :skype, :linkedin, :github, uniqueness: { case_sensitive: false, conditions: -> { not_deleted } }, allow_blank: true
+  validates :email, :personal_email, :phone, :skype, :linkedin, :github, uniqueness: { case_sensitive: false, conditions: -> { not_deleted } }, allow_blank: true
   validates :name, format: { with: /\A[a-zA-Z\d\s\-\'\(\)]+\z/, message: 'invalid symbols. Only A-Z, digits, braces, quote and space allowed' }, allow_blank: true
   validates :phone, format: { with: /\A[\s\+\,\d]+\z/ }, allow_blank: true
-  validates :email, format: { with: /\A[0-9a-z\@\.\_\-\'\+]+\z/ }, allow_blank: true
+  validates :email, :personal_email, format: { with: /\A[0-9a-z\@\.\_\-\'\+]+\z/ }, allow_blank: true
   validates :skype, format: { with: /\A[0-9a-z\.\:\_\-]+\z/ }, allow_blank: true
   validates :start_date, presence: { message: 'should be present for current employee' }, if: ->(p) { p.status.in?(EMPLOYEE_STATUSES) && !p.new_record? }
   validates :email, presence: { message: 'should be present for current employee' }, if: ->(p) { p.status.in?(CURRENT_EMPLOYEE_STATUSES) && p.start_date.present? && p.start_date <= Time.zone.now }
@@ -99,6 +99,7 @@ private
     self.phone = self.phone.to_s.strip.gsub(' ', '')
     self.current_position = self.current_position.to_s.strip
     self.email = self.email.to_s.strip
+    self.personal_email = self.personal_email.to_s.strip
     self.skype = self.skype.to_s.strip
     self.linkedin = self.linkedin.to_s.chomp('/').strip
     self.github = self.github.to_s.strip.split('?').first.to_s.strip

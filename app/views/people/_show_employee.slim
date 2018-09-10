@@ -84,12 +84,18 @@ p
 
 - if @person.email.present?
   p
-    | Email:&nbsp;
+    | Work Email:&nbsp;
     - if @person.status.in?(Person::EMPLOYEE_STATUSES) && !ENV['COMPANY_EMAIL_MASK'].in?(@person.email)
       span style="color: red"
         = @person.email
     - else
       strong = @person.email
+
+- if @person.personal_email.present?
+  p
+    | Personal Email:&nbsp;
+    strong
+      = @person.personal_email
 
 - if @person.phone.present?
   p
@@ -178,9 +184,8 @@ table.table.pretty-table
         br
         | Sick leave days: #{item['sick_leave_days']}
         br
-        strong
-          | Remaining sick leave days: #{item['remaining_sick_leave_days']}
-          br
+        | Remaining sick leave days: #{item['remaining_sick_leave_days']}
+        br
         | Unpaid days off: #{item['unpaid_days_off']}
         br
         | Paid days off: #{item['paid_days_off']}
