@@ -26,8 +26,8 @@
     | Has access to expenses modifications:&nbsp;
     = @user.has_access_to_expenses? ? 'yes' : 'no'
   p
-    | Receives 1-1 notifications:&nbsp;
-    = @user.one_on_one_notifications_enabled? ? 'yes' : 'no'
+    | Receives Employee-related notifications:&nbsp;
+    = @user.employee_notifications_enabled ? 'yes' : 'no'
   p
     | Has access to events:&nbsp;
     = @user.has_access_to_events? ? 'yes' : 'no'
