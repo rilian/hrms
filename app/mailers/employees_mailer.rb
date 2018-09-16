@@ -30,4 +30,16 @@ class EmployeesMailer < ActionMailer::Base
       to: @user.email
     )
   end
+
+  def one_month(user_id, employees)
+    @user = User.find(user_id)
+    @employees = employees
+    mail subject: '[HRMS] Employees worked for 1 month already', to: @user.email
+  end
+
+  def three_months(user_id, employees)
+    @user = User.find(user_id)
+    @employees = employees
+    mail subject: '[HRMS] Employees worked for 3 months already', to: @user.email
+  end
 end

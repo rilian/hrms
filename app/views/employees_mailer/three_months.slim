@@ -1,0 +1,17 @@
+p Hi #{@user.email},
+
+p There are total of #{@employees.count} employees that already worked for 3 months:
+
+- @employees.each do |employee|
+  - next if employee.blank? || employee.start_date.blank?
+
+  = link_to employee.name.titleize, person_url(employee)
+  '&nbsp;(started on&nnbsp;
+  = employee.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+  br
+
+br
+
+p Please arrange 1-1 meetings with them to check if there are any issues.
+
+= render 'shared/mail_footer'
