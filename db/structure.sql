@@ -580,7 +580,9 @@ CREATE TABLE vacancies (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     tag character varying,
-    status character varying DEFAULT 'open'::character varying
+    status character varying DEFAULT 'open'::character varying,
+    updated_by_name character varying,
+    created_by_name character varying
 );
 
 
@@ -1050,6 +1052,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180910114353'),
 ('20180910115613'),
 ('20180915071848'),
-('20180918073529');
+('20180918073529'),
+('20180920135734');
 
 
