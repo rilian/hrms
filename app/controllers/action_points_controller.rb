@@ -9,7 +9,7 @@ class ActionPointsController < ApplicationController
     @action_points = @action_points.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @action_points = @action_points.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @action_points = @action_points.includes(:person, :updated_by)
+    @action_points = @action_points.includes(:person)
 
     respond_to do |f|
       f.partial { render partial: 'table' }
@@ -21,10 +21,10 @@ class ActionPointsController < ApplicationController
   end
 
   def create
-    @action_point = ActionPoint.new(action_point_params.merge!(updated_by: current_user))
+    @action_point = ActionPoint.new(action_point_params)
     if @action_point.save
       log_event(entity: @action_point, action: 'created')
-      @action_point.person.update(updated_by_id: current_user.id)
+      @action_point.person.update(created_by_name: current_user.email, updated_by_name: current_user.email)
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || action_points_path, flash: { success: 'Action created' }
     else
       flash.now[:error] = 'Action was not created'
@@ -36,9 +36,9 @@ class ActionPointsController < ApplicationController
   end
 
   def update
-    if @action_point.update(action_point_params.merge!(updated_by: current_user))
+    if @action_point.update(action_point_params)
       log_event(entity: @action_point, action: 'updated')
-      @action_point.person.update(updated_by_id: current_user.id)
+      @action_point.person.update(updated_by_name: current_user.email)
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || action_points_path, flash: { success: 'Action updated' }
     else
       flash.now[:error] = 'Action was not updated'

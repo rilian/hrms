@@ -79,5 +79,5 @@ table.table.pretty-table
             br
         td
           - item[:updates].each do |update|
-            = link_to "#{update[:count]}&nbsp;#{update[:name]}".html_safe, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]], updated_by_id_eq: update[:by_id]})
+            = link_to "#{update[:count]}&nbsp;#{update[:name]}".html_safe, people_path(q: {updated_at_gteq: params[:funnel][:start_date], updated_at_lteq: finish_date, by_tag_including: [item[:vacancy_tag]], updated_by_name_eq: update[:by_name]})
             br

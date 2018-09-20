@@ -17,7 +17,7 @@
       td
         = record.updated_at.strftime(t(:datetime_full))
         br
-        = record.updated_by&.email&.split('@')&.first
+        = record.updated_by_name&.split('@')&.first
       td
         a.btn.btn-sm.btn-info.btn-pill href="#{edit_attachment_path(record)}"
           i.fa.fa-pencil

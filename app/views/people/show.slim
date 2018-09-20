@@ -30,7 +30,7 @@
   - @person.notes.accessible_by(current_ability).where(type: (Note::TYPES - Note::FINANCE_TYPES)).order(updated_at: :desc).each do |note|
     p
       = note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
-      | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
+      | &nbsp;(#{note.updated_by_name&.split('@')&.first || '?'})&nbsp;
 
       - if !note.type.in?(Note::FINANCE_TYPES) || (note.type.in?(Note::FINANCE_TYPES) && (note.person.status.in?(Person::EMPLOYEE_STATUSES) && current_user.has_access_to_performance?) || (!note.person.status.in?(Person::EMPLOYEE_STATUSES) && current_user.has_access_to_finances?))
         a href="#{edit_note_path(note)}" #{note.type}
@@ -70,7 +70,7 @@
   - @person.notes.accessible_by(current_ability).where(type: Note::FINANCE_TYPES).order(updated_at: :desc).each do |note|
     p
       = note.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
-      | &nbsp;(#{note.updated_by&.email&.split('@')&.first || '?'})&nbsp;
+      | &nbsp;(#{note.updated_by_name&.split('@')&.first || '?'})&nbsp;
 
       - if !note.type.in?(Note::FINANCE_TYPES) || (note.type.in?(Note::FINANCE_TYPES) && current_user.has_access_to_finances?)
         a href="#{edit_note_path(note)}" #{note.type}
@@ -113,11 +113,13 @@
   p
     | Profile created &nbsp;
     = "#{@person.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')} (#{time_ago_in_words(@person.created_at)} ago)"
+    | &nbsp; by&nbsp;
+    = @person.created_by_name&.split('@')&.first
   p
     | Profile last updated &nbsp;
     = "#{@person.updated_at.strftime(t(:datetime_full))} (#{time_ago_in_words(@person.updated_at)} ago)"
     | &nbsp; by&nbsp;
-    = @person.updated_by&.email&.split('@')&.first
+    = @person.updated_by_name&.split('@')&.first
 
   .js-show-quick-forms-container style="display:none;"
     h3 Quick Forms

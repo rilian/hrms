@@ -6,7 +6,6 @@ class Dayoff < ActiveRecord::Base
   TYPES = ['Vacation', 'Sick Leave', 'Unpaid Day Off', 'Paid Day Off', 'Working Day Shift', 'Overtime']
 
   belongs_to :person, touch: true
-  belongs_to :updated_by, class_name: 'User'
 
   validates :person, :start_on, :end_on, presence: true
   validates :type, inclusion: { in: TYPES }

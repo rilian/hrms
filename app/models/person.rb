@@ -41,7 +41,6 @@ class Person < ActiveRecord::Base
   EMPLOYEE_STATUSES = ['Hired', 'Past employee', 'Contractor', 'Past contractor']
   SALARY_TYPES = %w(Monthly Hourly)
 
-  belongs_to :updated_by, class_name: 'User'
   has_many :action_points
   has_many :attachments
   has_many :dayoffs

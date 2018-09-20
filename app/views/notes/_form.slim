@@ -23,9 +23,8 @@
 
   .form-group
     label.control-label Type
-    //todo: fix statuses for performance role
     = f.input :type,
-              collection: current_user.has_access_to_finances? ? Note::TYPES : (Note::TYPES - Note::FINANCE_TYPES),
+              collection: (current_user.has_access_to_finances? || current_user.has_access_to_performance?) ? Note::TYPES : (Note::TYPES - Note::FINANCE_TYPES),
               label: false,
               include_blank: false,
               input_html: { class: 'select form-control' }

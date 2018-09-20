@@ -10,8 +10,6 @@ class ProjectsController < ApplicationController
     @projects = @projects.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @projects = @projects.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @projects = @projects.includes(:updated_by)
-
     respond_to do |f|
       f.partial { render partial: 'table' }
       f.html
@@ -20,14 +18,14 @@ class ProjectsController < ApplicationController
 
   def show
     @project_note = ProjectNote.new(project: @project)
-    @project.project_notes = @project.project_notes.includes(:updated_by)
+    @project.project_notes = @project.project_notes
   end
 
   def new
   end
 
   def create
-    @project = Project.new(project_params.merge!(updated_by: current_user))
+    @project = Project.new(project_params.merge!(created_by_name: current_user.email, updated_by_name: current_user.email))
     if @project.save
       log_event(entity: @project, action: 'created')
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || projects_path, flash: { success: 'Project created' }
@@ -41,7 +39,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    if @project.update(project_params.merge!(updated_by: current_user))
+    if @project.update(project_params.merge!(updated_by_name: current_user.email))
       log_event(entity: @project, action: 'updated')
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || projects_path, flash: { success: 'Project updated' }
     else

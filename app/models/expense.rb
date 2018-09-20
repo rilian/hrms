@@ -6,7 +6,6 @@ class Expense < ActiveRecord::Base
   TYPES = ['Business Trip', 'Conference', 'Other']
 
   belongs_to :person, touch: true
-  belongs_to :updated_by, class_name: 'User'
 
   validates :person, :recorded_on, :notes, presence: true
   validates :type, inclusion: { in: TYPES }

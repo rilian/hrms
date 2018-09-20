@@ -19,7 +19,7 @@ class PeopleController < ApplicationController
     @people = @people.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @people = @people.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @people = @people.includes(:attachments, :action_points, :updated_by, :taggings, notes: [:updated_by])
+    @people = @people.includes(:attachments, :action_points, :taggings, :notes)
 
     @tags = Person.not_deleted.accessible_by(current_ability).tag_counts_on(:tags)
       .sort { |t1, t2| t2.taggings_count <=> t1.taggings_count }
@@ -32,7 +32,6 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @person.notes = @person.notes.includes(:updated_by)
     @action_point = ActionPoint.new(person: @person)
     @attachment = Attachment.new(person: @person)
     @dayoff = Dayoff.new(person: @person)
@@ -44,7 +43,7 @@ class PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.new(person_params.merge!(updated_by: current_user))
+    @person = Person.new(person_params.merge!(created_by_name: current_user.email, updated_by_name: current_user.email))
     if @person.save
       @person.update!(photo: person_photo_params[:photo]) if person_photo_params[:photo].present?
       log_event(entity: @person, action: 'created')
@@ -59,7 +58,7 @@ class PeopleController < ApplicationController
   end
 
   def update
-    if @person.update(person_params.merge!(updated_by: current_user))
+    if @person.update(person_params.merge!(updated_by_name: current_user.email))
       @person.update!(photo: person_photo_params[:photo]) if person_photo_params[:photo].present?
       log_event(entity: @person, action: 'updated')
       redirect_to person_path(@person)

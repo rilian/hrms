@@ -39,7 +39,9 @@ CREATE TABLE action_points (
     perform_on date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    updated_by_id integer
+    updated_by_id integer,
+    updated_by_name character varying,
+    created_by_name character varying
 );
 
 
@@ -90,7 +92,9 @@ CREATE TABLE attachments (
     file_filename character varying,
     file_size integer,
     file_content_type character varying,
-    updated_by_id integer
+    updated_by_id integer,
+    updated_by_name character varying,
+    created_by_name character varying
 );
 
 
@@ -128,7 +132,9 @@ CREATE TABLE dayoffs (
     end_on date,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    updated_by_id integer
+    updated_by_id integer,
+    updated_by_name character varying,
+    created_by_name character varying
 );
 
 
@@ -201,7 +207,9 @@ CREATE TABLE expenses (
     recorded_on date,
     updated_by_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    updated_by_name character varying,
+    created_by_name character varying
 );
 
 
@@ -235,7 +243,9 @@ CREATE TABLE notes (
     value text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    updated_by_id integer
+    updated_by_id integer,
+    updated_by_name character varying,
+    created_by_name character varying
 );
 
 
@@ -300,7 +310,9 @@ CREATE TABLE people (
     last_performance_review_at date,
     next_performance_review_at date,
     github character varying,
-    personal_email character varying
+    personal_email character varying,
+    updated_by_name character varying,
+    created_by_name character varying
 );
 
 
@@ -334,7 +346,9 @@ CREATE TABLE project_notes (
     value text,
     updated_by_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    updated_by_name character varying,
+    created_by_name character varying
 );
 
 
@@ -370,7 +384,9 @@ CREATE TABLE projects (
     updated_by_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    project_notes_count integer DEFAULT 0
+    project_notes_count integer DEFAULT 0,
+    updated_by_name character varying,
+    created_by_name character varying
 );
 
 
@@ -525,7 +541,9 @@ CREATE TABLE users (
     employee_notifications_enabled boolean DEFAULT false,
     has_access_to_expenses boolean DEFAULT false,
     has_access_to_dayoffs boolean DEFAULT false,
-    has_access_to_performance boolean DEFAULT false
+    has_access_to_performance boolean DEFAULT false,
+    updated_by_name character varying,
+    created_by_name character varying
 );
 
 
@@ -1031,6 +1049,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180906111340'),
 ('20180910114353'),
 ('20180910115613'),
-('20180915071848');
+('20180915071848'),
+('20180918073529');
 
 

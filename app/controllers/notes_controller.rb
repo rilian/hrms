@@ -10,7 +10,7 @@ class NotesController < ApplicationController
     @notes = @notes.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @notes = @notes.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @notes = @notes.includes(:person, :updated_by)
+    @notes = @notes.includes(:person)
 
     respond_to do |f|
       f.partial { render partial: 'table' }
@@ -22,10 +22,10 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = Note.new(note_params.merge!(updated_by: current_user))
+    @note = Note.new(note_params)
     if @note.save
       log_event(entity: @note, action: 'created')
-      @note.person.update(updated_by_id: current_user.id)
+      @note.person.update(created_by_name: current_user.email, updated_by_name: current_user.email)
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || notes_path, flash: { success: 'Note created' }
     else
       flash.now[:error] = 'Note was not created'
@@ -37,9 +37,9 @@ class NotesController < ApplicationController
   end
 
   def update
-    if @note.update(note_params.merge!(updated_by: current_user))
+    if @note.update(note_params)
       log_event(entity: @note, action: 'updated')
-      @note.person.update(updated_by_id: current_user.id)
+      @note.person.update(updated_by_name: current_user.email)
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || notes_path, flash: { success: 'Note updated' }
     else
       flash.now[:error] = 'Note was not updated'

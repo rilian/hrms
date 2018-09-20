@@ -19,14 +19,14 @@ class FunnelStatsCollector
 
     @vacancies.each do |vacancy|
       people_created = @scope.tagged_with([vacancy.tag].flatten)
-      people_created = people_created.where(updated_by_id: @user.id) if @user.present?
+      people_created = people_created.where(updated_by_name: @user.email) if @user.present?
       people_created = people_created
         .where('people.created_at >= ? AND people.created_at <= ?',
           Time.strptime(@start_date, '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
           (Time.strptime(@finish_date, '%d-%m-%Y') + 1.day).strftime('%Y-%m-%d') + ' 00:00:00')
 
       people = @scope.tagged_with([vacancy.tag].flatten)
-      people = people.where(updated_by_id: @user.id) if @user.present?
+      people = people.where(updated_by_name: @user.email) if @user.present?
       people = people
         .where('people.updated_at >= ? AND people.updated_at <= ?',
           Time.strptime(@start_date, '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
@@ -53,11 +53,11 @@ class FunnelStatsCollector
       item[:sources] = sources.sort { |a,b| b[1] <=> a[1] }.to_h
 
       updates = []
-      people.pluck(:updated_by_id).uniq.each do |by_id|
+      people.pluck(:updated_by_name).uniq.each do |by_name|
         updates << {
-          by_id: by_id,
-          name: User.find(by_id).email.split('@').first,
-          count: people.where(updated_by_id: by_id).count
+          by_name: by_name,
+          name: by_name,
+          count: people.where(updated_by_name: by_name).count
         }
       end
       item[:updates] = updates.sort { |a,b| puts a; b[:count] <=> a[:count] }

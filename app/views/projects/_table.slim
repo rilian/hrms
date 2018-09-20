@@ -20,7 +20,7 @@
     td
       = record.updated_at.strftime(t(:datetime_full))
       br
-      = record.updated_by&.email&.split('@')&.first
+      = record.updated_by_name&.split('@')&.first
     td colspan="2"
       a href="#{edit_project_path(record)}" class="btn btn-sm btn-info btn-pill"
         i.fa.fa-pencil

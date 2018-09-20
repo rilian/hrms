@@ -7,7 +7,7 @@ class AttachmentsController < ApplicationController
     @attachments = @attachments.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @attachments = @attachments.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @attachments = @attachments.includes(:person, :updated_by)
+    @attachments = @attachments.includes(:person)
 
     respond_to do |f|
       f.partial { render partial: 'table' }
@@ -24,10 +24,10 @@ class AttachmentsController < ApplicationController
   end
 
   def create
-    @attachment = Attachment.new(attachment_params.merge!(updated_by: current_user))
+    @attachment = Attachment.new(attachment_params)
     if @attachment.save
       log_event(entity: @attachment, action: 'created')
-      @attachment.person.update(updated_by_id: current_user.id)
+      @attachment.person.update(created_by_name: current_user.email, updated_by_name: current_user.email)
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || attachments_path, flash: { success: 'Attachment created' }
     else
       flash.now[:error] = 'Attachment was not created'
@@ -41,9 +41,9 @@ class AttachmentsController < ApplicationController
 
   def update
     @attachment = Attachment.accessible_by(current_ability).find(params[:id])
-    if @attachment.update(attachment_params.merge!(updated_by: current_user))
+    if @attachment.update(attachment_params)
       log_event(entity: @attachment, action: 'updated')
-      @attachment.person.update(updated_by_id: current_user.id)
+      @attachment.person.update(updated_by_name: current_user.email)
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || attachments_path, flash: { success: 'Attachment updated' }
     else
       flash.now[:error] = 'Attachment was not updated'

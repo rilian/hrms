@@ -7,8 +7,6 @@ class VacanciesController < ApplicationController
     @vacancies = @vacancies.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @vacancies = @vacancies.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @vacancies = @vacancies.includes(:updated_by)
-
     respond_to do |f|
       f.partial { render partial: 'table' }
       f.html
@@ -28,7 +26,7 @@ class VacanciesController < ApplicationController
     @people = @people.tagged_with(tags.flatten)
 
     @count = @people.count
-    @people = @people.includes(:attachments, :action_points, :updated_by, :taggings, notes: [:updated_by])
+    @people = @people.includes(:attachments, :action_points, :taggings, :notes)
 
     @tags = Person.not_deleted.accessible_by(current_ability).tag_counts_on(:tags)
               .sort { |t1, t2| t2.taggings_count <=> t1.taggings_count }
@@ -56,7 +54,7 @@ class VacanciesController < ApplicationController
   end
 
   def create
-    @vacancy = Vacancy.new(vacancy_params.merge!(updated_by: current_user))
+    @vacancy = Vacancy.new(vacancy_params.merge!(created_by_name: current_user.email, updated_by_name: current_user.email))
     if @vacancy.save
       log_event(entity: @vacancy, action: 'created')
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || vacancies_path, flash: { success: 'Vacancy created' }
@@ -72,7 +70,7 @@ class VacanciesController < ApplicationController
 
   def update
     @vacancy = Vacancy.accessible_by(current_ability).find(params[:id])
-    if @vacancy.update(vacancy_params.merge!(updated_by: current_user))
+    if @vacancy.update(vacancy_params.merge!(updated_by_name: current_user.email))
       log_event(entity: @vacancy, action: 'updated')
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || vacancies_path, flash: { success: 'Vacancy updated' }
     else

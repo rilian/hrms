@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params.merge!(updated_by: current_user))
+    @user = User.new(user_params.merge!(created_by_name: current_user.email, updated_by_name: current_user.email))
     if @user.save
       log_event(entity: @user, action: 'created')
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || users_path, flash: { success: 'User created' }
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params.merge!(updated_by: current_user))
+    if @user.update(user_params.merge!(updated_by_name: current_user.email))
       log_event(entity: @user, action: 'updated')
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || users_path, flash: { success: 'User updated' }
     else

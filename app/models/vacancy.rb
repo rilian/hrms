@@ -3,8 +3,6 @@ class Vacancy < ActiveRecord::Base
 
   STATUSES = %w(open closed)
 
-  belongs_to :updated_by, class_name: 'User'
-
   validates :project, :role, :description, presence: true
   validates :tag, uniqueness: { case_sensitive: false },
     format: {

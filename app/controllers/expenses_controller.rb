@@ -9,7 +9,7 @@ class ExpensesController < ApplicationController
     @expenses = @expenses.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
     @expenses = @expenses.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
 
-    @expenses = @expenses.includes(:person, :updated_by)
+    @expenses = @expenses.includes(:person)
 
     respond_to do |f|
       f.partial { render partial: 'table' }
@@ -26,7 +26,7 @@ class ExpensesController < ApplicationController
   def create
     if @expense.save
       log_event(entity: @expense, action: 'created')
-      @expense.person.update(updated_by_id: current_user.id)
+      @expense.person.update(created_by_name: current_user.email, updated_by_name: current_user.email)
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || expenses_path, flash: { success: 'Expense created' }
     else
       flash.now[:error] = 'Expense was not created'
@@ -38,9 +38,9 @@ class ExpensesController < ApplicationController
   end
 
   def update
-    if @expense.update(expense_params.merge!(updated_by: current_user))
+    if @expense.update(expense_params)
       log_event(entity: @expense, action: 'updated')
-      @expense.person.update(updated_by_id: current_user.id)
+      @expense.person.update(updated_by_name: current_user.email)
       redirect_to (session[:return_to] && session[:return_to][request.params[:controller]]) || expenses_path, flash: { success: 'Expense updated' }
     else
       flash.now[:error] = 'Expense was not updated'
