@@ -39,7 +39,6 @@ CREATE TABLE action_points (
     perform_on date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    updated_by_id integer,
     updated_by_name character varying,
     created_by_name character varying
 );
@@ -92,7 +91,6 @@ CREATE TABLE attachments (
     file_filename character varying,
     file_size integer,
     file_content_type character varying,
-    updated_by_id integer,
     updated_by_name character varying,
     created_by_name character varying
 );
@@ -132,7 +130,6 @@ CREATE TABLE dayoffs (
     end_on date,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    updated_by_id integer,
     updated_by_name character varying,
     created_by_name character varying
 );
@@ -205,7 +202,6 @@ CREATE TABLE expenses (
     notes text DEFAULT ''::text NOT NULL,
     amount integer NOT NULL,
     recorded_on date,
-    updated_by_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     updated_by_name character varying,
@@ -243,7 +239,6 @@ CREATE TABLE notes (
     value text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    updated_by_id integer,
     updated_by_name character varying,
     created_by_name character varying
 );
@@ -286,7 +281,6 @@ CREATE TABLE people (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     email character varying,
-    updated_by_id integer,
     status character varying DEFAULT 'n/a'::character varying NOT NULL,
     is_deleted boolean DEFAULT false NOT NULL,
     action_points_count integer DEFAULT 0,
@@ -344,7 +338,6 @@ CREATE TABLE project_notes (
     id bigint NOT NULL,
     project_id integer NOT NULL,
     value text,
-    updated_by_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     updated_by_name character varying,
@@ -381,7 +374,6 @@ CREATE TABLE projects (
     description text,
     status character varying DEFAULT 'active'::character varying NOT NULL,
     started_at date,
-    updated_by_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     project_notes_count integer DEFAULT 0,
@@ -532,7 +524,6 @@ CREATE TABLE users (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     notifications_enabled boolean DEFAULT true NOT NULL,
-    updated_by_id integer,
     hide_tags character varying[] DEFAULT '{}'::character varying[],
     hide_statuses character varying[] DEFAULT '{}'::character varying[],
     has_access_to_finances boolean DEFAULT false,
@@ -576,7 +567,6 @@ CREATE TABLE vacancies (
     project character varying,
     role character varying,
     description text,
-    updated_by_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     tag character varying,
@@ -1053,6 +1043,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180910115613'),
 ('20180915071848'),
 ('20180918073529'),
-('20180920135734');
+('20180920135734'),
+('20180920141022');
 
 
