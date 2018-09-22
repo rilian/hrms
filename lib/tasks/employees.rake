@@ -69,7 +69,7 @@ namespace :employees do
                   .where('start_date <= ?', 1.months.ago.strftime('%F'))
                   .where('start_date > ?', (1.months.ago - 1.day).strftime('%F'))
                   .where('finish_date IS NULL')
-
+    return if employees.size == 0
     User.where(employee_notifications_enabled: true).pluck(:id).each do |user_id|
       EmployeesMailer.one_month(user_id, employees).deliver_now
     end
@@ -81,7 +81,7 @@ namespace :employees do
                   .where('start_date <= ?', 3.months.ago.strftime('%F'))
                   .where('start_date > ?', (3.months.ago - 1.day).strftime('%F'))
                   .where('finish_date IS NULL')
-
+    return if employees.size == 0
     User.where(employee_notifications_enabled: true).pluck(:id).each do |user_id|
       EmployeesMailer.three_months(user_id, employees).deliver_now
     end
