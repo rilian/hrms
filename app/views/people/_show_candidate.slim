@@ -23,28 +23,9 @@ p
     | Hiring Source:&nbsp;
     strong = with_newlines(@person.source)
 
-- if @person.skills.present?
-  p
-    | Skills:&nbsp;
-    strong = with_newlines(@person.skills)
-
-- if @person.skype.present?
-  p
-    | Skype:&nbsp;
-    strong
-      a href="skype:#{@person.skype}" #{@person.skype}
-
-- if @person.linkedin.present?
-  p
-    | LinkedIn:&nbsp;
-    strong
-      a target="_blank" href="#{@person.linkedin_value}" View
-
-- if @person.github.present?
-  p
-    | Github:&nbsp;
-    strong
-      a target="_blank" href="#{@person.github_value}" View
+p
+  | Profile created by:&nbsp;
+  strong = "#{@person.created_by_name&.split('@')&.first} #{@person.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')} (#{time_ago_in_words(@person.created_at)} ago)"
 
 - if @person.city.present?
   p
@@ -68,16 +49,39 @@ p
       = link_to tag, people_path(q: {by_tag_including: tag})
       | &nbsp;
 
+- if current_user.has_access_to_finances? && @person.expected_salary.present?
+  p
+    | Expected salary:&nbsp;
+    strong = @person.expected_salary
+
+- if @person.skills.present?
+  p
+    | Skills:&nbsp;
+    strong = with_newlines(@person.skills)
+
+- if @person.skype.present?
+  p
+    | Skype:&nbsp;
+    strong
+      a href="skype:#{@person.skype}" #{@person.skype}
+
+- if @person.linkedin.present?
+  p
+    | LinkedIn:&nbsp;
+    strong
+      a target="_blank" href="#{@person.linkedin_value}" View
+
+- if @person.github.present?
+  p
+    | Github:&nbsp;
+    strong
+      a target="_blank" href="#{@person.github_value}" View
+
 - if @person.english.present?
   p
     | English:&nbsp;
     strong
       = @person.english
-
-- if current_user.has_access_to_finances? && @person.expected_salary.present?
-  p
-    | Expected salary:&nbsp;
-    strong = @person.expected_salary
 
 - if @person.email.present?
   p

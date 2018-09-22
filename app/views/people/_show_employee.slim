@@ -2,11 +2,6 @@
   p
     img src="#{Refile.attachment_url(@person, :photo, :fit, 200, 200, format: 'jpg')}"
 
-- if @person.skills.present?
-  p
-    | Skills:&nbsp;
-    strong = with_newlines(@person.skills)
-
 - if @person.primary_tech.present?
   p
     | Primary tech:&nbsp;
@@ -22,15 +17,20 @@ p
   span style="background-color: #{PERSON_STATUS_COLORS[@person.status]};"
     = @person.status.presence || 'n/a'
 
-p
-  | Status history:&nbsp;
-  br
-  - hr_status_updates(@person.id).each do |item|
-    = item.last.strftime(t(:day))
-    |&nbsp;
-    span style="background-color: #{PERSON_STATUS_COLORS[item.first&.last]};"
-      = item.first&.last.presence || 'n/a'
-    br
+- if @person.city.present?
+  p
+    | City:&nbsp;
+    strong = @person.city.presence
+
+- if @person.english.present?
+  p
+    | English:&nbsp;
+    strong = @person.english
+
+- if @person.skills.present?
+  p
+    | Skills:&nbsp;
+    strong = with_newlines(@person.skills)
 
 - if @person.skype.present?
   p
@@ -49,38 +49,6 @@ p
     | Github:&nbsp;
     strong
       a target="_blank" href="#{@person.github_value}" View
-
-- if @person.city.present?
-  p
-    | City:&nbsp;
-    strong = @person.city.presence
-
-- vacancies = Vacancy.where(tag: @person.tag_list).order(id: :desc)
-- if vacancies.present?
-  p
-    | Vacancies:&nbsp;
-    - vacancies.each do |vacancy|
-      = link_to "#{vacancy.project}, #{vacancy.role}", vacancy_path(vacancy)
-      | &nbsp;(
-      = vacancy.status
-      | )&nbsp;
-
-- unless @person.tag_list.empty?
-  p
-    | Tags:&nbsp;
-    - @person.tag_list.each do |tag|
-      = link_to tag, people_path(q: {by_tag_including: tag})
-      | &nbsp;
-
-- if @person.english.present?
-  p
-    | English:&nbsp;
-    strong = @person.english
-
-- if current_user.has_access_to_performance? && @person.expected_salary.present?
-  p
-    | Expected salary:&nbsp;
-    strong = @person.expected_salary
 
 - if @person.email.present?
   p
@@ -103,17 +71,15 @@ p
     strong
       a href="tel:#{@person.phone}" #{@person.phone}
 
+- if @person.day_of_birth.present?
+  p
+    | Date of birth:&nbsp;
+    strong = @person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')
+
 - if @person.start_date.present?
   p
     | Employment Start Date:&nbsp;
     strong = @person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
-
-p
-  - if @person.signed_nda?
-    | Signed Documents
-  - else
-    span style="color: red"
-      | Documents are not signed!
 
 - if @person.employee_id.present?
   p
@@ -124,6 +90,13 @@ p
   p
     | Salary type:&nbsp;
     strong = @person.salary_type
+
+p
+  - if @person.signed_nda?
+    | Signed Documents
+  - else
+    span style="color: red"
+      | Documents are not signed!
 
 - if @person.last_one_on_one_meeting_at.present?
   p
@@ -144,11 +117,6 @@ p
   p
     | Employment Finish Date:&nbsp;
     strong = @person.finish_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
-
-- if @person.day_of_birth.present?
-  p
-    | Date of birth:&nbsp;
-    strong = @person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')
 
 - if @person.source.present?
   p
