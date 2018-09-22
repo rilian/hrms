@@ -65,25 +65,22 @@ namespace :employees do
 
   desc 'Sends notification when employee worked for 1 month already'
   task one_month: :environment do
-    employees = Person.not_deleted.current_employee
-                  .where('start_date <= ?', 1.months.ago.strftime('%F'))
-                  .where('start_date > ?', (1.months.ago - 1.day).strftime('%F'))
-                  .where('finish_date IS NULL')
-    return if employees.size == 0
-    User.where(employee_notifications_enabled: true).pluck(:id).each do |user_id|
-      EmployeesMailer.one_month(user_id, employees).deliver_now
-    end
+    works_n_months(1)
   end
 
   desc 'Sends notification when employee worked for 3 month already'
   task three_months: :environment do
+    works_n_months(3)
+  end
+
+  private def works_n_months(months)
     employees = Person.not_deleted.current_employee
-                  .where('start_date <= ?', 3.months.ago.strftime('%F'))
-                  .where('start_date > ?', (3.months.ago - 1.day).strftime('%F'))
+                  .where('start_date <= ?', months.months.ago.strftime('%F'))
+                  .where('start_date > ?', (months.months.ago - 1.day).strftime('%F'))
                   .where('finish_date IS NULL')
     return if employees.size == 0
     User.where(employee_notifications_enabled: true).pluck(:id).each do |user_id|
-      EmployeesMailer.three_months(user_id, employees).deliver_now
+      EmployeesMailer.n_months(user_id, employees, months).deliver_now
     end
   end
 end

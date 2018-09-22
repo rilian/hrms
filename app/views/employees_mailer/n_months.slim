@@ -1,6 +1,6 @@
 p Hi #{@user.email},
 
-p There are total of #{@employees.count} employees that already worked for 3 months:
+p There are total of #{@employees.count} employees that already worked for #{@months} #{pluralize(@months, 'month')}:
 
 - @employees.each do |employee|
   - next if employee.blank? || employee.start_date.blank?

@@ -31,15 +31,10 @@ class EmployeesMailer < ActionMailer::Base
     )
   end
 
-  def one_month(user_id, employees)
+  def n_months(user_id, employees, months)
     @user = User.find(user_id)
     @employees = employees
-    mail subject: '[HRMS] Employees worked for 1 month already', to: @user.email
-  end
-
-  def three_months(user_id, employees)
-    @user = User.find(user_id)
-    @employees = employees
-    mail subject: '[HRMS] Employees worked for 3 months already', to: @user.email
+    @months = months
+    mail subject: "[HRMS] Employees worked for #{@months} #{pluralize(@months, 'month')} already", to: @user.email
   end
 end
