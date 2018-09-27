@@ -14,11 +14,17 @@
     | Email:&nbsp;
     = @user.email
   p
-    | Notifications:&nbsp;
-    = @user.notifications_enabled? ? 'yes' : 'no'
+    | Has access to management of users:&nbsp;
+    = @user.has_access_to_users? ? 'yes' : 'no'
+  p
+    | Has access to events:&nbsp;
+    = @user.has_access_to_events? ? 'yes' : 'no'
   p
     | Has access to finances (performance review, salary, etc):&nbsp;
     = @user.has_access_to_finances? ? 'yes' : 'no'
+  p
+    | Has access to employee performance:&nbsp;
+    = @user.has_access_to_performance? ? 'yes' : 'no'
   p
     | Has access to dayoffs modifications:&nbsp;
     = @user.has_access_to_dayoffs? ? 'yes' : 'no'
@@ -26,14 +32,11 @@
     | Has access to expenses modifications:&nbsp;
     = @user.has_access_to_expenses? ? 'yes' : 'no'
   p
+    | Notifications:&nbsp;
+    = @user.notifications_enabled? ? 'yes' : 'no'
+  p
     | Receives Employee-related notifications:&nbsp;
     = @user.employee_notifications_enabled ? 'yes' : 'no'
-  p
-    | Has access to events:&nbsp;
-    = @user.has_access_to_events? ? 'yes' : 'no'
-  p
-    | Has access to management of users:&nbsp;
-    = @user.has_access_to_users? ? 'yes' : 'no'
   p
     | Hide tags:&nbsp;
     - @user.hide_tags.each do |tag|
