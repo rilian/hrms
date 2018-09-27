@@ -35,6 +35,6 @@ class EmployeesMailer < ActionMailer::Base
     @user = User.find(user_id)
     @employees = employees
     @months = months
-    mail subject: "[HRMS] Employees worked for #{@months} #{ActionView::Helpers::TextHelper.pluralize(@months, 'month')} already", to: @user.email
+    mail subject: "[HRMS] Employees worked for #{@months} months already", to: @user.email
   end
 end
