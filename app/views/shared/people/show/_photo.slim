@@ -1,0 +1,3 @@
+- if person.photo.present?
+  p
+    img src="#{Refile.attachment_url(person, :photo, :fit, 200, 200, format: 'jpg')}"

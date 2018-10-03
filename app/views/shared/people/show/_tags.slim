@@ -1,0 +1,6 @@
+- unless person.tag_list.empty?
+  p
+    | Tags:&nbsp;
+    - person.tag_list.each do |tag|
+      = link_to tag, people_path(q: {by_tag_including: tag})
+      | &nbsp;

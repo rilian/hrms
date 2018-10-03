@@ -1,0 +1,19 @@
+h3
+  | Expenses &nbsp;
+  = link_to 'Add', new_expense_path(expense: {person_id: person.id}), class: 'btn btn-default'
+
+| Total: $#{person.expenses.sum(:amount)}
+br
+- person.expenses.order(recorded_on: :desc).each do |expense|
+  p
+    a href="#{expense_path(expense)}" #{expense.type}
+    | &nbsp;
+    | $#{expense.amount} for #{expense.recorded_on&.to_formatted_s(:rfc822)}
+    | &nbsp;&nbsp;
+    a href="#{edit_expense_path(expense)}"
+      i.fa.fa-pencil
+    | &nbsp;&nbsp;
+    a href="#{expense_path(expense)}" data-method="delete" data-confirm="Are you sure ?"
+      i.fa.fa-times
+    br
+    = with_newlines(expense.notes)

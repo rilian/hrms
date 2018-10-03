@@ -110,16 +110,7 @@
 
   h3
     | Other &nbsp;
-  p
-    | Profile created &nbsp;
-    = "#{@person.created_at.strftime(t(:datetime_full)).gsub('00:00, ', '')} (#{time_ago_in_words(@person.created_at)} ago)"
-    | &nbsp; by&nbsp;
-    = @person.created_by_name&.split('@')&.first
-  p
-    | Profile last updated &nbsp;
-    = "#{@person.updated_at.strftime(t(:datetime_full))} (#{time_ago_in_words(@person.updated_at)} ago)"
-    | &nbsp; by&nbsp;
-    = @person.updated_by_name&.split('@')&.first
+    = render 'shared/people/show/modified_by', person: @person
 
   .js-show-quick-forms-container style="display:none;"
     h3 Quick Forms

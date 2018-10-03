@@ -1,0 +1,15 @@
+- if person.email.present?
+  p
+    | Work Email:&nbsp;
+    - if person.status.in?(Person::EMPLOYEE_STATUSES) && !ENV['COMPANY_EMAIL_MASK'].in?(@person.email)
+      span style="color: red"
+        = person.email
+    - else
+      strong
+        = person.email
+
+- if person.personal_email.present?
+  p
+    | Personal Email:&nbsp;
+    strong
+      = person.personal_email

@@ -1,0 +1,4 @@
+- if person.start_date.present?
+  p
+    | Employment Start Date:&nbsp;
+    strong = person.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')

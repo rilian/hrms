@@ -1,0 +1,4 @@
+- if person.day_of_birth.present?
+  p
+    | Date of birth:&nbsp;
+    strong = person.day_of_birth.strftime(t(:datetime_full)).gsub('00:00, ', '')

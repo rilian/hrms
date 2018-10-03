@@ -1,0 +1,53 @@
+h3
+  | Days off &nbsp;
+  = link_to 'Add', new_dayoff_path(dayoff: {person_id: person.id}), class: 'btn btn-default'
+table.table.pretty-table
+  tr
+    th
+      | Period
+    th
+      | Data
+  - vacation_stats_per_year(person.id).reverse_each.to_h.each_pair do |index, item|
+    tr
+      td
+        = "#{item['period']}, #{(item['year'] + 1).ordinalize} year"
+      td
+        | Yearly vacation days added: #{item['yearly_vacation_days_assigned']}
+        br
+        | Total period vacation days: #{item['total_vacation_days']}
+        br
+        | Used vacation days: #{item['used_vacation']}
+        br
+        | Overtime days: #{item['overtime_days']}
+        br
+        | Sick leave days: #{item['sick_leave_days']}
+        br
+        | Remaining sick leave days: #{item['remaining_sick_leave_days']}
+        br
+        | Unpaid days off: #{item['unpaid_days_off']}
+        br
+        | Paid days off: #{item['paid_days_off']}
+        br
+        | Working day shifts: #{item['working_days_shifts']}
+        br
+        strong
+          | Remaining vacation: #{item['remaining_vacation']}
+          br
+        | Days will burn: #{item['burn_days']}
+        br
+        | Days will be transferred: #{item['transfer_days']}
+
+br
+- person.dayoffs.order(start_on: :desc).each do |dayoff|
+  p
+    a href="#{dayoff_path(dayoff)}" #{dayoff.type}
+    | &nbsp;
+    | #{"#{pluralize(dayoff.days, 'day')} from #{dayoff.start_on&.to_formatted_s(:rfc822)} to #{dayoff.end_on&.to_formatted_s(:rfc822)}"}
+    | &nbsp;&nbsp;
+    a href="#{edit_dayoff_path(dayoff)}"
+      i.fa.fa-pencil
+    | &nbsp;&nbsp;
+    a href="#{dayoff_path(dayoff)}" data-method="delete" data-confirm="Are you sure ?"
+      i.fa.fa-times
+    br
+    = with_newlines(dayoff.notes)
