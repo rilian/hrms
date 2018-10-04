@@ -187,7 +187,13 @@ class ReportsController < ApplicationController
       finish_date: Time.zone.now.end_of_week.strftime('%d-%m-%Y'),
       user_email: '',
     } if params[:funnel].blank?
-    params[:funnel][:start_date], params[:funnel][:finish_date] = params[:funnel][:finish_date], params[:funnel][:start_date] if Time.strptime(params[:funnel][:start_date], '%d-%m-%Y') > Time.strptime(params[:funnel][:finish_date], '%d-%m-%Y')
+    params[:funnel][:start_date] = Time.zone.now.beginning_of_week.strftime('%d-%m-%Y') if params[:funnel][:start_date].blank?
+    params[:funnel][:finish_date] = Time.zone.now.end_of_week.strftime('%d-%m-%Y') if params[:funnel][:finish_date].blank?
+    if params[:funnel][:start_date].present? &&
+      params[:funnel][:finish_date].present? &&
+      Time.strptime(params[:funnel][:start_date], '%d-%m-%Y') > Time.strptime(params[:funnel][:finish_date], '%d-%m-%Y')
+      params[:funnel][:start_date], params[:funnel][:finish_date] = params[:funnel][:finish_date], params[:funnel][:start_date]
+    end
 
     @vacancies = Vacancy
     if funnel_update_params[:vacancy_id].present?
