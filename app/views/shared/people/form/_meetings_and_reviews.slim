@@ -1,0 +1,14 @@
+.form-group
+  label.control-label
+    | Last 1-1 meeting with management:
+  = f.input :last_one_on_one_meeting_at, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: person.last_one_on_one_meeting_at&.strftime('%d-%m-%Y'), class: 'datepicker', autocomplete: 'off' }
+
+.form-group
+  label.control-label
+    | Last performance review:
+  = f.input :last_performance_review_at, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: person.last_performance_review_at&.strftime('%d-%m-%Y'), class: 'datepicker', autocomplete: 'off' }
+
+.form-group
+  label.control-label
+    | Next performance review planned:
+  = f.input :next_performance_review_at, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: person.next_performance_review_at&.strftime('%d-%m-%Y'), class: 'datepicker', autocomplete: 'off' }

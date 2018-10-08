@@ -1,0 +1,9 @@
+.form-group
+  label.control-label
+    span.text-danger *
+    | Primary Tech:
+  = f.input :primary_tech,
+    collection: Person::PRIMARY_TECHS,
+    label: false,
+    include_blank: true,
+    input_html: { class: 'select form-control' }

@@ -1,0 +1,4 @@
+.form-group
+  label.control-label
+    | Finish Date:
+  = f.input :finish_date, as: :string, include_blank: true, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: person.finish_date&.strftime('%d-%m-%Y'), class: 'datepicker', autocomplete: 'off' }

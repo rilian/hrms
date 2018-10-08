@@ -1,0 +1,5 @@
+- if (person.status.in?(Person::EMPLOYEE_STATUSES) && current_user.has_access_to_performance?) || (!person.status.in?(Person::EMPLOYEE_STATUSES) && current_user.has_access_to_finances?)
+  .form-group
+    label.control-label
+      | Expected salary:
+    = f.input :expected_salary, placeholder: '$1000', label: false, class: 'input form-control'

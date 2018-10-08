@@ -1,0 +1,10 @@
+.form-group
+  label.control-label
+    | Photo
+    span.text-danger *
+  - if person.photo.present?
+    img src="#{Refile.attachment_url(person, :photo, :fit, 200, 200, format: 'jpg')}"
+  - else
+    | No photo yet
+  br
+  = f.attachment_field :photo, label: false, class: 'input form-control'

@@ -1,0 +1,6 @@
+.form-group
+  label.control-label
+    span.text-danger *
+    |  Name:
+  .js-similar-people-container
+  = f.input :name, placeholder: 'James Bond', label: false, input_html: { class: 'input form-control js-person-name', data: { 'current-id' => person.id } }

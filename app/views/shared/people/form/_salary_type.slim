@@ -1,0 +1,8 @@
+.form-group
+  label.control-label
+    | Salary Type:
+  = f.input :salary_type,
+    collection: Person::SALARY_TYPES,
+    label: false,
+    include_blank: true,
+    input_html: { class: 'select form-control' }

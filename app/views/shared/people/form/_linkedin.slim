@@ -1,0 +1,7 @@
+.form-group
+  label.control-label
+    | LinkedIn:&nbsp;
+    - if person.linkedin.present?
+      strong
+        a target="_blank" href="#{person.linkedin_value}" #{person.linkedin_value}
+  = f.input :linkedin, placeholder: 'https://linkedin.com/jamesbond', label: false, class: 'input form-control'

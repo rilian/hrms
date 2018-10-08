@@ -1,0 +1,7 @@
+.form-group
+  label.control-label English Level:
+  = f.input :english,
+    collection: Person::ENGLISH_LEVELS,
+    label: false,
+    include_blank: true,
+    input_html: { class: 'select form-control' }

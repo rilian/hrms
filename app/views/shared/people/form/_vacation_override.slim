@@ -1,0 +1,4 @@
+.form-group
+  label.control-label
+    | Override vacation days (default #{ENV['VACATION_PER_YEAR']}):
+  = f.input :vacation_override, placeholder: '10', label: false, class: 'input form-control'

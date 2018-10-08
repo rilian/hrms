@@ -1,0 +1,13 @@
+.form-group
+  label.control-label
+    | Tags:
+  select.form-control.js-select2-select multiple="multiple" name="person[tag_list][]"
+    option value="" Select a tag
+    - ActsAsTaggableOn::Tag.all.pluck(:name).each do |tag|
+      - if tag.in?(person.tag_list)
+        option value="#{tag}" selected="selected" #{tag}
+      - else
+        option value="#{tag}" #{tag}
+  - if person.tag_list.present?
+    sup
+      | (Click main X to remove all tags)

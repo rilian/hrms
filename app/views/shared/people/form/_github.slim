@@ -1,0 +1,7 @@
+.form-group
+  label.control-label
+    | Github:&nbsp;
+    - if person.github.present?
+      strong
+        a target="_blank" href="#{person.github_value}" #{person.github_value}
+  = f.input :github, placeholder: 'https://github.com/johndoe', label: false, class: 'input form-control'
