@@ -1,0 +1,31 @@
+= simple_form_for @person, html: {class: 'form'} do |f|
+  = render 'shared/people/form/name', f: f, person: @person
+  = render 'shared/people/form/photo', f: f, person: @person
+  = render 'shared/people/form/primary_tech', f: f
+  = render 'shared/people/form/status', f: f, person: @person
+  = render 'shared/people/form/current_position', f: f
+  = render 'shared/people/form/start_date', f: f, person: @person
+  = render 'shared/people/form/finish_date', f: f, person: @person
+  = render 'shared/people/form/employee_id', f: f
+  = render 'shared/people/form/signed_nda', f: f, person: @person
+  = render 'shared/people/form/day_of_birth', f: f, person: @person
+  = render 'shared/people/form/city', f: f
+  = render 'shared/people/form/salary_type', f: f
+  = render 'shared/people/form/phone', f: f
+  = render 'shared/people/form/skype', f: f
+  = render 'shared/people/form/email', f: f
+  = render 'shared/people/form/personal_email', f: f
+  = render 'shared/people/form/english', f: f
+  = render 'shared/people/form/linkedin', f: f, person: @person
+  = render 'shared/people/form/github', f: f, person: @person
+  = render 'shared/people/form/skills', f: f
+  = render 'shared/people/form/tags', f: f, person: @person
+  = render 'shared/people/form/source', f: f
+  = render 'shared/people/form/meetings_and_reviews', f: f, person: @person
+  = render 'shared/people/form/vacation_override', f: f
+
+  .form-group.form-actions
+    .text-left style="width: 600px;"
+      - if @person.persisted?
+        a.btn style="text-align: left; width: 200px;" href="#{person_path(@person)}" data-method="delete" data-confirm="Are you sure?" Delete
+      = f.button :submit, (@person.new_record? ? '+ Create Person' : 'Update Person'), class: 'btn btn-success'
