@@ -11,6 +11,7 @@ class Person < ActiveRecord::Base
     'DevOps',
     'Frontend',
     'Fullstack',
+    'Golang',
     'HR',
     'iOS',
     'Java',
