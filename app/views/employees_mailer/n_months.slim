@@ -6,8 +6,9 @@ p There are total of #{@employees.count} employees that already worked for #{plu
   - next if employee.blank? || employee.start_date.blank?
 
   = link_to employee.name.titleize, person_url(employee)
-  | started on
+  | &nbsp;started on
   = employee.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+  br
   br
 
 br

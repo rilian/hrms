@@ -8,11 +8,15 @@
   br
   br
   - records.each do |record|
+    ' Note by&nbsp;
+    = record.updated_by_name&.split('@')&.first
+    ':
+    br
     ' On
     = record.perform_on.strftime(t(:datetime_short))
     ' &nbsp;communicate with
     = link_to record.person.name, person_url(record.person)
-    ' &nbsp;(#{record.person.primary_tech}) about
+    ' &nbsp;(#{record.person.primary_tech}) about:
     br
     = with_newlines(record.value)
     br
