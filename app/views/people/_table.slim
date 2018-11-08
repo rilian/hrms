@@ -30,18 +30,18 @@
     td
       - if (record.action_points_count || 0) > 0
         | Upcoming Actions:
-        br
         - record.action_points.order(perform_on: :asc).each do |action_point|
+          br
           - next if action_point.is_completed
           a href="#{edit_action_point_path(action_point)}" #{action_point.perform_on.strftime(t(:datetime_full)).gsub('00:00, ', '')}
           | &nbsp;
           = with_newlines(action_point.value)
-          br
-
+        br
+        br
       - if (record.notes_count || 0) > 0
         | Latest notes:
-        br
         - record.notes.accessible_by(current_ability).order(updated_at: :desc).each do |note|
+          br
           = note.created_at.strftime(t(:day))
           | &nbsp;
           - if !note.type.in?(Note::FINANCE_TYPES)
@@ -49,9 +49,12 @@
             ' : #{with_newlines(truncate(note.value, length: 300, escape: false))}
           - else
             = "Content of this note is not available (#{note.type})"
-          br
+        br
+        br
+
       = link_to '+ Note', new_note_path(note: { person_id: record.id })
       br
+
       = link_to '+ Action', new_action_point_path(action_point: { person_id: record.id })
     td
       - if (record.attachments_count || 0) > 0
