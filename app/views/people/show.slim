@@ -100,7 +100,7 @@
         a.btn.btn-default.js-show-performance-btn href="#" Performance
         | &nbsp;
     - if current_user.has_access_to_events?
-      a.btn.btn-default href="#{events_path(q: {entity_id_eq: @person.id, action_starts_with: 'person.'})}" Events
+      a.btn.btn-default href="#{events_path(q: { entity_id_eq: @person.id, entity_type_eq: 'Person' })}" Events
       | &nbsp;
 
   - if @person.status.in?(Person::EMPLOYEE_STATUSES)
