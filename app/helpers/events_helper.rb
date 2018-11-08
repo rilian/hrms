@@ -9,6 +9,7 @@ module EventsHelper
       .chomp('{')
       .reverse
       .gsub('["", ', '[')
-      .gsub('\r\n', ' '.html_safe)
+      .gsub('\r\n', '<br/>'.html_safe)
+      .gsub('<br/>"]', '"]'.html_safe)
   end
 end
