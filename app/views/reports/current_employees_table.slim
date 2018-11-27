@@ -1,5 +1,5 @@
 h2.title Current Employees Table
-= link_to 'Show technical info', current_employees_table_reports_path(show_technical: 'true')
+= link_to 'Show Past Employees', people_path(q: { status_in: Person::PAST_EMPLOYEE_STATUSES })
 br
 = link_to 'Export to XLSX', current_employees_table_reports_path(format: :xlsx)
 br
@@ -17,8 +17,6 @@ table.table.pretty-table
     th Skype
     th Phone
     th Position
-    - if params[:show_technical].present?
-      th Signed NDA?
   tbody
     - @people.each_with_index do |person, index|
       tr
@@ -78,10 +76,3 @@ table.table.pretty-table
           - else
             a href="#{edit_person_path(person)}"
               i.fa.fa-pencil
-        - if params[:show_technical].present?
-          td
-            - if person.signed_nda?
-              = 'yes'
-            - else
-              a href="#{edit_person_path(person)}"
-                i.fa.fa-pencil

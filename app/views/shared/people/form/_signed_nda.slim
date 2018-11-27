@@ -1,4 +1,4 @@
 .form-group
   label.control-label
-    | Signed Documents? Person has #{person.attachments.count} attachments: #{person.attachments.map(&:name).join(', ')}
+    | Signed Documents? Person only has #{person.attachments.count} attachments: #{person.attachments.map(&:name).join(', ')}
   = f.input :signed_nda, label: false, input_html: {}
