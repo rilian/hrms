@@ -194,9 +194,9 @@ class ReportsController < ApplicationController
 
     case params[:performance_review][:order].present? && params[:performance_review][:order]
       when 'next_review'
-        @people = @people.reorder('last_performance_review_at IS NOT NULL, next_performance_review_at ASC')
+        @people = @people.reorder('last_performance_review_at IS NOT NULL, next_performance_review_at IS NOT NULL, next_performance_review_at ASC')
       else 'last_review'
-        @people = @people.reorder('last_performance_review_at IS NOT NULL, last_performance_review_at ASC')
+        @people = @people.reorder('last_performance_review_at IS NOT NULL, next_performance_review_at IS NOT NULL, last_performance_review_at ASC')
     end
     @people = @people.order(:name)
   end

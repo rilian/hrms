@@ -1,10 +1,9 @@
 h2.title Upcoming Performance Reviews
 
 = simple_form_for :performance_review, html: {method: :get, class: 'form'} do |f|
-  label.control-label From&nbsp;
-
+  label.control-label Next review from&nbsp;
   = f.input :next_performance_review_start_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:performance_review][:next_performance_review_start_date], class: 'datepicker', autocomplete: 'off' }
-  label.control-label to &nbsp;
+  label.control-label Next review to &nbsp;
   = f.input :next_performance_review_finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:performance_review][:next_performance_review_finish_date], class: 'datepicker', autocomplete: 'off' }
 
   = f.input :order, as: :select, collection: %w(next_review last_review), include_blank: false, selected: params[:performance_review][:order]
