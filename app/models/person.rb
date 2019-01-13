@@ -16,6 +16,7 @@ class Person < ActiveRecord::Base
     'iOS',
     'Java',
     'Manager',
+    'Marketing',
     'ML',
     'NET',
     'Office Manager',
