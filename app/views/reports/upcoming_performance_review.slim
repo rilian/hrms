@@ -11,6 +11,16 @@ h2.title Upcoming Performance Reviews
   = f.button :submit, 'View Report', class: 'btn btn-success'
 br
 = "#{@people.count} employees"
+br
+span style="color: grey"
+  strong
+    | grey color&nbsp;
+| - next review date in the future
+br
+span style="color: red"
+  strong
+    | red color&nbsp;
+| - last review date is less than 6 months
 
 table.table.pretty-table
   thead
@@ -26,14 +36,19 @@ table.table.pretty-table
           - if record.next_performance_review_at.present?
             - if record.next_performance_review_at >= Time.zone.now
               span style="color: grey"
-                = record.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+                strong
+                  = record.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
             - else
               = record.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+          - else
+            a href="#{edit_person_path(record)}"
+              i.fa.fa-pencil
         td
           - if record.last_performance_review_at.present?
             - if record.last_performance_review_at >= 6.months.ago
               span style="color: red"
-                = record.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+                strong
+                  = record.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
             - else
               = record.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
           - else
