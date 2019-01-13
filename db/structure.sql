@@ -306,7 +306,8 @@ CREATE TABLE people (
     github character varying,
     personal_email character varying,
     updated_by_name character varying,
-    created_by_name character varying
+    created_by_name character varying,
+    skip_reviews boolean DEFAULT false
 );
 
 
@@ -1044,6 +1045,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180915071848'),
 ('20180918073529'),
 ('20180920135734'),
-('20180920141022');
+('20180920141022'),
+('20190113181423');
 
 

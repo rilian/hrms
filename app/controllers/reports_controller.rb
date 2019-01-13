@@ -174,6 +174,7 @@ class ReportsController < ApplicationController
     load_current_employees
 
     @people = @people
+      .where(skip_reviews: false)
       .where('finish_date IS NULL OR finish_date > ?', Time.zone.now.strftime('%F'))
       .where('next_performance_review_at IS NULL OR next_performance_review_at < ?', Time.zone.now.strftime('%F'))
       .where('last_performance_review_at IS NULL OR last_performance_review_at < ?', 6.months.ago.strftime('%F'))

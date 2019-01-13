@@ -12,7 +12,7 @@ h2.title Funnel Report
 
   = f.input :start_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:funnel][:start_date], class: 'datepicker', autocomplete: 'off' }
   label.control-label to &nbsp;
-  = f.input :finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: {value: params[:funnel][:finish_date], class: 'datepicker', autocomplete: 'off' }
+  = f.input :finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:funnel][:finish_date], class: 'datepicker', autocomplete: 'off' }
 
   div.form-group
     label.control-label Updated by user:
