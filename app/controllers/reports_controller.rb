@@ -175,7 +175,7 @@ class ReportsController < ApplicationController
 
     params[:performance_review] = {
       next_performance_review_start_date: 10.years.ago.beginning_of_year.strftime('%d-%m-%Y'),
-      next_performance_review_finish_date: Time.zone.now.end_of_month.strftime('%d-%m-%Y'),
+      next_performance_review_finish_date: 1.month.since.strftime('%d-%m-%Y'),
       order: 'next_review'
     } if params[:performance_review].blank?
 
