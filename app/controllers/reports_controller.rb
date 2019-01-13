@@ -192,11 +192,6 @@ class ReportsController < ApplicationController
              Time.strptime(params[:performance_review][:next_performance_review_start_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
              Time.strptime(params[:performance_review][:next_performance_review_finish_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00')
 
-    unless params[:performance_review][:not_account_last_performance_review_date].present? && params[:performance_review][:not_account_last_performance_review_date] == '1'
-      @people = @people
-        .where('last_performance_review_at IS NULL OR last_performance_review_at < ?', 6.months.ago.strftime('%F'))
-    end
-
     case params[:performance_review][:order].present? && params[:performance_review][:order]
       when 'next_review'
         @people = @people.reorder('last_performance_review_at IS NOT NULL, next_performance_review_at ASC')

@@ -9,8 +9,6 @@ h2.title Upcoming Performance Reviews
 
   = f.input :order, as: :select, collection: %w(next_review last_review), include_blank: false, selected: params[:performance_review][:order]
 
-  = f.input :not_account_last_performance_review_date, as: :boolean, label: 'Also show employees who had review less than 6 months ago', input_html: { checked: params[:performance_review] && params[:performance_review][:not_account_last_performance_review_date] == '1' }
-
   = f.button :submit, 'View Report', class: 'btn btn-success'
 br
 = "#{@people.count} employees"
