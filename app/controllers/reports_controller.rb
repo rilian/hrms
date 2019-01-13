@@ -173,13 +173,37 @@ class ReportsController < ApplicationController
   def employees_without_performance_review
     load_current_employees
 
+    params[:performance_review] = {
+      next_performance_review_start_date: 10.years.ago.beginning_of_year.strftime('%d-%m-%Y'),
+      next_performance_review_finish_date: Time.zone.now.end_of_month.strftime('%d-%m-%Y'),
+      order: 'next_review'
+    } if params[:performance_review].blank?
+
+    if params[:performance_review][:next_performance_review_start_date].present? &&
+      params[:performance_review][:next_performance_review_finish_date].present? &&
+      Time.strptime(params[:performance_review][:next_performance_review_start_date], '%d-%m-%Y') > Time.strptime(params[:performance_review][:next_performance_review_finish_date], '%d-%m-%Y')
+        params[:performance_review][:next_performance_review_start_date], params[:performance_review][:next_performance_review_finish_date] = params[:performance_review][:next_performance_review_finish_date], params[:performance_review][:next_performance_review_start_date]
+    end
+
     @people = @people
       .where(skip_reviews: false)
       .where('finish_date IS NULL OR finish_date > ?', Time.zone.now.strftime('%F'))
-      .where('next_performance_review_at IS NULL OR next_performance_review_at < ?', Time.zone.now.strftime('%F'))
-      .where('last_performance_review_at IS NULL OR last_performance_review_at < ?', 6.months.ago.strftime('%F'))
-      .reorder('last_performance_review_at IS NOT NULL, last_performance_review_at ASC')
-      .order(:name)
+      .where('next_performance_review_at >= ? AND next_performance_review_at <= ?',
+             Time.strptime(params[:performance_review][:next_performance_review_start_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
+             Time.strptime(params[:performance_review][:next_performance_review_finish_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00')
+
+    unless params[:performance_review][:not_account_last_performance_review_date].present? && params[:performance_review][:not_account_last_performance_review_date] == '1'
+      @people = @people
+        .where('last_performance_review_at IS NULL OR last_performance_review_at < ?', 6.months.ago.strftime('%F'))
+    end
+
+    case params[:performance_review][:order].present? && params[:performance_review][:order]
+      when 'next_review'
+        @people = @people.reorder('last_performance_review_at IS NOT NULL, next_performance_review_at ASC')
+      else 'last_review'
+        @people = @people.reorder('last_performance_review_at IS NOT NULL, last_performance_review_at ASC')
+    end
+    @people = @people.order(:name)
   end
 
   def funnel

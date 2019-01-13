@@ -1,4 +1,17 @@
 h2.title Current Employees ordered by performance review needs
+
+= simple_form_for :performance_review, html: {method: :get, class: 'form'} do |f|
+  label.control-label From&nbsp;
+
+  = f.input :next_performance_review_start_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:performance_review][:next_performance_review_start_date], class: 'datepicker', autocomplete: 'off' }
+  label.control-label to &nbsp;
+  = f.input :next_performance_review_finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:performance_review][:next_performance_review_finish_date], class: 'datepicker', autocomplete: 'off' }
+
+  = f.input :order, as: :select, collection: %w(next_review last_review), include_blank: false, selected: params[:performance_review][:order]
+
+  = f.input :not_account_last_performance_review_date, as: :boolean, label: 'not account 6 months since last performance review', input_html: { checked: params[:performance_review] && params[:performance_review][:not_account_last_performance_review_date] == '1' }
+
+  = f.button :submit, 'View Report', class: 'btn btn-success'
 br
 = "#{@people.count} employees"
 
@@ -15,10 +28,18 @@ table.table.pretty-table
         td = record.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
         td
           - if record.last_performance_review_at.present?
-            = record.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            - if record.last_performance_review_at >= 6.months.ago
+              = record.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            - else
+              span style="color: red"
+                = record.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
           - else
             a href="#{edit_person_path(record)}"
               i.fa.fa-pencil
         td
           - if record.next_performance_review_at.present?
-            = record.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            - if record.next_performance_review_at >= Time.zone.now
+              span style="color: red"
+                = record.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            - else
+              = record.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
