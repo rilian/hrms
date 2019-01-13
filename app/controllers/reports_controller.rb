@@ -188,7 +188,7 @@ class ReportsController < ApplicationController
     @people = @people
       .where(skip_reviews: false)
       .where('finish_date IS NULL OR finish_date > ?', Time.zone.now.strftime('%F'))
-      .where('next_performance_review_at >= ? AND next_performance_review_at <= ?',
+      .where('next_performance_review_at IS NULL OR next_performance_review_at >= ? AND next_performance_review_at <= ?',
              Time.strptime(params[:performance_review][:next_performance_review_start_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
              Time.strptime(params[:performance_review][:next_performance_review_finish_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00')
 
