@@ -170,7 +170,7 @@ class ReportsController < ApplicationController
       .order(:name)
   end
 
-  def employees_without_performance_review
+  def upcoming_performance_review
     load_current_employees
 
     params[:performance_review] = {

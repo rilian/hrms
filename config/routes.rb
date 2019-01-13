@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       get :contractors_table
       get :employees_by_birthday_month
       get :employees_by_last_one_on_one_meeting_date
-      get :employees_without_performance_review
+      get :upcoming_performance_review
       get :employees_expenses
       get :employees_history
       get :employees_simple
