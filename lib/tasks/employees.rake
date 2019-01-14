@@ -50,13 +50,13 @@ namespace :employees do
 
   desc 'Sends advance notification about performance reviews'
   task performance_review: :environment do
-    employees = Person.not_deleted.current_employee
-      .where('start_date <= ?', 6.months.ago.strftime('%F'))
-      .where('finish_date IS NULL OR finish_date > ?', Time.zone.now.strftime('%F'))
-      .where('next_performance_review_at IS NULL OR next_performance_review_at < ?', Time.zone.now.strftime('%F'))
-      .where('last_performance_review_at IS NULL OR last_performance_review_at < ?', 6.months.ago.strftime('%F'))
-      .reorder('last_performance_review_at IS NOT NULL, last_performance_review_at ASC')
-      .order(:name)
+    service = PerformanceReviewStatsCollector.new(
+      start_date: Time.zone.now.strftime('%d-%m-%Y'),
+      finish_date: 1.month.since.strftime('%d-%m-%Y'),
+      order: 'next_review'
+    )
+    service.perform
+    employees = service.scope
 
     User.where(employee_notifications_enabled: true).pluck(:id).each do |user_id|
       EmployeesMailer.performance_review(user_id, employees).deliver_now

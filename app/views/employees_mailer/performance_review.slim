@@ -1,33 +1,34 @@
 p Hi #{@user.email},
-p There are total of #{@employees.count} employees waiting for performance review.
-p Here is the list of employees to run performance review for this week #{Time.zone.now.beginning_of_week.strftime('%a, %e %b')} - #{(Time.zone.now.beginning_of_week + 4.days).strftime('%a, %e %b')}
-- break_all = false
-- 0.upto(4).each do |i|
-  - break if break_all
-  p
-    strong #{(Time.zone.now.beginning_of_week + i.days).strftime('%a, %e %b')}
-    |:
-  - [@employees[i * 2], @employees[i * 2 + 1]].each do |employee|
-    p
-      - if employee.present?
-        = link_to employee.name.titleize, person_url(employee)
-        '&nbsp;(last meeting
-        - if employee.last_performance_review_at.present?
-          = employee.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
-        - else
-          |never
-        '&nbsp; next review planned &nbsp;
-        - if employee.next_performance_review_at.present?
-          = employee.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
-        - else
-          |n/a
-        |, email: #{employee.email}, skype: #{employee.skype}, phone: #{employee.phone}
-        |), #{link_to '[add meeting note]', new_note_url(note: { person_id: employee.id })}
-      - else
-        'none
-        - break_all = true
-        break
+p There are total of #{@employees.count} employees waiting for performance review this period.
 
-p Please arrange meeting with them and update "last performance review" or "next performance review" and add meeting notes afterwards.
+table
+  thead
+    td Name
+    td Next Review
+    td Last Review
+    td Start Date
+  tbody
+    - @employees.each do |record|
+      tr
+        td = link_to record.name, person_url(record)
+        td
+          - if record.next_performance_review_at.present?
+            - if record.next_performance_review_at >= Time.zone.now
+              span style="color: grey"
+                strong
+                  = record.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            - else
+              = record.next_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+        td
+          - if record.last_performance_review_at.present?
+            - if record.last_performance_review_at >= 6.months.ago
+              span style="color: red"
+                strong
+                  = record.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+            - else
+              = record.last_performance_review_at.strftime(t(:datetime_full)).gsub('00:00, ', '')
+        td = record.start_date.strftime(t(:datetime_full)).gsub('00:00, ', '')
+
+p Please collect data, arrange meetings and update "last performance review" and "next performance review" and add performance review notes in HRMS afterwards.
 
 = render 'shared/mail_footer'

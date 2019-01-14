@@ -26,7 +26,7 @@ class EmployeesMailer < ActionMailer::Base
     @employees = employees
 
     mail(
-      subject: "[HRMS] Performance review plan for the week #{Time.zone.now.beginning_of_week.strftime('%a, %e %b')} - #{(Time.zone.now.beginning_of_week + 4.days).strftime('%a, %e %b')}",
+      subject: "[HRMS] Performance review plan for next month #{Time.zone.now.strftime('%a, %e %b')} - #{(Time.zone.now + 1.month).strftime('%a, %e %b')}",
       to: @user.email
     )
   end
