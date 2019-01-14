@@ -185,7 +185,6 @@ class ReportsController < ApplicationController
     end
 
     service = PerformanceReviewStatsCollector.new(
-      scope: @people,
       start_date: performance_review_params[:start_date],
       finish_date: performance_review_params[:finish_date],
       order: performance_review_params[:order]

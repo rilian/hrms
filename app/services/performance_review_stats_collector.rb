@@ -1,7 +1,6 @@
 class PerformanceReviewStatsCollector
   attr_accessor :start_date, :finish_date, :scope
-  def initialize(scope:, start_date:, finish_date:, order:)
-    @scope = scope
+  def initialize(start_date:, finish_date:, order:)
     @start_date = start_date
     @finish_date = finish_date
     @order = order
@@ -28,6 +27,6 @@ class PerformanceReviewStatsCollector
         @scope = @scope.reorder('next_performance_review_at IS NOT NULL, last_performance_review_at IS NOT NULL, next_performance_review_at ASC')
     end
 
-    @scope = @scope.order(:name)
+    @scope = @scope.order(:start_date)
   end
 end
