@@ -1,10 +1,13 @@
 h2.title Upcoming Performance Reviews
 
+= link_to 'show current month', upcoming_performance_review_reports_path
+br
+
 = simple_form_for :performance_review, html: {method: :get, class: 'form'} do |f|
   label.control-label Next review from&nbsp;
-  = f.input :next_performance_review_start_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:performance_review][:next_performance_review_start_date], class: 'datepicker', autocomplete: 'off' }
+  = f.input :start_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:performance_review][:start_date], class: 'datepicker', autocomplete: 'off' }
   label.control-label Next review to &nbsp;
-  = f.input :next_performance_review_finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:performance_review][:next_performance_review_finish_date], class: 'datepicker', autocomplete: 'off' }
+  = f.input :finish_date, as: :string, placeholder: 'dd-mm-yyyy', label: false, input_html: { value: params[:performance_review][:finish_date], class: 'datepicker', autocomplete: 'off' }
 
   = f.input :order, as: :select, collection: %w(next_review last_review), include_blank: false, selected: params[:performance_review][:order]
 

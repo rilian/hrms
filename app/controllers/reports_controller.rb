@@ -171,34 +171,29 @@ class ReportsController < ApplicationController
   end
 
   def upcoming_performance_review
-    load_current_employees
-
+    # set default params. may be moved to service
     params[:performance_review] = {
-      next_performance_review_start_date: 10.years.ago.beginning_of_year.strftime('%d-%m-%Y'),
-      next_performance_review_finish_date: 1.month.since.strftime('%d-%m-%Y'),
+      start_date: 10.years.ago.beginning_of_year.strftime('%d-%m-%Y'),
+      finish_date: 1.month.since.strftime('%d-%m-%Y'),
       order: 'next_review'
     } if params[:performance_review].blank?
 
-    if params[:performance_review][:next_performance_review_start_date].present? &&
-      params[:performance_review][:next_performance_review_finish_date].present? &&
-      Time.strptime(params[:performance_review][:next_performance_review_start_date], '%d-%m-%Y') > Time.strptime(params[:performance_review][:next_performance_review_finish_date], '%d-%m-%Y')
-        params[:performance_review][:next_performance_review_start_date], params[:performance_review][:next_performance_review_finish_date] = params[:performance_review][:next_performance_review_finish_date], params[:performance_review][:next_performance_review_start_date]
+    if performance_review_params[:start_date].present? &&
+      performance_review_params[:finish_date].present? &&
+      Time.strptime(performance_review_params[:start_date], '%d-%m-%Y') > Time.strptime(performance_review_params[:finish_date], '%d-%m-%Y')
+      params[:performance_review][:start_date], params[:performance_review][:finish_date] = performance_review_params[:finish_date], performance_review_params[:start_date]
     end
 
-    @people = @people
-      .where(skip_reviews: false)
-      .where('finish_date IS NULL OR finish_date > ?', Time.zone.now.strftime('%F'))
-      .where('next_performance_review_at IS NULL OR next_performance_review_at >= ? AND next_performance_review_at <= ?',
-             Time.strptime(params[:performance_review][:next_performance_review_start_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00',
-             Time.strptime(params[:performance_review][:next_performance_review_finish_date], '%d-%m-%Y').strftime('%Y-%m-%d') + ' 00:00:00')
-
-    case params[:performance_review][:order].present? && params[:performance_review][:order]
-      when 'next_review'
-        @people = @people.reorder('last_performance_review_at IS NOT NULL, next_performance_review_at IS NOT NULL, next_performance_review_at ASC')
-      else 'last_review'
-        @people = @people.reorder('last_performance_review_at IS NOT NULL, next_performance_review_at IS NOT NULL, last_performance_review_at ASC')
-    end
-    @people = @people.order(:name)
+    service = PerformanceReviewStatsCollector.new(
+      scope: @people,
+      start_date: performance_review_params[:start_date],
+      finish_date: performance_review_params[:finish_date],
+      order: performance_review_params[:order]
+    )
+    service.perform
+    @people = service.scope
+    params[:performance_review][:start_date] = service.start_date
+    params[:performance_review][:finish_date] = service.finish_date
   end
 
   def funnel
@@ -282,5 +277,9 @@ class ReportsController < ApplicationController
 
   def funnel_update_params
     params.require(:funnel).permit(:start_date, :finish_date, :user_email, :vacancy_id)
+  end
+
+  def performance_review_params
+    params.require(:performance_review).permit(:start_date, :finish_date, :order)
   end
 end
