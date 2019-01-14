@@ -51,7 +51,7 @@ namespace :employees do
   desc 'Sends advance notification about performance reviews'
   task performance_review: :environment do
     service = PerformanceReviewStatsCollector.new(
-      start_date: Time.zone.now.strftime('%d-%m-%Y'),
+      start_date: 10.years.ago.strftime('%d-%m-%Y'),
       finish_date: 1.month.since.strftime('%d-%m-%Y'),
       order: 'next_review'
     )
