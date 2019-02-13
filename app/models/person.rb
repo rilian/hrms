@@ -107,6 +107,7 @@ private
     self.linkedin = self.linkedin.to_s.chomp('/').strip
     self.github = self.github.to_s.strip.split('?').first.to_s.strip
     self.name = self.name.to_s.strip
+    self.telegram = self.telegram.to_s.strip
   end
 
   def finish_date_greater_or_equal_start_date

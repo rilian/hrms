@@ -86,7 +86,7 @@ private
       :primary_tech, :current_position, :english, :day_of_birth, :status, :expected_salary, :source,
       :vacation_override, :skills, :finish_date, :signed_nda, :salary_type, :employee_id,
       :last_one_on_one_meeting_at, :last_performance_review_at, :next_performance_review_at,
-      :github, :personal_email, :skip_reviews,
+      :github, :personal_email, :skip_reviews, :telegram,
       tag_list: [])
   end
 end
