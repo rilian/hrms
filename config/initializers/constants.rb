@@ -13,6 +13,7 @@ PERSON_STATUS_COLORS = {
   'Rejected, no go' => '#EB5E66',
   'Rejected, on hold' => '#FFAEB9',
   'Waiting for decision' => '#ADD8E6',
+  'Offer Declined' => '#F6C4BA',
   'Hired' => '#7ff27f',
   'Contractor' => '#7fc270',
   'Past employee' => '#ffc3e1',
