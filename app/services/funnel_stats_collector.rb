@@ -3,7 +3,7 @@ class FunnelStatsCollector
   NOT_INTERESTED_STATUSES = ['Not interested', 'Not interested, on hold', 'Rejected, no go', 'Rejected, on hold']
   INTERESTED_STATUSES = ['Discussing an opportunity', 'Interested, ping later', 'Interested, on hold']
   INTERVIEW_STATUSES = ['Initial interview', 'Technical interview', 'Test assignment']
-  PASSED_INTERVIEW_STATUSES = ['Waiting for decision']
+  PASSED_INTERVIEW_STATUSES = ['Waiting for decision', 'Offer Declined']
   HIRED_STATUSES = ['Hired', 'Contractor', 'Past employee', 'Past contractor']
 
   def initialize(scope:, vacancies:, start_date:, finish_date:, user_email:)
