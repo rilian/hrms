@@ -8,6 +8,7 @@ class Person < ActiveRecord::Base
     'Android',
     'C/C++/Go',
     'DBA',
+    'Data Engineer',
     'DevOps',
     'Frontend',
     'Fullstack',
