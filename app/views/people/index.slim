@@ -68,6 +68,13 @@ h2.title
                 option value="#{status}" #{status}
 
     .row
+      .col-md-3
+        .form-group
+          label.control-label
+            | Search by email
+          input.form-control type="text" name="q[email_cont]" placeholder="Email" value="#{params[:q] && params[:q][:email_cont]}"
+
+    .row
       .col-md-2
         .form-group
           label.control-label
