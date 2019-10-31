@@ -13,7 +13,7 @@ gem 'acts-as-taggable-on'
 gem 'cancancan'
 gem 'axlsx', '2.1.0.pre'
 gem 'sentry-raven'
-gem 'nokogiri', '1.8.0'
+gem 'nokogiri', '1.10.4'
 
 # Frontend
 gem 'slim-rails'
