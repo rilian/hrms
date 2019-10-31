@@ -20,6 +20,7 @@ class Person < ActiveRecord::Base
     'Marketing',
     'ML',
     'NET',
+    'NodeJS',
     'Office Manager',
     'PHP',
     'PM',
