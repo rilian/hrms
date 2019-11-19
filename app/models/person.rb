@@ -9,6 +9,7 @@ class Person < ActiveRecord::Base
     'C/C++/Go',
     'DBA',
     'Data Engineer',
+    'Data Science',
     'DevOps',
     'Frontend',
     'Fullstack',
