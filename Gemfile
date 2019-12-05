@@ -45,3 +45,8 @@ group :production do
   gem 'foreman', require: false
   gem 'whenever', require: false
 end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'database_rewinder'
+end
