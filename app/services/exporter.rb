@@ -20,7 +20,7 @@ class Exporter
   ].freeze
 
   def perform(start_time: nil, end_time: nil)
-    collect_data(start_time, end_time) && archive_data
+    collect_data(start_time, end_time) && archive_data(start_time, end_time)
   end
 
   def collect_data(start_time, end_time)
@@ -52,10 +52,10 @@ class Exporter
     @metadata.present?
   end
 
-  def archive_data
+  def archive_data(start_time, end_time)
     time_range =
       if start_time.present? && end_time.present?
-        "#{start_time}_#{end_time}"
+        "#{start_time.strftime('%Y%m%d%H%M%S')}_#{end_time.strftime('%Y%m%d%H%M%S')}"
       else
         'all'
       end
