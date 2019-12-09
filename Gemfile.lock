@@ -84,12 +84,14 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.5)
+    database_rewinder (0.9.1)
     devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    diff-lcs (1.3)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.5.0)
@@ -204,6 +206,23 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rspec-core (3.9.0)
+      rspec-support (~> 3.9.0)
+    rspec-expectations (3.9.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.9.0)
+    rspec-mocks (3.9.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.9.0)
+    rspec-rails (3.9.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.9.0)
+      rspec-expectations (~> 3.9.0)
+      rspec-mocks (~> 3.9.0)
+      rspec-support (~> 3.9.0)
+    rspec-support (3.9.0)
     rubyzip (1.1.7)
     sass (3.5.7)
       sass-listen (~> 4.0.0)
@@ -282,6 +301,7 @@ DEPENDENCIES
   byebug
   cancancan
   coffee-rails
+  database_rewinder
   devise
   dotenv-rails
   font-awesome-rails
@@ -298,6 +318,7 @@ DEPENDENCIES
   rb-readline
   refile!
   refile-mini_magick
+  rspec-rails
   sassc-rails
   select2-rails
   sentry-raven
@@ -310,4 +331,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.16.1
+   1.17.3
