@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Exporter
-  attr_accessor :metadata, :archive_path
+  attr_accessor :metadata, :archive_path, :errors
 
   PERSON_FIELDS_TO_EXPORT = %i[
     name
@@ -19,20 +19,26 @@ class Exporter
     personal_email
   ].freeze
 
-  def perform(start_time: nil, end_time: nil)
-    collect_data(start_time, end_time) && archive_data(start_time, end_time)
+  def initialize(start_time: nil, end_time: nil)
+    @start_time = start_time
+    @end_time = end_time
+    @errors = []
   end
 
-  def collect_data(start_time, end_time)
+  def perform
+    collect_data && archive_data
+  end
+
+  def collect_data
     @metadata_fields_types = {
       person: PERSON_FIELDS_TO_EXPORT.map { |attr| { name: attr, type: Person.columns_hash[attr.to_s].type } }
     }
 
     attachments = Attachment.where('name ILIKE ?', '%cv%')
 
-    if start_time.present? && end_time.present?
-      Rails.logger.debug("[EXPORT] Collecting data for time range: #{start_time}..#{end_time}")
-      attachments = attachments.where(created_at: start_time..end_time)
+    if @start_time.present? && @end_time.present?
+      Rails.logger.debug("[EXPORT] Collecting data for time range: #{@start_time}..#{@end_time}")
+      attachments = attachments.where(created_at: @start_time..@end_time)
     else
       Rails.logger.debug("[EXPORT] Collecting all data (time range not specified)")
     end
@@ -49,13 +55,20 @@ class Exporter
       }
     end
 
-    @metadata.present?
+    Rails.logger.debug("[EXPORT] Found #{@metadata.count} attachments")
+
+    unless @metadata.present?
+      errors.push('no attachments found')
+      return false
+    end
+
+    true
   end
 
-  def archive_data(start_time, end_time)
+  def archive_data
     time_range =
-      if start_time.present? && end_time.present?
-        "#{start_time.strftime('%Y%m%d%H%M%S')}_#{end_time.strftime('%Y%m%d%H%M%S')}"
+      if @start_time.present? && @end_time.present?
+        "#{@start_time.strftime('%Y%m%d%H%M%S')}_#{@end_time.strftime('%Y%m%d%H%M%S')}"
       else
         'all'
       end
@@ -67,7 +80,12 @@ class Exporter
 
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile| # TODO: handle possible FS errors
       @metadata.each do |file|
-        zipfile.add(file[:id], file[:path])
+        begin
+          zipfile.add(file[:id], file[:path])
+        rescue
+          @errors.push("failed to archive attachment #{file[:path]}")
+        end
+
         file.delete(:path)
       end
 
@@ -78,6 +96,6 @@ class Exporter
     @archive_path = zipfile_name
     Rails.logger.info("[EXPORT] Data saved to #{@archive_path}")
 
-    true
+    @errors.blank?
   end
 end
