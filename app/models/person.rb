@@ -45,6 +45,7 @@ class Person < ActiveRecord::Base
   CURRENT_EMPLOYEE_STATUSES = %w(Hired Contractor)
   EMPLOYEE_STATUSES = ['Hired', 'Past employee', 'Contractor', 'Past contractor']
   PAST_EMPLOYEE_STATUSES = EMPLOYEE_STATUSES - CURRENT_EMPLOYEE_STATUSES
+  CONTRACTOR_STATUSES = ['Contractor', 'Past contractor']
 
   SALARY_TYPES = %w(Monthly Hourly)
 

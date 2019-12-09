@@ -49,7 +49,6 @@ CREATE TABLE action_points (
 --
 
 CREATE SEQUENCE action_points_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -101,7 +100,6 @@ CREATE TABLE attachments (
 --
 
 CREATE SEQUENCE attachments_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -140,7 +138,6 @@ CREATE TABLE dayoffs (
 --
 
 CREATE SEQUENCE dayoffs_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -176,7 +173,6 @@ CREATE TABLE events (
 --
 
 CREATE SEQUENCE events_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -249,7 +245,6 @@ CREATE TABLE notes (
 --
 
 CREATE SEQUENCE notes_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -308,7 +303,9 @@ CREATE TABLE people (
     updated_by_name character varying,
     created_by_name character varying,
     skip_reviews boolean DEFAULT false,
-    telegram character varying
+    telegram character varying,
+    contractor_company_name character varying,
+    contractor_manager_contacts text
 );
 
 
@@ -317,7 +314,6 @@ CREATE TABLE people (
 --
 
 CREATE SEQUENCE people_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -431,7 +427,6 @@ CREATE TABLE searches (
 --
 
 CREATE SEQUENCE searches_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -467,7 +462,6 @@ CREATE TABLE taggings (
 --
 
 CREATE SEQUENCE taggings_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -498,7 +492,6 @@ CREATE TABLE tags (
 --
 
 CREATE SEQUENCE tags_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -545,7 +538,6 @@ CREATE TABLE users (
 --
 
 CREATE SEQUENCE users_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -583,7 +575,6 @@ CREATE TABLE vacancies (
 --
 
 CREATE SEQUENCE vacancies_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1048,6 +1039,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180920135734'),
 ('20180920141022'),
 ('20190113181423'),
-('20190213141941');
+('20190213141941'),
+('20191209160225');
 
 
