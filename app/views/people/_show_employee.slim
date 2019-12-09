@@ -2,6 +2,8 @@
 = render 'shared/people/show/primary_tech', person: @person
 = render 'shared/people/show/status', person: @person
 = render 'shared/people/show/current_position', person: @person
+- if @person.status.in?(Person::CONTRACTOR_STATUSES)
+  = render 'shared/people/show/contractor_fields', person: @person
 = render 'shared/people/show/start_date', person: @person
 = render 'shared/people/show/finish_date', person: @person
 = render 'shared/people/show/employee_id', person: @person
@@ -21,8 +23,6 @@
 = render 'shared/people/show/vacancies', person: @person
 = render 'shared/people/show/meetings_and_reviews', person: @person
 = render 'shared/people/show/vacation_override', person: @person
-- if @person.status.in?(Person::CONTRACTOR_STATUSES)
-  = render 'shared/people/show/contractor_fields', person: @person
 = render 'shared/people/show/days_off', person: @person
 = render 'shared/people/show/attachments', person: @person
 = render 'shared/people/show/expenses', person: @person

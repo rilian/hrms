@@ -4,6 +4,8 @@
   = render 'shared/people/form/primary_tech', f: f
   = render 'shared/people/form/status', f: f, person: @person
   = render 'shared/people/form/current_position', f: f
+  - if @person.status.in?(Person::CONTRACTOR_STATUSES)
+    = render 'shared/people/form/contractor_fields', f: f
   = render 'shared/people/form/start_date', f: f, person: @person
   = render 'shared/people/form/finish_date', f: f, person: @person
   = render 'shared/people/form/employee_id', f: f
@@ -24,8 +26,6 @@
   = render 'shared/people/form/source', f: f
   = render 'shared/people/form/meetings_and_reviews', f: f, person: @person
   = render 'shared/people/form/vacation_override', f: f
-  - if @person.status.in?(Person::CONTRACTOR_STATUSES)
-    = render 'shared/people/form/contractor_fields', f: f
 
   .form-group.form-actions
     .text-left style="width: 600px;"
