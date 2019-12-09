@@ -10,6 +10,7 @@ default: &default
 
 test:
   <<: *default
+  database: <%= ENV['DATABASE_NAME'] + '_test' %>
 
 development:
   <<: *default
