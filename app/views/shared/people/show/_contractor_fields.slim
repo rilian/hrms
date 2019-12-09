@@ -1,0 +1,11 @@
+- if person.contractor_company_name.present?
+  p
+    | Contractor company name:&nbsp;
+    strong
+      = person.contractor_company_name
+
+- if person.contractor_manager_contacts.present?
+  p
+    | Contractor manager contacts:&nbsp;
+    strong
+      = person.contractor_manager_contacts

@@ -1,0 +1,8 @@
+.form-group
+  label.control-label
+    | Contractor company name:
+  = f.input :contractor_company_name, placeholder: 'Contractor company name', label: false, class: 'input form-control'
+.form-group
+  label.control-label
+    | Contractor manager contacts:
+  = f.input :contractor_manager_contacts, as: :text, label: false, placeholder: 'Contractor manager contacts', input_html: {rows: 1}
