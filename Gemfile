@@ -11,9 +11,10 @@ gem 'refile-mini_magick'
 gem 'smarter_csv', require: false
 gem 'acts-as-taggable-on'
 gem 'cancancan'
-gem 'axlsx', '2.1.0.pre'
+gem 'axlsx', github: 'randym/axlsx', branch: 'master'
 gem 'sentry-raven'
-gem 'nokogiri', '1.10.4'
+gem 'nokogiri'
+gem 'rubyzip', '1.3.0'
 
 # Frontend
 gem 'slim-rails'
