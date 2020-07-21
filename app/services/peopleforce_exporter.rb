@@ -3,13 +3,12 @@
 require 'csv'
 
 class PeopleforceExporter
-  attr_accessor :errors, :employees_table, :jobs_table, :dependents_table, :candidates_table, :dayoffs_table
+  attr_accessor :errors, :employees_table, :jobs_table, :candidates_table, :dayoffs_table
 
   def initialize()
     @errors = []
     @employees_table = []
     @jobs_table = []
-    @dependents_table = []
     @candidates_table = []
     @dayoffs_table = []
   end
@@ -18,7 +17,6 @@ class PeopleforceExporter
     Person.where(status: Person::CURRENT_EMPLOYEE_STATUSES).each do |person|
       @employees_table.append(EMPLOYEES_MAPPING.map { |mapping| mapping[:value].call(person).to_s })
       @jobs_table.append(JOBS_MAPPING.map { |mapping| mapping[:value].call(person).to_s })
-      @dependents_table.append(DEPENDENTS_MAPPING.map { |mapping| mapping[:value].call(person).to_s })
     end
 
     @candidates_table = Person.where(status: PERSON_STATUS_COLORS.keys - Person::EMPLOYEE_STATUSES).map do |person|
@@ -31,7 +29,6 @@ class PeopleforceExporter
 
     csv('employees.csv', EMPLOYEES_MAPPING, @employees_table)
     csv('jobs.csv', JOBS_MAPPING, @jobs_table)
-    csv('dependents.csv', DEPENDENTS_MAPPING, @dependents_table)
     csv('candidates.csv', CANDIDATES_MAPPING, @candidates_table)
     csv('dayoffs.csv', DAYOFFS_MAPPING, @dayoffs_table)
 
