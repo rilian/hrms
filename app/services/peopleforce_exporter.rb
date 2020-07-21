@@ -58,7 +58,7 @@ class PeopleforceExporter
   EMPLOYEES_MAPPING = [
       {name: 'employee_id', value: Proc.new { |person| person.employee_id }},
       {name: 'first_name', value: Proc.new { |person| person.name.split(' ').first }},
-      {name: 'last_name', value: Proc.new { |person| person.name.split(' ').drop(1).join('') }},
+      {name: 'last_name', value: Proc.new { |person| person.name.split(' ').drop(1).join(' ') }},
       {name: 'email', value: Proc.new { |person| person.email }},
       {name: 'personal_email', value: Proc.new { |person| person.personal_email }},
       {name: 'date_of_birth', value: Proc.new { |person| person.day_of_birth }},
@@ -77,32 +77,24 @@ class PeopleforceExporter
       {name: 'employee_id', value: Proc.new { |person| person.employee_id }},
       {name: 'effective_from', value: Proc.new { |person| person.start_date }},
       {name: 'compensation', value: Proc.new { |person| nil }},
-      {name: 'employment_type', value: Proc.new { |person| nil }},
+      {name: 'employment_type', value: Proc.new { |person| person.status }},
       {name: 'probation_policy', value: Proc.new { |person| nil }},
       {name: 'position', value: Proc.new { |person| person.current_position }},
       {name: 'department', value: Proc.new { |person| nil }},
       {name: 'division', value: Proc.new { |person| nil }},
-      {name: 'location', value: Proc.new { |person| nil }},
+      {name: 'location', value: Proc.new { |person| person.city }},
       {name: 'reporting_to_employee_id', value: Proc.new { |person| nil }}
   ]
 
   DAYOFFS_MAPPING = [
-      {name: 'employee_id', value: Proc.new { |dayoff_day| dayoff_day.employee_id }},
+      {name: 'employee_id', value: Proc.new { |dayoff_day| dayoff_day.person.employee_id }},
       {name: 'date', value: Proc.new { |dayoff_day| dayoff_day.date }},
       {name: 'type', value: Proc.new { |dayoff_day| dayoff_day.type }},
   ]
 
-  DEPENDENTS_MAPPING = [
-      {name: 'employee_id', value: Proc.new { |person| person.employee_id }},
-      {name: 'first_name', value: Proc.new { |person| nil }},
-      {name: 'last_name', value: Proc.new { |person| nil }},
-      {name: 'date_of_birth', value: Proc.new { |person| nil }},
-      {name: 'gender', value: Proc.new { |person| nil }},
-  ]
-
   CANDIDATES_MAPPING = [
       {name: 'first_name', value: Proc.new { |person| person.name.split(' ').first }},
-      {name: 'last_name', value: Proc.new { |person| person.name.split(' ').drop(1).join('') }},
+      {name: 'last_name', value: Proc.new { |person| person.name.split(' ').drop(1).join(' ') }},
       {name: 'email', value: Proc.new { |person| person.personal_email }},
       {name: 'gender', value: Proc.new { |person| nil }},
       {name: 'skills', value: Proc.new { |person| person.skills }},
