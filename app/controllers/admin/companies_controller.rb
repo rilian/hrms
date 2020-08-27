@@ -1,2 +1,8 @@
-class Admin::CompaniesController < ApplicationController
+module Admin
+  class CompaniesController < AdminController
+
+    def index
+    end
+
+  end
 end

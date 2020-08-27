@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     http_basic_authenticate_with name: ENV['HTTP_BASIC_AUTH_NAME'], password: ENV['HTTP_BASIC_AUTH_PASSWORD']
   end
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :redirect_to_path
   before_action :store_return_to_path, only: :index
   before_action :deep_strip_params, only: :index
 
@@ -37,6 +37,12 @@ class ApplicationController < ActionController::Base
       else
         params[k] = v.to_s.squish
       end
+    end
+  end
+
+  def redirect_to_path
+    if current_user.admin?
+      redirect_to admin_companies_path
     end
   end
 
