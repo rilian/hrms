@@ -1,0 +1,43 @@
+nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
+  ul.navbar-nav
+    li.nav-item
+      a.nav-link.menu-iconfix data-widget="pushmenu" href="#"
+        = fa_icon('bars')
+    li.nav-item.d-none.d-sm-inline-block
+      = link_to root_path, class: 'nav-link' do
+        | Home
+  ul.navbar-nav.ml-auto
+    li.nav-item
+      a.nav-link.pt-0 data-slide="true" data-widget="control-sidebar"
+        .user-panel.d-flex
+          .image
+            = image_tag  "user2-160x160.jpg", class: 'img-circle'
+          .info
+            = current_user.email
+            = fa_icon('angle-down')
+aside.main-sidebar.sidebar-dark-primary.elevation-4
+  = link_to root_path, class: "brand-link logo-switch" do
+    = image_tag  "small-logo.jpg", class: 'brand-image-xl logo-xs'
+    = image_tag  "logo.jpg", class: 'brand-image-xs logo-xl'
+  .sidebar
+    nav.mt-2
+      ul.nav.nav-pills.nav-sidebar.flex-column data-accordion="false" data-widget="treeview" role="menu"
+        li.nav-item.has-treeview.menu-open
+          = link_to '#', class: "nav-link #{'active' if ['admin/branches'].include?(params[:controller])}" do
+            i.nav-icon.fa.fa-tasks.ct-settings-icon
+            p
+              | Settings
+              i.right.fa.fa-angle-left
+          ul.nav.nav-treeview
+            li.nav-item
+              = link_to admin_companies_path, class: "nav-link #{'active' if (params[:controller] == 'admin/companies')}" do
+                i.nav-icon.fa.fa-circle-o.ct-city-icon
+                p Companies
+aside.control-sidebar.control-sidebar-dark
+  div
+    ul.profile-menu
+      li
+        = link_to destroy_user_session_path, method: :delete, class: '' do
+          i.icon.ion-md-lock.ct-logout-icon.fa.fa-lock
+          | Logout
+

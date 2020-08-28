@@ -1,4 +1,4 @@
-class Company < ApplicationRecord
+class Company < ActiveRecord::Base
 
   belongs_to :status
 
@@ -6,7 +6,7 @@ class Company < ApplicationRecord
   attachment :favicon
 
 
-  validates :name, :file, presence: true
+  validates :name, :domain, presence: true
 
 
 end

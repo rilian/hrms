@@ -3,6 +3,12 @@ n1 = Note.create(person: p1, type: 'Waiting for decision', value: 'Passed all in
 n2 = Note.create(person: p1, type: 'Other', value: 'Great developer')
 ap1 = ActionPoint.create(person: p1, value: 'Meet in a cafe', perform_on: Date.tomorrow)
 ap2 = ActionPoint.create(person: p1, value: 'Hire', perform_on: Date.tomorrow)
+
+['admin'].each do |name|
+  role = Role.new(name: name)
+  role.save
+end
+
 u = User.create(
   email: 'admin@example.com',
   password: '12345678',
@@ -11,4 +17,10 @@ u = User.create(
   has_access_to_finances: true,
   has_access_to_dayoffs: true,
   has_access_to_expenses: true
+)
+
+u = User.create(
+  email: 'hradmin@example.com',
+  password: '12345678',
+  role_id: Role.admin.id
 )

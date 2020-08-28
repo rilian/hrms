@@ -1,0 +1,7 @@
+(function() {
+  var $modal = $('#modal-window')
+  $modal.find(".modal-content").html("<%= j (render partial) %>");
+  $modal.removeClass('right');
+  $modal.addClass("<%= options[:class] %>")
+  $modal.modal();
+})()

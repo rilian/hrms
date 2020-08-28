@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     http_basic_authenticate_with name: ENV['HTTP_BASIC_AUTH_NAME'], password: ENV['HTTP_BASIC_AUTH_PASSWORD']
   end
 
-  before_action :authenticate_user!, :redirect_to_path
+  before_action :authenticate_user!
   before_action :store_return_to_path, only: :index
   before_action :deep_strip_params, only: :index
 
@@ -40,12 +40,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_to_path
-    if current_user.admin?
-      redirect_to admin_companies_path
-    end
-  end
-
   def deep_strip_params!(hash)
     hash.each_pair do |k, v|
       if v.is_a?(Array)
@@ -57,4 +51,12 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def after_sign_in_path_for(resource)
+    if current_user.present? && current_user.is_admin?
+      admin_companies_path
+    end
+  end
+
+
 end

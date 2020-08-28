@@ -1,0 +1,38 @@
+.content-wrapper
+  .content-header
+    .container-fluid
+      .row.mb-2
+        .col-md-9
+          ol.breadcrumb
+            li.breadcrumb-item
+              a href="/"  Home
+            li.breadcrumb-item.active Companies
+          h1.m-0.text-dark Companies
+  .content
+    .container-fluid
+      .row
+        .col-lg-12
+          .card
+            .card-header
+              .box-header.row
+                .box-tools.col-md-12 style="top:inherit;"
+                  .float-right
+                    .input-group
+                      .input-group-btn
+                        = link_to 'Add New Company', new_admin_company_path,class: 'btn btn-primary float-right btn-sm'
+            .card-body
+              .table-responsive
+                table.table.table-bordered.table-hover.dataTables.table-sm.responsive.nowrap
+                  thead
+                    tr
+                      th.all Name
+                      th.all Domain
+                      th.all Action
+                  tbody
+                    - @companies.each do |company|
+                      tr
+                        td
+                          = link_to company.name, admin_company_path(company), remote: true
+                        td= company.domain
+                        td
+                          = link_to (fa_icon "pencil"), edit_admin_company_path(company), class: "btn btn-primary btn-sm"

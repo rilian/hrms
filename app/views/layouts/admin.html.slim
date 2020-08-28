@@ -6,10 +6,11 @@ html
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
   body.hold-transition.sidebar-mini.layout-fixed.layout-navbar-fixed.sidebar-collapse
+    = render partial: 'layouts/modal'
     .wrapper
-      = render partial: 'layouts/modal'
       - if user_signed_in?
         = render partial: 'layouts/admin_sidebar'
       = flash_messages
