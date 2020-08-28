@@ -34,7 +34,7 @@ module Admin
     def update
       if @company.update_attributes(company_params)
         flash[:notice] = "Company Updated Successfully"
-        redirect_to companies_path
+        redirect_to admin_companies_path
       else
         render 'edit'
       end
