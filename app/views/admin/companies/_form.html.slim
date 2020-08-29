@@ -1,51 +1,42 @@
-= bootstrap_form_for [:admin, @company] do |f|
-  - if @company.errors.any?
-    #error_explanation
-      h2
-        = pluralize(@company.errors.count, "error")
-        | prohibited this company from being saved:
-      ul
-        - @company.errors.full_messages.each do |message|
-          li= message
-  .row
-    .col-md-3
-      .form-group
-        = f.text_field :name, class: "form-control", placeholder: "Name"
-    .col-md-3
-      .form-group
-        = f.text_field :domain, class: "form-control", placeholder: "Domain"
-    .col-md-3
-      .form-group
-        = f.text_field :from, class: "form-control", placeholder: "From Email"
-    .col-md-3
-      .form-group
-        = f.text_field :reply_to, class: "form-control", placeholder: "Reply To"
-    .w-100
-    .col-md-4
-      .form-group
-        label.col-sm-12.control-label for="exampleInputFile"  Upload Icon:
-        .col-sm-10
-          = image_tag "blank_user.jpg", class: "edit-profile-img img-circle", alt: "Company Icon"
-          = f.file_field :icon, :class => 'form-control', hide_label: true
-          p.help-block Jpg, Png Format allowed max size 500 KB
-    .col-md-4
-      .form-group
-        label.col-sm-12.control-label for="exampleInputFile"  Upload Favicon:
-        .col-sm-10
-          = image_tag "blank_user.jpg", class: "edit-profile-img img-circle", alt: "Company Icon"
-          = f.file_field :favicon, :class => 'form-control', hide_label: true
-          p.help-block Jpg, Png Format allowed max size 500 KB
-    .w-100
-    hr
+= simple_form_for [:admin, @company], html: { class: 'form' } do |f|
+  .form-group
+    label.control-label
+      | Name
+      span.text-danger *
+    = f.input :name, label: false
+  .form-group
+    label.control-label
+      | Domain
+      span.text-danger *
+    = f.input :domain, label: false
+  .form-group
+    label.control-label From
+    = f.input :from, label: false
+  .form-group
+    label.control-label Reply To
+    = f.input :reply_to, label: false
+  .form-group
+    label.col-sm-12.control-label for="exampleInputFile"  Upload Icon:
+    .col-sm-10
+      = image_tag "blank_user.jpg", class: "edit-profile-img img-circle", alt: "Company Icon"
+      = f.file_field :icon, :class => 'form-control', hide_label: true
+      p.help-block Jpg, Png Format allowed max size 500 KB
+  .form-group
+    label.col-sm-12.control-label for="exampleInputFile"  Upload Icon:
+    .col-sm-10
+      = image_tag "blank_user.jpg", class: "edit-profile-img img-circle", alt: "Company Icon"
+      = f.file_field :icon, :class => 'form-control', hide_label: true
+      p.help-block Jpg, Png Format allowed max size 500 KB
+  hr
+  .col-md-12
+    .form-group
+      = f.text_area :description, class: "form-control", placeholder: "Description"
+  div align="center"
     .col-md-12
       .form-group
-        = f.text_area :description, class: "form-control", placeholder: "Description"
-    div align="center"
-      .col-md-12
-        .form-group
-          = button_tag type: "submit", class: "btn btn-primary", data: {disable_with: "Please Wait..."} do
-            = fa_icon "floppy-o"
-            | Save
-          = link_to admin_companies_path, class: "btn btn-danger" do
-            = fa_icon "close"
-            | Cancel
+        = button_tag type: "submit", class: "btn btn-primary", data: {disable_with: "Please Wait..."} do
+          = fa_icon "floppy-o"
+          | Save
+        = link_to admin_companies_path, class: "btn btn-danger" do
+          = fa_icon "close"
+          | Cancel

@@ -2,7 +2,7 @@ class AdminController < ActionController::Base
 
   before_action :authorized_admin!
 
-  layout 'admin'
+  layout 'application'
 
   def render_modal(partial, options = {backdrop: true, keyboard: true})
     render partial: 'shared/modal', locals: { partial: partial, options: options}

@@ -1,7 +1,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require adminlte.min
 //= require bootstrap-datepicker
 //= require select2
 //= require jquery-ui/widgets/autocomplete

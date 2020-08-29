@@ -7,7 +7,17 @@ module Admin
     PER_PAGE = 20
 
     def index
-      @companies = Company.all
+      @q = Company.all.ransack(params[:q])
+      @q.sorts = 'created_at desc' if @q.sorts.empty?
+      @companies = @q.result
+
+      @companies = @companies.offset(params.dig(:page, :offset)) if params.dig(:page, :offset).present?
+      @companies = @companies.limit((params.dig(:page, :limit) || ENV['ITEMS_PER_PAGE']).to_i)
+
+      respond_to do |f|
+        f.partial { render partial: 'table' }
+        f.html
+      end
     end
 
     def show
