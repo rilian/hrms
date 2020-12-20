@@ -12,7 +12,10 @@ html lang="en" class='fluid'
     - if current_user
       .dashboard
         .side-panel
-          = render 'shared/navigation'
+          - if current_user.is_admin?
+            = render 'shared/admin_navigation'
+          - else
+            = render 'shared/navigation'
         .content
           .container-fluid
             - flash.each do |key, value|
@@ -20,10 +23,8 @@ html lang="en" class='fluid'
                 = value
 
             = yield
-
     - else
       .login
         .login-form
           = yield
-
     = javascript_include_tag 'application'

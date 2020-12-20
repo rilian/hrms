@@ -1,0 +1,7 @@
+$(document).ajaxStop(function() {
+  $('input[type=submit]').attr('disabled', true);
+});
+validNavigation = true;
+var redirectUrl;
+redirectUrl = '<%= @args[:redirect_to] %>';
+window.location.href = redirectUrl.length ? redirectUrl : window.location.href;

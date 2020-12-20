@@ -51,4 +51,12 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def after_sign_in_path_for(resource)
+    if current_user.present? && current_user.is_admin?
+      admin_companies_path
+    end
+  end
+
+
 end

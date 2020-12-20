@@ -3,7 +3,9 @@ SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
@@ -21,8 +23,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
-SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -31,7 +31,7 @@ SET default_with_oids = false;
 -- Name: action_points; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE action_points (
+CREATE TABLE public.action_points (
     id integer NOT NULL,
     person_id integer NOT NULL,
     value text,
@@ -48,7 +48,8 @@ CREATE TABLE action_points (
 -- Name: action_points_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE action_points_id_seq
+CREATE SEQUENCE public.action_points_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -60,14 +61,14 @@ CREATE SEQUENCE action_points_id_seq
 -- Name: action_points_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE action_points_id_seq OWNED BY action_points.id;
+ALTER SEQUENCE public.action_points_id_seq OWNED BY public.action_points.id;
 
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE ar_internal_metadata (
+CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
     created_at timestamp without time zone NOT NULL,
@@ -79,7 +80,7 @@ CREATE TABLE ar_internal_metadata (
 -- Name: attachments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE attachments (
+CREATE TABLE public.attachments (
     id integer NOT NULL,
     person_id integer NOT NULL,
     name character varying NOT NULL,
@@ -99,7 +100,8 @@ CREATE TABLE attachments (
 -- Name: attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE attachments_id_seq
+CREATE SEQUENCE public.attachments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -111,14 +113,58 @@ CREATE SEQUENCE attachments_id_seq
 -- Name: attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE attachments_id_seq OWNED BY attachments.id;
+ALTER SEQUENCE public.attachments_id_seq OWNED BY public.attachments.id;
+
+
+--
+-- Name: companies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.companies (
+    id bigint NOT NULL,
+    name character varying,
+    reply_to character varying,
+    "from" character varying,
+    status_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    logo_id character varying,
+    logo_filename character varying,
+    logo_size integer,
+    logo_content_type character varying,
+    favicon_id character varying,
+    favicon_filename character varying,
+    favicon_size integer,
+    favicon_content_type character varying,
+    domain character varying,
+    description character varying
+);
+
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.companies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.companies_id_seq OWNED BY public.companies.id;
 
 
 --
 -- Name: dayoffs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE dayoffs (
+CREATE TABLE public.dayoffs (
     id integer NOT NULL,
     person_id integer NOT NULL,
     type character varying,
@@ -137,7 +183,8 @@ CREATE TABLE dayoffs (
 -- Name: dayoffs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE dayoffs_id_seq
+CREATE SEQUENCE public.dayoffs_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -149,14 +196,14 @@ CREATE SEQUENCE dayoffs_id_seq
 -- Name: dayoffs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE dayoffs_id_seq OWNED BY dayoffs.id;
+ALTER SEQUENCE public.dayoffs_id_seq OWNED BY public.dayoffs.id;
 
 
 --
 -- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE events (
+CREATE TABLE public.events (
     id integer NOT NULL,
     entity_type character varying NOT NULL,
     entity_id integer NOT NULL,
@@ -172,7 +219,8 @@ CREATE TABLE events (
 -- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE events_id_seq
+CREATE SEQUENCE public.events_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -184,14 +232,14 @@ CREATE SEQUENCE events_id_seq
 -- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE events_id_seq OWNED BY events.id;
+ALTER SEQUENCE public.events_id_seq OWNED BY public.events.id;
 
 
 --
 -- Name: expenses; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE expenses (
+CREATE TABLE public.expenses (
     id bigint NOT NULL,
     person_id bigint NOT NULL,
     type character varying DEFAULT 'Other'::character varying NOT NULL,
@@ -209,7 +257,7 @@ CREATE TABLE expenses (
 -- Name: expenses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE expenses_id_seq
+CREATE SEQUENCE public.expenses_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -221,14 +269,14 @@ CREATE SEQUENCE expenses_id_seq
 -- Name: expenses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE expenses_id_seq OWNED BY expenses.id;
+ALTER SEQUENCE public.expenses_id_seq OWNED BY public.expenses.id;
 
 
 --
 -- Name: notes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE notes (
+CREATE TABLE public.notes (
     id integer NOT NULL,
     person_id integer NOT NULL,
     type character varying DEFAULT 'Other'::character varying NOT NULL,
@@ -244,7 +292,8 @@ CREATE TABLE notes (
 -- Name: notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE notes_id_seq
+CREATE SEQUENCE public.notes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -256,14 +305,14 @@ CREATE SEQUENCE notes_id_seq
 -- Name: notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE notes_id_seq OWNED BY notes.id;
+ALTER SEQUENCE public.notes_id_seq OWNED BY public.notes.id;
 
 
 --
 -- Name: people; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE people (
+CREATE TABLE public.people (
     id integer NOT NULL,
     name character varying NOT NULL,
     city character varying,
@@ -313,7 +362,8 @@ CREATE TABLE people (
 -- Name: people_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE people_id_seq
+CREATE SEQUENCE public.people_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -325,14 +375,14 @@ CREATE SEQUENCE people_id_seq
 -- Name: people_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE people_id_seq OWNED BY people.id;
+ALTER SEQUENCE public.people_id_seq OWNED BY public.people.id;
 
 
 --
 -- Name: project_notes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE project_notes (
+CREATE TABLE public.project_notes (
     id bigint NOT NULL,
     project_id integer NOT NULL,
     value text,
@@ -347,7 +397,7 @@ CREATE TABLE project_notes (
 -- Name: project_notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE project_notes_id_seq
+CREATE SEQUENCE public.project_notes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -359,14 +409,14 @@ CREATE SEQUENCE project_notes_id_seq
 -- Name: project_notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE project_notes_id_seq OWNED BY project_notes.id;
+ALTER SEQUENCE public.project_notes_id_seq OWNED BY public.project_notes.id;
 
 
 --
 -- Name: projects; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE projects (
+CREATE TABLE public.projects (
     id bigint NOT NULL,
     name character varying,
     description text,
@@ -384,7 +434,7 @@ CREATE TABLE projects (
 -- Name: projects_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE projects_id_seq
+CREATE SEQUENCE public.projects_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -396,14 +446,45 @@ CREATE SEQUENCE projects_id_seq
 -- Name: projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE projects_id_seq OWNED BY projects.id;
+ALTER SEQUENCE public.projects_id_seq OWNED BY public.projects.id;
+
+
+--
+-- Name: roles; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.roles (
+    id bigint NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
 
@@ -412,7 +493,7 @@ CREATE TABLE schema_migrations (
 -- Name: searches; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE searches (
+CREATE TABLE public.searches (
     id integer NOT NULL,
     query character varying,
     path character varying,
@@ -426,7 +507,8 @@ CREATE TABLE searches (
 -- Name: searches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE searches_id_seq
+CREATE SEQUENCE public.searches_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -438,14 +520,14 @@ CREATE SEQUENCE searches_id_seq
 -- Name: searches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE searches_id_seq OWNED BY searches.id;
+ALTER SEQUENCE public.searches_id_seq OWNED BY public.searches.id;
 
 
 --
 -- Name: taggings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE taggings (
+CREATE TABLE public.taggings (
     id integer NOT NULL,
     tag_id integer,
     taggable_type character varying,
@@ -461,7 +543,8 @@ CREATE TABLE taggings (
 -- Name: taggings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE taggings_id_seq
+CREATE SEQUENCE public.taggings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -473,14 +556,14 @@ CREATE SEQUENCE taggings_id_seq
 -- Name: taggings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE taggings_id_seq OWNED BY taggings.id;
+ALTER SEQUENCE public.taggings_id_seq OWNED BY public.taggings.id;
 
 
 --
 -- Name: tags; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE tags (
+CREATE TABLE public.tags (
     id integer NOT NULL,
     name character varying,
     taggings_count integer DEFAULT 0
@@ -491,7 +574,8 @@ CREATE TABLE tags (
 -- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE tags_id_seq
+CREATE SEQUENCE public.tags_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -503,14 +587,14 @@ CREATE SEQUENCE tags_id_seq
 -- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE tags_id_seq OWNED BY tags.id;
+ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
 
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     id integer NOT NULL,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
@@ -529,7 +613,8 @@ CREATE TABLE users (
     has_access_to_dayoffs boolean DEFAULT false,
     has_access_to_performance boolean DEFAULT false,
     updated_by_name character varying,
-    created_by_name character varying
+    created_by_name character varying,
+    role_id integer
 );
 
 
@@ -537,7 +622,8 @@ CREATE TABLE users (
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE users_id_seq
+CREATE SEQUENCE public.users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -549,14 +635,14 @@ CREATE SEQUENCE users_id_seq
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
 -- Name: vacancies; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE vacancies (
+CREATE TABLE public.vacancies (
     id integer NOT NULL,
     project character varying,
     role character varying,
@@ -574,7 +660,8 @@ CREATE TABLE vacancies (
 -- Name: vacancies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE vacancies_id_seq
+CREATE SEQUENCE public.vacancies_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -586,112 +673,126 @@ CREATE SEQUENCE vacancies_id_seq
 -- Name: vacancies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE vacancies_id_seq OWNED BY vacancies.id;
+ALTER SEQUENCE public.vacancies_id_seq OWNED BY public.vacancies.id;
 
 
 --
 -- Name: action_points id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY action_points ALTER COLUMN id SET DEFAULT nextval('action_points_id_seq'::regclass);
+ALTER TABLE ONLY public.action_points ALTER COLUMN id SET DEFAULT nextval('public.action_points_id_seq'::regclass);
 
 
 --
 -- Name: attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id_seq'::regclass);
+ALTER TABLE ONLY public.attachments ALTER COLUMN id SET DEFAULT nextval('public.attachments_id_seq'::regclass);
+
+
+--
+-- Name: companies id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.companies ALTER COLUMN id SET DEFAULT nextval('public.companies_id_seq'::regclass);
 
 
 --
 -- Name: dayoffs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY dayoffs ALTER COLUMN id SET DEFAULT nextval('dayoffs_id_seq'::regclass);
+ALTER TABLE ONLY public.dayoffs ALTER COLUMN id SET DEFAULT nextval('public.dayoffs_id_seq'::regclass);
 
 
 --
 -- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
+ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
 
 
 --
 -- Name: expenses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY expenses ALTER COLUMN id SET DEFAULT nextval('expenses_id_seq'::regclass);
+ALTER TABLE ONLY public.expenses ALTER COLUMN id SET DEFAULT nextval('public.expenses_id_seq'::regclass);
 
 
 --
 -- Name: notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regclass);
+ALTER TABLE ONLY public.notes ALTER COLUMN id SET DEFAULT nextval('public.notes_id_seq'::regclass);
 
 
 --
 -- Name: people id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::regclass);
+ALTER TABLE ONLY public.people ALTER COLUMN id SET DEFAULT nextval('public.people_id_seq'::regclass);
 
 
 --
 -- Name: project_notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY project_notes ALTER COLUMN id SET DEFAULT nextval('project_notes_id_seq'::regclass);
+ALTER TABLE ONLY public.project_notes ALTER COLUMN id SET DEFAULT nextval('public.project_notes_id_seq'::regclass);
 
 
 --
 -- Name: projects id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY projects ALTER COLUMN id SET DEFAULT nextval('projects_id_seq'::regclass);
+ALTER TABLE ONLY public.projects ALTER COLUMN id SET DEFAULT nextval('public.projects_id_seq'::regclass);
+
+
+--
+-- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
 
 
 --
 -- Name: searches id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY searches ALTER COLUMN id SET DEFAULT nextval('searches_id_seq'::regclass);
+ALTER TABLE ONLY public.searches ALTER COLUMN id SET DEFAULT nextval('public.searches_id_seq'::regclass);
 
 
 --
 -- Name: taggings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY taggings ALTER COLUMN id SET DEFAULT nextval('taggings_id_seq'::regclass);
+ALTER TABLE ONLY public.taggings ALTER COLUMN id SET DEFAULT nextval('public.taggings_id_seq'::regclass);
 
 
 --
 -- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
+ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id_seq'::regclass);
 
 
 --
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
 -- Name: vacancies id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY vacancies ALTER COLUMN id SET DEFAULT nextval('vacancies_id_seq'::regclass);
+ALTER TABLE ONLY public.vacancies ALTER COLUMN id SET DEFAULT nextval('public.vacancies_id_seq'::regclass);
 
 
 --
 -- Name: action_points action_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY action_points
+ALTER TABLE ONLY public.action_points
     ADD CONSTRAINT action_points_pkey PRIMARY KEY (id);
 
 
@@ -699,7 +800,7 @@ ALTER TABLE ONLY action_points
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ar_internal_metadata
+ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
@@ -707,15 +808,23 @@ ALTER TABLE ONLY ar_internal_metadata
 -- Name: attachments attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY attachments
+ALTER TABLE ONLY public.attachments
     ADD CONSTRAINT attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: companies companies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.companies
+    ADD CONSTRAINT companies_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: dayoffs dayoffs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY dayoffs
+ALTER TABLE ONLY public.dayoffs
     ADD CONSTRAINT dayoffs_pkey PRIMARY KEY (id);
 
 
@@ -723,7 +832,7 @@ ALTER TABLE ONLY dayoffs
 -- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY events
+ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
 
 
@@ -731,7 +840,7 @@ ALTER TABLE ONLY events
 -- Name: expenses expenses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY expenses
+ALTER TABLE ONLY public.expenses
     ADD CONSTRAINT expenses_pkey PRIMARY KEY (id);
 
 
@@ -739,7 +848,7 @@ ALTER TABLE ONLY expenses
 -- Name: notes notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY notes
+ALTER TABLE ONLY public.notes
     ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
 
 
@@ -747,7 +856,7 @@ ALTER TABLE ONLY notes
 -- Name: people people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY people
+ALTER TABLE ONLY public.people
     ADD CONSTRAINT people_pkey PRIMARY KEY (id);
 
 
@@ -755,7 +864,7 @@ ALTER TABLE ONLY people
 -- Name: project_notes project_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY project_notes
+ALTER TABLE ONLY public.project_notes
     ADD CONSTRAINT project_notes_pkey PRIMARY KEY (id);
 
 
@@ -763,15 +872,23 @@ ALTER TABLE ONLY project_notes
 -- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY projects
+ALTER TABLE ONLY public.projects
     ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY schema_migrations
+ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
@@ -779,7 +896,7 @@ ALTER TABLE ONLY schema_migrations
 -- Name: searches searches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY searches
+ALTER TABLE ONLY public.searches
     ADD CONSTRAINT searches_pkey PRIMARY KEY (id);
 
 
@@ -787,7 +904,7 @@ ALTER TABLE ONLY searches
 -- Name: taggings taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY taggings
+ALTER TABLE ONLY public.taggings
     ADD CONSTRAINT taggings_pkey PRIMARY KEY (id);
 
 
@@ -795,7 +912,7 @@ ALTER TABLE ONLY taggings
 -- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tags
+ALTER TABLE ONLY public.tags
     ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
 
 
@@ -803,7 +920,7 @@ ALTER TABLE ONLY tags
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
@@ -811,7 +928,7 @@ ALTER TABLE ONLY users
 -- Name: vacancies vacancies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY vacancies
+ALTER TABLE ONLY public.vacancies
     ADD CONSTRAINT vacancies_pkey PRIMARY KEY (id);
 
 
@@ -819,154 +936,154 @@ ALTER TABLE ONLY vacancies
 -- Name: index_action_points_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_action_points_on_person_id ON action_points USING btree (person_id);
+CREATE INDEX index_action_points_on_person_id ON public.action_points USING btree (person_id);
 
 
 --
 -- Name: index_attachments_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_attachments_on_person_id ON attachments USING btree (person_id);
+CREATE INDEX index_attachments_on_person_id ON public.attachments USING btree (person_id);
 
 
 --
 -- Name: index_dayoffs_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_dayoffs_on_person_id ON dayoffs USING btree (person_id);
+CREATE INDEX index_dayoffs_on_person_id ON public.dayoffs USING btree (person_id);
 
 
 --
 -- Name: index_events_on_entity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_entity_id ON events USING btree (entity_id);
+CREATE INDEX index_events_on_entity_id ON public.events USING btree (entity_id);
 
 
 --
 -- Name: index_events_on_entity_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_entity_type ON events USING btree (entity_type);
+CREATE INDEX index_events_on_entity_type ON public.events USING btree (entity_type);
 
 
 --
 -- Name: index_events_on_params; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_params ON events USING gin (params);
+CREATE INDEX index_events_on_params ON public.events USING gin (params);
 
 
 --
 -- Name: index_events_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_user_id ON events USING btree (user_id);
+CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
 
 
 --
 -- Name: index_expenses_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_expenses_on_person_id ON expenses USING btree (person_id);
+CREATE INDEX index_expenses_on_person_id ON public.expenses USING btree (person_id);
 
 
 --
 -- Name: index_notes_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notes_on_person_id ON notes USING btree (person_id);
+CREATE INDEX index_notes_on_person_id ON public.notes USING btree (person_id);
 
 
 --
 -- Name: index_people_on_action_points_count; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_people_on_action_points_count ON people USING btree (action_points_count);
+CREATE INDEX index_people_on_action_points_count ON public.people USING btree (action_points_count);
 
 
 --
 -- Name: index_people_on_attachments_count; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_people_on_attachments_count ON people USING btree (attachments_count);
+CREATE INDEX index_people_on_attachments_count ON public.people USING btree (attachments_count);
 
 
 --
 -- Name: index_people_on_is_deleted; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_people_on_is_deleted ON people USING btree (is_deleted);
+CREATE INDEX index_people_on_is_deleted ON public.people USING btree (is_deleted);
 
 
 --
 -- Name: index_people_on_notes_count; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_people_on_notes_count ON people USING btree (notes_count);
+CREATE INDEX index_people_on_notes_count ON public.people USING btree (notes_count);
 
 
 --
 -- Name: index_people_on_status; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_people_on_status ON people USING btree (status);
+CREATE INDEX index_people_on_status ON public.people USING btree (status);
 
 
 --
 -- Name: index_project_notes_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_project_notes_on_project_id ON project_notes USING btree (project_id);
+CREATE INDEX index_project_notes_on_project_id ON public.project_notes USING btree (project_id);
 
 
 --
 -- Name: index_taggings_on_tag_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taggings_on_tag_id ON taggings USING btree (tag_id);
+CREATE INDEX index_taggings_on_tag_id ON public.taggings USING btree (tag_id);
 
 
 --
 -- Name: index_taggings_on_taggable_id_and_taggable_type_and_context; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_context ON taggings USING btree (taggable_id, taggable_type, context);
+CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_context ON public.taggings USING btree (taggable_id, taggable_type, context);
 
 
 --
 -- Name: index_taggings_on_taggable_id_and_taggable_type_and_tag_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_tag_id ON taggings USING btree (taggable_id, taggable_type, tag_id);
+CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_tag_id ON public.taggings USING btree (taggable_id, taggable_type, tag_id);
 
 
 --
 -- Name: index_tags_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_tags_on_name ON tags USING btree (name);
+CREATE UNIQUE INDEX index_tags_on_name ON public.tags USING btree (name);
 
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
 
 
 --
 -- Name: taggings_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX taggings_idx ON taggings USING btree (tag_id, taggable_id, taggable_type, context, tagger_id, tagger_type);
+CREATE UNIQUE INDEX taggings_idx ON public.taggings USING btree (tag_id, taggable_id, taggable_type, context, tagger_id, tagger_type);
 
 
 --
@@ -1040,6 +1157,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180920141022'),
 ('20190113181423'),
 ('20190213141941'),
-('20191209160225');
+('20191209160225'),
+('20200827041402'),
+('20200827041501'),
+('20200827042249'),
+('20200827184527'),
+('20200828012807'),
+('20200828012808'),
+('20200828012809');
 
 
