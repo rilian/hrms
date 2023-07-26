@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :projects, except: [:destroy] do
     get :autocomplete_project_name, on: :collection
   end
+
+
   resources :reports, only: :index do
     collection do
       # get :by_status
@@ -40,6 +42,9 @@ Rails.application.routes.draw do
   resources :tags, only: :index
   resources :users, except: :destroy
   resources :vacancies, except: :destroy
+  namespace :admin do
+    resources :companies
+  end
 
   root 'home#index'
 end

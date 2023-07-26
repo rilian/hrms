@@ -1,0 +1,13 @@
+- if current_user
+  .logo
+    a href="/"
+      | HRMS
+    a.btn.btn-small href="#{destroy_user_session_path}" data-method='delete'
+      i.fa.fa-sign-out
+      |  Sign out
+  ul.navigation-links
+    li.divider
+    li.item role="presentation" class="#{active_class('admin/companies') unless active_class(admin_companies_path).present?}"
+      a href="#{admin_companies_path}"
+        i.fa.fa-users
+        | &nbsp; Company

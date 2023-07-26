@@ -1,0 +1,23 @@
+h2.title
+  | Actions &nbsp;
+  a.btn.btn-default.btn-pill href="companies/new"
+    i.fa.fa-plus
+    | &nbsp; Add New Company
+
+table.table.pretty-table
+  thead
+    th = sort_link @q, :name, 'Name'
+    th = sort_link @q, :domain
+    th colspan="2" Actions
+  tbody.js-loadable-list
+    - if @companies.empty?
+      span class='js-page-last'
+    - @companies.each_with_index do |company, index|
+      tr class=('js-page-last' if (index == @companies.size - 1) && last_page?(@companies))
+        td = company.name
+        td = company.domain
+        td colspan="2"
+          a href="#{edit_admin_company_path(company)}" class="btn btn-sm btn-info btn-pill"
+              i.fa.fa-pencil
+              | &nbsp;Edit
+= render 'shared/load_button', collection: @companies
